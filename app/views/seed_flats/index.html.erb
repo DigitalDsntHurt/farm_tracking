@@ -1,0 +1,67 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Seed Flats</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Started date</th>
+      <th>Crop</th>
+      <th>Crop variety</th>
+      <th>Seed brand</th>
+      <th>Medium</th>
+      <th>Format</th>
+      <th>Seed weight</th>
+      <th>Seed wt units</th>
+      <th>Seed media treatment notes</th>
+      <th>First emerge date</th>
+      <th>Full emerge date</th>
+      <th>Emergence notes</th>
+      <th>Date of first transplant</th>
+      <th>First transplant notes</th>
+      <th>Date of second transplant</th>
+      <th>Second transplant notes</th>
+      <th>Harvested on</th>
+      <th>Harvest weight oz</th>
+      <th>Hrvst wt lbs</th>
+      <th>Harvest week</th>
+      <th>Harvest notes</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @seed_flats.each do |seed_flat| %>
+      <tr>
+        <td><%= seed_flat.started_date %></td>
+        <td><%= seed_flat.crop %></td>
+        <td><%= seed_flat.crop_variety %></td>
+        <td><%= seed_flat.seed_brand %></td>
+        <td><%= seed_flat.medium %></td>
+        <td><%= seed_flat.format %></td>
+        <td><%= seed_flat.seed_weight %></td>
+        <td><%= seed_flat.seed_wt_units %></td>
+        <td><%= seed_flat.seed_media_treatment_notes %></td>
+        <td><%= seed_flat.first_emerge_date %></td>
+        <td><%= seed_flat.full_emerge_date %></td>
+        <td><%= seed_flat.emergence_notes %></td>
+        <td><%= seed_flat.date_of_first_transplant %></td>
+        <td><%= seed_flat.first_transplant_notes %></td>
+        <td><%= seed_flat.date_of_second_transplant %></td>
+        <td><%= seed_flat.second_transplant_notes %></td>
+        <td><%= seed_flat.harvested_on %></td>
+        <td><%= seed_flat.harvest_weight_oz %></td>
+        <td><%= seed_flat.hrvst_wt_lbs %></td>
+        <td><%= seed_flat.harvest_week %></td>
+        <td><%= seed_flat.harvest_notes %></td>
+        <td><%= link_to 'Show', seed_flat %></td>
+        <td><%= link_to 'Edit', edit_seed_flat_path(seed_flat) %></td>
+        <td><%= link_to 'Destroy', seed_flat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Seed Flat', new_seed_flat_path %>

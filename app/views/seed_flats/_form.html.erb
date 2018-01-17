@@ -1,0 +1,122 @@
+<%= form_for(seed_flat) do |f| %>
+  <% if seed_flat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(seed_flat.errors.count, "error") %> prohibited this seed_flat from being saved:</h2>
+
+      <ul>
+      <% seed_flat.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :started_date %>
+    <%= f.date_select :started_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :crop %>
+    <%= f.text_field :crop %>
+  </div>
+
+  <div class="field">
+    <%= f.label :crop_variety %>
+    <%= f.text_field :crop_variety %>
+  </div>
+
+  <div class="field">
+    <%= f.label :seed_brand %>
+    <%= f.text_field :seed_brand %>
+  </div>
+
+  <div class="field">
+    <%= f.label :medium %>
+    <%= f.text_field :medium %>
+  </div>
+
+  <div class="field">
+    <%= f.label :format %>
+    <%= f.text_field :format %>
+  </div>
+
+  <div class="field">
+    <%= f.label :seed_weight %>
+    <%= f.text_field :seed_weight %>
+  </div>
+
+  <div class="field">
+    <%= f.label :seed_wt_units %>
+    <%= f.text_field :seed_wt_units %>
+  </div>
+
+  <div class="field">
+    <%= f.label :seed_media_treatment_notes %>
+    <%= f.text_field :seed_media_treatment_notes %>
+  </div>
+
+  <div class="field">
+    <%= f.label :first_emerge_date %>
+    <%= f.date_select :first_emerge_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :full_emerge_date %>
+    <%= f.date_select :full_emerge_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :emergence_notes %>
+    <%= f.text_field :emergence_notes %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_of_first_transplant %>
+    <%= f.date_select :date_of_first_transplant %>
+  </div>
+
+  <div class="field">
+    <%= f.label :first_transplant_notes %>
+    <%= f.text_field :first_transplant_notes %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_of_second_transplant %>
+    <%= f.date_select :date_of_second_transplant %>
+  </div>
+
+  <div class="field">
+    <%= f.label :second_transplant_notes %>
+    <%= f.text_field :second_transplant_notes %>
+  </div>
+
+  <div class="field">
+    <%= f.label :harvested_on %>
+    <%= f.date_select :harvested_on %>
+  </div>
+
+  <div class="field">
+    <%= f.label :harvest_weight_oz %>
+    <%= f.text_field :harvest_weight_oz %>
+  </div>
+
+  <div class="field">
+    <%= f.label :hrvst_wt_lbs %>
+    <%= f.text_field :hrvst_wt_lbs %>
+  </div>
+
+  <div class="field">
+    <%= f.label :harvest_week %>
+    <%= f.number_field :harvest_week %>
+  </div>
+
+  <div class="field">
+    <%= f.label :harvest_notes %>
+    <%= f.text_field :harvest_notes %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

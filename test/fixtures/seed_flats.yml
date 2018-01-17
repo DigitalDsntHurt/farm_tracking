@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  started_date: 2018-01-16
+  crop: MyString
+  crop_variety: MyString
+  seed_brand: MyString
+  medium: MyString
+  format: MyString
+  seed_weight: 1.5
+  seed_wt_units: MyString
+  seed_media_treatment_notes: MyString
+  first_emerge_date: 2018-01-16
+  full_emerge_date: 2018-01-16
+  emergence_notes: MyString
+  date_of_first_transplant: 2018-01-16
+  first_transplant_notes: MyString
+  date_of_second_transplant: 2018-01-16
+  second_transplant_notes: MyString
+  harvested_on: 2018-01-16
+  harvest_weight_oz: 1.5
+  hrvst_wt_lbs: 1.5
+  harvest_week: 1
+  harvest_notes: MyString
+
+two:
+  started_date: 2018-01-16
+  crop: MyString
+  crop_variety: MyString
+  seed_brand: MyString
+  medium: MyString
+  format: MyString
+  seed_weight: 1.5
+  seed_wt_units: MyString
+  seed_media_treatment_notes: MyString
+  first_emerge_date: 2018-01-16
+  full_emerge_date: 2018-01-16
+  emergence_notes: MyString
+  date_of_first_transplant: 2018-01-16
+  first_transplant_notes: MyString
+  date_of_second_transplant: 2018-01-16
+  second_transplant_notes: MyString
+  harvested_on: 2018-01-16
+  harvest_weight_oz: 1.5
+  hrvst_wt_lbs: 1.5
+  harvest_week: 1
+  harvest_notes: MyString

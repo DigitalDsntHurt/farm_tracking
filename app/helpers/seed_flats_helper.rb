@@ -1,0 +1,2 @@
+module SeedFlatsHelper
+end
