@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
   resources :seed_flats
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root 'seed_flats#index'
 end
