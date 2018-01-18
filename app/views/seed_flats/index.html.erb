@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Started date</th>
+      <th>Flat id</th>
       <th>Crop</th>
       <th>Crop variety</th>
       <th>Seed brand</th>
@@ -34,6 +35,7 @@
     <% @seed_flats.each do |seed_flat| %>
       <tr>
         <td><%= seed_flat.started_date %></td>
+        <td><%= seed_flat.flat_id %></td>
         <td><%= seed_flat.crop %></td>
         <td><%= seed_flat.crop_variety %></td>
         <td><%= seed_flat.seed_brand %></td>
