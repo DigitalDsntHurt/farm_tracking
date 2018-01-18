@@ -57,6 +57,7 @@
         <td><%= link_to 'Show', seed_flat %></td>
         <td><%= link_to 'Edit', edit_seed_flat_path(seed_flat) %></td>
         <td><%= link_to 'Destroy', seed_flat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => seed_flat.id) %></td>
       </tr>
     <% end %>
   </tbody>

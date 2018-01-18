@@ -61,6 +61,11 @@ class SeedFlatsController < ApplicationController
     end
   end
 
+  def copy
+    @seed_flat = SeedFlat.find(params[:old_seed_flat]).dup
+    render new_seed_flat_path(@seed_flat)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_seed_flat
