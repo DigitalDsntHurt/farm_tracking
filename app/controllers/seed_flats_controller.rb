@@ -4,7 +4,7 @@ class SeedFlatsController < ApplicationController
   # GET /seed_flats
   # GET /seed_flats.json
   def index
-    @seed_flats = SeedFlat.all
+    @seed_flats = SeedFlat.all.order(:started_date)
   end
 
   # GET /seed_flats/1
@@ -64,6 +64,30 @@ class SeedFlatsController < ApplicationController
   def copy
     @seed_flat = SeedFlat.find(params[:old_seed_flat]).dup
     render new_seed_flat_path(@seed_flat)
+  end
+
+  def first_emerge
+    @seed_flat = SeedFlat.find(params[:flat])
+    @seed_flat.update(:first_emerge_date => Date.today)
+    redirect_to :back
+  end
+
+  def full_emerge
+    @seed_flat = SeedFlat.find(params[:flat])
+    @seed_flat.update(:full_emerge_date => Date.today)
+    redirect_to :back
+  end
+
+  def first_transplant
+    @seed_flat = SeedFlat.find(params[:flat])
+    @seed_flat.update(:date_of_first_transplant => Date.today)
+    redirect_to :back
+  end
+
+  def second_transplant
+    @seed_flat = SeedFlat.find(params[:flat])
+    @seed_flat.update(:date_of_second_transplant => Date.today)
+    redirect_to :back
   end
 
   private
