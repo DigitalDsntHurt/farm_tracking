@@ -4,7 +4,7 @@ class SeedFlatsController < ApplicationController
   # GET /seed_flats
   # GET /seed_flats.json
   def index
-    @seed_flats = SeedFlat.all.order(:created_at)
+    @seed_flats = SeedFlat.all.order(:started_date)
   end
 
   # GET /seed_flats/1
