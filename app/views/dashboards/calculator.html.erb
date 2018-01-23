@@ -1,2 +1,29 @@
-<h1>Dashboards#calculator</h1>
-<p>Find me in app/views/dashboards/calculator.html.erb</p>
+<h3>Calculator</h3>
+
+<%= form_for :dashboards, url: { action: :calculate }, method: :get do |f|   %>
+  <table>
+  	<tr>
+  		<td>
+  			<%= f.label :crop %>
+  			<%= text_field_tag :crop, params[:crop] %>
+  		</td>
+  		<td>
+  			<%= f.label :desired_weight_in_lbs %>
+  			<%= number_field_tag :weight, params[:weight] %>
+  		</td>
+  		<td>
+  			<%= f.label :desired_date %>
+  			<%= date_select :date, params[:date] %>	
+  		</td>
+  		<td>
+  			<br/>
+  			<%= f.submit 'Calculate!' %>			
+  		</td>
+  	</tr>
+  </table>
+  
+<% end %>
+
+<% unless @result.nil? %>
+  <p><strong><%= @result %></strong></p>
+<% end %>

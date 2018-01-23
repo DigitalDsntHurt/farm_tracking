@@ -14,6 +14,24 @@
  *= require_self
  */
 
+body {
+  margin: 0;
+  padding-top: 90px;
+}
+
+.nav {
+	min-width: 100%;
+	min-height:88px;
+	float: left;
+	margin: 0 0 1em 0;
+	padding: 0;
+	background-color: #f2f2f2;
+	border-bottom: 1px solid #ccc;
+	position: fixed;
+  	top: 0;
+}
+
+
 table.seed-flats-index {
 	border-collapse:collapse
 }
@@ -32,6 +50,8 @@ td {
     padding-left:4px;
     white-space:nowrap;
 }
+
+
 
 table.shelf_table {
 	border-collapse:collapse;
