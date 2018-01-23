@@ -11,7 +11,7 @@
 	  get 'seed_flats/full_emerge' => 'seed_flats#full_emerge'
 	  get 'seed_flats/first_transplant' => 'seed_flats#first_transplant'
 	  get 'seed_flats/second_transplant' => 'seed_flats#second_transplant'
-
+	  get 'seed_flats/harvest' => 'seed_flats#harvest'
 	  resources :seed_flats
 
 	  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

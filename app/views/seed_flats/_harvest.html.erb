@@ -1,0 +1,32 @@
+<%= form_for(seed_flat) do |f| %>
+  <% if seed_flat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(seed_flat.errors.count, "error") %> prohibited this seed_flat from being saved:</h2>
+
+      <ul>
+      <% seed_flat.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :harvested_on %>
+    <%= f.date_select :harvested_on %>
+  </div>
+
+  <div class="field">
+    <%= f.label :harvest_weight_oz %>
+    <%= f.text_field :harvest_weight_oz %>
+  </div>
+
+  <div class="field">
+    <%= f.label :harvest_notes %>
+    <%= f.text_area :harvest_notes %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

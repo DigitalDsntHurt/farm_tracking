@@ -90,6 +90,10 @@ class SeedFlatsController < ApplicationController
     redirect_to action: "index"
   end
 
+  def harvest
+    @seed_flat = SeedFlat.find(params[:flat])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_seed_flat

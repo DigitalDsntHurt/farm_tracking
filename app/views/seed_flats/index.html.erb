@@ -79,7 +79,10 @@
               </td>
               <td>
                 <%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => seed_flat.id) %>  
-                </td>
+              </td>
+              <td>
+                
+              </td>
             </tr>
             <tr align="center">
               <td>
@@ -93,6 +96,9 @@
               </td>
               <td>
                 <%= link_to '2nd Transplant', seed_flats_second_transplant_path(:controller => "seed_flats", :action => "second_transplant", :flat => seed_flat.id) %>
+              </td>
+              <td>
+                <%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => seed_flat.id) %>
               </td>
             </tr>
           </table>

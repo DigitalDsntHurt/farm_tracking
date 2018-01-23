@@ -1,15 +1,18 @@
 class SeedFlat < ApplicationRecord
-	#after_validation :calculate_harvest_week #:convert_oz_to_lbs
+	before_create :calculate_harvest_week, :convert_oz_to_lbs
+	before_update :calculate_harvest_week, :convert_oz_to_lbs
 
 	private
 
-	#def convert_oz_to_lbs
-	#	@ounces = self.harvest_weight_oz.to_f
-	#	self.update!(:hrvst_wt_lbs => @ounces*0.0625)
-	#end
+	def convert_oz_to_lbs
+		unless self.harvest_weight_oz == nil
+			self.hrvst_wt_lbs = self.harvest_weight_oz * 0.0625
+		end
+	end
 
-	#def calculate_harvest_week
-	#	#@week = self.harvested_on.cweek
-	#	self.update!(:harvest_week => 99)
-	#end
+	def calculate_harvest_week
+		unless self.harvested_on == nil
+			self.harvest_week = self.harvested_on.cweek
+		end
+	end
 end
