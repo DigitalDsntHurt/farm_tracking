@@ -6,10 +6,15 @@
 				<td align="center">
 					<% unless tray == nil %>
 						id: <%= tray.flat_id %><br/>
-						<%= tray.crop_variety %> <%= tray.crop %><br/>
+						<% if tray.crop == spicy mix %>
+							<%= tray.crop %><br/>
+							<%= tray.crop_variety %><br/>
+						<% else %>
+							<%= tray.crop_variety %> <%= tray.crop %><br/>
+						<% end %>
 						sewn on <%= tray.started_date %> <br/>
 						expected next transplant on <%= tray.started_date+10 %>
-					<% end %>	
+					<% end %>
 				</td>
 			<% } %>
 		</tr>
@@ -49,10 +54,15 @@
 				<td align="center">
 					<% unless tray == nil %>
 						id: <%= tray.flat_id %><br/>
-						<%= tray.crop_variety %> <%= tray.crop %><br/>
+						<% if tray.crop == spicy mix %>
+							<%= tray.crop %><br/>
+							<%= tray.crop_variety %><br/>
+						<% else %>
+							<%= tray.crop_variety %> <%= tray.crop %><br/>
+						<% end %>
 						sewn on <%= tray.started_date %> <br/>
-						expected harvest on <%= tray.started_date+15 %>
-					<% end %>	
+						expected next transplant on <%= tray.started_date+10 %>
+					<% end %>
 				</td>
 			<% } %>
 		</tr>
