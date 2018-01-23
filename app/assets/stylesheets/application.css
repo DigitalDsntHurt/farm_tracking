@@ -42,4 +42,5 @@ table.shelf_table td {
 	padding-top: 66px;
 	padding-bottom: 66px;
 	border:1px solid black;
+	word-break: break-all;
 }
