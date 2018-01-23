@@ -1,0 +1,92 @@
+<table>
+		<tr>
+			<th>
+				sewn date
+			</th>
+			<th>
+				flats
+			</th>
+			<th>
+				expected harvest weight
+			</th>
+			<th>
+				expected harvest date
+			</th>
+		</tr>
+		<% @grouped_seed_flats.each{|date,flats| %>
+		<tr>
+			<td>
+				<%= date %>		
+			</td>
+			<td>
+				<%= flats.map{|f| f.crop }.join(", ") %>		
+			</td>
+			<td>
+				<%= (flats.count*0.5).to_s+" LBS" %>		
+			</td>
+			<td>
+				<%= date + 15 %>
+			</td>
+		</tr>
+		<% } %>
+	</table>
+
+<hr>
+
+<% @seed_flats.each{|flat| %>
+	<p>
+		<%= flat.started_date %>
+		<%= flat.crop %> ~~~ will be ready on ~~~> 
+		<%= flat.started_date + 15 %>
+	</p>
+<% } %>
+
+<table>
+	<tr>
+		<td>
+			
+		</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+</table>

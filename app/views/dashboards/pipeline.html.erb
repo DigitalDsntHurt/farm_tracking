@@ -1,0 +1,56 @@
+<h3>Propagation</h3>
+<table class="shelf_table">
+	<% @propagation_shelf.to_a.in_groups_of(4).each{ |shelf| %>
+		<tr>
+			<% shelf.each{ |tray| %>
+				<td align="center">
+					<% unless tray == nil %>
+						id: <%= tray.flat_id %><br/>
+						<%= tray.crop_variety %> <%= tray.crop %><br/>
+						sewn on <%= tray.started_date %> <br/>
+						expected next transplant on <%= tray.started_date+10 %>
+					<% end %>	
+				</td>
+			<% } %>
+		</tr>
+	<% } %>
+</table>
+
+
+<h3>Sue Shelf</h3>
+<table class="shelf_table">
+	<% @sue_shelf.to_a.in_groups_of(4).each{ |shelf| %>
+		<tr>
+			<% shelf.each{ |tray| %>
+				<td align="center">
+					<% unless tray == nil %>
+						id: <%= tray.flat_id %><br/>
+						<%= tray.crop_variety %> <%= tray.crop %><br/>
+						sewn on <%= tray.started_date %> <br/>
+						expected next transplant on <%= tray.started_date+10 %>
+					<% end %>	
+				</td>
+			<% } %>
+		</tr>
+	<% } %>
+</table>
+
+
+<h3>David Shelf</h3>
+<table class="shelf_table">
+	<% @david_shelf.to_a.in_groups_of(4).each{ |shelf| %>
+		<tr>
+			<% shelf.each{ |tray| %>
+				<td align="center">
+					<% unless tray == nil %>
+						id: <%= tray.flat_id %><br/>
+						<%= tray.crop_variety %> <%= tray.crop %><br/>
+						sewn on <%= tray.started_date %> <br/>
+						expected harvest on <%= tray.started_date+15 %>
+					<% end %>	
+				</td>
+			<% } %>
+		</tr>
+	<% } %>
+</table>
+

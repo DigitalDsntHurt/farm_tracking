@@ -69,25 +69,25 @@ class SeedFlatsController < ApplicationController
   def first_emerge
     @seed_flat = SeedFlat.find(params[:flat])
     @seed_flat.update(:first_emerge_date => Date.today)
-    redirect_to :back
+    redirect_to action: "index"
   end
 
   def full_emerge
     @seed_flat = SeedFlat.find(params[:flat])
     @seed_flat.update(:full_emerge_date => Date.today)
-    redirect_to :back
+    redirect_to action: "index"
   end
 
   def first_transplant
     @seed_flat = SeedFlat.find(params[:flat])
     @seed_flat.update(:date_of_first_transplant => Date.today)
-    redirect_to :back
+    redirect_to action: "index"
   end
 
   def second_transplant
     @seed_flat = SeedFlat.find(params[:flat])
     @seed_flat.update(:date_of_second_transplant => Date.today)
-    redirect_to :back
+    redirect_to action: "index"
   end
 
   private

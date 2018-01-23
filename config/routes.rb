@@ -1,5 +1,11 @@
 	Rails.application.routes.draw do
 	  
+  get 'dashboards/calendar'
+
+  get 'dashboards/pipeline'
+
+  get 'dashboards/calculator'
+
 	  get 'seed_flats/copy' => 'seed_flats#copy'
 	  get 'seed_flats/first_emerge' => 'seed_flats#first_emerge'
 	  get 'seed_flats/full_emerge' => 'seed_flats#full_emerge'

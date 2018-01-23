@@ -14,7 +14,6 @@
  *= require_self
  */
 
-
 table.seed-flats-index {
 	border-collapse:collapse
 }
@@ -32,4 +31,14 @@ td {
     padding-right:4px;
     padding-left:4px;
     white-space:nowrap;
+}
+
+table.shelf_table {
+	border-collapse:collapse;
+}
+table.shelf_table td {
+	min-width: 315px;
+	padding-top: 66px;
+	padding-bottom: 66px;
+	border:1px solid black;
 }
