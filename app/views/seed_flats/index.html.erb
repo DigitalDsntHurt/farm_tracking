@@ -100,6 +100,10 @@
               <td>
                 <%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => seed_flat.id) %>
               </td>
+
+              <td>
+                <%= link_to 'Kill', seed_flats_kill_path(:controller => "seed_flats", :action => "kill", :flat => seed_flat.id) %>
+              </td>
             </tr>
           </table>
         </td>

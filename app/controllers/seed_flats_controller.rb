@@ -94,6 +94,13 @@ class SeedFlatsController < ApplicationController
     @seed_flat = SeedFlat.find(params[:flat])
   end
 
+  def kill
+    @seed_flat = SeedFlat.find(params[:flat])
+    @seed_flat.update(:harvest_weight_oz => 0)
+    redirect_to action: "index"
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_seed_flat
