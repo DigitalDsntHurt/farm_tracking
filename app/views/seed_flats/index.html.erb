@@ -86,7 +86,12 @@
             </tr>
             <tr align="center">
               <td>
-                <%= link_to '1st Emerge', seed_flats_first_emerge_path(:controller => "seed_flats", :action => "first_emerge", :flat => seed_flat.id) %>
+                <% if seed_flat.first_emerge_date == nil%>
+                  <%= link_to '1st Emerge', seed_flats_first_emerge_path(:controller => "seed_flats", :action => "first_emerge", :flat => seed_flat.id) %>  
+                <% else %>
+
+                <% end %>
+                
               </td>
               <td>
                 <%= link_to 'Full Emerge', seed_flats_full_emerge_path(:controller => "seed_flats", :action => "full_emerge", :flat => seed_flat.id) %>
