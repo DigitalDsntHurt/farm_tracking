@@ -1,6 +1,7 @@
 class SeedFlat < ApplicationRecord
 	before_create :calculate_harvest_week, :convert_oz_to_lbs
-	before_update :calculate_harvest_week, :convert_oz_to_lbs
+	before_update :calculate_harvest_week, :convert_oz_to_lbs, :kill_flat_id_on_harvest
+	validates_uniqueness_of :flat_id
 
 	private
 
@@ -15,4 +16,15 @@ class SeedFlat < ApplicationRecord
 			self.harvest_week = self.harvested_on.cweek
 		end
 	end
+
+	def kill_flat_id_on_harvest
+		unless self.harvested_on == nil
+			self.flat_id = nil
+		end
+	end
 end
+
+## 
+## SeedFlat.where.not(harvested_on: nil).each{|flat| flat.update!(flat_id: nil)}
+##
+## SeedFlat.where(harvest_weight_oz: 0.0).each{|flat| flat.update!(harvest_weight_oz: nil, hrvst_wt_lbs: nil)}
