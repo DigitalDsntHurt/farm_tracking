@@ -22,9 +22,5 @@ class SeedFlat < ApplicationRecord
 			self.flat_id = nil
 		end
 	end
+	
 end
-
-## 
-## SeedFlat.where.not(harvested_on: nil).each{|flat| flat.update!(flat_id: nil)}
-##
-## SeedFlat.where(harvest_weight_oz: 0.0).each{|flat| flat.update!(harvest_weight_oz: nil, hrvst_wt_lbs: nil)}
