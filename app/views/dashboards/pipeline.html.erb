@@ -52,7 +52,9 @@
 		<tr>
 			<% shelf.each{ |tray| %>
 				<% if tray == nil %>
-
+					<td align="center">
+						
+					</td>
 				<% elsif (Date.today - tray.started_date).to_i > 14 %>
 					<td align="center" style="background-color:green;">
 						id: <%= tray.flat_id %><br/>
