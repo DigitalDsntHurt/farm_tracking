@@ -97,6 +97,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :date_of_third_transplant %>
+    <%= f.date_select :date_of_third_transplant, include_blank: true %>
+  </div>  
+
+  <div class="field">
     <%= f.label :harvested_on %>
     <%= f.date_select :harvested_on, include_blank: true %>
   </div>

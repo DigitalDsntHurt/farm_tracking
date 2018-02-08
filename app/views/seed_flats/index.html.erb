@@ -22,6 +22,7 @@
       <th>notes</th>
       <th>second transplant</th>
       <th>notes</th>
+      <th>third transplant</th>
       <th>harvested</th>
       <th>harvest wt oz</th>
       <th>harvest wt lbs</th>
@@ -57,6 +58,7 @@
         <td><%= seed_flat.first_transplant_notes %></td>
         <td><%= seed_flat.date_of_second_transplant %></td>
         <td><%= seed_flat.second_transplant_notes %></td>
+        <td><%= seed_flat.date_of_third_transplant %></td>
         <td><%= seed_flat.harvested_on %></td>
         <td><%= seed_flat.harvest_weight_oz %></td>
         <td><%= seed_flat.hrvst_wt_lbs %></td>
@@ -81,8 +83,17 @@
                 <%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => seed_flat.id) %>  
               </td>
               <td>
-                
+                <% if seed_flat.harvest_weight_oz == nil %>
+                  <%= link_to 'Kill', seed_flats_kill_path(:controller => "seed_flats", :action => "kill", :flat => seed_flat.id) %>
+                <% else %>
+                  <p>
+                                
+                  </p>
+                <% end %>                
               </td>
+              <td>
+                
+              </td>              
             </tr>
             <tr align="center">
               <td>
@@ -122,17 +133,16 @@
                 <% end %>
               </td>
               <td>
-                <%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => seed_flat.id) %>
-              </td>
-
-              <td>
-                <% if seed_flat.harvest_weight_oz == nil %>
-                  <%= link_to 'Kill', seed_flats_kill_path(:controller => "seed_flats", :action => "kill", :flat => seed_flat.id) %>
+                <% if seed_flat.date_of_third_transplant == nil %>
+                  <%= link_to '3rd Transplant', seed_flats_third_transplant_path(:controller => "seed_flats", :action => "third_transplant", :flat => seed_flat.id) %>
                 <% else %>
                   <p>
                                 
                   </p>
-                <% end %>
+                <% end %>                
+              </td>
+              <td>
+                <%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => seed_flat.id) %>
               </td>
             </tr>
           </table>

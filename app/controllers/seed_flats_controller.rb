@@ -4,7 +4,7 @@ class SeedFlatsController < ApplicationController
   # GET /seed_flats
   # GET /seed_flats.json
   def index
-    @seed_flats = SeedFlat.all.order(:started_date)
+    @seed_flats = SeedFlat.all.order(:updated_at)
   end
 
   # GET /seed_flats/1
@@ -90,6 +90,12 @@ class SeedFlatsController < ApplicationController
     redirect_to action: "index"
   end
 
+  def third_transplant
+    @seed_flat = SeedFlat.find(params[:flat])
+    @seed_flat.update(:date_of_third_transplant => Date.today)
+    redirect_to action: "index"
+  end
+
   def harvest
     @seed_flat = SeedFlat.find(params[:flat])
   end
@@ -109,6 +115,6 @@ class SeedFlatsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seed_flat_params
-      params.require(:seed_flat).permit(:started_date, :flat_id, :crop, :crop_variety, :seed_brand, :medium, :format, :seed_weight, :seed_wt_units, :seed_media_treatment_notes, :first_emerge_date, :full_emerge_date, :emergence_notes, :date_of_first_transplant, :first_transplant_notes, :date_of_second_transplant, :second_transplant_notes, :harvested_on, :harvest_weight_oz, :hrvst_wt_lbs, :harvest_week, :harvest_notes)
+      params.require(:seed_flat).permit(:started_date, :flat_id, :crop, :crop_variety, :seed_brand, :medium, :format, :seed_weight, :seed_wt_units, :seed_media_treatment_notes, :first_emerge_date, :full_emerge_date, :emergence_notes, :date_of_first_transplant, :first_transplant_notes, :date_of_second_transplant, :second_transplant_notes, :date_of_third_transplant, :harvested_on, :harvest_weight_oz, :hrvst_wt_lbs, :harvest_week, :harvest_notes)
     end
 end

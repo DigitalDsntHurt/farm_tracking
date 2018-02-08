@@ -13,6 +13,7 @@
 	  get 'seed_flats/full_emerge' => 'seed_flats#full_emerge'
 	  get 'seed_flats/first_transplant' => 'seed_flats#first_transplant'
 	  get 'seed_flats/second_transplant' => 'seed_flats#second_transplant'
+	  get 'seed_flats/third_transplant' => 'seed_flats#third_transplant'
 	  get 'seed_flats/harvest' => 'seed_flats#harvest'
 	  get 'seed_flats/kill' => 'seed_flats#kill'
 	  resources :seed_flats
