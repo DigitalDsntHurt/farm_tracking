@@ -48,7 +48,7 @@
 
 <h3>David Shelf</h3>
 <table class="shelf_table">
-	<% @david_shelf.to_a.reject{|tray| tray.harvested_on != nil }.in_groups_of(4).each{ |shelf| %>
+	<% @david_shelf.to_a.in_groups_of(4).each{ |shelf| %>
 		<tr>
 			<% shelf.each{ |tray| %>
 				<% if tray == nil %>
