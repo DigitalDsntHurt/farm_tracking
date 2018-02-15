@@ -98,12 +98,9 @@
 				<% elsif (Date.today - tray.started_date).to_i > 14 %>
 					<td align="center" style="background-color:green;">
 						id: 
-						<% if tray.flat_id == nil  %>
-							<% @eq_sign = tray.harvest_notes.index("=")-1 %>
-							<%= tray.harvest_notes[1..@eq_sign] %>
-						<% else %>
+
 							<%= tray.flat_id %>
-						<% end %>
+						
 						<br/>
 						<% if tray.crop == "spicy mix" %>
 							<%= tray.crop %><br/>
@@ -117,12 +114,9 @@
 				<% else %>	
 					<td align="center">
 						id: 
-						<% if tray.flat_id == nil  %>
-							<% @eq_sign = tray.harvest_notes.index("=")-1 %>
-							<%= tray.harvest_notes[1..@eq_sign] %>
-						<% else %>
+						
 							<%= tray.flat_id %>
-						<% end %>
+						
 						<br/>
 						<% if tray.crop == "spicy mix" %>
 							<%= tray.crop %><br/>

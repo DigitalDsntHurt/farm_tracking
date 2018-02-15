@@ -18,7 +18,7 @@ class SeedFlat < ApplicationRecord
 	end
 
 	def kill_flat_id_on_harvest
-		unless self.harvested_on == nil
+		unless self.harvest_weight_oz == nil
 			self.flat_id = nil
 		end
 	end
