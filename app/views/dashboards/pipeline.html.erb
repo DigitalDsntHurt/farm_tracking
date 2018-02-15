@@ -99,12 +99,8 @@
 					<td align="center" style="background-color:green;">
 						id: 
 						<% if tray.flat_id == nil  %>
-							<% if tray.flat_id.include?("=")  %>
-								<% @eq_sign = tray.harvest_notes.index("=")-1 %>
-								<%= tray.harvest_notes[1..@eq_sign] %>
-							<% else %>
-								<%= tray.flat_id %>
-							<% end %>
+							<% @eq_sign = tray.harvest_notes.index("=")-1 %>
+							<%= tray.harvest_notes[1..@eq_sign] %>
 						<% else %>
 							<%= tray.flat_id %>
 						<% end %>
@@ -122,12 +118,8 @@
 					<td align="center">
 						id: 
 						<% if tray.flat_id == nil  %>
-							<% if tray.flat_id.include?("=")  %>
-								<% @eq_sign = tray.harvest_notes.index("=")-1 %>
-								<%= tray.harvest_notes[1..@eq_sign] %>
-							<% else %>
-								<%= tray.flat_id %>
-							<% end %>
+							<% @eq_sign = tray.harvest_notes.index("=")-1 %>
+							<%= tray.harvest_notes[1..@eq_sign] %>
 						<% else %>
 							<%= tray.flat_id %>
 						<% end %>
