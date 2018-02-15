@@ -34,7 +34,9 @@
 
   <tbody>
     <% @seed_flats.each do |seed_flat| %>
-      <% if seed_flat.harvest_weight_oz != nil %>
+      <% if seed_flat.harvest_weight_oz == 0.0 %>
+        <tr style="background-color: red;">
+      <% elsif seed_flat.harvest_weight_oz != nil %>
           <tr style="background-color: lightgreen;">
       <% elsif seed_flat.date_of_first_transplant != nil %>
           <tr style="background-color: lightyellow;">
