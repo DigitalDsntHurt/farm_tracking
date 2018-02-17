@@ -10,9 +10,15 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
+ *
  */
+
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import 'jquery-ui/core.css';
+ @import 'jquery-ui/datepicker.css';
+ @import 'jquery-ui/theme.css';
+ @import "bootstrap";
+
 
 body {
   margin: 0;
@@ -63,4 +69,8 @@ table.shelf_table td {
 	padding-bottom: 66px;
 	border:1px solid black;
 	overflow: scroll;
+}
+
+.row-grid + .row-grid {
+    margin-top: 15px;
 }

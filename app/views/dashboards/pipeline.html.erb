@@ -1,35 +1,61 @@
+
+
 <h3>Propagation</h3>
-<table class="shelf_table">
+
 	<% @propagation_shelf.to_a.in_groups_of(4).each{ |shelf| %>
-		<tr>
+		<div class="row m-t-md">
 			<% shelf.each{ |tray| %>
-				<td align="center">
+				
+				
+					<div class = "col-sm-3 " >
+						
 					<% unless tray == nil %>
-						id: <%= tray.flat_id %><br/>
-						<% if tray.crop == "spicy mix" %>
-							<%= tray.crop %><br/>
-							<%= tray.crop_variety %><br/>
-						<% else %>
-							<%= tray.crop_variety %> <%= tray.crop %><br/>
-						<% end %>
-						sewn on <%= tray.started_date %> <br/>
-						expected next transplant on <%= tray.started_date+10 %>
-					<% end %>
-				</td>
+						<div class="card" >
+  							
+    							<h3 class="card-header">id: <%= tray.flat_id %><br/></h3>
+    									<p class="card-text">
+    										<% if tray.crop == "spicy mix" %>
+												<%= tray.crop %><br/>
+												<%= tray.crop_variety %><br/>
+											<% else %>
+												<%= tray.crop_variety %> <%= tray.crop %><br/>
+											<% end %>
+											sewn on <%= tray.started_date %> <br/>
+											expected next transplant on <%= tray.started_date+10 %>
+					
+
+
+    										</p>
+    
+  											
+												</div>
+						
+				<br>		
+				</div>
+
+				<% end %>
+				
+				
 			<% } %>
-		</tr>
+		</div>
 	<% } %>
-</table>
+
 
 
 <h3>Sue Shelf</h3>
-<table class="shelf_table">
+
 	<% @sue_shelf.to_a.in_groups_of(4).each{ |shelf| %>
-		<tr>
+		<div class="row m-t-md">
 			<% shelf.each{ |tray| %>
-				<td align="center">
+
+				<div class = "col-sm-3 " >
+
 					<% unless tray == nil %>
-						id: <%= tray.flat_id %><br/>
+
+						<div class="card" >
+
+						<h3 class="card-header">id: <%= tray.flat_id %><br/></h3>
+						<p class="card-text">
 						<% if tray.crop == "spicy mix" %>
 							<%= tray.crop %><br/>
 							<%= tray.crop_variety %><br/>
@@ -38,26 +64,40 @@
 						<% end %>
 						sewn on <%= tray.started_date %> <br/>
 						expected next transplant on <%= tray.started_date+10 %>
-					<% end %>	
-				</td>
+					
+
+						</p>
+					</div>	
+					<br>
+
+					</div>
+
+					<% end %>
+				
 			<% } %>
-		</tr>
+		</div>
 	<% } %>
-</table>
+
 
 
 <h3>David Shelf</h3>
-<table class="shelf_table">
+
 	<% @david_shelf.to_a.in_groups_of(4).each{ |shelf| %>
-		<tr>
+		<div class="row m-t-md">
 			<% shelf.each{ |tray| %>
+
 				<% if tray == nil %>
-					<td align="center">
+
+					<div class = "col-sm-3 " >
 						
-					</td>
+					</div>
 				<% elsif (Date.today - tray.started_date).to_i > 14 %>
-					<td align="center" style="background-color:green;">
-						id: <%= tray.flat_id %><br/>
+					<div class = "col-sm-3 " >
+
+						<div class="card" style="background-color:green;">
+
+						<h3 class="card-header">id: <%= tray.flat_id %><br/></h3>
+						<p class="card-text">
 						<% if tray.crop == "spicy mix" %>
 							<%= tray.crop %><br/>
 							<%= tray.crop_variety %><br/>
@@ -66,10 +106,15 @@
 						<% end %>
 						sewn on <%= tray.started_date %> <br/>
 						expected next transplant on <%= tray.started_date+10 %>
-					</td>
+					</p>
+					</div>
+					</div>
 				<% else %>	
-					<td align="center">
-						id: <%= tray.flat_id %><br/>
+					<div class = "col-sm-3 " >
+
+						<div class="card" >
+						<h3 class="card-header">id: <%= tray.flat_id %><br/></h3>
+						<p class="card-text">
 						<% if tray.crop == "spicy mix" %>
 							<%= tray.crop %><br/>
 							<%= tray.crop_variety %><br/>
@@ -78,33 +123,41 @@
 						<% end %>
 						sewn on <%= tray.started_date %> <br/>
 						expected next transplant on <%= tray.started_date+10 %>
-					</td>				
+					</p>
+					</div>
+
+					</div>
+
+
 				<% end %>	
 			<% } %>
-		</tr>
+		</div>
+		<br>
 	<% } %>
-</table>
+
 
 
 <h3>Live Storage</h3>
-<table class="shelf_table">
+
 	<% @live_storage_shelf.to_a.reject{|tray| tray.harvest_notes.include?("DONE") }.in_groups_of(4).each{ |shelf| %>
-		<tr>
+		<div class="row m-t-md">
 			<% shelf.each{ |tray| %>
 				<% if tray == nil %>
-					<td align="center">
+					<div class = "col-sm-3 " >
 						
-					</td>
+					</div>
 				<% elsif (Date.today - tray.started_date).to_i > 14 %>
-					<td align="center" style="background-color:green;">
+					<div class = "col-sm-3 " >
+						<div class="card" style="background-color:green;">
+						<h3 class="card-header">
 						id: 
 						<% if tray.flat_id == nil  %>
-							<% @eq_sign = tray.harvest_notes.index("=")-1 %>
+							<% @eq_sign = tray.harvest_notes.index("=")-1 %></h3>
 							<%= tray.harvest_notes[1..@eq_sign] %>
 						<% else %>
-							<%= tray.flat_id %>
+							<%= tray.flat_id %></h3>
 						<% end %>
-						<br/>
+						<p class="card-text">
 						<% if tray.crop == "spicy mix" %>
 							<%= tray.crop %><br/>
 							<%= tray.crop_variety %><br/>
@@ -113,17 +166,20 @@
 						<% end %>
 						sewn on <%= tray.started_date %> <br/>
 						expected next transplant on <%= tray.started_date+10 %>
-					</td>
+					</p>
+					</div>
+				</div>
 				<% else %>	
-					<td align="center">
-						id: 
+					<div class = "col-sm-3 " >
+						<div class="card" >
+						<h3 class="card-header">id: 
 						<% if tray.flat_id == nil  %>
 							<% @eq_sign = tray.harvest_notes.index("=")-1 %>
-							<%= tray.harvest_notes[1..@eq_sign] %>
+							<%= tray.harvest_notes[1..@eq_sign] %></h3>
 						<% else %>
-							<%= tray.flat_id %>
+							<%= tray.flat_id %></h3>
 						<% end %>
-						<br/>
+						<p class="card-text">
 						<% if tray.crop == "spicy mix" %>
 							<%= tray.crop %><br/>
 							<%= tray.crop_variety %><br/>
@@ -132,9 +188,14 @@
 						<% end %>
 						sewn on <%= tray.started_date %> <br/>
 						expected next transplant on <%= tray.started_date+10 %>
-					</td>				
-				<% end %>	
+					</p>
+					</div>
+				</div>
+
+				<% end %>
+
 			<% } %>
-		</tr>
+	
+		</div>
+<br>
 	<% } %>
-</table>
