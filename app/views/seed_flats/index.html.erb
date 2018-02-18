@@ -1,21 +1,49 @@
 <p id="notice"><%= notice %></p>
+<nav class="navbar navbar-light bg-light fixed-top" n>
+     
 
-<h1>Seed Flats</h1>
-
-<table>
-    <!-- 
-
-      
-    </tr> -->
- 
-
+     </br>
+     <div class="container">
+     <table>
+      <col style="width:10%">
+        <col style="width:10%">
+        <col style="width:10%">
+        <col style="width:5%">
+        <col style="width:5%">
+        <col style="width:5%">
+        <col style="width:5%">
+        <col style="width:5%">
      <tr>
       <th>started date</th>
       <th>id</th>
       <th>crop</th>
       <th>seed weight</th>
       <th>units</th>
+      <th><%= link_to 'New Seed Flat', new_seed_flat_path %></th>
+      <th><%= link_to "Harvest Calculator", dashboards_calculator_path %></th>
+      <th><%= link_to "Pipeline", dashboards_pipeline_path %></th>
       </tr>
+   </table>
+   
+  </div>
+
+
+
+
+
+</nav>
+    <table>
+    <col style="width:10%">
+        <col style="width:10%">
+        <col style="width:10%">
+        <col style="width:5%">
+        <col style="width:5%">
+        <col style="width:5%">
+        <col style="width:5%">
+        <col style="width:5%">
+ 
+        <col style="width:5%">
+
 
 
  
@@ -27,12 +55,17 @@
 
 
    <% if seed_flat.harvested_on != nil %>
-          <tr style="background-color: lightgreen;">
-      <% elsif seed_flat.date_of_first_transplant != nil %>
-          <tr style="background-color: lightyellow;">
-      <% else %>
-        <tr>
-      <% end %>
+        
+          <tr data-toggle="collapse" data-target=".order<%=index%>" style="background-color: lightgreen;">
+      
+   <% elsif seed_flat.date_of_first_transplant != nil %>
+       
+          <tr data-toggle="collapse" data-target=".order<%=index%>" style="background-color: lightyellow;">
+   <% else %>
+          
+          <tr data-toggle="collapse" data-target=".order<%=index%>">
+    
+   <% end %>
 
   
 
@@ -43,11 +76,88 @@
         <td><%= seed_flat.crop %></td>
         <td><%= seed_flat.seed_weight %></td>
         <td><%= seed_flat.seed_wt_units %></td>
+        <td><%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => seed_flat.id) %>  </td>
+        <td><% if seed_flat.harvest_weight_oz == nil %>
+                  <%= link_to 'Kill', seed_flats_kill_path(:controller => "seed_flats", :action => "kill", :flat => seed_flat.id) %>
+                <% else %>
+                  <p>
+                                
+                  </p>
+                <% end %>                
+        </td>
+        <td>
+          <% if seed_flat.first_emerge_date == nil %>
+                  <%= link_to '1st Emerge', seed_flats_first_emerge_path(:controller => "seed_flats", :action => "first_emerge", :flat => seed_flat.id) %>  
+                <% else %>
+                  <p>
+                                
+                  </p>
+                <% end %>
+        </td>
+        <td>
 
+           <% if seed_flat.full_emerge_date == nil %>
+                  <%= link_to 'Full Emerge', seed_flats_full_emerge_path(:controller => "seed_flats", :action => "full_emerge", :flat => seed_flat.id) %>
+                <% else %>
+                  <p>
+                                
+                  </p>
+                <% end %>
+        </td>
 
-        </a>
+       
 
       </tr>
+
+
+      <tr class="collapse order<%=index%>">
+<td>
+        <%= seed_flat.crop_variety %>
+        <%= seed_flat.seed_brand %>
+
+</td>
+<td>
+        <%= seed_flat.medium %>
+        <%= seed_flat.format %>
+</td>
+<td>
+        <%= seed_flat.seed_media_treatment_notes %>
+
+</td>
+<td>
+        <%= seed_flat.first_emerge_date %>
+        <%= seed_flat.full_emerge_date %>
+        <%= seed_flat.emergence_notes %>
+</td>
+<td>
+        <%= seed_flat.date_of_first_transplant %>
+        <%= seed_flat.first_transplant_notes %>
+        <%= seed_flat.date_of_second_transplant %>
+        <%= seed_flat.second_transplant_notes %>
+        <%= seed_flat.date_of_third_transplant %>
+        <%= seed_flat.harvested_on %>
+        <%= seed_flat.harvest_weight_oz %>
+        <%= seed_flat.hrvst_wt_lbs %>
+        <%= seed_flat.harvest_week %>
+        <%= seed_flat.harvest_notes %>
+
+</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </tr>
       <!--<tr>
         <th>variety</th>
       <th>seed brand</th>
@@ -68,12 +178,25 @@
       <th>harvest week</th>
       <th>harvest notes</th>
       <th colspan="4"></th>
-    </tr>-->
+    </tr>
     
     <tr>
     
- 
 
+  <tbody>
+    <% @seed_flats.each do |seed_flat| %>
+      <% if seed_flat.harvest_weight_oz == 0.0 %>
+        <tr style="background-color: red;">
+      <% elsif seed_flat.harvest_weight_oz != nil %>
+          <tr style="background-color: lightgreen;">
+      <% elsif seed_flat.date_of_first_transplant != nil %>
+          <tr style="background-color: lightyellow;">
+      <% else %>
+        <tr>
+      <% end %>
+        <td><%= seed_flat.started_date %></td>
+        <td><%= seed_flat.flat_id %></td>
+        <td><%= seed_flat.crop %></td>
         <td><%= seed_flat.crop_variety %></td>
         <td><%= seed_flat.seed_brand %></td>
         <td><%= seed_flat.medium %></td>
@@ -103,27 +226,27 @@
 
         <% end %>
       
+-->
 
 
-
-
+ <% end %>
           
  
         
 
-      </tr>
+    
 
     
 </table
 
-<br>
 
-<%= link_to 'New Seed Flat', new_seed_flat_path %>
+
+
 
 <script>
   $( function() {
     $( ".accordion" ).accordion({
       collapsible: true
     });
-  } );
+ 
   </script>

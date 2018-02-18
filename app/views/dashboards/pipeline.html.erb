@@ -151,6 +151,7 @@
 						<div class="card" style="background-color:green;">
 						<h3 class="card-header">
 						id: 
+<<<<<<< HEAD
 						<% if tray.flat_id == nil  %>
 							<% @eq_sign = tray.harvest_notes.index("=")-1 %></h3>
 							<%= tray.harvest_notes[1..@eq_sign] %>
@@ -158,6 +159,12 @@
 							<%= tray.flat_id %></h3>
 						<% end %>
 						<p class="card-text">
+=======
+
+							<%= tray.flat_id %>
+						
+						<br/>
+>>>>>>> 4cddf26b7833f0b64ea255ba8ca739f63cf636b5
 						<% if tray.crop == "spicy mix" %>
 							<%= tray.crop %><br/>
 							<%= tray.crop_variety %><br/>
@@ -170,6 +177,7 @@
 					</div>
 				</div>
 				<% else %>	
+<<<<<<< HEAD
 					<div class = "col-sm-3 " >
 						<div class="card" >
 						<h3 class="card-header">id: 
@@ -180,6 +188,14 @@
 							<%= tray.flat_id %></h3>
 						<% end %>
 						<p class="card-text">
+=======
+					<td align="center">
+						id: 
+						
+							<%= tray.flat_id %>
+						
+						<br/>
+>>>>>>> 4cddf26b7833f0b64ea255ba8ca739f63cf636b5
 						<% if tray.crop == "spicy mix" %>
 							<%= tray.crop %><br/>
 							<%= tray.crop_variety %><br/>

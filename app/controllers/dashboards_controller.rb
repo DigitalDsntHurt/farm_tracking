@@ -6,10 +6,10 @@ class DashboardsController < ApplicationController
   end
 
   def pipeline
-    @propagation_shelf = SeedFlat.where(:date_of_first_transplant => nil)
+    @propagation_shelf = SeedFlat.where(:date_of_first_transplant => nil).where(:harvest_weight_oz => nil)
     @sue_shelf = SeedFlat.where.not(:date_of_first_transplant => nil).where(:date_of_second_transplant => nil).where(:date_of_third_transplant => nil).where(:harvested_on => nil)
     @david_shelf = SeedFlat.where.not(:date_of_second_transplant => nil).where(:date_of_third_transplant => nil).where(:harvested_on => nil)
-    @live_storage_shelf = SeedFlat.where.not(:date_of_third_transplant => nil)#.where(:harvested_on => nil)
+    @live_storage_shelf = SeedFlat.where.not(:date_of_third_transplant => nil).where(:harvest_weight_oz => nil)
   end
 
   def calculator
