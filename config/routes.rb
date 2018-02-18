@@ -6,7 +6,8 @@
 
   get 'dashboards/calculator'
 
-  get 'dashboards/calculate'
+  #change to post for function so that it doesnt constantly append query sent to calculate.
+  post 'dashboards/calculate'
 
 	  get 'seed_flats/copy' => 'seed_flats#copy'
 	  get 'seed_flats/first_emerge' => 'seed_flats#first_emerge'

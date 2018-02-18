@@ -1,11 +1,14 @@
 <h3>Calculator</h3>
 
-<%= form_for :dashboards, url: { action: :calculate }, method: :get do |f|   %>
+
+
+
+<%= form_for :dashboards, url: { action: :calculate }, method: :post do |f|   %>
   <table>
   	<tr>
   		<td>
-  			<%= f.label :crop %>
-  			<%= text_field_tag :crop, params[:crop] %>
+  			
+  			<%= f.select(:crop, @crops.map { |value| [ value, value ] }) %>
   		</td>
   		<td>
   			<%= f.label :desired_weight_in_lbs %>
