@@ -15,15 +15,6 @@ ActiveRecord::Schema.define(version: 20180208221438) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "ngrams", id: :serial, force: :cascade do |t|
-    t.date "date"
-    t.string "n"
-    t.string "terms"
-    t.integer "occurrences"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "seed_flats", id: :serial, force: :cascade do |t|
     t.date "started_date"
     t.string "crop"
@@ -50,15 +41,6 @@ ActiveRecord::Schema.define(version: 20180208221438) do
     t.datetime "updated_at", null: false
     t.string "flat_id"
     t.date "date_of_third_transplant"
-  end
-
-  create_table "url_queues", id: :serial, force: :cascade do |t|
-    t.date "date_added_to_queue"
-    t.string "publication"
-    t.string "url"
-    t.date "date_scraped"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
 end
