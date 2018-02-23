@@ -1,0 +1,76 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *
+ */
+
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+ @import 'jquery-ui/core.css';
+ @import 'jquery-ui/datepicker.css';
+ @import 'jquery-ui/theme.css';
+ @import "bootstrap";
+
+
+body {
+  margin: 0;
+  padding-top: 90px;
+}
+
+.nav {
+	min-width: 100%;
+	min-height:88px;
+	float: left;
+	margin: 0 0 1em 0;
+	padding: 0;
+	background-color: #f2f2f2;
+	border-bottom: 1px solid #ccc;
+	position: fixed;
+  	top: 0;
+}
+
+
+table.seed-flats-index {
+	border-collapse:collapse
+}
+tr {
+	border:1px solid black
+}
+
+th {
+    padding-right:4px;
+    padding-left:4px;
+    white-space:nowrap;
+    border-right:1px solid black;
+}
+td {
+    padding-right:4px;
+    padding-left:4px;
+    white-space:nowrap;
+}
+
+
+
+table.shelf_table {
+	border-collapse:collapse;
+}
+table.shelf_table td {
+	min-width: 315px;
+	max-width: 315px;
+	padding-top: 66px;
+	padding-bottom: 66px;
+	border:1px solid black;
+	overflow: scroll;
+}
+
+.row-grid + .row-grid {
+    margin-top: 15px;
+}

@@ -12,12 +12,20 @@ class DashboardsController < ApplicationController
     @live_storage_shelf = SeedFlat.where.not(:date_of_first_transplant => nil).where.not(:date_of_second_transplant => nil).where.not(:date_of_third_transplant => nil).where(:harvest_weight_oz => nil)
   end
 
+
+
   def calculator
+  
+    # only calculate for those crops with data
+    @crops = SeedFlat.where.not(harvested_on: nil).pluck(:crop).uniq
+
   end
 
   def calculate
     #@result = HarvestCalculator.send(params[:crop], params[:weight])
-    @result = HarvestCalculator.send(:hc, *[params[:crop], params[:weight], params[:date]])
+    @result = HarvestCalculator.send(:hc, *[params[:dashboards][:crop], params[:weight], params[:date]])
+    
+    @crops = SeedFlat.pluck(:crop).uniq
     render :calculator
   end
 
