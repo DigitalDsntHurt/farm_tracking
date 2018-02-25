@@ -18,7 +18,7 @@ class SeedFlat < ApplicationRecord
 	end
 
 	def move_flat_id_to_harvest_notes_on_harvest
-		unless self.harvest_weight_oz == nil
+		unless self.harvest_weight_oz == nil or self.harvest_weight_oz == 0.0
 			self.harvest_notes = self.harvest_notes.prepend("formerly flat # #{self.flat_id} | ")
 		end
 	end
