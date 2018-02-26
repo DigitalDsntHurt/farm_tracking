@@ -10,13 +10,13 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
  */
+
+@import "bootstrap";
 
 body {
   margin: 0;
-  padding-top: 90px;
+  padding-top: 122px;
 }
 
 .nav {
@@ -29,29 +29,37 @@ body {
 	border-bottom: 1px solid #ccc;
 	position: fixed;
   	top: 0;
+  	left: 0;
 }
-
 
 table.seed-flats-index {
-	border-collapse:collapse
-}
-tr {
-	border:1px solid black
+	border-collapse:collapse;
+	
+	th {
+    	padding-right:4px;
+    	padding-left:4px;
+    	white-space:nowrap;
+    	border-right:1px solid black;
+	}
+	tr {
+		border:1px solid black
+	}
+	td {
+    	padding-right:4px;
+    	padding-left:4px;
+    	white-space:nowrap;
+	}
 }
 
-th {
-    padding-right:4px;
-    padding-left:4px;
-    white-space:nowrap;
-    border-right:1px solid black;
+table.seed-flats-index-actions {
+	width:100%;
+	th, tr, td {
+		border:0;
+		a {
+			text-decoration: underline;
+		}
+	}
 }
-td {
-    padding-right:4px;
-    padding-left:4px;
-    white-space:nowrap;
-}
-
-
 
 table.shelf_table {
 	border-collapse:collapse;
@@ -80,5 +88,15 @@ table td.seed_flat_index_text_cell_medium {
 	overflow: scroll;
 }
 
+.cutsheet-header {
+	font-weight: bold;
+}
 
+.col-container {
+	display: table;
+	width:100%;
+}
 
+.eq-col {
+	display: table-cell;
+}

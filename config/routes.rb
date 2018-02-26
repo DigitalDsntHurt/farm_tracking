@@ -8,6 +8,8 @@
 
   get 'dashboards/calculate'
 
+  get 'dashboards/cutsheet'
+
 	  get 'seed_flats/copy' => 'seed_flats#copy'
 	  get 'seed_flats/first_emerge' => 'seed_flats#first_emerge'
 	  get 'seed_flats/full_emerge' => 'seed_flats#full_emerge'

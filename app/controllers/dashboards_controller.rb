@@ -21,5 +21,9 @@ class DashboardsController < ApplicationController
     render :calculator
   end
 
+  def cutsheet
+    
+  end
+
 
 end

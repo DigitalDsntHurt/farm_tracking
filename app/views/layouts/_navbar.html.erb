@@ -1,30 +1,44 @@
 <!-- Navigation -->
-<div class="nav">
-	<table>
-		<tr>
-			<td width="44px">
-			</td>
-			<td>
-				<br/>
-				<br/>
-				<%= button_to "Seed Flats", root_url, :method => :get %>
-				<br/>
-				<br/>
-			</td>
-			<td>
-				<br/>
-				<br/>
-				<%= button_to "Pipeline", "/dashboards/pipeline", :method => :get %>
-				<br/>
-				<br/>
-			</td>
-			<td>
-				<br/>
-				<br/>
-				<%= button_to "Harvest Calculator", "/dashboards/calculator", :method => :get %>
-				<br/>
-				<br/>
-			</td>
-		</tr>
-	</table>    	
+<div class="container-fluid nav">
+
+	<div class="row">
+		<div class="col" width="44px">
+		</div>
+		<div class="col">
+			<br/>
+			<br/>
+			<%= button_to "Seed Flats", root_url, :method => :get, :class => "btn btn-success" %>
+			<br/>
+			<br/>			
+		</div>
+		<div class="col">
+			<br/>
+			<br/>
+			<%= button_to "Pipeline", "/dashboards/pipeline", :method => :get, :class => "btn btn-success" %>
+			<br/>
+			<br/>			
+		</div>
+		<div class="col">
+			<br/>
+			<br/>
+			<%= button_to "Harvest Calculator", "/dashboards/calculator", :method => :get, :class => "btn btn-success" %>
+			<br/>
+			<br/>			
+		</div>
+		<div class="col">
+			<br/>
+			<br/>
+			<%= button_to "Harvest Calendar", "/dashboards/calculator", :method => :get, :class => "btn btn-success" %>
+			<br/>
+			<br/>			
+		</div>		
+		<div class="col">
+			<br/>
+			<br/>
+			<%= button_to "Cut Sheet", "/dashboards/cutsheet", :method => :get, :class => "btn btn-success" %>
+			<br/>
+			<br/>			
+		</div>		
+	</div>
+	
 </div>

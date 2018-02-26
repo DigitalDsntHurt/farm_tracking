@@ -1,3 +1,161 @@
+<br><br>
+
+<div class="container-fluid" style="margin-left: 22px;">
+<h3>Propagation</h3>
+<% @propagation_shelf.to_a.in_groups_of(4).each{ |shelf| %>
+	<div class="row ">
+		<% shelf.each{ |tray| %>
+			<div class="col-sm-2" align="center" style="padding:0px;">
+				<% unless tray == nil %>
+					<div class="card">
+						<h3 class="card-header"><%= tray.flat_id %></h3>
+						<p class="card-text">
+							<% if tray.crop == "spicy mix" %>
+								<%= tray.crop %><br/>
+								<%= tray.crop_variety %><br/>
+							<% else %>
+								<%= tray.crop_variety %> <%= tray.crop %><br/>
+							<% end %>
+							sewn on <%= tray.started_date %><br/>
+							<%= tray.seed_media_treatment_notes %><br/>
+							<%= tray.emergence_notes %><br/>
+							next transplant: <%= tray.started_date+10 %>
+						</p>
+					</div>
+				<% end %>
+			</div>
+		<% } %>
+	</div>
+<% } %>
+
+<br><br>
+<h3>Sue Shelf</h3>
+<% @sue_shelf.to_a.in_groups_of(4).each{ |shelf| %>
+	<div class="row" align="center">
+		<% shelf.each{ |tray| %>
+			<div class="col-sm-2" align="center" style="padding:0px;">
+				<% unless tray == nil %>
+					<div class="card">
+						<h3 class="card-header"><%= tray.flat_id %></h3>
+						<p class="card-text">
+							<% if tray.crop == "spicy mix" %>
+								<%= tray.crop %><br/>
+								<%= tray.crop_variety %><br/>
+							<% else %>
+								<%= tray.crop_variety %> <%= tray.crop %><br/>
+							<% end %>
+							sewn on <%= tray.started_date %> <br/>
+							<%= tray.first_transplant_notes %><br/>
+							next transplant: <%= tray.started_date+10 %>
+						</p>
+					</div>
+				<% end %>	
+			</div>
+		<% } %>
+	</div>
+<% } %>
+
+<br><br>
+<h3>David Shelf</h3>
+	<% @david_shelf.to_a.in_groups_of(4).each{ |shelf| %>
+		<div class="row" align="center">
+			<% shelf.each{ |tray| %>
+				<% if tray == nil %>
+					<div class="col-sm-2" align="center" style="padding:0px;">
+						
+					</div>
+				<% elsif (Date.today - tray.started_date).to_i > 14 %>
+					<div class="col-sm-2" align="center" style="padding:0px;">
+						<div class="card">
+							<h3 class="card-header"><%= tray.flat_id %></h3>
+							<p class="card-text" style="background-color: green;">
+								<% if tray.crop == "spicy mix" %>
+									<%= tray.crop %><br/>
+									<%= tray.crop_variety %><br/>
+								<% else %>
+									<%= tray.crop_variety %> <%= tray.crop %><br/>
+								<% end %>
+								sewn on <%= tray.started_date %> <br/>
+								<%= tray.second_transplant_notes %><br/>
+								next transplant: <%= tray.started_date+10 %>
+							</p>
+						</div>
+					</div>
+				<% else %>	
+					<div class="col-sm-2" align="center" style="padding:0px;">
+						<div class="card">
+							<h3 class="card-header"><%= tray.flat_id %></h3>
+							<p class="card-text">
+								<% if tray.crop == "spicy mix" %>
+									<%= tray.crop %><br/>
+									<%= tray.crop_variety %><br/>
+								<% else %>
+									<%= tray.crop_variety %> <%= tray.crop %><br/>
+								<% end %>
+								sewn on <%= tray.started_date %> <br/>
+								<%= tray.second_transplant_notes %><br/>
+								next transplant: <%= tray.started_date+10 %>
+							</p>
+						</div>
+					</div>				
+				<% end %>	
+			<% } %>
+		</div>
+	<% } %>
+
+<br><br>
+<h3>Live Storage</h3>
+	<% @live_storage_shelf.to_a.reject{|tray| tray.harvest_notes.include?("DONE") }.in_groups_of(4).each{ |shelf| %>
+		<div class="row" align="center">
+			<% shelf.each{ |tray| %>
+				<% if tray == nil %>
+					<div class="col-sm-2" align="center" style="padding:0px;">
+						
+					</div>
+				<% elsif (Date.today - tray.started_date).to_i > 14 %>
+					<div class="col-sm-2" align="center" style="padding:0px;">
+						<div class="card">
+							<h3 class="card-header"><%= tray.flat_id %></h3>
+							<p class="card-text" style="background-color: green;">
+								<% if tray.crop == "spicy mix" %>
+									<%= tray.crop %><br/>
+									<%= tray.crop_variety %><br/>
+								<% else %>
+									<%= tray.crop_variety %> <%= tray.crop %><br/>
+								<% end %>
+								sewn on <%= tray.started_date %> <br/>
+								<%= tray.harvest_notes %> <br/>
+								next transplant: <%= tray.started_date+10 %>
+							</p>
+						</div>
+					</div>
+				<% else %>	
+					<div class="col-sm-2" align="center" style="padding:0px;">
+						<div class="card">
+							<h3 class="card-header"><%= tray.flat_id %></h3>
+							<p class="card-text">
+								<% if tray.crop == "spicy mix" %>
+									<%= tray.crop %><br/>
+									<%= tray.crop_variety %><br/>
+								<% else %>
+									<%= tray.crop_variety %> <%= tray.crop %><br/>
+								<% end %>
+								sewn on <%= tray.started_date %> <br/>
+								<%= tray.harvest_notes %> <br/>
+								next transplant: <%= tray.started_date+10 %>
+							</p>
+						</div>
+					</div>
+				<% end %>	
+			<% } %>
+		</div>
+	<% } %>
+
+
+<br><br><br><br><br><br>
+<hr><hr>
+<br><br><br><br><br><br>
+
 <h3>Propagation</h3>
 <table class="shelf_table">
 	<% @propagation_shelf.to_a.in_groups_of(4).each{ |shelf| %>
@@ -132,3 +290,5 @@
 		</tr>
 	<% } %>
 </table>
+
+</div>

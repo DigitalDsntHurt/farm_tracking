@@ -1,7 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Seed Flats</h1>
-
 <table class="seed-flats-index">
   <thead>
     <tr>
@@ -70,23 +68,23 @@
         <td></td>
         <td></td>
         <td>
-          <table>
+          <table class='seed-flats-index-actions'>
             <tr align="center">
               <td>
-                <%= link_to 'Show', seed_flat %>
+                <%= link_to 'Show', seed_flat, :class => "btn btn-outline-info" %>
               </td>
               <td>
-                <%= link_to 'Edit', edit_seed_flat_path(seed_flat) %>    
+                <%= link_to 'Edit', edit_seed_flat_path(seed_flat), :class => "btn btn-outline-info" %>    
               </td>
               <td>
-                <%= link_to 'Destroy', seed_flat, method: :delete, data: { confirm: 'Are you sure?' } %>
+                <%= link_to 'Destroy', seed_flat, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-outline-info" %>
               </td>
               <td>
-                <%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => seed_flat.id) %>  
+                <%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => seed_flat.id), :class => "btn btn-outline-info" %>  
               </td>
               <td>
                 <% if seed_flat.harvest_weight_oz == nil %>
-                  <%= link_to 'Kill', seed_flats_kill_path(:controller => "seed_flats", :action => "kill", :flat => seed_flat.id) %>
+                  <%= link_to 'Kill', seed_flats_kill_path(:controller => "seed_flats", :action => "kill", :flat => seed_flat.id), :class => "btn btn-outline-info" %>
                 <% else %>
                   <p>
                                 
@@ -100,7 +98,7 @@
             <tr align="center">
               <td>
                 <% if seed_flat.first_emerge_date == nil %>
-                  <%= link_to '1st Emerge', seed_flats_first_emerge_path(:controller => "seed_flats", :action => "first_emerge", :flat => seed_flat.id) %>  
+                  <%= link_to '1st Emerge', seed_flats_first_emerge_path(:controller => "seed_flats", :action => "first_emerge", :flat => seed_flat.id), :class => "btn btn-outline-info" %>  
                 <% else %>
                   <p>
                                 
@@ -109,7 +107,7 @@
               </td>
               <td>
                 <% if seed_flat.full_emerge_date == nil %>
-                  <%= link_to 'Full Emerge', seed_flats_full_emerge_path(:controller => "seed_flats", :action => "full_emerge", :flat => seed_flat.id) %>
+                  <%= link_to 'Full Emerge', seed_flats_full_emerge_path(:controller => "seed_flats", :action => "full_emerge", :flat => seed_flat.id), :class => "btn btn-outline-info" %>
                 <% else %>
                   <p>
                                 
@@ -118,7 +116,7 @@
               </td>
               <td>
                 <% if seed_flat.date_of_first_transplant == nil %>
-                  <%= link_to '1st Transplant', seed_flats_first_transplant_path(:controller => "seed_flats", :action => "first_transplant", :flat => seed_flat.id) %>
+                  <%= link_to '1st Transplant', seed_flats_first_transplant_path(:controller => "seed_flats", :action => "first_transplant", :flat => seed_flat.id), :class => "btn btn-outline-info" %>
                 <% else %>
                   <p>
                                 
@@ -127,7 +125,7 @@
               </td>
               <td>
                 <% if seed_flat.date_of_second_transplant == nil %>
-                  <%= link_to '2nd Transplant', seed_flats_second_transplant_path(:controller => "seed_flats", :action => "second_transplant", :flat => seed_flat.id) %>
+                  <%= link_to '2nd Transplant', seed_flats_second_transplant_path(:controller => "seed_flats", :action => "second_transplant", :flat => seed_flat.id), :class => "btn btn-outline-info" %>
                 <% else %>
                   <p>
                                 
@@ -136,7 +134,7 @@
               </td>
               <td>
                 <% if seed_flat.date_of_third_transplant == nil %>
-                  <%= link_to '3rd Transplant', seed_flats_third_transplant_path(:controller => "seed_flats", :action => "third_transplant", :flat => seed_flat.id) %>
+                  <%= link_to '3rd Transplant', seed_flats_third_transplant_path(:controller => "seed_flats", :action => "third_transplant", :flat => seed_flat.id), :class => "btn btn-outline-info" %>
                 <% else %>
                   <p>
                                 
@@ -144,7 +142,7 @@
                 <% end %>                
               </td>
               <td>
-                <%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => seed_flat.id) %>
+                <%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => seed_flat.id), :class => "btn btn-outline-info" %>
               </td>
             </tr>
           </table>
@@ -157,4 +155,20 @@
 <br>
 
 <%= link_to 'New Seed Flat', new_seed_flat_path %>
+
+
+<br><br><br><br>
+<hr><hr>
+<br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
 
