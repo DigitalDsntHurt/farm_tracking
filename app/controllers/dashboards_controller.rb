@@ -22,7 +22,7 @@ class DashboardsController < ApplicationController
   end
 
   def cutsheet
-    
+    @flats_for_harvest = SeedFlat.where(:harvest_weight_oz => nil).where("started_date < ?",(Date.today-14))
   end
 
 

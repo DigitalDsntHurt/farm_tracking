@@ -7,19 +7,68 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col cutsheet-header">
-			
+		<div class="col-sm-2 cutsheet-header" align="right">
 		</div>
-		<div class="col cutsheet-header">
+		<div class="col-sm-2 cutsheet-header" align="center">
 			Max Purchase
 		</div>
-		<div class="col cutsheet-header">
-			Price per 1/2 LB
+		<div class="col-sm-2 cutsheet-header" align="center">
+			Price per<br>1/2 LB
 		</div>
-		<div class="col cutsheet-header">
-			Price per 1 LB
+		<div class="col-sm-2 cutsheet-header" align="center">
+			Price per<br>1 LB
 		</div>
 	</div>
+	<% @flats_for_harvest.group_by{|flat| flat.crop }.each{|thing| %>
+		<div class="row">
+			<div class="col-sm-2 cutsheet-header" align="right">
+				<%= thing[0] %>
+			</div>
+			<div class="col-sm-2" align="center">
+				<% @crop_pounds = thing[1].count/2.0 %>
+				<% if @crop_pounds > 1 %>
+					<%= @crop_pounds %> LBS
+				<% else %>
+					<%= @crop_pounds %> LB
+				<% end %>
+			</div>
+			<div class="col-sm-2" align="center">
+				<% if thing[0] == "pea" %>
+					$30
+				<% elsif thing[0].include?"mix" %>
+					$30
+				<% elsif thing[0] == "kale" %>
+					$25
+				<% elsif thing[0] == "broccoli" %>
+					$25
+				<% elsif thing[0] == "radish" %>
+					$25
+				<% else %>	
+					$20
+				<% end %>
+			</div>
+			<div class="col-sm-2" align="center">
+				<% if thing[0] == "pea" %>
+					$55
+				<% elsif thing[0].include?"mix" %>
+					$55	
+				<% elsif thing[0] == "kale" %>
+					$45
+				<% elsif thing[0] == "broccoli" %>
+					$45
+				<% elsif thing[0] == "radish" %>
+					$45
+				<% else %>	
+					$40
+				<% end %>
+			</div>
+		</div>
+	<% } %>
+
+<br><br>
+<hr>
+<br><br>
+
 	<div class="row">
 		<div class="col">
 			
