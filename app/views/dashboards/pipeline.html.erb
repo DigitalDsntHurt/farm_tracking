@@ -5,25 +5,39 @@
 <% @propagation_shelf.to_a.in_groups_of(4).each{ |shelf| %>
 	<div class="row ">
 		<% shelf.each{ |tray| %>
-			<div class="col-sm-2" align="center" style="padding:0px;">
-				<% unless tray == nil %>
+			<% if tray == nil %>
+				<div class="col-sm-2" align="center" style="padding:0px;">
+					<div class="card">
+						<p class="card-text">
+
+			<% elsif (Date.today - tray.started_date).to_i > 14 %>
+				<div class="col-sm-2" align="center" style="padding:0px;">
+					<div class="card">
+						<h3 class="card-header"><%= tray.flat_id %></h3>
+						<p class="card-text" style="background-color: green;">
+
+			<% else %>
+				<div class="col-sm-2" align="center" style="padding:0px;">
 					<div class="card">
 						<h3 class="card-header"><%= tray.flat_id %></h3>
 						<p class="card-text">
+			<% end %>
+			<% unless tray == nil %>
 							<% if tray.crop == "spicy mix" %>
 								<%= tray.crop %><br/>
 								<%= tray.crop_variety %><br/>
 							<% else %>
 								<%= tray.crop_variety %> <%= tray.crop %><br/>
 							<% end %>
-							sewn on <%= tray.started_date %><br/>
+							<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
 							<%= tray.seed_media_treatment_notes %><br/>
 							<%= tray.emergence_notes %><br/>
 							next transplant: <%= tray.started_date+10 %>
+			<% end %>
 						</p>
 					</div>
-				<% end %>
-			</div>
+				</div>	
+
 		<% } %>
 	</div>
 <% } %>
@@ -33,25 +47,35 @@
 <% @sue_shelf.to_a.in_groups_of(4).each{ |shelf| %>
 	<div class="row" align="center">
 		<% shelf.each{ |tray| %>
-			<div class="col-sm-2" align="center" style="padding:0px;">
-				<% unless tray == nil %>
+			<% if tray == nil %>
+				<div class="col-sm-2" align="center" style="padding:0px;">
+
+			<% elsif (Date.today - tray.started_date).to_i > 14 %>
+				<div class="col-sm-2" align="center" style="padding:0px;">
+					<div class="card">
+						<h3 class="card-header"><%= tray.flat_id %></h3>
+						<p class="card-text" style="background-color: green;">
+			<% else %>
+				<div class="col-sm-2" align="center" style="padding:0px;">
 					<div class="card">
 						<h3 class="card-header"><%= tray.flat_id %></h3>
 						<p class="card-text">
+			<% end %>
+			<% unless tray == nil %>
 							<% if tray.crop == "spicy mix" %>
 								<%= tray.crop %><br/>
 								<%= tray.crop_variety %><br/>
 							<% else %>
 								<%= tray.crop_variety %> <%= tray.crop %><br/>
 							<% end %>
-							sewn on <%= tray.started_date %> <br/>
+							<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
 							<%= tray.first_transplant_notes %><br/>
 							next transplant: <%= tray.started_date+10 %>
 						</p>
+			<% end %>
 					</div>
-				<% end %>	
-			</div>
-		<% } %>
+				</div>
+			<% } %>
 	</div>
 <% } %>
 
@@ -75,7 +99,7 @@
 								<% else %>
 									<%= tray.crop_variety %> <%= tray.crop %><br/>
 								<% end %>
-								sewn on <%= tray.started_date %> <br/>
+								<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
 								<%= tray.second_transplant_notes %><br/>
 								next transplant: <%= tray.started_date+10 %>
 							</p>
@@ -92,7 +116,7 @@
 								<% else %>
 									<%= tray.crop_variety %> <%= tray.crop %><br/>
 								<% end %>
-								sewn on <%= tray.started_date %> <br/>
+								<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
 								<%= tray.second_transplant_notes %><br/>
 								next transplant: <%= tray.started_date+10 %>
 							</p>
@@ -123,7 +147,7 @@
 								<% else %>
 									<%= tray.crop_variety %> <%= tray.crop %><br/>
 								<% end %>
-								sewn on <%= tray.started_date %> <br/>
+								<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
 								<%= tray.harvest_notes %> <br/>
 								next transplant: <%= tray.started_date+10 %>
 							</p>
@@ -140,7 +164,7 @@
 								<% else %>
 									<%= tray.crop_variety %> <%= tray.crop %><br/>
 								<% end %>
-								sewn on <%= tray.started_date %> <br/>
+								<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
 								<%= tray.harvest_notes %> <br/>
 								next transplant: <%= tray.started_date+10 %>
 							</p>
