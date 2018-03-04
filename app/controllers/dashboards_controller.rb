@@ -25,5 +25,7 @@ class DashboardsController < ApplicationController
     @flats_for_harvest = SeedFlat.where(:harvest_weight_oz => nil).where("started_date < ?",(Date.today-14))
   end
 
-
+  def back_of_envelope
+    @harvested_flats = SeedFlat.where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
+  end
 end
