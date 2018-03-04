@@ -1,21 +1,21 @@
 <br><br>
 <br>
 
-<h2 align="center">Back of Envelope</h2>
-<h3 align="center">Live Calculations</h3>
+<h2 align="center">Back of Envelope</h2><br>
+<h3 align="center">Live Calculations (March 3, 2018)</h3>
 
 <h4>Avg Harvest Weight Per Flat</h4>
-<p>Aggregate -- <%= @harvested_flats.count %> flats -- <%= @harvested_flats.average(:harvest_weight_oz) %> oz</p>
+<p style="margin-left:11px;">Aggregate -- <%= @harvested_flats.count %> flats -- <%= @harvested_flats.average(:harvest_weight_oz) %> oz</p>
 <% crops = ["broccoli","kale","spicy mix","radish","pea"] %>
 <% crops = @harvested_flats.pluck(:crop).uniq %>
 
 <% crops.each{ |crop| %>
 	<% @crop_query = @harvested_flats.where(crop: crop) %>
-	<p><%= crop %> -- <%= @crop_query.count %> flats -- <%= @crop_query.average(:harvest_weight_oz) %> oz</p>
+	<p style="margin-left:11px;"><%= crop %> -- <%= @crop_query.count %> flats -- <%= @crop_query.average(:harvest_weight_oz) %> oz</p>
 <% } %>
 
-<p><strong>~~~ begin manual analysis___</strong></p>
-<p>
+<p style="margin-left:44px;"><strong>~~~ begin manual analysis___</strong></p>
+<p style="margin-left:44px;">
 	Pea Shoots have gone through more recent experimentation than the others.<br>
 	If we exclude flats of pea shoots where the harvest weight was under 1 oz, we get:<br>
 	<% @weights = [] %>
@@ -25,14 +25,29 @@
 	<% } %>
 	<%= @weights.inject{|weight, sum| weight + sum } / @weights.count %> oz
 </p>
-<p><strong>___end manual analysis~~~</strong></p>
+<p style="margin-left:44px;"><strong>___end manual analysis~~~</strong></p>
+<br>
+<h4>Avg Days To Harvest</h4>
+<p>
+	Aggregate -- <%= @harvested_flats.count %> flats -- <%= @harvested_flats.to_a.map{|flat| (flat.harvested_on - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/@harvested_flats.count %> days
+</p>
+<p>
+	<% @harvested_flats.to_a.group_by{|flat| flat.crop }.each{|group| %>
+		<p>
+			<%= group[0] %> -- <%= group[1].count %> flats -- <%= group[1].to_a.map{|flat| (flat.harvested_on - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/group[1].to_a.count %> days
+		</p>
+	<% } %>
+</p>
 
-<h4>Avg Days To Harvest Aggregate</h4>
 
-<h4>Avg Days To Harvest Per Crop</h4>
 
 <br><br>
 <hr>
 <br><br>
 
-<h3 align="center">Custom Calculations</h3>
+<h3 align="center">Custom Calculations / scratch</h3>
+
+<br><br>
+<br><br>
+<hr>
+<br><br>
