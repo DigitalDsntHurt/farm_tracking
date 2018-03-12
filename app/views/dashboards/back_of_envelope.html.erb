@@ -39,6 +39,14 @@
 	<% } %>
 </p>
 
+<br><br>
+<h4>weekly totals</h4>
+<% SeedFlat.where.not(harvest_weight_oz: nil).where.not(harvest_weight_oz: 0.0).group_by{|flat| flat.harvest_week}.sort_by{|week| week[0] }.each{|group| %>
+	<p>
+		week num <%= group[0] %>: <%= group[1].count %> flats harvested for <%= (group[1].map{|flat| flat.harvest_weight_oz}.reduce(:+) / 16).round(2) %> LBS
+
+	</p>
+<% } %>
 
 
 <br><br>

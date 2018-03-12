@@ -4,7 +4,7 @@
 <br>
 <br>
 
-
+<h3>static / constant values -- 8oz/flat | manual pricing</h3>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-2 cutsheet-header" align="right">
@@ -69,22 +69,40 @@
 <hr>
 <br><br>
 
+<h3>semi-dynamic values -- per-crop oz avg / flat | manual pricing</h3><br>
+
+<div class="container-fluid">
 	<div class="row">
-		<div class="col">
+		<div class="col-sm-1 cutsheet-header" align="right">
 			
 		</div>
-		<div class="col">
-			
+		<div class="col-xs-2 cutsheet-header" align="center">
+			Max Purchase
 		</div>
-		<div class="col">
-			
+		<div class="col-xs-2 cutsheet-header" align="center">
+			Price per<br>1/2 LB
 		</div>
-		<div class="col">
-			
+		<div class="col-xs-2 cutsheet-header" align="center">
+			Price per<br>1 LB
 		</div>
 	</div>
-</div>
+	<% @harvest_avgs.each{|thing| %>
+		<div class="row">
+			<div class="col-sm-1 cutsheet-header" align="right">
+				<%= thing %>
+			</div>
+			<div class="col" align="center">
+				
+			</div>
+			<div class="col" align="center">
+				
+			</div>
+			<div class="col" align="center">
+				
+			</div>
+		</div>
+	<% } %>
 
-
-<br><hr><br>
-
+<br><br>
+<hr>
+<br><br>

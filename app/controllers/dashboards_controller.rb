@@ -22,7 +22,20 @@ class DashboardsController < ApplicationController
   end
 
   def cutsheet
+    # @harvest_avgs = [{:crop => "cropname", :avg_dtm => 15, :avg_oz_per_flat => 8 },{:crop => "cropname", :avg_dtm => 15, :avg_oz_per_flat => 8 }]
     @flats_for_harvest = SeedFlat.where(:harvest_weight_oz => nil).where("started_date < ?",(Date.today-14))
+
+    @harvest_avgs = []
+    @harvested_flats = SeedFlat.where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
+    @crops = @harvested_flats.pluck(:crop).uniq
+#    @crops.each{|crop_name|
+#      @hsh = {}
+#      @hsh[:crop] = crop_name
+#      @avg_harvest_weight = @harvested_flats.where(crop: crop_name).average(:seed_weight_oz)
+#      @hsh[:avg_opf] = @avg_harvest_weight
+#      @harvest_avgs << @hsh
+#    }
+
   end
 
   def back_of_envelope
