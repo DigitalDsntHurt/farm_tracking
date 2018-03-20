@@ -3,11 +3,11 @@
 	<% @weeks.each{|week| %>
 		<div class="row">
 			<% week.each{|day| %>
-				<div class="col cal-day" align="center">
+				<div class="col cal-day">
 					<% if day == Date.today %>
-						<br><strong><%= day %></strong><br>
+						<p align="center"><strong><%= day %></strong></p>
 					<% else %>
-						<br><%= day %><br>
+						<p align="center"><%= day %></p>
 					<% end %>
 					
 					<% unless day == nil %>
