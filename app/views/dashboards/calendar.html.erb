@@ -16,7 +16,7 @@
 						<% @resp = SeedFlat.where(started_date: @query_date) %>
 						<%= @resp.count %><br>
 						<% @resp.each{|flat| %>
-							<%= flat %><br>
+							<%= flat.flat_id %>: <%= flat.crop %><br>
 						<% } %>
 					<% end %>
 
