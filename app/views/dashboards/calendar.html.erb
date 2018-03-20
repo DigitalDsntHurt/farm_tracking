@@ -10,18 +10,19 @@
 						
 						<% if day == Date.today %>
 							<p align="center">
-								<strong><%= day %></strong>
+								<strong><%= day %></strong><br>
 								<%= @resp.count %> flats for harvest
 							</p>
 						<% else %>
 							<p align="center">
-								<%= day %>
+								<%= day %><br>
 								<%= @resp.count %> flats for harvest
 							</p>
 						<% end %>
 						<% @resp.each{|flat| %>
 							<%= flat.flat_id %>: <%= flat.crop %><br>
 						<% } %>
+						<br>
 					<% end %>
 
 
