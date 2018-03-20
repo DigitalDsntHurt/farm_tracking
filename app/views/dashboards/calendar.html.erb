@@ -12,9 +12,8 @@
 					
 					<% unless day == nil %>
 						<% @query_date = day-15 %>
-						<%= @query_date %><br>
-						<% @resp = SeedFlat.where(started_date: @query_date) %>
-						<%= @resp.count %><br>
+						<% @resp = SeedFlat.where(started_date: @query_date).where(harvest_weight_oz: nil) %>
+						<%= @resp.count %> flats for harvest<br>
 						<% @resp.each{|flat| %>
 							<%= flat.flat_id %>: <%= flat.crop %><br>
 						<% } %>
