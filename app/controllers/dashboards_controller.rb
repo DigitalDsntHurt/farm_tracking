@@ -1,15 +1,29 @@
 class DashboardsController < ApplicationController
   def calendar
-  	@today = Date.today
+  	
   	@seed_flats = SeedFlat.all
   	@grouped_seed_flats = SeedFlat.all.group_by{ |flat| flat.started_date }
+    
+    @today = Date.today
+    if @today.strftime("%a") == "Mon"
+      @start_date = @today
+    else
+        @start_date = @today
+        until @start_date.strftime("%a") == "Mon"
+          @start_date -= 1
+        end
+    end
+    @end_date = @start_date+30
+    @date_range = (@start_date..@end_date)
+    @weeks = @date_range.to_a.in_groups_of(7)
+
   end
 
   def pipeline
-    @propagation_shelf = SeedFlat.where(:date_of_first_transplant => nil).where(:harvest_weight_oz => nil)
-    @sue_shelf = SeedFlat.where.not(:date_of_first_transplant => nil).where(:date_of_second_transplant => nil).where(:date_of_third_transplant => nil).where(:harvest_weight_oz => nil)
-    @david_shelf = SeedFlat.where.not(:date_of_first_transplant => nil).where.not(:date_of_second_transplant => nil).where(:date_of_third_transplant => nil).where(:harvest_weight_oz => nil)
-    @live_storage_shelf = SeedFlat.where.not(:date_of_first_transplant => nil).where.not(:date_of_second_transplant => nil).where.not(:date_of_third_transplant => nil).where(:harvest_weight_oz => nil)
+    @propagation_shelf = SeedFlat.where(:date_of_first_transplant => nil).where(:harvest_weight_oz => nil).order(started_date: :desc)
+    @sue_shelf = SeedFlat.where.not(:date_of_first_transplant => nil).where(:date_of_second_transplant => nil).where(:date_of_third_transplant => nil).where(:harvest_weight_oz => nil).order(started_date: :desc)
+    @david_shelf = SeedFlat.where.not(:date_of_first_transplant => nil).where.not(:date_of_second_transplant => nil).where(:date_of_third_transplant => nil).where(:harvest_weight_oz => nil).order(started_date: :desc)
+    @live_storage_shelf = SeedFlat.where.not(:date_of_first_transplant => nil).where.not(:date_of_second_transplant => nil).where.not(:date_of_third_transplant => nil).where(:harvest_weight_oz => nil).order(started_date: :desc)
   end
 
   def calculator

@@ -1,3 +1,35 @@
+<br><br><br><br><br><br><br><br>
+<div class="container-fluid">
+	<% @weeks.each{|week| %>
+		<div class="row">
+			<% week.each{|day| %>
+				<div class="col cal-day" align="center">
+					<% if day == Date.today %>
+						<br><strong><%= day %></strong><br>
+					<% else %>
+						<br><%= day %><br>
+					<% end %>
+					
+					<% unless day == nil %>
+						<% @query_date = day-15 %>
+						<%= @query_date %><br>
+						<% @resp = SeedFlat.where(started_date: @query_date) %>
+						<%= @resp.count %><br>
+						<% @resp.each{|flat| %>
+							<%= flat %><br>
+						<% } %>
+					<% end %>
+
+
+
+				</div>
+			<% } %>
+		</div>
+	<% } %>
+</div>
+
+<br><br><hr><br><br>
+
 <table>
 		<tr>
 			<th>
@@ -31,7 +63,7 @@
 		<% } %>
 	</table>
 
-<hr>
+<br><br><hr><br><br>
 
 <% @seed_flats.each{|flat| %>
 	<p>
