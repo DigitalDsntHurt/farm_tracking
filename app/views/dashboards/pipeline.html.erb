@@ -13,13 +13,13 @@
 			<% elsif (Date.today - tray.started_date).to_i > 14 %>
 				<div class="col-sm-2" align="center" style="padding:0px;">
 					<div class="card">
-						<h3 class="card-header"><%= tray.flat_id %></h3>
+						<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
 						<p class="card-text" style="background-color: green;">
 
 			<% else %>
 				<div class="col-sm-2" align="center" style="padding:0px;">
 					<div class="card">
-						<h3 class="card-header"><%= tray.flat_id %></h3>
+						<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
 						<p class="card-text">
 			<% end %>
 			<% unless tray == nil %>
@@ -43,7 +43,7 @@
 <% } %>
 
 <br><br>
-<h3>Sue Shelf</h3>
+<h3>Sue + David</h3>
 <% @sue_shelf.to_a.in_groups_of(4).each{ |shelf| %>
 	<div class="row" align="center">
 		<% shelf.each{ |tray| %>
@@ -53,12 +53,12 @@
 			<% elsif (Date.today - tray.started_date).to_i > 14 %>
 				<div class="col-sm-2" align="center" style="padding:0px;">
 					<div class="card">
-						<h3 class="card-header"><%= tray.flat_id %></h3>
+						<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
 						<p class="card-text" style="background-color: green;">
 			<% else %>
 				<div class="col-sm-2" align="center" style="padding:0px;">
 					<div class="card">
-						<h3 class="card-header"><%= tray.flat_id %></h3>
+						<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
 						<p class="card-text">
 			<% end %>
 			<% unless tray == nil %>
@@ -80,7 +80,7 @@
 <% } %>
 
 <br><br>
-<h3>David Shelf</h3>
+<h3>Dumbo</h3>
 	<% @david_shelf.to_a.in_groups_of(4).each{ |shelf| %>
 		<div class="row" align="center">
 			<% shelf.each{ |tray| %>
@@ -91,7 +91,7 @@
 				<% elsif (Date.today - tray.started_date).to_i > 14 %>
 					<div class="col-sm-2" align="center" style="padding:0px;">
 						<div class="card">
-							<h3 class="card-header"><%= tray.flat_id %></h3>
+							<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
 							<p class="card-text" style="background-color: green;">
 								<% if tray.crop == "spicy mix" %>
 									<%= tray.crop %><br/>
@@ -108,7 +108,7 @@
 				<% else %>	
 					<div class="col-sm-2" align="center" style="padding:0px;">
 						<div class="card">
-							<h3 class="card-header"><%= tray.flat_id %></h3>
+							<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
 							<p class="card-text">
 								<% if tray.crop == "spicy mix" %>
 									<%= tray.crop %><br/>
@@ -139,7 +139,7 @@
 				<% elsif (Date.today - tray.started_date).to_i > 14 %>
 					<div class="col-sm-2" align="center" style="padding:0px;">
 						<div class="card">
-							<h3 class="card-header"><%= tray.flat_id %></h3>
+							<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
 							<p class="card-text" style="background-color: green;">
 								<% if tray.crop == "spicy mix" %>
 									<%= tray.crop %><br/>
@@ -156,7 +156,7 @@
 				<% else %>	
 					<div class="col-sm-2" align="center" style="padding:0px;">
 						<div class="card">
-							<h3 class="card-header"><%= tray.flat_id %></h3>
+							<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
 							<p class="card-text">
 								<% if tray.crop == "spicy mix" %>
 									<%= tray.crop %><br/>
