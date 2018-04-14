@@ -7,6 +7,8 @@
 	get 'dashboards/cutsheet'
 	get 'dashboards/back_of_envelope'
 
+	get 'seed_flats/live_index' => 'seed_flats#live_index'
+	get 'seed_flats/harvested_killed' => 'seed_flats#harvested_killed'
 	get 'seed_flats/copy' => 'seed_flats#copy'
 	get 'seed_flats/first_emerge' => 'seed_flats#first_emerge'
 	get 'seed_flats/full_emerge' => 'seed_flats#full_emerge'

@@ -7,38 +7,43 @@
 		<div class="col">
 			<br/>
 			<br/>
-			<%= button_to "Seed Flats", root_url, :method => :get, :class => "btn btn-success" %>
-			<br/>
-			<br/>			
+			<div class="dropdown">
+			  <button class="dropbtn btn btn-success">Seed Flats</button>
+			  <div class="dropdown-content">
+			    <%= link_to "All", root_url, :method => :get %>
+			    <%= link_to "Live", "/seed_flats/live_index", :method => :get %>
+			    <%= link_to "Hrvstd + Killed", "/seed_flats/harvested_killed", :method => :get %>
+			  </div>
+			</div>			
+			<br/><br/><br/>
 		</div>
 		<div class="col">
 			<br/>
 			<br/>
-			<%= button_to "Pipeline", "/dashboards/pipeline", :method => :get, :class => "btn btn-success" %>
-			<br/>
-			<br/>			
+			<div class="dropdown">
+			  <button class="dropbtn btn btn-success">Pipeline</button>
+			  <div class="dropdown-content">
+			    <%= link_to "Pipeline", "/dashboards/pipeline", :method => :get %>
+			    <a href="#">Future</a>
+			  </div>
+			</div>		
+			<br/><br/><br/>
 		</div>
 		<div class="col">
 			<br/>
 			<br/>
-			<%= button_to "Harvest Calculator", "/dashboards/calculator", :method => :get, :class => "btn btn-success" %>
+			<div class="dropdown">
+			  <button class="dropbtn btn btn-success">Tools</button>
+			  <div class="dropdown-content">
+			    <%= link_to "Harvest Calculatr", "/dashboards/calculator", :method => :get %>
+			    <%= link_to "Harvest Calendar", "/dashboards/calendar", :method => :get %>
+			    <%= link_to "Cut Sheet", "/dashboards/cutsheet", :method => :get%>
+			    <%= link_to "Back of Envelope", "/dashboards/back_of_envelope", :method => :get%>
+			  </div>
+			</div>			
 			<br/>
 			<br/>			
 		</div>
-		<div class="col">
-			<br/>
-			<br/>
-			<%= button_to "Harvest Calendar", "/dashboards/calendar", :method => :get, :class => "btn btn-success" %>
-			<br/>
-			<br/>			
-		</div>		
-		<div class="col">
-			<br/>
-			<br/>
-			<%= button_to "Cut Sheet", "/dashboards/cutsheet", :method => :get, :class => "btn btn-success" %>
-			<br/>
-			<br/>			
-		</div>		
 	</div>
 	
 </div>
