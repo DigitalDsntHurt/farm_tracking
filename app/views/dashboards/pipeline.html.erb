@@ -33,6 +33,17 @@
 							<%= tray.seed_media_treatment_notes %><br/>
 							<%= tray.emergence_notes %><br/>
 							next transplant: <%= tray.started_date+10 %>
+							<br/>
+			                <% if tray.first_emerge_date == nil %>
+			                  <%= link_to '1st Emerge', seed_flats_first_emerge_path(:controller => "seed_flats", :action => "first_emerge", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>  
+			                <% else %>
+			                <% end %>							
+							<% if tray.full_emerge_date == nil %>
+                  				<%= link_to 'Full Emerge', seed_flats_full_emerge_path(:controller => "seed_flats", :action => "full_emerge", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+                			<% else %>
+			                <% end %>
+							<%= link_to '1st Transplant', seed_flats_first_transplant_path(:controller => "seed_flats", :action => "first_transplant", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							
 			<% end %>
 						</p>
 					</div>
@@ -71,7 +82,10 @@
 							<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
 							<%= tray.first_transplant_notes %><br/>
 							next transplant: <%= tray.started_date+10 %>
+							<br/>
+						<%= link_to '2nd Transplant', seed_flats_second_transplant_path(:controller => "seed_flats", :action => "second_transplant", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
 						</p>
+
 			<% end %>
 					</div>
 				</div>
@@ -102,6 +116,9 @@
 								<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
 								<%= tray.second_transplant_notes %><br/>
 								next transplant: <%= tray.started_date+10 %>
+								<br/>
+								<%= link_to '3rd Transplant', seed_flats_third_transplant_path(:controller => "seed_flats", :action => "third_transplant", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+								<%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
 							</p>
 						</div>
 					</div>
@@ -119,6 +136,9 @@
 								<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
 								<%= tray.second_transplant_notes %><br/>
 								next transplant: <%= tray.started_date+10 %>
+								<br/>
+								<%= link_to '3rd Transplant', seed_flats_third_transplant_path(:controller => "seed_flats", :action => "third_transplant", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+								<%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
 							</p>
 						</div>
 					</div>				
@@ -150,6 +170,8 @@
 								<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
 								<%= tray.harvest_notes %> <br/>
 								next transplant: <%= tray.started_date+10 %>
+								<br/>
+								<%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
 							</p>
 						</div>
 					</div>
@@ -167,6 +189,8 @@
 								<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
 								<%= tray.harvest_notes %> <br/>
 								next transplant: <%= tray.started_date+10 %>
+								<br/>
+								<%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
 							</p>
 						</div>
 					</div>
