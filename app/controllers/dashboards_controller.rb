@@ -55,4 +55,7 @@ class DashboardsController < ApplicationController
   def back_of_envelope
     @harvested_flats = SeedFlat.where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
   end
+
+  def crop_menu
+  end
 end
