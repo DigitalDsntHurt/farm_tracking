@@ -1,6 +1,7 @@
 class SeedFlat < ApplicationRecord
 	before_create :calculate_harvest_week, :convert_oz_to_lbs
-	before_update :calculate_harvest_week, :convert_oz_to_lbs, :move_flat_id_to_harvest_notes_on_harvest, :kill_flat_id_on_harvest, :update_harvest_date_on_harvest
+	before_update :calculate_harvest_week, :convert_oz_to_lbs, :kill_flat_id_on_harvest, :update_harvest_date_on_harvest, :move_flat_id_to_harvest_notes_on_harvest
+	#after_update :move_flat_id_to_harvest_notes_on_harvest
 	validates_uniqueness_of :flat_id
 
 	private
@@ -18,7 +19,7 @@ class SeedFlat < ApplicationRecord
 	end
 
 	def move_flat_id_to_harvest_notes_on_harvest
-		unless self.harvest_weight_oz == nil or self.harvest_weight_oz == 0.0
+		unless self.harvest_weight_oz == nil #or self.harvest_weight_oz == 0.0
 			self.harvest_notes = self.harvest_notes.prepend("formerly flat # #{self.flat_id} | ")
 		end
 	end

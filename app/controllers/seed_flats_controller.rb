@@ -112,7 +112,6 @@ class SeedFlatsController < ApplicationController
     @seed_flat = SeedFlat.find(params[:flat])
     @seed_flat.update(:harvest_weight_oz => 0)
     redirect_to action: "index"
-
   end
 
   private
