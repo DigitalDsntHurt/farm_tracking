@@ -58,4 +58,8 @@ class DashboardsController < ApplicationController
 
   def crop_menu
   end
+
+
+  def scratch
+  end
 end
