@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180208221438) do
+ActiveRecord::Schema.define(version: 20180729161211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(version: 20180208221438) do
     t.datetime "updated_at", null: false
     t.string "flat_id"
     t.date "date_of_third_transplant"
+  end
+
+  create_table "whitelists", force: :cascade do |t|
+    t.string "ip_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ip_address"], name: "index_whitelists_on_ip_address"
   end
 
 end
