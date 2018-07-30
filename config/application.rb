@@ -17,5 +17,8 @@ module V1
              ENV[key.to_s] = value
         end if File.exists?(env_file)
     end
+
+    # set time zone to US Pacific Time
+    config.time_zone = "Pacific Time (US & Canada)"
   end
 end
