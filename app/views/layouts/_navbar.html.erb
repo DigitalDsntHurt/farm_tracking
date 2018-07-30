@@ -7,6 +7,12 @@
 		<div class="col">
 			<br/>
 			<br/>
+			    <%= link_to "Pipeline", "/dashboards/pipeline", :method => :get, :class=>"dropbtn btn btn-success" %>		
+			<br/><br/><br/>
+		</div>		
+		<div class="col">
+			<br/>
+			<br/>
 			<div class="dropdown">
 			  <button class="dropbtn btn btn-success">Seed Flats</button>
 			  <div class="dropdown-content">
@@ -15,18 +21,6 @@
 			    <%= link_to "Hrvstd + Killed", "/seed_flats/harvested_killed", :method => :get %>
 			  </div>
 			</div>			
-			<br/><br/><br/>
-		</div>
-		<div class="col">
-			<br/>
-			<br/>
-			<div class="dropdown">
-			  <button class="dropbtn btn btn-success">Pipeline</button>
-			  <div class="dropdown-content">
-			    <%= link_to "Pipeline", "/dashboards/pipeline", :method => :get %>
-			    <a href="#">Future</a>
-			  </div>
-			</div>		
 			<br/><br/><br/>
 		</div>
 		<div class="col">
@@ -43,9 +37,14 @@
 			</div>			
 			<br/>
 			<br/>			
-			
 		</div>
-
+		<div class="col">
+			<br/>
+			<br/>
+			    <%= link_to 'New Seed Flat', new_seed_flat_path, :class => "btn btn-info" %>
+			<br/><br/><br/>
+		</div>	
 	</div>
 	
 </div>
+<br><br>

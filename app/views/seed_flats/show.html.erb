@@ -111,5 +111,16 @@
   <%= @seed_flat.harvest_notes %>
 </p>
 
-<%= link_to 'Edit', edit_seed_flat_path(@seed_flat) %> |
-<%= link_to 'Back', seed_flats_path %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs" style="margin-right:6px;">
+      <%= link_to 'Edit', edit_seed_flat_path(@seed_flat), :class => "dropbtn btn btn-success" %>
+    </div>
+    <div class="col-xs" style="margin-right:6px;">
+      <%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => @seed_flat.id), :class => "dropbtn btn btn-success" %>
+    </div>
+    <div class="col-xs" style="margin-right:6px;">
+      <%= link_to 'New Seed Flat', new_seed_flat_path, :class => "dropbtn btn btn-success" %>
+    </div>
+  </div>
+</div>
