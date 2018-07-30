@@ -102,6 +102,18 @@
   </div>  
 
   <div class="field">
+    <%= f.label :harvested_on %>
+    <%= f.date_select :harvested_on, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :harvest_weight_oz %>
+    <%= f.text_field :harvest_weight_oz %>
+  </div>
+  
+  </div>
+
+  <div class="field">
     <%= f.label :harvest_notes %>
     <%= f.text_field :harvest_notes %>
   </div>
