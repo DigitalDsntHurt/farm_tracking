@@ -3,9 +3,6 @@
 <div class="conrainer-fluid" style="padding-left:14px;">
   <div class="row">
     <div class="col">
-      <br>
-      <%= link_to 'New Seed Flat', new_seed_flat_path %>
-      
     </div>
   </div>
 </div>
@@ -37,6 +34,7 @@
       <th>harvest wt lbs</th>
       <th>harvest week</th>
       <th>harvest notes</th>
+      <th>former flat id</th>
       <th colspan="4"></th>
     </tr>
   </thead>
@@ -75,6 +73,7 @@
         <td><%= seed_flat.hrvst_wt_lbs %></td>
         <td><%= seed_flat.harvest_week %></td>
         <td class="seed_flat_index_text_cell_medium"><%= seed_flat.harvest_notes %></td>
+        <td class="seed_flat_index_text_cell_medium"><%= seed_flat.former_flat_id %></td>
         <td></td>
         <td></td>
         <td></td>
