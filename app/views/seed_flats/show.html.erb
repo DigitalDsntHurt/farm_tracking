@@ -112,4 +112,7 @@
 </p>
 
 <%= link_to 'Edit', edit_seed_flat_path(@seed_flat) %> |
-<%= link_to 'Back', seed_flats_path %>
+<%= link_to 'Back', seed_flats_path %> |
+<%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => @seed_flat.id) %> |
+<%= link_to 'New Seed Flat', new_seed_flat_path %>
+

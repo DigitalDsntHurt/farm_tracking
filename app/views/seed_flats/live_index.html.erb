@@ -94,15 +94,7 @@
                 <%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => seed_flat.id), :class => "btn btn-outline-info sf-index-actions" %>  
               </td>
               <td>
-                <% if seed_flat.harvest_weight_oz == nil %>
-                  <%= link_to 'Kill', seed_flats_kill_path(:controller => "seed_flats", :action => "kill", :flat => seed_flat.id), :class => "btn btn-outline-info sf-index-actions" %>
-                <% else %>
-                  <p>
-                                
-                  </p>
-                <% end %>                
-              </td>
-              <td>
+                <button type="button" class="btn btn-outline-info sf-index-actions" data-toggle="modal" data-target="#confirm_kill">Kill</button>
                 
               </td>              
             </tr>
@@ -159,6 +151,33 @@
           </table>
         </td>
       </tr>
+
+      <!-- Modal -->
+<div class="modal fade" id="confirm_kill" tabindex="-1" role="dialog" aria-labelledby="Confirm Kill Flat" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm kill seed flat <%= seed_flat.flat_id %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to kill <%= seed_flat.flat_id %>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-info sf-index-actions" data-dismiss="modal">Close</button>
+        <% if seed_flat.harvest_weight_oz == nil %>
+                  <%= link_to 'Kill', seed_flats_kill_path(:controller => "seed_flats", :action => "kill", :flat => seed_flat.id), :class => "btn btn-outline-info sf-index-actions" %>
+                <% else %>
+                  <p>
+                                
+                  </p>
+                <% end %> 
+      </div>
+    </div>
+  </div>
+</div>
     <% end %>
   </tbody>
 </table>
