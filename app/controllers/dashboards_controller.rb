@@ -1,4 +1,6 @@
 class DashboardsController < ApplicationController
+  #skip_before_action :verfiy_ip_address, only: :index
+
   def calendar
   	
   	@seed_flats = SeedFlat.all

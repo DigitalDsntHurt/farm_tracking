@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class WhitelistTest < ActiveSupport::TestCase
+class IpTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
