@@ -1,0 +1,83 @@
+<h1></h1>
+<h2></h2>
+<h3></h3>
+<h4></h4>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col">
+			<strong>crop</strong>
+		</div>
+		<div class="col">
+			<strong>sample size</strong>
+		</div>
+		<div class="col">
+			<strong>avg days to full emergence</strong>
+		</div>
+		<div class="col">
+			<strong>avg days to first transplant</strong>
+		</div>
+		<div class="col">
+			<strong>avg dth</strong>
+		</div>
+	</div>
+	<% @harvested_flats.to_a.group_by{|flat| flat.crop }.each{|group| %>
+	<div class="row">
+		<div class="col">
+			<%= group[0] %>
+		</div>
+		<div class="col">
+			<%= group[1].count %> flats
+		</div>
+		<div class="col">
+			<%= group[1].to_a.map{|flat| (flat.full_emerge_date - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/group[1].to_a.count %> days
+		</div>
+		<div class="col">
+			<%= group[1].to_a.map{|flat| (flat.date_of_first_transplant - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/group[1].to_a.count %> days
+		</div>
+		<div class="col">
+			<%= group[1].to_a.map{|flat| (flat.harvested_on - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/group[1].to_a.count %> days
+		</div>
+	</div>
+	<% } %>
+</div>
+
+<br><hr><br>
+<table>
+	<th>
+		<td>
+			<strong>crop</strong>
+		</td>
+		<td>
+			<strong>sample size</strong>
+		</td>
+		<td>
+			<strong>avg days to full emergence</strong>
+		</td>
+		<td>
+			<strong>avg days to first transplant</strong>
+		</td>
+		<td>
+			<strong>avg dth</strong>
+		</td>
+	</th>
+	<% @harvested_flats.to_a.group_by{|flat| flat.crop }.each{|group| %>
+	<tr>
+		<td>
+			<%= group[0] %>
+		</td>
+		<td>
+			<%= group[1].count %> flats
+		</td>
+		<td>
+			<%= group[1].to_a.map{|flat| (flat.full_emerge_date - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/group[1].to_a.count %> days
+		</td>
+		<td>
+			<%= group[1].to_a.map{|flat| (flat.date_of_first_transplant - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/group[1].to_a.count %> days
+		</td>
+		<td>
+			<%= group[1].to_a.map{|flat| (flat.harvested_on - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/group[1].to_a.count %> days
+		</td>
+	</tr>
+	<% } %>
+</table>
