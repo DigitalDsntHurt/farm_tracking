@@ -1,10 +1,17 @@
 class SeedFlat < ApplicationRecord
-	before_create :calculate_harvest_week, :convert_oz_to_lbs
+	before_create :calculate_harvest_week, :convert_oz_to_lbs, :downcase
 	before_update :move_flat_id_to_former_flat_id_on_harvest_or_kill, :kill_flat_id_on_harvest, :update_harvest_date_on_harvest, :calculate_harvest_week, :convert_oz_to_lbs
 	#after_update :move_flat_id_to_harvest_notes_on_harvest
 	validates_uniqueness_of :flat_id
 
 	private
+
+	def downcase
+		self.crop = self.crop.downcase
+		self.crop_variety = self.crop_variety.downcase
+		self.seed_brand = self.seed_brand.downcase
+		self.seed_media_treatment_notes = self.seed_media_treatment_notes.downcase
+	end
 
 	def convert_oz_to_lbs
 		unless self.harvest_weight_oz == nil

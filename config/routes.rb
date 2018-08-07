@@ -8,6 +8,7 @@
 	get 'dashboards/back_of_envelope'
 	get 'dashboards/crop_menu'
 	get 'dashboards/scratch'
+	get 'dashboards/sew_tool'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
 	get 'seed_flats/harvested_killed' => 'seed_flats#harvested_killed'

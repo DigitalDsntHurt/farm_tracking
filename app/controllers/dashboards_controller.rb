@@ -62,4 +62,9 @@ class DashboardsController < ApplicationController
 
   def scratch
   end
+
+  def sew_tool
+    @harvested_flats = SeedFlat.where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil).order(:crop)
+  end
+
 end
