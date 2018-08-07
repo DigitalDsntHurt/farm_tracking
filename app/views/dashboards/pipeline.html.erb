@@ -34,6 +34,7 @@
 							next transplant: <%= tray.started_date+10 %>
 							<br/>
 			                <% if tray.first_emerge_date == nil %>
+			                  <%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
 			                  <%= link_to '1st Emerge', seed_flats_first_emerge_path(:controller => "seed_flats", :action => "first_emerge", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>  
 			                <% else %>
 			                <% end %>							
@@ -42,7 +43,6 @@
                 			<% else %>
 			                <% end %>
 							<%= link_to '1st Transplant', seed_flats_first_transplant_path(:controller => "seed_flats", :action => "first_transplant", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
-							
 			<% end %>
 						</p>
 					</div>
