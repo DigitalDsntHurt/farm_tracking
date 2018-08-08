@@ -18,16 +18,6 @@
 <% } %>
 
 <p style="margin-left:44px;"><strong>~~~ begin manual analysis___</strong></p>
-<p style="margin-left:44px;">
-	Pea Shoots have gone through more recent experimentation than the others.<br>
-	If we exclude flats of pea shoots where the harvest weight was under 1 oz, we get:<br>
-	<% @weights = [] %>
-	<% @harvested_flats.where(crop: "pea").pluck(:harvest_weight_oz).each{|pea_flat| %>
-		<% next if pea_flat < 1 %>
-		<% @weights << pea_flat %>
-	<% } %>
-	<%= @weights.inject{|weight, sum| weight + sum } / @weights.count %> oz
-</p>
 <p style="margin-left:44px;"><strong>___end manual analysis~~~</strong></p>
 <br>
 <h4>Avg Days To Harvest</h4>
