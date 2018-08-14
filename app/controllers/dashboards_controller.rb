@@ -54,6 +54,12 @@ class DashboardsController < ApplicationController
 
   def back_of_envelope
     @harvested_flats = SeedFlat.where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
+    @excluded_crops = ["corn","pea + sunflower","spicy mix"]
+    @crops = @harvested_flats.pluck(:crop).uniq
+    @excluded_crops.each{|junkcrop|
+      @crops.reject!{|crop| crop == junkcrop }
+    }
+    
   end
 
   def crop_menu
