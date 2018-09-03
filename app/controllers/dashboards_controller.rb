@@ -19,6 +19,26 @@ class DashboardsController < ApplicationController
 
   end
 
+  def sew_calendar
+    
+    @seed_flats = SeedFlat.all
+    @grouped_seed_flats = SeedFlat.all.group_by{ |flat| flat.started_date }
+    
+    @today = Date.today - 21
+    if @today.strftime("%a") == "Mon"
+      @start_date = @today
+    else
+        @start_date = @today
+        until @start_date.strftime("%a") == "Mon"
+          @start_date -= 1
+        end
+    end
+    @end_date = @start_date+60
+    @date_range = (@start_date..@end_date)
+    @weeks = @date_range.to_a.in_groups_of(7)
+
+  end  
+
   def pipeline
     @propagation_shelf = SeedFlat.where(:date_of_first_transplant => nil).where(:harvest_weight_oz => nil).order(started_date: :desc, updated_at: :desc)
     @sue_shelf = SeedFlat.where.not(:date_of_first_transplant => nil).where(:date_of_second_transplant => nil).where(:date_of_third_transplant => nil).where(:harvest_weight_oz => nil).order(started_date: :desc, updated_at: :desc)
