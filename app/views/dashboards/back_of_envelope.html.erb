@@ -5,42 +5,40 @@
 <br>
 
 <h2 align="center">Back of Envelope</h2><br>
-<h3 align="center">Live Calculations (March 3, 2018)</h3>
 
-<h4>Avg Harvest Weight Per Flat</h4>
-<p style="margin-left:11px;">Aggregate -- <%= @harvested_flats.count %> flats -- <%= @harvested_flats.average(:harvest_weight_oz) %> oz</p>
-<% crops = ["broccoli","kale","spicy mix","radish","pea"] %>
-<% crops = @harvested_flats.pluck(:crop).uniq %>
-
-<% crops.each{ |crop| %>
-	<% @crop_query = @harvested_flats.where(crop: crop) %>
-	<p style="margin-left:11px;"><%= crop %> -- <%= @crop_query.count %> flats -- <%= @crop_query.average(:harvest_weight_oz) %> oz</p>
-<% } %>
-
-<p style="margin-left:44px;"><strong>~~~ begin manual analysis___</strong></p>
-<p style="margin-left:44px;">
-	Pea Shoots have gone through more recent experimentation than the others.<br>
-	If we exclude flats of pea shoots where the harvest weight was under 1 oz, we get:<br>
-	<% @weights = [] %>
-	<% @harvested_flats.where(crop: "pea").pluck(:harvest_weight_oz).each{|pea_flat| %>
-		<% next if pea_flat < 1 %>
-		<% @weights << pea_flat %>
+<table>
+	<tr>
+		<th style="padding-right: 22px; padding-left: 22px;">
+			crop
+		</th>
+		<th style="padding-right: 22px; padding-left: 22px;">
+			sample size (# flats)
+		</th>
+		<th style="padding-right: 22px; padding-left: 22px;">
+			avg dth (days)
+		</th>
+		<th style="padding-right: 22px; padding-left: 22px;">
+			avg yield (oz)
+		</th>
+	</tr>
+	<% @crops.sort_by{|c| c }.each{|c| %>
+	<tr>
+		<% @crop_query = @harvested_flats.where(crop: c) %>
+		<td style="padding-right: 6px; padding-left: 6px;">
+			<%= c %>
+		</td>
+		<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+			<%= @crop_query.count %>
+		</td>
+		<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+			<%= @crop_query.to_a.map{|flat| (flat.harvested_on - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/@crop_query.count %>
+		</td>
+		<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+			<%= @crop_query.average(:harvest_weight_oz).round(2) %>
+		</td>
+	</tr>
 	<% } %>
-	<%= @weights.inject{|weight, sum| weight + sum } / @weights.count %> oz
-</p>
-<p style="margin-left:44px;"><strong>___end manual analysis~~~</strong></p>
-<br>
-<h4>Avg Days To Harvest</h4>
-<p>
-	Aggregate -- <%= @harvested_flats.count %> flats -- <%= @harvested_flats.to_a.map{|flat| (flat.harvested_on - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/@harvested_flats.count %> days
-</p>
-<p>
-	<% @harvested_flats.to_a.group_by{|flat| flat.crop }.each{|group| %>
-		<p>
-			<%= group[0] %> -- <%= group[1].count %> flats -- <%= group[1].to_a.map{|flat| (flat.harvested_on - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/group[1].to_a.count %> days
-		</p>
-	<% } %>
-</p>
+</table>
 
 <br><br>
 <h4>weekly totals</h4>

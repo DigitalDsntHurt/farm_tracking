@@ -4,7 +4,7 @@ class DashboardsController < ApplicationController
   	@seed_flats = SeedFlat.all
   	@grouped_seed_flats = SeedFlat.all.group_by{ |flat| flat.started_date }
     
-    @today = Date.today
+    @today = Date.today - 21
     if @today.strftime("%a") == "Mon"
       @start_date = @today
     else
@@ -13,7 +13,7 @@ class DashboardsController < ApplicationController
           @start_date -= 1
         end
     end
-    @end_date = @start_date+30
+    @end_date = @start_date+60
     @date_range = (@start_date..@end_date)
     @weeks = @date_range.to_a.in_groups_of(7)
 
@@ -54,6 +54,12 @@ class DashboardsController < ApplicationController
 
   def back_of_envelope
     @harvested_flats = SeedFlat.where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
+    @excluded_crops = ["corn","pea + sunflower","spicy mix"]
+    @crops = @harvested_flats.pluck(:crop).uniq
+    @excluded_crops.each{|junkcrop|
+      @crops.reject!{|crop| crop == junkcrop }
+    }
+    
   end
 
   def crop_menu
