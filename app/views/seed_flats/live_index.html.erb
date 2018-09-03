@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<div class="conrainer-fluid" style="padding-left:14px;">
+<div class="container-fluid" style="padding-left:14px;">
   <div class="row">
     <div class="col">
     </div>
@@ -93,7 +93,7 @@
                 <%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => seed_flat.id), :class => "btn btn-outline-info sf-index-actions" %>  
               </td>
               <td>
-                <button type="button" class="btn btn-outline-info sf-index-actions" data-toggle="modal" data-target="#confirm_kill">Kill</button>
+                <button type="button" class="btn btn-outline-info sf-index-actions" data-toggle="modal" data-target="#kill_<%= seed_flat.id %>">Kill</button>
                 
               </td>              
             </tr>
@@ -152,7 +152,7 @@
       </tr>
 
       <!-- Modal -->
-<div class="modal fade" id="confirm_kill" tabindex="-1" role="dialog" aria-labelledby="Confirm Kill Flat" aria-hidden="true">
+<div class="modal fade" id="kill_<%= seed_flat.id %>" tabindex="-1" role="dialog" aria-labelledby="Confirm Kill Flat" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -177,6 +177,10 @@
     </div>
   </div>
 </div>
+
+
+
+
     <% end %>
   </tbody>
 </table>
