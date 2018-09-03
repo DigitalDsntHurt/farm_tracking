@@ -63,6 +63,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :seed_treatments_id %>
+    <%= f.select :seed_treatments_id, SeedTreatment.all.collect{|treatment| ["#{treatment.seed_crop} - #{treatment.soak_start_datetime.strftime('%a, %e %b')}", treatment.id ] }, :include_blank => true %>
+  </div>
+
+  <div class="field">
     <%= f.label :first_emerge_date %>
     <%= f.date_select :first_emerge_date, include_blank: true  %>
   </div>

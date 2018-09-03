@@ -1,5 +1,6 @@
 	Rails.application.routes.draw do
 	  
+  	
 	get 'dashboards/calendar'
 	get 'dashboards/sew_calendar'
 	get 'dashboards/pipeline'
@@ -22,6 +23,8 @@
 	get 'seed_flats/kill' => 'seed_flats#kill'
 	resources :seed_flats
 
+	get 'seed_treatments/kill' => 'seed_treatments#kill'
+	resources :seed_treatments
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 	root 'dashboards#pipeline'
 	#root 'seed_flats#index'
