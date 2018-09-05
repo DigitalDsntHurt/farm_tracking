@@ -38,8 +38,10 @@
 
   <div class="field">
     <%= form.label :soak_solution %>
-    <%= form.text_field :soak_solution, id: :seed_treatment_soak_solution %>
+    <%= form.text_field :soak_solution, id: :seed_treatment_soak_solution, :value => "germ nutsol" %>
   </div>
+
+  <p>****** ****** ****** ****** ****** ******</p>
 
   <div class="field">
     <%= form.label :soak_duration_hrs %>
@@ -58,7 +60,7 @@
 
   <div class="field">
     <%= form.label :germination_start_date %>
-    <%= form.date_select :germination_start_date, id: :seed_treatment_germination_start_date %>
+    <%= form.date_select :germination_start_date, id: :seed_treatment_germination_start_date, :include_blank => true%>
   </div>
 
   <div class="field">
@@ -68,17 +70,17 @@
 
   <div class="field">
     <%= form.label :first_emerge_date %>
-    <%= form.date_select :first_emerge_date, id: :seed_treatment_first_emerge_date %>
+    <%= form.date_select :first_emerge_date, id: :seed_treatment_first_emerge_date, :include_blank => true %>
   </div>
 
   <div class="field">
     <%= form.label :full_emerge_date %>
-    <%= form.date_select :full_emerge_date, id: :seed_treatment_full_emerge_date %>
+    <%= form.date_select :full_emerge_date, id: :seed_treatment_full_emerge_date, :include_blank => true %>
   </div>
 
   <div class="field">
     <%= form.label :days_to_full_emergence %>
-    <br>** auto calc **
+    <%= form.text_field :days_to_full_emergence, id: :days_to_full_emergence %>
   </div>
 
   <div class="field">
@@ -87,29 +89,31 @@
   </div>
 
   <div class="field">
-    <%= form.label :killed_on %>
-    <%= form.date_select :killed_on, id: :seed_treatment_killed_on, :include_blank => true, :selected => nil %>
-  </div>
-
-  <div class="field">
-    <%= form.label :planned_date_of_first_flat_sew %>
-    <br>** auto calc **
-  </div>
-
-  <div class="field">
     <%= form.label :date_of_first_flat_sew %>
-    <%= form.date_select :date_of_first_flat_sew, id: :seed_treatment_date_of_first_flat_sew, :include_blank => true, :selected => nil %>
+    <%= form.date_select :date_of_first_flat_sew, id: :seed_treatment_date_of_first_flat_sew, :include_blank => true %>
   </div>
 
   <div class="field">
     <%= form.label :date_of_last_flat_sew %>
-    <%= form.date_select :date_of_last_flat_sew, id: :seed_treatment_date_of_last_flat_sew, :include_blank => true, :selected => nil %>
+    <%= form.date_select :date_of_last_flat_sew, id: :seed_treatment_date_of_last_flat_sew, :include_blank => true %>
   </div>
 
   <div class="field">
     <%= form.label :destination_flat_ids %>
     <%= form.text_area :destination_flat_ids, id: :seed_treatment_destination_flat_ids %>
   </div>
+  
+<p>****** ****** ****** ****** ****** ******</p>
+
+  <div class="field">
+    <%= form.label :killed_on %>
+    <%= form.date_select :killed_on, id: :seed_treatment_killed_on, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :finished? %>
+    <%= form.check_box :finished %>
+  </div>  
 
   <div class="actions">
     <%= form.submit %>

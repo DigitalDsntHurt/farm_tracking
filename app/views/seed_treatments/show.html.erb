@@ -100,5 +100,13 @@
   <%= @seed_treatment.destination_flat_ids %>
 </p>
 
-<%= link_to 'Edit', edit_seed_treatment_path(@seed_treatment) %> |
-<%= link_to 'Back', seed_treatments_path %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs" style="margin-right:6px;">
+      <%= link_to 'Edit', edit_seed_treatment_path(@seed_treatment), :class => "dropbtn btn btn-success" %>
+    </div>
+    <div class="col-xs" style="margin-right:6px;">
+      <%= link_to 'Seed Treatments', seed_treatments_path, :class => "dropbtn btn btn-success" %>
+    </div>
+  </div>
+</div>

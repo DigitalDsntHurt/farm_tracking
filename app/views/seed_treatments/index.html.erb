@@ -1,30 +1,25 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Seed Treatments</h1>
-
+<p><u><strong>Legend:</strong></u> soaking | <span style="background-color: yellow;">germinating</span> | <span style="background-color: green;">finished</span> | <span style="background-color: red;">killed</span> </p>
 <table>
   <thead>
     <tr>
-      <th>Soak start datetime</th>
-      <th>Seed crop</th>
-      <th>Seed variety</th>
-      <th>Seed brand</th>
-      <th>Seed quantity oz</th>
-      <th>Soak solution</th>
-      <th>Soak duration hrs</th>
-      <th>Post soak treatment</th>
-      <th>Soak notes</th>
-      <th>Germination start date</th>
-      <th>Germination vehicle</th>
-      <th>First emerge date</th>
-      <th>Full emerge date</th>
-      <th>Days to full emergence</th>
-      <th>Emergence notes</th>
-      <th>Killed on</th>
-      <th>Planned date of first flat sew</th>
+      <th>started</th>
+      <th>crop</th>
+      <th>seed qty oz</th>
+      <th>soak hrs</th>
+      <th>germ start date</th>
+      <th>germ vehicle</th>
+      <th>1st emerge</th>
+      <th>full emerge</th>
+      <th>days to full emerge</th>
+      <th>planned date of 1st flat sew</th>
       <th>Date of first flat sew</th>
       <th>Date of last flat sew</th>
+      <th># Flats Sewn</th>
       <th>Destination flat ids</th>
+      <th>Finished?</th>
       <th></th>
     </tr>
   </thead>
@@ -32,41 +27,57 @@
   <tbody>
     <% @seed_treatments.each do |seed_treatment| %>
       <% if seed_treatment.killed_on != nil %>
-        <tr bgcolor="red">
+        <tr bgcolor="red" class="border-bottom">
+      <% elsif seed_treatment.finished == true %>
+        <tr bgcolor="green" class="border-bottom">
+      <% elsif seed_treatment.germination_start_date != nil %>
+        <tr bgcolor="yellow" class="border-bottom">
       <% else %>
         <tr>
       <% end %>
         <td><%= seed_treatment.soak_start_datetime %></td>
         <td><%= seed_treatment.seed_crop %></td>
-        <td><%= seed_treatment.seed_variety %></td>
-        <td><%= seed_treatment.seed_brand %></td>
         <td><%= seed_treatment.seed_quantity_oz %></td>
-        <td><%= seed_treatment.soak_solution %></td>
-        <td><%= seed_treatment.soak_duration_hrs %></td>
-        <td><%= seed_treatment.post_soak_treatment %></td>
-        <td><%= seed_treatment.soak_notes %></td>
+        <td>
+          <% if seed_treatment.soak_duration_hrs == nil %>
+            <%= ((Time.now - seed_treatment.soak_start_datetime)/60/60).round(2) %>
+          <% else %>
+            <%= seed_treatment.soak_duration_hrs %>
+          <% end %>
+          
+        </td>
         <td><%= seed_treatment.germination_start_date %></td>
         <td><%= seed_treatment.germination_vehicle %></td>
         <td><%= seed_treatment.first_emerge_date %></td>
         <td><%= seed_treatment.full_emerge_date %></td>
         <td><%= seed_treatment.days_to_full_emergence %></td>
-        <td><%= seed_treatment.emergence_notes %></td>
-        <td><%= seed_treatment.killed_on %></td>
         <td><%= seed_treatment.planned_date_of_first_flat_sew %></td>
         <td><%= seed_treatment.date_of_first_flat_sew %></td>
         <td><%= seed_treatment.date_of_last_flat_sew %></td>
+        <td>
+          <% @num_flats_sewn = SeedFlat.where(seed_treatments_id: seed_treatment.id).count %>
+          <%= @num_flats_sewn %>
+        </td>
         <td><%= seed_treatment.destination_flat_ids %></td>
+        <td><%= seed_treatment.finished %></td>
         <td>
           <table class='seed-flats-index-actions'>
             <tr align="center">
+              
               <td>
-                <%= link_to 'Sew Flat', seed_treatment, :class => "btn btn-outline-info sf-index-actions" %>
+                <%= link_to 'End Soak', seed_treatments_end_soak_path(:controller => "seed_treatments", :action => "end_soak", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
               </td>
               <td>
-                <%= link_to 'Kill Seed Group', seed_treatments_kill_path(:controller => "seed_treatments", :action => "kill", :seed_group => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
+                <%= link_to 'First Emerge', seed_treatments_first_emerge_path(:controller => "seed_treatments", :action => "first_emerge", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
               </td>
               <td>
-                
+                <%= link_to 'Full Emerge', seed_treatments_full_emerge_path(:controller => "seed_treatments", :action => "full_emerge", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
+              </td>
+              <td>
+                <%= link_to 'Sew Flat', seed_flats_new_treated_seed_flat_path(:controller => "seed_flats", :action => "new_treated_seed_flat", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
+              </td>
+              <td>
+                <%= link_to 'Finish', seed_treatments_finish_path(:controller => "seed_flats", :action => "finish", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
               </td>
             </tr>
             <tr align="center">
@@ -77,8 +88,12 @@
                 <%= link_to 'Edit', edit_seed_treatment_path(seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>    
               </td>
               <td>
+                <%= link_to 'Kill Treatment', seed_treatments_kill_path(:controller => "seed_treatments", :action => "kill", :seed_group => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>            
+              </td>
+              <td>
                 <%= link_to 'Destroy', seed_treatment, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-outline-info sf-index-actions" %>    
               </td>
+              <td></td>
             </tr>
           </table>
         </td>

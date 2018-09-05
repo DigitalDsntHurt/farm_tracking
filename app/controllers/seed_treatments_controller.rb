@@ -51,6 +51,28 @@ class SeedTreatmentsController < ApplicationController
     end
   end
 
+  def end_soak
+    @seed_treatment = SeedTreatment.find(params[:seed_treatment])
+  end
+
+  def first_emerge
+    @seed_treatment = SeedTreatment.find(params[:seed_treatment])
+    @seed_treatment.update(:first_emerge_date => Date.today)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def full_emerge
+    @seed_treatment = SeedTreatment.find(params[:seed_treatment])
+    @seed_treatment.update(:full_emerge_date => Date.today)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def finish
+    @seed_treatment = SeedTreatment.find(params[:seed_treatment])
+    @seed_treatment.update(finished: true)
+    redirect_back(fallback_location: root_path)
+  end
+
   # DELETE /seed_treatments/1
   # DELETE /seed_treatments/1.json
   def destroy
@@ -75,6 +97,6 @@ class SeedTreatmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seed_treatment_params
-      params.require(:seed_treatment).permit(:soak_start_datetime, :seed_crop, :seed_variety, :seed_brand, :seed_quantity_oz, :soak_solution, :soak_duration_hrs, :post_soak_treatment, :soak_notes, :germination_start_date, :germination_vehicle, :first_emerge_date, :full_emerge_date, :days_to_full_emergence, :emergence_notes, :killed_on, :planned_date_of_first_flat_sew, :date_of_first_flat_sew, :date_of_last_flat_sew, :destination_flat_ids)
+      params.require(:seed_treatment).permit(:soak_start_datetime, :seed_crop, :seed_variety, :seed_brand, :seed_quantity_oz, :soak_solution, :soak_duration_hrs, :post_soak_treatment, :soak_notes, :germination_start_date, :germination_vehicle, :first_emerge_date, :full_emerge_date, :days_to_full_emergence, :emergence_notes, :killed_on, :planned_date_of_first_flat_sew, :date_of_first_flat_sew, :date_of_last_flat_sew, :destination_flat_ids, :finished)
     end
 end

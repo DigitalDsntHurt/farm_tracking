@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180903040729) do
+ActiveRecord::Schema.define(version: 20180904192400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20180903040729) do
     t.date "date_of_third_transplant"
     t.string "former_flat_id"
     t.bigint "seed_treatments_id"
+    t.integer "days_to_harvest_from_sew"
+    t.integer "days_to_harvest_from_soak"
     t.index ["seed_treatments_id"], name: "index_seed_flats_on_seed_treatments_id"
   end
 
@@ -69,6 +71,7 @@ ActiveRecord::Schema.define(version: 20180903040729) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "destination_flat_ids", default: [], array: true
+    t.boolean "finished"
   end
 
   add_foreign_key "seed_flats", "seed_treatments", column: "seed_treatments_id"

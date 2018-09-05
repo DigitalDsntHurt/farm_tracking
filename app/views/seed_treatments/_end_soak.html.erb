@@ -1,0 +1,49 @@
+<%= form_with(model: seed_treatment, local: true) do |form| %>
+  <% if seed_treatment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(seed_treatment.errors.count, "error") %> prohibited this seed_treatment from being saved:</h2>
+
+      <ul>
+      <% seed_treatment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% @hrs = ((Time.now - seed_treatment.soak_start_datetime)/60/60).round(2) %>
+
+  <h5>
+    <%= seed_treatment.seed_quantity_oz %> of <%= seed_treatment.seed_crop %>, <%= seed_treatment.seed_variety %> (<%= seed_treatment.seed_brand %>) 
+      <br>soaked in <%= seed_treatment.soak_solution %> for <%= @hrs %> hrs on <%= seed_treatment.soak_start_datetime.strftime("%A, %d %b %Y at %l:%M %p") %>
+  </h5><br><br>
+
+  <div class="field">
+    <%= form.label :soak_duration_hrs %>
+    <%= form.text_field :soak_duration_hrs, id: :seed_treatment_soak_duration_hrs, :value => @hrs %>
+  </div>
+
+  <div class="field">
+    <%= form.label :post_soak_treatment %>
+    <%= form.text_field :post_soak_treatment, id: :seed_treatment_post_soak_treatment, :value => "tap water rinse" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :germination_start_date %>
+    <%= form.date_select :germination_start_date, id: :seed_treatment_germination_start_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :germination_vehicle %>
+    <%= form.text_field :germination_vehicle, id: :seed_treatment_germination_vehicle, :value => "tupperware in dark" %>
+  </div> 
+
+  <div class="field">
+    <%= form.label :soak_notes %>
+    <%= form.text_area :soak_notes, id: :seed_treatment_soak_notes %>
+  </div>  
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
