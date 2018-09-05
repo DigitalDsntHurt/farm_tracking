@@ -114,6 +114,18 @@ class SeedFlatsController < ApplicationController
     redirect_to action: "index"
   end
 
+  def new_treated_seed_flat
+    @seed_treatment_id = params[:seed_treatment]
+    @seed_treatment_object = SeedTreatment.where(id: @seed_treatment_id)[0]
+    
+    @seed_flat = SeedFlat.new
+    @seed_flat.update(:crop => @seed_treatment_object.seed_crop, :crop_variety => @seed_treatment_object.seed_variety, :seed_brand => @seed_treatment_object.seed_brand, :seed_treatments_id => @seed_treatment_id, :first_emerge_date => @seed_treatment_object.first_emerge_date, :full_emerge_date => @seed_treatment_object.full_emerge_date, :seed_media_treatment_notes => @seed_treatment_object.soak_notes, :emergence_notes => @seed_treatment_object.emergence_notes )
+    
+    #@seed_treatment_object.update(:destination_flat_ids => @seed_flat.id)
+
+    #render new_seed_flat_path(@seed_flat)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_seed_flat
@@ -122,6 +134,6 @@ class SeedFlatsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seed_flat_params
-      params.require(:seed_flat).permit(:started_date, :flat_id, :crop, :crop_variety, :seed_brand, :medium, :format, :seed_weight, :seed_wt_units, :seed_media_treatment_notes, :first_emerge_date, :full_emerge_date, :emergence_notes, :date_of_first_transplant, :first_transplant_notes, :date_of_second_transplant, :second_transplant_notes, :date_of_third_transplant, :harvested_on, :harvest_weight_oz, :hrvst_wt_lbs, :harvest_week, :harvest_notes, :former_flat_id)
+      params.require(:seed_flat).permit(:started_date, :flat_id, :crop, :crop_variety, :seed_brand, :medium, :format, :seed_weight, :seed_wt_units, :seed_media_treatment_notes, :first_emerge_date, :full_emerge_date, :emergence_notes, :date_of_first_transplant, :first_transplant_notes, :date_of_second_transplant, :second_transplant_notes, :date_of_third_transplant, :harvested_on, :harvest_weight_oz, :hrvst_wt_lbs, :harvest_week, :harvest_notes, :former_flat_id, :seed_treatments_id)
     end
 end

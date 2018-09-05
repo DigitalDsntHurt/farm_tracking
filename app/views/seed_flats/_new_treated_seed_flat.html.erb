@@ -13,13 +13,23 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :started_date %>
-    <%= f.date_select :started_date %>
+    <%= f.label :flat_identifier %>
+    <%= f.text_field :flat_id %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :seed_weight %>
+    <%= f.text_field :seed_weight %>
   </div>
 
   <div class="field">
-    <%= f.label :flat_identifier %>
-    <%= f.text_field :flat_id %>
+    <%= f.label :seed_wt_units %>
+    <%= f.text_field :seed_wt_units, value: "oz" %>
+  </div>  
+<p>****** ****** ****** ****** ****** ******</p>  
+  <div class="field">
+    <%= f.label :started_date %>
+    <%= f.date_select :started_date %>
   </div>
 
   <div class="field">
@@ -48,16 +58,6 @@
   </div>
 
   <div class="field">
-    <%= f.label :seed_weight %>
-    <%= f.text_field :seed_weight %>
-  </div>
-
-  <div class="field">
-    <%= f.label :seed_wt_units %>
-    <%= f.text_field :seed_wt_units, value: "oz" %>
-  </div>
-
-  <div class="field">
     <%= f.label :seed_media_treatment_notes %>
     <%= f.text_field :seed_media_treatment_notes %>
   </div>
@@ -80,48 +80,6 @@
   <div class="field">
     <%= f.label :emergence_notes %>
     <%= f.text_field :emergence_notes %>
-  </div>
-
-  <div class="field">
-    <%= f.label :date_of_first_transplant %>
-    <%= f.date_select :date_of_first_transplant, include_blank: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :first_transplant_notes %>
-    <%= f.text_field :first_transplant_notes %>
-  </div>
-
-  <div class="field">
-    <%= f.label :date_of_second_transplant %>
-    <%= f.date_select :date_of_second_transplant, include_blank: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :second_transplant_notes %>
-    <%= f.text_field :second_transplant_notes %>
-  </div>
-
-  <div class="field">
-    <%= f.label :date_of_third_transplant %>
-    <%= f.date_select :date_of_third_transplant, include_blank: true %>
-  </div>  
-
-  <div class="field">
-    <%= f.label :harvested_on %>
-    <%= f.date_select :harvested_on, include_blank: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :harvest_weight_oz %>
-    <%= f.text_field :harvest_weight_oz %>
-  </div>
-  
-  </div>
-
-  <div class="field">
-    <%= f.label :harvest_notes %>
-    <%= f.text_field :harvest_notes %>
   </div>
 
   <div class="actions">

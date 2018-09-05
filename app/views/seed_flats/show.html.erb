@@ -52,6 +52,12 @@
 </p>
 
 <p>
+  <strong>Seed treatments id:</strong>
+  <% @seed_treatment = SeedTreatment.where(id: @seed_flat.seed_treatments_id) %>
+  <%= link_to("##{@seed_treatment[0].id} -- #{@seed_treatment[0].seed_crop} --  #{@seed_treatment[0].soak_start_datetime.strftime('%a, %e %b')}", @seed_treatment[0]) %>
+</p>
+
+<p>
   <strong>First emerge date:</strong>
   <%= @seed_flat.first_emerge_date %>
 </p>
@@ -122,6 +128,9 @@
     </div>
     <div class="col-xs" style="margin-right:6px;">
       <%= link_to 'New Seed Flat', new_seed_flat_path, :class => "dropbtn btn btn-success" %>
+    </div>
+    <div class="col-xs" style="margin-right:6px;">
+      <%= link_to 'Seed Treatments', seed_treatments_path, :class => "dropbtn btn btn-success" %>
     </div>
   </div>
 </div>

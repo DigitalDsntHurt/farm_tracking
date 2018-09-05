@@ -9,12 +9,18 @@
 			<br/>
 			    <%= link_to "Pipeline", "/dashboards/pipeline", :method => :get, :class=>"dropbtn btn btn-success" %>		
 			<br/><br/><br/>
+		</div>
+		<div class="col">
+			<br/>
+			<br/>
+			    <%= link_to "Treatments", seed_treatments_path, :class=>"dropbtn btn btn-success" %>		
+			<br/><br/><br/>
 		</div>		
 		<div class="col">
 			<br/>
 			<br/>
 			<div class="dropdown">
-			  <button class="dropbtn btn btn-success">Seed Flats</button>
+			  <button class="dropbtn btn btn-success">Flats</button>
 			  <div class="dropdown-content">
 			    <%= link_to "All", "/seed_flats", :method => :get %>
 			    <%= link_to "Live", "/seed_flats/live_index", :method => :get %>
@@ -42,9 +48,15 @@
 		<div class="col">
 			<br/>
 			<br/>
+			    <%= link_to 'New Seed Treatment', new_seed_treatment_path, :class => "btn btn-info" %>
+			<br/><br/><br/>
+		</div>			
+		<div class="col">
+			<br/>
+			<br/>
 			    <%= link_to 'New Seed Flat', new_seed_flat_path, :class => "btn btn-info" %>
 			<br/><br/><br/>
-		</div>	
+		</div>
 	</div>
 	
 </div>
