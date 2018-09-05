@@ -106,6 +106,9 @@
       <%= link_to 'Edit', edit_seed_treatment_path(@seed_treatment), :class => "dropbtn btn btn-success" %>
     </div>
     <div class="col-xs" style="margin-right:6px;">
+      <%= link_to 'Clone', seed_treatments_clone_path(:controller => "seed_treatments", :action => "clone", :seed_treatment => @seed_treatment.id), :class => "dropbtn btn btn-success" %>
+    </div>
+    <div class="col-xs" style="margin-right:6px;">
       <%= link_to 'Seed Treatments', seed_treatments_path, :class => "dropbtn btn btn-success" %>
     </div>
   </div>

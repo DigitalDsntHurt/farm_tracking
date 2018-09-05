@@ -25,6 +25,7 @@
 	resources :seed_flats
 
 	
+	get 'seed_treatments/clone' => 'seed_treatments#clone'
 	get 'seed_treatments/end_soak' => 'seed_treatments#end_soak'
 	get 'seed_treatments/first_emerge' => 'seed_treatments#first_emerge'
 	get 'seed_treatments/full_emerge' => 'seed_treatments#full_emerge'

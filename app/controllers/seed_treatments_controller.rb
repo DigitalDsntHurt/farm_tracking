@@ -51,6 +51,11 @@ class SeedTreatmentsController < ApplicationController
     end
   end
 
+  def clone
+    @seed_treatment = SeedTreatment.find(params[:seed_treatment]).dup
+    render new_seed_treatment_path(@seed_treatment)
+  end
+
   def end_soak
     @seed_treatment = SeedTreatment.find(params[:seed_treatment])
   end
