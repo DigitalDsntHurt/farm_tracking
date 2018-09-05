@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180904192400) do
+ActiveRecord::Schema.define(version: 20180905053403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20180904192400) do
     t.datetime "updated_at", null: false
     t.text "destination_flat_ids", default: [], array: true
     t.boolean "finished"
+    t.date "soak_start_date"
   end
 
   add_foreign_key "seed_flats", "seed_treatments", column: "seed_treatments_id"

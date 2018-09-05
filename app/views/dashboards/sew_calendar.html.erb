@@ -14,11 +14,23 @@
 				<% end %>
 					<% unless day == nil %>
 						
-						<% @flats_sewn = SeedFlat.where(started_date: day) %>
-						
+						<% @seeds_treated = SeedTreatment.where(soak_start_date: day) %>			
 						<p align="center">		
-							<strong><%= day.strftime("%A, %b %d") %></strong><br>
-							<%= @flats_sewn.count %> flats sewn
+							<strong><%= day.strftime("%A, %b %d") %></strong><br><hr>
+						</p>
+						<p align="center">	
+							<strong><%= @seeds_treated.count %> seed varieties soaked</strong>
+						</p>
+
+						<p>
+							<% @seeds_treated.each{|treatment| %>
+								<%= treatment.seed_quantity_oz %> oz <%= treatment.seed_crop %><br>
+							<% } %>
+						</p>
+
+						<% @flats_sewn = SeedFlat.where(started_date: day) %>
+						<p align="center">		
+							<strong><%= @flats_sewn.count %> flats sewn</strong>
 						</p>
 
 						<p>

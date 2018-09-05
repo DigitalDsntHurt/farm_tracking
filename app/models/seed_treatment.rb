@@ -2,7 +2,7 @@ class SeedTreatment < ApplicationRecord
 	has_many :seed_flats
 	
 	before_create :calculate_planned_date_of_first_flat_sew
-	before_save :calculate_days_to_full_emergence #, :downcase_all
+	before_save :calculate_days_to_full_emergence, :set_soak_start_date #, :downcase_all
 
 
 	private
@@ -26,6 +26,10 @@ class SeedTreatment < ApplicationRecord
 			@dtfe = (self.full_emerge_date - self.soak_start_datetime.to_date).to_i
 			self.days_to_full_emergence = @dtfe
 		end
+	end
+
+	def set_soak_start_date
+		self.soak_start_date = self.soak_start_datetime.to_date
 	end
 
 end
