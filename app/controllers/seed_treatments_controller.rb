@@ -4,7 +4,7 @@ class SeedTreatmentsController < ApplicationController
   # GET /seed_treatments
   # GET /seed_treatments.json
   def index
-    @seed_treatments = SeedTreatment.all.order(:soak_start_datetime)
+    @seed_treatments = SeedTreatment.all.order(soak_start_datetime: :desc)
   end
 
   # GET /seed_treatments/1

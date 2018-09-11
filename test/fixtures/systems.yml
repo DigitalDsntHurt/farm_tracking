@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  room: one
+  build_date: 2018-09-11
+  system_type: MyString
+  system_dimensions: MyString
+  levels: 1
+  lights: MyText
+  notes: MyText
+
+two:
+  room: two
+  build_date: 2018-09-11
+  system_type: MyString
+  system_dimensions: MyString
+  levels: 1
+  lights: MyText
+  notes: MyText

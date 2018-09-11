@@ -10,10 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180905053403) do
+ActiveRecord::Schema.define(version: 20180911153841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "seed_flat_updates", force: :cascade do |t|
+    t.bigint "seed_flat_id"
+    t.string "update_type"
+    t.datetime "update_datetime"
+    t.integer "origin_system_id"
+    t.integer "destination_system_id"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["destination_system_id"], name: "index_seed_flat_updates_on_destination_system_id"
+    t.index ["origin_system_id"], name: "index_seed_flat_updates_on_origin_system_id"
+    t.index ["seed_flat_id"], name: "index_seed_flat_updates_on_seed_flat_id"
+  end
 
   create_table "seed_flats", id: :serial, force: :cascade do |t|
     t.date "started_date"
@@ -75,5 +97,21 @@ ActiveRecord::Schema.define(version: 20180905053403) do
     t.date "soak_start_date"
   end
 
+  create_table "systems", force: :cascade do |t|
+    t.bigint "room_id"
+    t.date "build_date"
+    t.string "system_type"
+    t.string "system_dimensions"
+    t.integer "levels"
+    t.text "lights"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "system_name"
+    t.index ["room_id"], name: "index_systems_on_room_id"
+  end
+
+  add_foreign_key "seed_flat_updates", "seed_flats"
   add_foreign_key "seed_flats", "seed_treatments", column: "seed_treatments_id"
+  add_foreign_key "systems", "rooms"
 end
