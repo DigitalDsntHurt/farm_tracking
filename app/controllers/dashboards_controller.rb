@@ -87,6 +87,17 @@ class DashboardsController < ApplicationController
       @cilantro << [a,@avg]
     }
 
+    @data_table = GoogleVisualr::DataTable.new
+    # Add Column Headers
+    @data_table.new_column('number', 'Seed Weight' )
+    @data_table.new_column('number', 'Avg Yield')
+
+    # Add Rows and Values
+    @data_table.add_rows( @cilantro )
+
+    @option = { width: '100%', height: 1200, title: 'Cilantro yield per seed weight' }
+    @linechart = GoogleVisualr::Interactive::LineChart.new(@data_table, @option)
+    @columnchart = GoogleVisualr::Interactive::ColumnChart.new(@data_table, @option)
   end
 
   def crop_menu
