@@ -80,6 +80,13 @@ class DashboardsController < ApplicationController
       @crops.reject!{|crop| crop == junkcrop }
     }
     
+    ## avg yield per seed weight
+    @cilantro = []
+    SeedFlat.where(crop: "cilantro").group_by{ |flat| flat.seed_weight }.sort_by{ |a,b| a }.each{ |a,b|
+      @avg = b.map{|flat| flat.harvest_weight_oz}.reject{|val| val == nil}.inject{|sum,num| sum + num }.to_f / b.map{|flat| flat.harvest_weight_oz}.size
+      @cilantro << [a,@avg]
+    }
+
   end
 
   def crop_menu
