@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  seed_flat: one
+  update_type: MyString
+  update_datetime: 2018-09-11 00:36:44
+  origin_system_id: 1
+  destination_system_id: 1
+  notes: MyText
+
+two:
+  seed_flat: two
+  update_type: MyString
+  update_datetime: 2018-09-11 00:36:44
+  origin_system_id: 1
+  destination_system_id: 1
+  notes: MyText

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Room:</strong>
+  <%= link_to "#{@system.room.name} - #{@system.room.location} @ #{@system.room.address}", @system.room %>
+</p>
+
+<p>
+  <strong>Build date:</strong>
+  <%= @system.build_date %>
+</p>
+
+<p>
+  <strong>System type:</strong>
+  <%= @system.system_type %>
+</p>
+
+<p>
+  <strong>System dimensions:</strong>
+  <%= @system.system_dimensions %>
+</p>
+
+<p>
+  <strong>Levels:</strong>
+  <%= @system.levels %>
+</p>
+
+<p>
+  <strong>Lights:</strong>
+  <%= @system.lights %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @system.notes %>
+</p>
+
+<%= link_to 'Edit', edit_system_path(@system) %> |
+<%= link_to 'Back', systems_path %>

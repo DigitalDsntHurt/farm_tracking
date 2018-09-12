@@ -1,0 +1,57 @@
+<%= form_with(model: system, local: true) do |form| %>
+  <% if system.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(system.errors.count, "error") %> prohibited this system from being saved:</h2>
+
+      <ul>
+      <% system.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :system_name %>
+    <%= form.text_field :system_name, id: :system_system_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :room_id %>
+    <%= form.select :room_id, Room.all.collect{|room| ["#{room.name} - #{room.location}", room.id ] }, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :build_date %>
+    <%= form.date_select :build_date, id: :system_build_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :system_type %>
+    <%= form.text_field :system_type, id: :system_system_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :system_dimensions %>
+    <%= form.text_field :system_dimensions, id: :system_system_dimensions %>
+  </div>
+
+  <div class="field">
+    <%= form.label :levels %>
+    <%= form.number_field :levels, id: :system_levels %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lights %>
+    <%= form.text_area :lights, id: :system_lights %>
+  </div>
+
+  <div class="field">
+    <%= form.label :notes %>
+    <%= form.text_area :notes, id: :system_notes %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

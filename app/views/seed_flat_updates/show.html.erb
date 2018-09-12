@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Seed flat:</strong>
+  <%= @seed_flat_update.seed_flat %>
+</p>
+
+<p>
+  <strong>Update type:</strong>
+  <%= @seed_flat_update.update_type %>
+</p>
+
+<p>
+  <strong>Update datetime:</strong>
+  <%= @seed_flat_update.update_datetime %>
+</p>
+
+<p>
+  <strong>Origin system:</strong>
+  <%= @seed_flat_update.origin_system_id %>
+</p>
+
+<p>
+  <strong>Destination system:</strong>
+  <%= @seed_flat_update.destination_system_id %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @seed_flat_update.notes %>
+</p>
+
+<%= link_to 'Edit', edit_seed_flat_update_path(@seed_flat_update) %> |
+<%= link_to 'Back', seed_flat_updates_path %>

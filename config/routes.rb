@@ -1,6 +1,9 @@
 	Rails.application.routes.draw do
 	  
   	
+  resources :seed_flat_updates
+  resources :systems
+  resources :rooms
 	get 'dashboards/calendar'
 	get 'dashboards/sew_calendar'
 	get 'dashboards/pipeline'

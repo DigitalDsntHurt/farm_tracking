@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Systems</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>      
+      <th>Room</th>
+      <th>Build date</th>
+      <th>System type</th>
+      <th>System dimensions</th>
+      <th>Levels</th>
+      <th>Lights</th>
+      <th>Notes</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @systems.each do |system| %>
+      <tr>
+        <td><%= system.system_name %></td>
+        <td><%= system.room.name %> - <%= system.room.location %></td>
+        <td><%= system.build_date %></td>
+        <td><%= system.system_type %></td>
+        <td><%= system.system_dimensions %></td>
+        <td><%= system.levels %></td>
+        <td><%= system.lights %></td>
+        <td><%= system.notes %></td>
+        <td><%= link_to 'Show', system %></td>
+        <td><%= link_to 'Edit', edit_system_path(system) %></td>
+        <td><%= link_to 'Destroy', system, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New System', new_system_path %>
