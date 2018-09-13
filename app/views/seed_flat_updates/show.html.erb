@@ -2,7 +2,7 @@
 
 <p>
   <strong>Seed flat:</strong>
-  <%= @seed_flat_update.seed_flat %>
+  <%= link_to "#{SeedFlat.where(id: @seed_flat_update.seed_flat)[0].flat_id}, #{SeedFlat.where(id: @seed_flat_update.seed_flat)[0].crop} from #{SeedFlat.where(id: @seed_flat_update.seed_flat)[0].started_date}", SeedFlat.where(id: @seed_flat_update.seed_flat)[0]  %>
 </p>
 
 <p>
@@ -17,12 +17,12 @@
 
 <p>
   <strong>Origin system:</strong>
-  <%= @seed_flat_update.origin_system_id %>
+  <%= link_to "#{@seed_flat_update.origin_system_id} - #{System.where(id: @seed_flat_update.origin_system_id)[0].system_name}", System.where(id: @seed_flat_update.origin_system_id)[0]  %>
 </p>
 
 <p>
   <strong>Destination system:</strong>
-  <%= @seed_flat_update.destination_system_id %>
+  <%= link_to "#{@seed_flat_update.destination_system_id} - #{System.where(id: @seed_flat_update.destination_system_id)[0].system_name}", System.where(id: @seed_flat_update.destination_system_id)[0]  %>
 </p>
 
 <p>

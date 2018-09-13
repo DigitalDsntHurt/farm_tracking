@@ -28,12 +28,12 @@
 
   <div class="field">
     <%= form.label :origin_system_id %>
-    <%= form.number_field :origin_system_id, id: :seed_flat_update_origin_system_id %>
+    <%= form.select :origin_system_id, System.all.collect{|system| ["#{system.system_name}", system.id] } %>
   </div>
 
   <div class="field">
     <%= form.label :destination_system_id %>
-    <%= form.number_field :destination_system_id, id: :seed_flat_update_destination_system_id %>
+    <%= form.select :destination_system_id, System.all.collect{|system| ["#{system.system_name}", system.id] } %>
   </div>
 
   <div class="field">
