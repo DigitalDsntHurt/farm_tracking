@@ -17,7 +17,9 @@
 
 <p>
   <strong>Origin system:</strong>
-  <%= link_to "#{@seed_flat_update.origin_system_id} - #{System.where(id: @seed_flat_update.origin_system_id)[0].system_name}", System.where(id: @seed_flat_update.origin_system_id)[0]  %>
+  <% unless @seed_flat_update.origin_system_id == nil %>
+    <%= link_to "#{@seed_flat_update.origin_system_id} - #{System.where(id: @seed_flat_update.origin_system_id)[0].system_name}", System.where(id: @seed_flat_update.origin_system_id)[0]  %>
+  <% end %>
 </p>
 
 <p>

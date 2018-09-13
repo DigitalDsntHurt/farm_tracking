@@ -7,6 +7,19 @@
 </p>
 
 <p>
+  <strong>Room:</strong>
+  <% unless @seed_flat.room_id == nil %>
+    <%= link_to "#{Room.where(id: @seed_flat.room_id)[0].name} @ #{Room.where(id: @seed_flat.room_id)[0].location}", Room.where(id: @seed_flat.room_id)[0] %>
+    <% end %>
+</p>
+
+<p>
+  <strong>Current system:</strong>
+  <% @current_system_id = SeedFlatUpdate.where(seed_flat_id: @seed_flat.id).last.destination_system_id %>
+  <%= System.where(id: @current_system_id)[0].system_name %>
+</p>
+
+<p>
   <strong>Started date:</strong>
   <%= @seed_flat.started_date %>
 </p>
