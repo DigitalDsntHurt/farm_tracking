@@ -12,10 +12,12 @@
         <% } %>
       </div>
       <div class="col">
-        <h4 align="center"><%= second_room.name %></h4>
-        <% second_room.systems.each{|system| %>
-          <p><%= system.system_name %></p>
-        <% } %>
+        <% unless second_room == nil %>
+          <h4 align="center"><%= second_room.name %></h4>
+          <% second_room.systems.each{|system| %>
+            <p><%= system.system_name %></p>
+          <% } %>
+        <% end %>
       </div>
     </div>
   <% } %>

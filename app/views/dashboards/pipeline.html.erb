@@ -148,7 +148,7 @@
 
 <br><br>
 <h3>Live Storage</h3>
-	<% @live_storage_shelf.to_a.reject{|tray| tray.harvest_notes.include?("DONE") }.in_groups_of(4).each{ |shelf| %>
+	<% @live_storage_shelf.to_a.in_groups_of(4).each{ |shelf| %>
 		<div class="row" align="center">
 			<% shelf.each{ |tray| %>
 				<% if tray == nil %>

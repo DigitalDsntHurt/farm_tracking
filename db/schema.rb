@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180911153841) do
+ActiveRecord::Schema.define(version: 20180913071147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(version: 20180911153841) do
     t.bigint "seed_treatments_id"
     t.integer "days_to_harvest_from_sew"
     t.integer "days_to_harvest_from_soak"
+    t.bigint "room_id"
+    t.index ["room_id"], name: "index_seed_flats_on_room_id"
     t.index ["seed_treatments_id"], name: "index_seed_flats_on_seed_treatments_id"
   end
 
@@ -112,6 +114,7 @@ ActiveRecord::Schema.define(version: 20180911153841) do
   end
 
   add_foreign_key "seed_flat_updates", "seed_flats"
+  add_foreign_key "seed_flats", "rooms"
   add_foreign_key "seed_flats", "seed_treatments", column: "seed_treatments_id"
   add_foreign_key "systems", "rooms"
 end

@@ -46,6 +46,10 @@ class DashboardsController < ApplicationController
     @live_storage_shelf = SeedFlat.where.not(:date_of_first_transplant => nil).where.not(:date_of_second_transplant => nil).where.not(:date_of_third_transplant => nil).where(:harvest_weight_oz => nil).order(started_date: :desc, updated_at: :desc)
   end
 
+  def pipeline_draft
+
+  end
+
   def calculator
   end
 
