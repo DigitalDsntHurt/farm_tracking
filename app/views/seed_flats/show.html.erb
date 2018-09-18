@@ -6,6 +6,12 @@
   <%= @seed_flat.flat_id %>
 </p>
 
+
+
+
+
+<% if false %>
+
 <p>
   <strong>Room:</strong>
   <% unless @seed_flat.room_id == nil %>
@@ -18,6 +24,11 @@
   <% @current_system_id = SeedFlatUpdate.where(seed_flat_id: @seed_flat.id).last.destination_system_id %>
   <%= System.where(id: @current_system_id)[0].system_name %>
 </p>
+
+<% end %>
+
+
+
 
 <p>
   <strong>Started date:</strong>

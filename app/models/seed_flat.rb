@@ -10,8 +10,8 @@ class SeedFlat < ApplicationRecord
 	private
 
 	def create_seed_flat_update
-		@propagation_rack = Room.where(id: self.room_id)[0].systems.where(system_name: "propagation")[0].id
-		SeedFlatUpdate.create(seed_flat_id: self.id, update_type: "sew", update_datetime: Time.now, destination_system_id: @propagation_rack)
+		#@propagation_rack = Room.where(id: self.room_id)[0].systems.where(system_name: "propagation")[0].id
+		#SeedFlatUpdate.create(seed_flat_id: self.id, update_type: "sew", update_datetime: Time.now, destination_system_id: @propagation_rack)
 	end
 
 	def convert_oz_to_lbs
