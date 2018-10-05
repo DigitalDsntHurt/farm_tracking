@@ -19,7 +19,7 @@
 						<% shelf.each{ |tray| %>
 							<div class="col-sm-2" align="center" style="padding:0px;">
 								<div class="card">
-									<% unless tray == nil %>
+									<% unless tray == nil or tray.harvested_on != nil %>
 										<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
 										<p class="card-text">
 											<%= (Date.today-tray.started_date).to_i %>-day <strong><%= tray.crop_variety %> <%= tray.crop %></strong><br/>
