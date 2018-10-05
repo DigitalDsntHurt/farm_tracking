@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 	get 'dashboards/calendar'
 	get 'dashboards/sew_calendar'
 	get 'dashboards/pipeline'
-	get 'dashboards/pipeline_draft'
+	get 'dashboards/old_pipeline'
 	get 'dashboards/calculator'
 	get 'dashboards/calculate'
 	get 'dashboards/cutsheet'
