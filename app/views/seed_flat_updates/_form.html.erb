@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :update_type %>
-    <%= form.select :update_type, options_for_select(["transplant","sew","other"])  %>
+    <%= form.select :update_type, options_for_select(["transplant","other"])  %>
   </div>
 
   <div class="field">
@@ -33,7 +33,7 @@
 
   <div class="field">
     <%= form.label :destination_system_id %>
-    <%= form.select :destination_system_id, System.all.collect{|system| ["#{system.system_name} @ #{system.room.name}", system.id] } %>
+    <%= form.select :destination_system_id, System.all.collect{|system| ["#{system.system_name} @ #{system.room.name}", system.id] }, :include_blank => true %>
   </div>
 
   <div class="field">
