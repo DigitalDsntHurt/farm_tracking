@@ -1,206 +1,52 @@
-<br><br>
-<div class="container-fluid" style="margin-left: 22px;">
-<h3>Propagation</h3>
-<% @propagation_shelf.to_a.in_groups_of(4).each{ |shelf| %>
-	<div class="row ">
-		<% shelf.each{ |tray| %>
-			<% if tray == nil %>
-				<div class="col-sm-2" align="center" style="padding:0px;">
-					<div class="card">
-						<p class="card-text">
-
-			<% elsif (Date.today - tray.started_date).to_i > 14 %>
-				<div class="col-sm-2" align="center" style="padding:0px;">
-					<div class="card">
-						<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
-						<p class="card-text" style="background-color: green;">
-
-			<% else %>
-				<div class="col-sm-2" align="center" style="padding:0px;">
-					<div class="card">
-						<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
-						<p class="card-text">
-			<% end %>
-			<% unless tray == nil %>
-							<% if tray.crop == "spicy mix" %>
-								<%= tray.crop %><br/>
-								<%= tray.crop_variety %><br/>
-							<% else %>
-								<%= tray.crop_variety %> <%= tray.crop %><br/>
-							<% end %>
-							<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
-							<%= tray.seed_media_treatment_notes %><br/>
-							<%= tray.emergence_notes %><br/>
-							next transplant: <%= tray.started_date+10 %>
-							<br/>
-			                <% if tray.first_emerge_date == nil %>
-			                  <%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
-			                  <%= link_to '1st Emerge', seed_flats_first_emerge_path(:controller => "seed_flats", :action => "first_emerge", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>  
-			                <% else %>
-			                <% end %>							
-							<% if tray.full_emerge_date == nil %>
-                  				<%= link_to 'Full Emerge', seed_flats_full_emerge_path(:controller => "seed_flats", :action => "full_emerge", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
-                			<% else %>
-			                <% end %>
-							<%= link_to '1st Transplant', seed_flats_first_transplant_path(:controller => "seed_flats", :action => "first_transplant", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
-			<% end %>
-						</p>
-					</div>
-				</div>	
-
+<div style="padding-left: 22px;">
+	<h2>Jump To...</h2>
+	<p>
+		<% Room.all.each{|room| %>
+			* <%= link_to "#{room.name}", "/dashboards/pipeline_draft/##{room.name.gsub(" ","-")}" %>
+			<br>
 		<% } %>
-	</div>
-<% } %>
+	</p>
+	<br><br><br><hr><br><br><br>
 
-<br><br>
-<h3>Sue + David</h3>
-<% @sue_shelf.to_a.in_groups_of(4).each{ |shelf| %>
-	<div class="row" align="center">
-		<% shelf.each{ |tray| %>
-			<% if tray == nil %>
-				<div class="col-sm-2" align="center" style="padding:0px;">
+	<% Room.all.each{|room| %>
+		<div id=<%= room.name.gsub(" ","-") %>>
+			<h2 align="center"><%= room.name %></h2>
+			<% room.systems.each{|system| %>
+				<h3 align="center"><strong><u><%= system.system_name %></u></strong></h3>
+				<% @system_flats = SeedFlat.where(current_system_id: system.id) %>
+				<% @system_flats.to_a.in_groups_of(4).each{ |shelf| %>
+					<div class="row" style="margin-left:20%;">
+						<% shelf.each{ |tray| %>
+							<div class="col-sm-2" align="center" style="padding:0px;">
+								<div class="card">
+									<% unless tray == nil %>
+										<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
+										<p class="card-text">
+											<%= (Date.today-tray.started_date).to_i %>-day <strong><%= tray.crop_variety %> <%= tray.crop %></strong><br/>
+											<%= tray.seed_weight %> oz seed sewn on <%= tray.started_date %><br/>
 
-			<% elsif (Date.today - tray.started_date).to_i > 14 %>
-				<div class="col-sm-2" align="center" style="padding:0px;">
-					<div class="card">
-						<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
-						<p class="card-text" style="background-color: green;">
-			<% else %>
-				<div class="col-sm-2" align="center" style="padding:0px;">
-					<div class="card">
-						<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
-						<p class="card-text">
-			<% end %>
-			<% unless tray == nil %>
-							<% if tray.crop == "spicy mix" %>
-								<%= tray.crop %><br/>
-								<%= tray.crop_variety %><br/>
-							<% else %>
-								<%= tray.crop_variety %> <%= tray.crop %><br/>
-							<% end %>
-							<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
-							<%= tray.first_transplant_notes %><br/>
-							next transplant: <%= tray.started_date+10 %>
-							<br/>
-						<%= link_to '2nd Transplant', seed_flats_second_transplant_path(:controller => "seed_flats", :action => "second_transplant", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
-						</p>
-
-			<% end %>
+											<% if tray.first_emerge_date == nil %>
+							                	<%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to '1st Emerge', seed_flats_first_emerge_path(:controller => "seed_flats", :action => "first_emerge", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>  
+							                <% elsif tray.full_emerge_date == nil%>
+							                	<%= link_to 'Full Emerge', seed_flats_full_emerge_path(:controller => "seed_flats", :action => "full_emerge", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                <% elsif @propagation_system_ids.include?(tray.current_system_id) %>
+							                	<%= link_to 'transplant', seed_flat_updates_transplant_path(:controller => "seed_flat_updates", :action => "transplant", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                <% else %>
+							                	<%= link_to 'transplant', seed_flat_updates_transplant_path(:controller => "seed_flat_updates", :action => "transplant", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                <% end %>
+										</p>
+									<% end %>
+								</div>
+							</div>
+						<% } %>
 					</div>
-				</div>
+				<% } %>
 			<% } %>
-	</div>
-<% } %>
-
-<br><br>
-<h3>Dumbo</h3>
-	<% @david_shelf.to_a.in_groups_of(4).each{ |shelf| %>
-		<div class="row" align="center">
-			<% shelf.each{ |tray| %>
-				<% if tray == nil %>
-					<div class="col-sm-2" align="center" style="padding:0px;">
-						
-					</div>
-				<% elsif (Date.today - tray.started_date).to_i > 14 %>
-					<div class="col-sm-2" align="center" style="padding:0px;">
-						<div class="card">
-							<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
-							<p class="card-text" style="background-color: green;">
-								<% if tray.crop == "spicy mix" %>
-									<%= tray.crop %><br/>
-									<%= tray.crop_variety %><br/>
-								<% else %>
-									<%= tray.crop_variety %> <%= tray.crop %><br/>
-								<% end %>
-								<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
-								<%= tray.second_transplant_notes %><br/>
-								next transplant: <%= tray.started_date+10 %>
-								<br/>
-								<%= link_to '3rd Transplant', seed_flats_third_transplant_path(:controller => "seed_flats", :action => "third_transplant", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
-								<%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
-							</p>
-						</div>
-					</div>
-				<% else %>	
-					<div class="col-sm-2" align="center" style="padding:0px;">
-						<div class="card">
-							<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
-							<p class="card-text">
-								<% if tray.crop == "spicy mix" %>
-									<%= tray.crop %><br/>
-									<%= tray.crop_variety %><br/>
-								<% else %>
-									<%= tray.crop_variety %> <%= tray.crop %><br/>
-								<% end %>
-								<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
-								<%= tray.second_transplant_notes %><br/>
-								next transplant: <%= tray.started_date+10 %>
-								<br/>
-								<%= link_to '3rd Transplant', seed_flats_third_transplant_path(:controller => "seed_flats", :action => "third_transplant", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
-								<%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
-							</p>
-						</div>
-					</div>				
-				<% end %>	
-			<% } %>
+			
+			<br><br>
+			<hr>
 		</div>
 	<% } %>
-
-<br><br>
-<h3>Live Storage</h3>
-	<% @live_storage_shelf.to_a.in_groups_of(4).each{ |shelf| %>
-		<div class="row" align="center">
-			<% shelf.each{ |tray| %>
-				<% if tray == nil %>
-					<div class="col-sm-2" align="center" style="padding:0px;">
-						
-					</div>
-				<% elsif (Date.today - tray.started_date).to_i > 14 %>
-					<div class="col-sm-2" align="center" style="padding:0px;">
-						<div class="card">
-							<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
-							<p class="card-text" style="background-color: green;">
-								<% if tray.crop == "spicy mix" %>
-									<%= tray.crop %><br/>
-									<%= tray.crop_variety %><br/>
-								<% else %>
-									<%= tray.crop_variety %> <%= tray.crop %><br/>
-								<% end %>
-								<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
-								<%= tray.harvest_notes %> <br/>
-								next transplant: <%= tray.started_date+10 %>
-								<br/>
-								<%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
-							</p>
-						</div>
-					</div>
-				<% else %>	
-					<div class="col-sm-2" align="center" style="padding:0px;">
-						<div class="card">
-							<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
-							<p class="card-text">
-								<% if tray.crop == "spicy mix" %>
-									<%= tray.crop %><br/>
-									<%= tray.crop_variety %><br/>
-								<% else %>
-									<%= tray.crop_variety %> <%= tray.crop %><br/>
-								<% end %>
-								<%= (Date.today-tray.started_date).to_i %>-day (<%= tray.started_date %>)<br/>
-								<%= tray.harvest_notes %> <br/>
-								next transplant: <%= tray.started_date+10 %>
-								<br/>
-								<%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
-							</p>
-						</div>
-					</div>
-				<% end %>	
-			<% } %>
-		</div>
-	<% } %>
-
-
-<br><br><br><br><br><br>
-<hr><hr>
-<br><br><br><br><br><br>
-
 </div>

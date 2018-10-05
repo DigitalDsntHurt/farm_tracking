@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :seed_flat_id %>
-    <%= form.select :seed_flat_id, SeedFlat.all.order(started_date: :desc).collect{|flat| ["#{flat.flat_id} - #{flat.crop} from #{flat.started_date}", flat.id ] }, :include_blank => true %>
+    <%= form.select :seed_flat_id, SeedFlat.all.order(started_date: :desc).collect{|flat| ["#{flat.flat_id} - #{flat.crop} from #{flat.started_date}", flat.id ] }, :selected => params[:flat] %>
   </div>
 
   <div class="field">
@@ -28,12 +28,12 @@
 
   <div class="field">
     <%= form.label :origin_system_id %>
-    <%= form.select :origin_system_id, System.all.collect{|system| ["#{system.system_name} @ #{system.room.name}", system.id] } %>
+    <%= form.select :origin_system_id, System.all.collect{|system| ["#{system.system_name} @ #{system.room.name}", system.id] }, :selected => @seed_flat.current_system_id %>
   </div>
 
   <div class="field">
     <%= form.label :destination_system_id %>
-    <%= form.select :destination_system_id, System.all.collect{|system| ["#{system.system_name} @ #{system.room.name}", system.id] }, :include_blank => true %>
+    <%= form.select :destination_system_id, System.where(room_id: @seed_flat.room_id).collect{|system| ["#{system.system_name} @ #{system.room.name}", system.id] }, :include_blank => true %>
   </div>
 
   <div class="field">

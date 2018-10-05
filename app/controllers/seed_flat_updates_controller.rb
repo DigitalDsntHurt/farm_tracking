@@ -37,6 +37,11 @@ class SeedFlatUpdatesController < ApplicationController
     end
   end
 
+  def transplant
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+  end
+
   # PATCH/PUT /seed_flat_updates/1
   # PATCH/PUT /seed_flat_updates/1.json
   def update

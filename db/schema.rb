@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180913071147) do
+ActiveRecord::Schema.define(version: 20181005191911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 20180913071147) do
     t.integer "days_to_harvest_from_sew"
     t.integer "days_to_harvest_from_soak"
     t.bigint "room_id"
+    t.integer "current_system_id"
+    t.index ["current_system_id"], name: "index_seed_flats_on_current_system_id"
     t.index ["room_id"], name: "index_seed_flats_on_room_id"
     t.index ["seed_treatments_id"], name: "index_seed_flats_on_seed_treatments_id"
   end

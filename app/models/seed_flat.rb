@@ -1,13 +1,23 @@
 class SeedFlat < ApplicationRecord
 	has_many :seed_flat_updates
+	has_one :system, foreign_key: 'current_system_id'
 
-	before_create :calculate_harvest_week, :convert_oz_to_lbs
+	before_create :set_current_system_id, :upcase_flat_id, :calculate_harvest_week, :convert_oz_to_lbs
 	after_create :set_date_of_first_flat_sew_on_seed_treatment, :set_date_of_last_flat_sew_on_seed_treatment, :set_destination_flat_ids_on_seed_treatment, :create_seed_flat_update
 	before_update :move_flat_id_to_former_flat_id_on_harvest_or_kill, :kill_flat_id_on_harvest, :update_harvest_date_on_harvest, :calculate_harvest_week, :convert_oz_to_lbs
 	#after_update :move_flat_id_to_harvest_notes_on_harvest
 	validates_uniqueness_of :flat_id
 
 	private
+
+	def set_current_system_id
+		current_system = Room.where(id: self.room_id)[0].systems.where(system_name: "propagation")
+		self.current_system_id = current_system[0].id
+	end
+
+	def upcase_flat_id
+		self.flat_id = self.flat_id.upcase
+	end
 
 	def create_seed_flat_update
 		#@propagation_rack = Room.where(id: self.room_id)[0].systems.where(system_name: "propagation")[0].id
