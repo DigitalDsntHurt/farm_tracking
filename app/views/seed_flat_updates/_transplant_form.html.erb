@@ -1,0 +1,47 @@
+<%= form_with(model: seed_flat_update, local: true) do |form| %>
+  <% if seed_flat_update.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(seed_flat_update.errors.count, "error") %> prohibited this seed_flat_update from being saved:</h2>
+
+      <ul>
+      <% seed_flat_update.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :seed_flat_id %>
+    <%= form.select :seed_flat_id, SeedFlat.all.order(started_date: :desc).collect{|flat| ["#{flat.flat_id} - #{flat.crop} from #{flat.started_date}", flat.id ] }, :selected => params[:flat] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :update_type %>
+    <%= form.select :update_type, options_for_select(["transplant","other"])  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :update_datetime %>
+    <%= form.datetime_select :update_datetime, id: :seed_flat_update_update_datetime %>
+  </div>
+
+  <div class="field">
+    <%= form.label :origin_system_id %>
+    <%= form.select :origin_system_id, System.all.collect{|system| ["#{system.system_name} @ #{system.room.name}", system.id] }, :selected => @seed_flat.current_system_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :destination_system_id %>
+    <%= form.select :destination_system_id, System.where(room_id: @seed_flat.room_id).collect{|system| ["#{system.system_name} @ #{system.room.name}", system.id] }, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :notes %>
+    <%= form.text_area :notes, id: :seed_flat_update_notes %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

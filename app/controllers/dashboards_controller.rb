@@ -47,7 +47,7 @@ class DashboardsController < ApplicationController
   end
 
   def pipeline_draft
-
+    @propagation_system_ids = System.all.where(system_name: "propagation").to_a.map{|s| s.id}
   end
 
   def calculator

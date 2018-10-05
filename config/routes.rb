@@ -1,9 +1,8 @@
-	Rails.application.routes.draw do
-	  
-  	
-  resources :seed_flat_updates
-  resources :systems
-  resources :rooms
+Rails.application.routes.draw do
+  
+  	resources :rooms
+  	resources :systems
+
 	get 'dashboards/calendar'
 	get 'dashboards/sew_calendar'
 	get 'dashboards/pipeline'
@@ -28,6 +27,8 @@
 	get 'seed_flats/new_treated_seed_flat' => 'seed_flats#new_treated_seed_flat'
 	resources :seed_flats
 
+	get 'seed_flat_updates/transplant' => 'seed_flat_updates#transplant'
+	resources :seed_flat_updates
 	
 	get 'seed_treatments/clone' => 'seed_treatments#clone'
 	get 'seed_treatments/end_soak' => 'seed_treatments#end_soak'
@@ -36,8 +37,7 @@
 	get 'seed_treatments/finish' => 'seed_treatments#finish'
 	get 'seed_treatments/kill' => 'seed_treatments#kill'
 	resources :seed_treatments
+	
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 	root 'dashboards#pipeline'
-	#root 'seed_flats#index'
-	#get 'duplicate_seed_flat' => 'seed_flats#new'
-	end
+end
