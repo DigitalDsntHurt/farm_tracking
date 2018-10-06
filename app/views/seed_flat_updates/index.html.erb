@@ -18,7 +18,7 @@
   <tbody>
     <% @seed_flat_updates.each do |seed_flat_update| %>
       <tr>
-        <td><%= link_to "#{seed_flat_update.seed_flat.flat_id}: #{seed_flat_update.seed_flat.seed_weight}oz #{seed_flat_update.seed_flat.crop}", seed_flat_update.seed_flat %></td>
+        <td><%= link_to "#{seed_flat_update.seed_flat.flat_id}: #{seed_flat_update.seed_flat.seed_weight_oz}oz #{seed_flat_update.seed_flat.crop}", seed_flat_update.seed_flat %></td>
         <td><%= seed_flat_update.update_type %></td>
         <td><%= seed_flat_update.update_datetime %></td>
         <td><%= seed_flat_update.origin_system_id %></td>
