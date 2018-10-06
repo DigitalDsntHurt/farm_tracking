@@ -1,160 +1,204 @@
-<br/><br/>
-<p id="notice"><%= notice %></p>
+<div style="padding-left: 44px;">
+  <br/><br/>
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Flat ID:</strong>
-  <%= @seed_flat.flat_id %>
-</p>
-
-
-
-
-
-<% if false %>
-
-<p>
-  <strong>Room:</strong>
-  <% unless @seed_flat.room_id == nil %>
-    <%= link_to "#{Room.where(id: @seed_flat.room_id)[0].name} @ #{Room.where(id: @seed_flat.room_id)[0].location}", Room.where(id: @seed_flat.room_id)[0] %>
+  <h2>
+    <% if @seed_flat.flat_id == nil or @seed_flat.flat_id.length == 0 %>
+      <%= @seed_flat.former_flat_id %>
+    <% else %>
+      <%= @seed_flat.flat_id %>
     <% end %>
-</p>
+  </h2>
+  <h3>  
+    <%= @seed_flat.seed_weight_oz %> oz <%= @seed_flat.crop_variety %> <%= @seed_flat.crop %>
+    <% if @seed_flat.seed_treatments_id != nil %>
+      <% @treatment = SeedTreatment.where(id: @seed_flat.seed_treatments_id)[0] %>
+      ( soaked in <%= @treatment.soak_solution %> for <%= @treatment.soak_duration_hrs %> hours before germinating in <%= @treatment.germination_vehicle %> for <%= (@treatment.date_of_first_flat_sew - @treatment.soak_start_datetime.to_date).to_i %> days )
+    <% end %>
+  </h3>
+  <ul>
+    <li>
+      <h3>sewn on <%= @seed_flat.started_date %></h3>
+    </li>
 
-<p>
-  <strong>Current system:</strong>
-  <% @current_system_id = SeedFlatUpdate.where(seed_flat_id: @seed_flat.id).last.destination_system_id %>
-  <%= System.where(id: @current_system_id)[0].system_name %>
-</p>
+    <% if @seed_flat.seed_flat_updates.count != 0 %>
+      <% @seed_flat.seed_flat_updates.each{|update| %>
+      <li>
+        <h3><%= update.update_type %>ed from <%= System.where(id: update.origin_system_id)[0].system_name.upcase %> to <%= System.where(id: update.destination_system_id)[0].system_name.upcase %> on <%= update.update_datetime.to_date %></h3>
+      </li>
+      <% } %>
+    <% end %>
 
-<% end %>
+    <% if @seed_flat.harvest_weight_oz != nil %>
+      <li>
+        <h3>harvested for <%= @seed_flat.harvest_weight_oz %> oz on <%= @seed_flat.harvested_on %></h3>
+      </li>
+    <% end %>
+  </ul>
 
 
+  <% if false %>
 
+  <p>
+    <strong>Room:</strong>
+    <% unless @seed_flat.room_id == nil %>
+      <%= link_to "#{Room.where(id: @seed_flat.room_id)[0].name} @ #{Room.where(id: @seed_flat.room_id)[0].location}", Room.where(id: @seed_flat.room_id)[0] %>
+    <% end %>
+  </p>
 
-<p>
-  <strong>Started date:</strong>
-  <%= @seed_flat.started_date %>
-</p>
+  <p>
+    <strong>Current system:</strong>
+    <% @current_system_id = SeedFlatUpdate.where(seed_flat_id: @seed_flat.id).last.destination_system_id %>
+    <%= System.where(id: @current_system_id)[0].system_name %>
+  </p>
 
-<p>
-  <strong>Crop:</strong>
-  <%= @seed_flat.crop %>
-</p>
-
-<p>
-  <strong>Crop variety:</strong>
-  <%= @seed_flat.crop_variety %>
-</p>
-
-<p>
-  <strong>Seed brand:</strong>
-  <%= @seed_flat.seed_brand %>
-</p>
-
-<p>
-  <strong>Medium:</strong>
-  <%= @seed_flat.medium %>
-</p>
-
-<p>
-  <strong>Format:</strong>
-  <%= @seed_flat.format %>
-</p>
-
-<p>
-  <strong>Seed weight:</strong>
-  <%= @seed_flat.seed_weight_oz %> oz
-</p>
-
-<p>
-  <strong>Seed media treatment notes:</strong>
-  <%= @seed_flat.seed_media_treatment_notes %>
-</p>
-
-<p>
-  <strong>Seed treatments id:</strong>
-  <% @seed_treatment = SeedTreatment.where(id: @seed_flat.seed_treatments_id) %>
-  <% if @seed_treatment.count != 0 %>
-    <%= link_to("##{@seed_treatment[0].id} -- #{@seed_treatment[0].seed_crop} --  #{@seed_treatment[0].soak_start_datetime.strftime('%a, %e %b')}", @seed_treatment[0]) %>
-  <% else %>
-    n/a
   <% end %>
-</p>
-
-<p>
-  <strong>First emerge date:</strong>
-  <%= @seed_flat.first_emerge_date %>
-</p>
-
-<p>
-  <strong>Full emerge date:</strong>
-  <%= @seed_flat.full_emerge_date %>
-</p>
-
-<p>
-  <strong>Emergence notes:</strong>
-  <%= @seed_flat.emergence_notes %>
-</p>
-
-<p>
-  <strong>Date of first transplant:</strong>
-  <%= @seed_flat.date_of_first_transplant %>
-</p>
-
-<p>
-  <strong>Date of second transplant:</strong>
-  <%= @seed_flat.date_of_second_transplant %>
-</p>
-
-<p>
-  <strong>Harvested on:</strong>
-  <%= @seed_flat.harvested_on %>
-</p>
-
-<p>
-  <strong>Harvest weight oz:</strong>
-  <%= @seed_flat.harvest_weight_oz %>
-</p>
-
-<p>
-  <strong>Hrvst wt lbs:</strong>
-  <%= @seed_flat.hrvst_wt_lbs %>
-</p>
-
-<p>
-  <strong>Harvest week:</strong>
-  <%= @seed_flat.harvest_week %>
-</p>
-
-<p>
-  <strong>Days to harvest from sew: </strong>
-  <%= @seed_flat.days_to_harvest_from_sew %>
-</p>
-
-<p>
-  <strong>Days to harvest from soak: </strong>
-  <%= @seed_flat.days_to_harvest_from_soak %>
-</p>
-
-<p>
-  <strong>Harvest notes:</strong>
-  <%= @seed_flat.harvest_notes %>
-</p>
 
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-xs" style="margin-right:6px;">
-      <%= link_to 'Edit', edit_seed_flat_path(@seed_flat), :class => "dropbtn btn btn-success" %>
-    </div>
-    <div class="col-xs" style="margin-right:6px;">
-      <%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => @seed_flat.id), :class => "dropbtn btn btn-success" %>
-    </div>
-    <div class="col-xs" style="margin-right:6px;">
-      <%= link_to 'New Seed Flat', new_seed_flat_path, :class => "dropbtn btn btn-success" %>
-    </div>
-    <div class="col-xs" style="margin-right:6px;">
-      <%= link_to 'Seed Treatments', seed_treatments_path, :class => "dropbtn btn btn-success" %>
+  <p>*** *** *** *** *** *** *** *** *** *** *** *** </p>
+  <p>
+    <strong>Flat ID:</strong>
+    <%= @seed_flat.flat_id %>
+  </p>
+
+  <p>
+    <strong>Room:</strong>
+    <% unless @seed_flat.room_id == nil %>
+      <%= link_to "#{Room.where(id: @seed_flat.room_id)[0].name} @ #{Room.where(id: @seed_flat.room_id)[0].location}", Room.where(id: @seed_flat.room_id)[0] %>
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Started date:</strong>
+    <%= @seed_flat.started_date %>
+  </p>
+
+  <p>
+    <strong>Crop:</strong>
+    <%= @seed_flat.crop %>
+  </p>
+
+  <p>
+    <strong>Crop variety:</strong>
+    <%= @seed_flat.crop_variety %>
+  </p>
+
+  <p>
+    <strong>Seed brand:</strong>
+    <%= @seed_flat.seed_brand %>
+  </p>
+
+  <p>
+    <strong>Medium:</strong>
+    <%= @seed_flat.medium %>
+  </p>
+
+  <p>
+    <strong>Format:</strong>
+    <%= @seed_flat.format %>
+  </p>
+
+  <p>
+    <strong>Seed weight:</strong>
+    <%= @seed_flat.seed_weight_oz %> oz
+  </p>
+
+  <p>
+    <strong>Seed media treatment notes:</strong>
+    <%= @seed_flat.seed_media_treatment_notes %>
+  </p>
+
+  <p>
+    <strong>Seed treatments id:</strong>
+    <% @seed_treatment = SeedTreatment.where(id: @seed_flat.seed_treatments_id) %>
+    <% if @seed_treatment.count != 0 %>
+      <%= link_to("##{@seed_treatment[0].id} -- #{@seed_treatment[0].seed_crop} --  #{@seed_treatment[0].soak_start_datetime.strftime('%a, %e %b')}", @seed_treatment[0]) %>
+    <% else %>
+      n/a
+    <% end %>
+  </p>
+
+  <p>
+    <strong>First emerge date:</strong>
+    <%= @seed_flat.first_emerge_date %>
+  </p>
+
+  <p>
+    <strong>Full emerge date:</strong>
+    <%= @seed_flat.full_emerge_date %>
+  </p>
+
+  <p>
+    <strong>Emergence notes:</strong>
+    <%= @seed_flat.emergence_notes %>
+  </p>
+
+  <p>
+    <strong>Date of first transplant:</strong>
+    <%= @seed_flat.date_of_first_transplant %>
+  </p>
+
+  <p>
+    <strong>Date of second transplant:</strong>
+    <%= @seed_flat.date_of_second_transplant %>
+  </p>
+
+  <p>
+    <strong>Date of third transplant:</strong>
+    <%= @seed_flat.date_of_third_transplant %>
+  </p>  
+
+  <p>
+    <strong>Harvested on:</strong>
+    <%= @seed_flat.harvested_on %>
+  </p>
+
+  <p>
+    <strong>Harvest weight oz:</strong>
+    <%= @seed_flat.harvest_weight_oz %>
+  </p>
+
+  <p>
+    <strong>Hrvst wt lbs:</strong>
+    <%= @seed_flat.hrvst_wt_lbs %>
+  </p>
+
+  <p>
+    <strong>Harvest week:</strong>
+    <%= @seed_flat.harvest_week %>
+  </p>
+
+  <p>
+    <strong>Days to harvest from sew: </strong>
+    <%= @seed_flat.days_to_harvest_from_sew %>
+  </p>
+
+  <p>
+    <strong>Days to harvest from soak: </strong>
+    <%= @seed_flat.days_to_harvest_from_soak %>
+  </p>
+
+  <p>
+    <strong>Harvest notes:</strong>
+    <%= @seed_flat.harvest_notes %>
+  </p>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs" style="margin-right:6px;">
+        <%= link_to 'Edit', edit_seed_flat_path(@seed_flat), :class => "dropbtn btn btn-success" %>
+      </div>
+      <div class="col-xs" style="margin-right:6px;">
+        <%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => @seed_flat.id), :class => "dropbtn btn btn-success" %>
+      </div>
+      <div class="col-xs" style="margin-right:6px;">
+        <%= link_to 'New Seed Flat', new_seed_flat_path, :class => "dropbtn btn btn-success" %>
+      </div>
+      <div class="col-xs" style="margin-right:6px;">
+        <%= link_to 'Seed Treatments', seed_treatments_path, :class => "dropbtn btn btn-success" %>
+      </div>
     </div>
   </div>
-</div>
 
+</div>
