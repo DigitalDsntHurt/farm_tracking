@@ -54,12 +54,7 @@
 
   <div class="field">
     <%= f.label :seed_weight %>
-    <%= f.text_field :seed_weight %>
-  </div>
-
-  <div class="field">
-    <%= f.label :seed_wt_units %>
-    <%= f.text_field :seed_wt_units, value: "oz" %>
+    <%= f.text_field :seed_weight_oz %>
   </div>
 
   <div class="field">
@@ -93,18 +88,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :first_transplant_notes %>
-    <%= f.text_field :first_transplant_notes %>
-  </div>
-
-  <div class="field">
     <%= f.label :date_of_second_transplant %>
     <%= f.date_select :date_of_second_transplant, include_blank: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :second_transplant_notes %>
-    <%= f.text_field :second_transplant_notes %>
   </div>
 
   <div class="field">

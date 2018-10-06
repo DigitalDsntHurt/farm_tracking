@@ -13,7 +13,7 @@
 			<h1 align="center"><strong><u><%= room.name.upcase %> ROOM</u></strong></h1>
 			<% room.systems.each{|system| %>
 				<br><h1 align="center"><strong>~~ <%= system.system_name %> ~~</strong></h1><br>
-				<% @system_flats = SeedFlat.where(current_system_id: system.id) %>
+				<% @system_flats = SeedFlat.where(current_system_id: system.id).sort_by{|tray| (Date.today-tray.started_date).to_i } %>
 				<% @system_flats.to_a.in_groups_of(4).each{ |shelf| %>
 					<div class="row" style="margin-left:5%;margin-right:5%;">
 						<% shelf.each{ |tray| %>
@@ -23,7 +23,7 @@
 										<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
 										<p class="card-text">
 											<%= (Date.today-tray.started_date).to_i %>-day <strong><%= tray.crop_variety %> <%= tray.crop %></strong><br/>
-											<%= tray.seed_weight %> oz seed sewn on <%= tray.started_date %><br/>
+											<%= tray.seed_weight_oz %> oz seed sewn on <%= tray.started_date %><br/>
 
 											<% if tray.first_emerge_date == nil %>
 							                	<%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>

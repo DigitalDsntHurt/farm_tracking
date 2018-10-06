@@ -62,12 +62,7 @@
 
 <p>
   <strong>Seed weight:</strong>
-  <%= @seed_flat.seed_weight %>
-</p>
-
-<p>
-  <strong>Seed wt units:</strong>
-  <%= @seed_flat.seed_wt_units %>
+  <%= @seed_flat.seed_weight_oz %> oz
 </p>
 
 <p>
@@ -106,18 +101,8 @@
 </p>
 
 <p>
-  <strong>First transplant notes:</strong>
-  <%= @seed_flat.first_transplant_notes %>
-</p>
-
-<p>
   <strong>Date of second transplant:</strong>
   <%= @seed_flat.date_of_second_transplant %>
-</p>
-
-<p>
-  <strong>Second transplant notes:</strong>
-  <%= @seed_flat.second_transplant_notes %>
 </p>
 
 <p>
@@ -138,6 +123,16 @@
 <p>
   <strong>Harvest week:</strong>
   <%= @seed_flat.harvest_week %>
+</p>
+
+<p>
+  <strong>Days to harvest from sew: </strong>
+  <%= @seed_flat.days_to_harvest_from_sew %>
+</p>
+
+<p>
+  <strong>Days to harvest from soak: </strong>
+  <%= @seed_flat.days_to_harvest_from_soak %>
 </p>
 
 <p>
