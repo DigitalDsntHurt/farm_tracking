@@ -13,26 +13,13 @@
 		<div class="col">
 			<br/>
 			<br/>
-			    <%= link_to "Old Pipeline", "/dashboards/old_pipeline", :method => :get, :class=>"dropbtn btn btn-success" %>		
+			    <%= link_to 'New Seed Treatment', new_seed_treatment_path, :class => "btn btn-info" %>
 			<br/><br/><br/>
-		</div>
+		</div>			
 		<div class="col">
 			<br/>
 			<br/>
-			    <%= link_to "Treatments", seed_treatments_path, :class=>"dropbtn btn btn-success" %>		
-			<br/><br/><br/>
-		</div>		
-		<div class="col">
-			<br/>
-			<br/>
-			<div class="dropdown">
-			  <button class="dropbtn btn btn-success">Flats</button>
-			  <div class="dropdown-content">
-			    <%= link_to "All", "/seed_flats", :method => :get %>
-			    <%= link_to "Live", "/seed_flats/live_index", :method => :get %>
-			    <%= link_to "Hrvstd + Killed", "/seed_flats/harvested_killed", :method => :get %>
-			  </div>
-			</div>			
+			    <%= link_to 'New Seed Flat', new_seed_flat_path, :class => "btn btn-info" %>
 			<br/><br/><br/>
 		</div>
 		<div class="col">
@@ -45,23 +32,12 @@
 			    <%= link_to "Sew Calendar", "/dashboards/sew_calendar", :method => :get %>
 			    <%= link_to "Harvest Calculatr", "/dashboards/calculator", :method => :get %>
 			    <%= link_to "Harvest Calendar", "/dashboards/calendar", :method => :get %>
-			    <%= link_to "Cut Sheet", "/dashboards/cutsheet", :method => :get%>
+			    <%= link_to "Cut Sheet", "/dashboards/cutsheet", :method => :get %>
+			    <%= link_to "Old Pipeline", "/dashboards/old_pipeline", :method => :get %>
 			  </div>
 			</div>			
 			<br/>
 			<br/>			
-		</div>
-		<div class="col">
-			<br/>
-			<br/>
-			    <%= link_to 'New Seed Treatment', new_seed_treatment_path, :class => "btn btn-info" %>
-			<br/><br/><br/>
-		</div>			
-		<div class="col">
-			<br/>
-			<br/>
-			    <%= link_to 'New Seed Flat', new_seed_flat_path, :class => "btn btn-info" %>
-			<br/><br/><br/>
 		</div>
 		<div class="col">
 			<br/>
@@ -78,9 +54,28 @@
 		<div class="col">
 			<br/>
 			<br/>
-			    <%= link_to 'Seed Flat Updates', seed_flat_updates_path, :class => "btn btn-success" %>
+			    <%= link_to "Treatments", seed_treatments_path, :class=>"dropbtn btn btn-success" %>		
 			<br/><br/><br/>
 		</div>
+		<div class="col">
+			<br/>
+			<br/>
+			<div class="dropdown">
+			  <button class="dropbtn btn btn-success">Flats</button>
+			  <div class="dropdown-content">
+			    <%= link_to "All", "/seed_flats", :method => :get %>
+			    <%= link_to "Live", "/seed_flats/live_index", :method => :get %>
+			    <%= link_to "Hrvstd + Killed", "/seed_flats/harvested_killed", :method => :get %>
+			  </div>
+			</div>			
+			<br/><br/><br/>
+		</div>
+		<div class="col">
+			<br/>
+			<br/>
+			    <%= link_to 'Seed Flat Updates', seed_flat_updates_path, :class => "btn btn-success" %>
+			<br/><br/><br/>
+		</div>	
 	</div>
 	
 </div>

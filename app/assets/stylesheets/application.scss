@@ -17,6 +17,7 @@
 body {
   margin: 0;
   padding-top: 122px;
+  z-index:-1;
 }
 
 .nav {
@@ -30,6 +31,7 @@ body {
 	position: fixed;
   	top: 0;
   	left: 0;
+  z-index:1;
 }
 
 table.seed-flats-index {

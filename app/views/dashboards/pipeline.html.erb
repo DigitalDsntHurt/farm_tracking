@@ -2,22 +2,22 @@
 	<h2>Jump To...</h2>
 	<p>
 		<% Room.all.each{|room| %>
-			* <%= link_to "#{room.name}", "/dashboards/pipeline_draft/##{room.name.gsub(" ","-")}" %>
+			* <%= link_to "#{room.name}", "/dashboards/pipeline/##{room.name.gsub(" ","-")}" %>
 			<br>
 		<% } %>
 	</p>
-	<br><br><br><hr><br><br><br>
+	<br><br>
 
 	<% Room.all.each{|room| %>
 		<div id=<%= room.name.gsub(" ","-") %>>
-			<h2 align="center"><%= room.name %></h2>
+			<h1 align="center"><strong><u><%= room.name.upcase %> ROOM</u></strong></h1>
 			<% room.systems.each{|system| %>
-				<h3 align="center"><strong><u><%= system.system_name %></u></strong></h3>
+				<br><h1 align="center"><strong>~~ <%= system.system_name %> ~~</strong></h1><br>
 				<% @system_flats = SeedFlat.where(current_system_id: system.id) %>
 				<% @system_flats.to_a.in_groups_of(4).each{ |shelf| %>
-					<div class="row" style="margin-left:20%;">
+					<div class="row" style="margin-left:5%;margin-right:5%;">
 						<% shelf.each{ |tray| %>
-							<div class="col-sm-2" align="center" style="padding:0px;">
+							<div class="col-sm-3" align="center" style="padding:0px;">
 								<div class="card">
 									<% unless tray == nil or tray.harvested_on != nil %>
 										<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>

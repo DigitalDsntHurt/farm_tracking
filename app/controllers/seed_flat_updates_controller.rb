@@ -28,13 +28,14 @@ class SeedFlatUpdatesController < ApplicationController
 
     respond_to do |format|
       if @seed_flat_update.save
-        format.html { redirect_to @seed_flat_update, notice: 'Seed flat update was successfully created.' }
+        format.html { redirect_to controller: "dashboards", action: "pipeline", notice: 'Seed flat update was successfully created.' }
         format.json { render :show, status: :created, location: @seed_flat_update }
       else
         format.html { render :new }
         format.json { render json: @seed_flat_update.errors, status: :unprocessable_entity }
       end
     end
+    #redirect_to controller: "dashboards", action: "pipeline"
   end
 
   def transplant
