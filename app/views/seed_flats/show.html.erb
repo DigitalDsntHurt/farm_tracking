@@ -22,7 +22,7 @@
     </li>
 
     <% if @seed_flat.seed_flat_updates.count != 0 %>
-      <% @seed_flat.seed_flat_updates.each{|update| %>
+      <% @seed_flat.seed_flat_updates.order(:update_datetime).each{|update| %>
       <li>
         <h3><%= update.update_type %>ed from <%= System.where(id: update.origin_system_id)[0].system_name.upcase %> to <%= System.where(id: update.destination_system_id)[0].system_name.upcase %> on <%= update.update_datetime.to_date %></h3>
       </li>
