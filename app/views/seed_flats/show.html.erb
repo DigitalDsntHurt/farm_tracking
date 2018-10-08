@@ -1,4 +1,4 @@
-<div style="padding-left: 44px;">
+<div style="padding-left: 44px; padding-bottom: 44px;">
   <br/><br/>
   <p id="notice"><%= notice %></p>
 
@@ -56,10 +56,6 @@
 
 
   <p>*** *** *** *** *** *** *** *** *** *** *** *** </p>
-  <p>
-    <strong>Flat ID:</strong>
-    <%= @seed_flat.flat_id %>
-  </p>
 
   <p>
     <strong>Room:</strong>
@@ -72,6 +68,16 @@
     <strong>Started date:</strong>
     <%= @seed_flat.started_date %>
   </p>
+
+  <p>
+    <strong>Sewn For:</strong>
+    <%= @seed_flat.sewn_for %>
+  </p>  
+
+  <p>
+    <strong>Flat ID:</strong>
+    <%= @seed_flat.flat_id %>
+  </p>  
 
   <p>
     <strong>Crop:</strong>
@@ -146,8 +152,19 @@
   <p>
     <strong>Date of third transplant:</strong>
     <%= @seed_flat.date_of_third_transplant %>
-  </p>  
+  </p>
+<p>*** *** *** *** *** *** *** *** *** *** *** *** </p>
+  <p>
+    <strong>Exclude from FreshList?</strong>
+    <%= @seed_flat.exclude_from_freshlist %>
+  </p>
 
+  <p>
+    <strong>Force onto FreshList?</strong>
+    <%= @seed_flat.force_onto_freshlist %>
+  </p>
+
+<p>*** *** *** *** *** *** *** *** *** *** *** *** </p>
   <p>
     <strong>Harvested on:</strong>
     <%= @seed_flat.harvested_on %>

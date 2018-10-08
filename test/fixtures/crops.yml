@@ -1,0 +1,53 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  crop: MyString
+  crop_variety: MyString
+  seed_treatment: false
+  avg_seed_treatment_duration_days: 1.5
+  ideal_seed_treatment_duration_days: 1.5
+  calculated_seed_oz_to_soak_per_desired_flat: 1.5
+  ideal_seed_oz_to_soak_per_desired_flat: 1.5
+  avg_alltime_seed_oz_per_flat: 1.5
+  avg_6month_seed_oz_per_flat: 1.5
+  avg_6week_seed_oz_per_flat: 1.5
+  ideal_seed_oz_per_flat: 1.5
+  avg_days_to_first_transplant: 1.5
+  ideal_days_to_first_transplant: 1.5
+  avg_alltime_days_to_harvest: 1.5
+  avg_6month_days_to_harvest: 1.5
+  avg_6week_days_to_harvest: 1.5
+  ideal_days_to_harvest: 1.5
+  avg_alltime_yield_per_flat_oz: 1.5
+  avg_6month_yield_per_flat_oz: 1.5
+  avg_6week_yield_per_flat_oz: 1.5
+  sale_price_per_oz: 1.5
+  sale_price_per_8oz: 1.5
+  sale_price_per_16oz: 1.5
+  sale_price_per_live_flat: 1.5
+
+two:
+  crop: MyString
+  crop_variety: MyString
+  seed_treatment: false
+  avg_seed_treatment_duration_days: 1.5
+  ideal_seed_treatment_duration_days: 1.5
+  calculated_seed_oz_to_soak_per_desired_flat: 1.5
+  ideal_seed_oz_to_soak_per_desired_flat: 1.5
+  avg_alltime_seed_oz_per_flat: 1.5
+  avg_6month_seed_oz_per_flat: 1.5
+  avg_6week_seed_oz_per_flat: 1.5
+  ideal_seed_oz_per_flat: 1.5
+  avg_days_to_first_transplant: 1.5
+  ideal_days_to_first_transplant: 1.5
+  avg_alltime_days_to_harvest: 1.5
+  avg_6month_days_to_harvest: 1.5
+  avg_6week_days_to_harvest: 1.5
+  ideal_days_to_harvest: 1.5
+  avg_alltime_yield_per_flat_oz: 1.5
+  avg_6month_yield_per_flat_oz: 1.5
+  avg_6week_yield_per_flat_oz: 1.5
+  sale_price_per_oz: 1.5
+  sale_price_per_8oz: 1.5
+  sale_price_per_16oz: 1.5
+  sale_price_per_live_flat: 1.5
