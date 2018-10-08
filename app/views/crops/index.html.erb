@@ -1,0 +1,73 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Crops</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Crop</th>
+      <th>Crop variety</th>
+      <th>Seed treatment</th>
+      <th>Avg seed treatment duration days</th>
+      <th>Ideal seed treatment duration days</th>
+      <th>Calculated seed oz to soak per desired flat</th>
+      <th>Ideal seed oz to soak per desired flat</th>
+      <th>Avg alltime seed oz per flat</th>
+      <th>Avg 6month seed oz per flat</th>
+      <th>Avg 6week seed oz per flat</th>
+      <th>Ideal seed oz per flat</th>
+      <th>Avg days to first transplant</th>
+      <th>Ideal days to first transplant</th>
+      <th>Avg alltime days to harvest</th>
+      <th>Avg 6month days to harvest</th>
+      <th>Avg 6week days to harvest</th>
+      <th>Ideal days to harvest</th>
+      <th>Avg alltime yield per flat oz</th>
+      <th>Avg 6month yield per flat oz</th>
+      <th>Avg 6week yield per flat oz</th>
+      <th>Sale price per oz</th>
+      <th>Sale price per 8oz</th>
+      <th>Sale price per 16oz</th>
+      <th>Sale price per live flat</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @crops.each do |crop| %>
+      <tr>
+        <td><%= crop.crop %></td>
+        <td><%= crop.crop_variety %></td>
+        <td><%= crop.seed_treatment %></td>
+        <td><%= crop.avg_seed_treatment_duration_days %></td>
+        <td><%= crop.ideal_seed_treatment_duration_days %></td>
+        <td><%= crop.calculated_seed_oz_to_soak_per_desired_flat %></td>
+        <td><%= crop.ideal_seed_oz_to_soak_per_desired_flat %></td>
+        <td><%= crop.avg_alltime_seed_oz_per_flat %></td>
+        <td><%= crop.avg_6month_seed_oz_per_flat %></td>
+        <td><%= crop.avg_6week_seed_oz_per_flat %></td>
+        <td><%= crop.ideal_seed_oz_per_flat %></td>
+        <td><%= crop.avg_days_to_first_transplant %></td>
+        <td><%= crop.ideal_days_to_first_transplant %></td>
+        <td><%= crop.avg_alltime_days_to_harvest %></td>
+        <td><%= crop.avg_6month_days_to_harvest %></td>
+        <td><%= crop.avg_6week_days_to_harvest %></td>
+        <td><%= crop.ideal_days_to_harvest %></td>
+        <td><%= crop.avg_alltime_yield_per_flat_oz %></td>
+        <td><%= crop.avg_6month_yield_per_flat_oz %></td>
+        <td><%= crop.avg_6week_yield_per_flat_oz %></td>
+        <td><%= crop.sale_price_per_oz %></td>
+        <td><%= crop.sale_price_per_8oz %></td>
+        <td><%= crop.sale_price_per_16oz %></td>
+        <td><%= crop.sale_price_per_live_flat %></td>
+        <td><%= link_to 'Show', crop %></td>
+        <td><%= link_to 'Edit', edit_crop_path(crop) %></td>
+        <td><%= link_to 'Destroy', crop, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Crop', new_crop_path %>

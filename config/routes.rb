@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :crops
   	resources :rooms
   	resources :systems
 

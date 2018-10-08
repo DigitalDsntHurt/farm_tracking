@@ -13,6 +13,11 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :room_id %>
+    <%= f.select :room_id, Room.all.collect{|room| [ "#{room.name} @ #{room.location}", room.id ] } %>
+  </div>  
+
+  <div class="field">
     <%= f.label :flat_identifier %>
     <%= f.text_field :flat_id %>
   </div>

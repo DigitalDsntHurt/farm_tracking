@@ -13,14 +13,20 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :room_id %>
+    <%= f.select :room_id, Room.all.collect{|room| [ "#{room.name} @ #{room.location}", room.id ] } %>
+  </div>  
+
+  <div class="field">
     <%= f.label :started_date %>
     <%= f.date_select :started_date %>
   </div>
 
   <div class="field">
-    <%= f.label :room_id %>
-    <%= f.select :room_id, Room.all.collect{|room| [ "#{room.name} @ #{room.location}", room.id ] } %>
-  </div>  
+    <%= f.label :sewn_for %>
+    <%= f.text_field :sewn_for %>
+  </div>
+
 
   <div class="field">
     <%= f.label :flat_identifier %>
@@ -95,7 +101,21 @@
   <div class="field">
     <%= f.label :date_of_third_transplant %>
     <%= f.date_select :date_of_third_transplant, include_blank: true %>
-  </div>  
+  </div>
+
+<p>*** *** *** *** *** *** *** *** *** *** *** *** </p>
+
+  <div class="field">
+    <%= f.label :exclude_from_freshlist %>?
+    <%= f.check_box :exclude_from_freshlist %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :force_onto_freshlist %>?
+    <%= f.check_box :force_onto_freshlist %>
+  </div>
+
+<p>*** *** *** *** *** *** *** *** *** *** *** *** </p>  
 
   <div class="field">
     <%= f.label :harvested_on %>
