@@ -13,7 +13,7 @@
 			<h1 align="center"><strong><u><%= room.name.upcase %> ROOM</u></strong></h1>
 			<% room.systems.each{|system| %>
 				<br><h1 align="center"><strong>~~ <%= system.system_name %> ~~</strong></h1><br>
-				<% @system_flats = SeedFlat.where(current_system_id: system.id).sort_by{|tray| (Date.today-tray.started_date).to_i } %>
+				<% @system_flats = SeedFlat.where(current_system_id: system.id).sort_by{|tray| (Date.today-tray.started_date).to_i }.reject{|tray| tray.harvest_weight_oz != nil } %>
 				<% @system_flats.to_a.in_groups_of(4).each{ |shelf| %>
 					<div class="row" style="margin-left:5%;margin-right:5%;">
 						<% shelf.each{ |tray| %>

@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-
+=begin
 else_count = 0
 else_arr = []
 SeedFlat.where(:harvest_weight_oz => nil).to_a.each{|seed_flat|
@@ -30,3 +30,4 @@ SeedFlat.where(:harvest_weight_oz => nil).to_a.each{|seed_flat|
 
 puts else_count
 p else_arr
+=end
