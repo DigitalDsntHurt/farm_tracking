@@ -43,6 +43,66 @@ class SeedFlatUpdatesController < ApplicationController
     @seed_flat = SeedFlat.find(params[:flat])
   end
 
+  def transplant_to_sue
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+    @origin_system_id = @seed_flat.current_system_id
+    @destination_system_id = System.where(system_name: "SUE")[0].id
+    @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+    @seed_flat.update(current_system_id: @destination_system_id)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def transplant_to_naga
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+    @origin_system_id = @seed_flat.current_system_id
+    @destination_system_id = System.where(system_name: "NAGA")[0].id
+    @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+    @seed_flat.update(current_system_id: @destination_system_id)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def transplant_to_rezha
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+    @origin_system_id = @seed_flat.current_system_id
+    @destination_system_id = System.where(system_name: "REZHA")[0].id
+    @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+    @seed_flat.update(current_system_id: @destination_system_id)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def transplant_to_littlefoot
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+    @origin_system_id = @seed_flat.current_system_id
+    @destination_system_id = System.where(system_name: "LITTLE FOOT")[0].id
+    @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+    @seed_flat.update(current_system_id: @destination_system_id)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def transplant_to_dumbo
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+    @origin_system_id = @seed_flat.current_system_id
+    @destination_system_id = System.where(system_name: "DUMBO")[0].id
+    @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+    @seed_flat.update(current_system_id: @destination_system_id)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def transplant_to_livestorage
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+    @origin_system_id = @seed_flat.current_system_id
+    @destination_system_id = System.where(system_name: "live storage").where(room_id: @seed_flat.room_id)[0].id
+    @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+    @seed_flat.update(current_system_id: @destination_system_id)
+    redirect_back(fallback_location: root_path)
+  end
+
   # PATCH/PUT /seed_flat_updates/1
   # PATCH/PUT /seed_flat_updates/1.json
   def update

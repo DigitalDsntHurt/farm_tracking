@@ -86,6 +86,21 @@ class SeedFlatsController < ApplicationController
     redirect_back(fallback_location: root_path)  #redirect_to action: "index"
   end
 
+  def cascade_full_emerge
+    @seed_flat = SeedFlat.find(params[:flat])
+    @date_diff = (Date.today - @seed_flat.started_date).to_i
+    
+    if @date_diff == 0
+      @seed_flat.update(first_emerge_date: Date.today, full_emerge_date: Date.today)
+    elsif @date_diff == 1
+      @seed_flat.update(first_emerge_date: (Date.today-1), full_emerge_date: Date.today)
+    else
+      @seed_flat.update(first_emerge_date: Date.today-(@date_diff/2.0), full_emerge_date: Date.today)
+    end
+
+    redirect_back(fallback_location: root_path)  #redirect_to action: "index"
+  end
+
   def first_transplant
     @seed_flat = SeedFlat.find(params[:flat])
     @seed_flat.update(:date_of_first_transplant => Date.today)

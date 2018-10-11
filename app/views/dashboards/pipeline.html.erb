@@ -13,7 +13,7 @@
 			<h1 align="center"><strong><u><%= room.name.upcase %> ROOM</u></strong></h1>
 			<% room.systems.each{|system| %>
 				<br><h1 align="center"><strong>~~ <%= system.system_name %> ~~</strong></h1><br>
-				<% @system_flats = SeedFlat.where(current_system_id: system.id).sort_by{|tray| (Date.today-tray.started_date).to_i }.reject{|tray| tray.harvest_weight_oz != nil } %>
+				<% @system_flats = SeedFlat.where(current_system_id: system.id).order(started_date: :desc, updated_at: :desc).reject{|tray| tray.harvest_weight_oz != nil } %>
 				<% @system_flats.to_a.in_groups_of(4).each{ |shelf| %>
 					<div class="row" style="margin-left:5%;margin-right:5%;">
 						<% shelf.each{ |tray| %>
@@ -24,16 +24,36 @@
 										<p class="card-text">
 											<%= (Date.today-tray.started_date).to_i %>-day <strong><%= tray.crop_variety %> <%= tray.crop %></strong><br/>
 											<%= tray.seed_weight_oz %> oz seed sewn on <%= tray.started_date %><br/>
-
+											~ ~ ~ ~ ~ ~ ~ ~ ~ ~<br/>
+											
+											<%-# non emerged flats / in propagation -%>
 											<% if tray.first_emerge_date == nil %>
-							                	<%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %><br>
 							                	<%= link_to '1st Emerge', seed_flats_first_emerge_path(:controller => "seed_flats", :action => "first_emerge", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>  
-							                <% elsif tray.full_emerge_date == nil%>
-							                	<%= link_to 'Full Emerge', seed_flats_full_emerge_path(:controller => "seed_flats", :action => "full_emerge", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to 'C Full Emerge', seed_flats_cascade_full_emerge_path(:controller => "seed_flats", :action => "cascade_full_emerge", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+
+							                <%-# first emerged flats / in propagation -%>
+											<% elsif tray.first_emerge_date != nil and tray.full_emerge_date == nil %>
+							                	<%= link_to 'Full Emerge', seed_flats_first_emerge_path(:controller => "seed_flats", :action => "first_emerge", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to '~>all cascade transplant buttons', seed_flat_updates_transplant_to_sue_path(:controller => "seed_flat_updates", :action => "transplant_to_sue", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>						                	
+
+							                <%-# full emerged flats before transplant / in propagation -%>
 							                <% elsif @propagation_system_ids.include?(tray.current_system_id) %>
-							                	<%= link_to 'transplant', seed_flat_updates_transplant_path(:controller => "seed_flat_updates", :action => "transplant", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to '~>SUE', seed_flat_updates_transplant_to_sue_path(:controller => "seed_flat_updates", :action => "transplant_to_sue", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to '~>NAGA', seed_flat_updates_transplant_to_naga_path(:controller => "seed_flat_updates", :action => "transplant_to_naga", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to '~>REZHA', seed_flat_updates_transplant_to_rezha_path(:controller => "seed_flat_updates", :action => "transplant_to_rezha", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %><br>
+							                	<%= link_to '~>LittleFoot', seed_flat_updates_transplant_to_littlefoot_path(:controller => "seed_flat_updates", :action => "transplant_to_littlefoot", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to '~>Dumbo', seed_flat_updates_transplant_to_dumbo_path(:controller => "seed_flat_updates", :action => "transplant_to_dumbo", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to '~>LiveStore', seed_flat_updates_transplant_to_livestorage_path(:controller => "seed_flat_updates", :action => "transplant_to_livestorage", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+
+							                <%-# flats beyond / moved out of propagation -%>
 							                <% else %>
-							                	<%= link_to 'transplant', seed_flat_updates_transplant_path(:controller => "seed_flat_updates", :action => "transplant", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to '~>SUE', seed_flat_updates_transplant_to_sue_path(:controller => "seed_flat_updates", :action => "transplant_to_sue", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to '~>NAGA', seed_flat_updates_transplant_to_naga_path(:controller => "seed_flat_updates", :action => "transplant_to_naga", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to '~>REZHA', seed_flat_updates_transplant_to_rezha_path(:controller => "seed_flat_updates", :action => "transplant_to_rezha", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %><br>
+							                	<%= link_to '~>LittleFoot', seed_flat_updates_transplant_to_littlefoot_path(:controller => "seed_flat_updates", :action => "transplant_to_littlefoot", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to '~>Dumbo', seed_flat_updates_transplant_to_dumbo_path(:controller => "seed_flat_updates", :action => "transplant_to_dumbo", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
+							                	<%= link_to '~>LiveStore', seed_flat_updates_transplant_to_livestorage_path(:controller => "seed_flat_updates", :action => "transplant_to_livestorage", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %><br>
 							                	<%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>
 							                <% end %>
 										</p>
