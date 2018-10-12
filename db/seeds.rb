@@ -31,3 +31,82 @@ SeedFlat.where(:harvest_weight_oz => nil).to_a.each{|seed_flat|
 puts else_count
 p else_arr
 =end
+
+
+=begin
+results_arr = []
+
+@harvested_flats = SeedFlat.where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
+@crops = @harvested_flats.pluck(:crop).uniq
+
+# get all crop names
+@crops.reject{|crop| crop.include?(" (1/2)") }.sort.each{|crop|
+	@hsh = {}
+	# get all varieties of each crop
+	SeedFlat.where(crop: crop).pluck(:crop_variety).uniq.each{|variety|
+		@hsh[:crop] = crop
+		@hsh[:variety] = variety
+
+		#get avg seed treatment duration
+		@treatment_durations_array = SeedTreatment.where(seed_crop: crop, seed_variety: variety).to_a
+		unless @treatment_durations_array.length == 0
+			#puts @treatment_durations_array.map{|treatment| (treatment.date_of_last_flat_sew  -  treatment.soak_start_datetime.to_date).to_i  }
+			@treatment_durations_array.each{|item|
+				#puts item.soak_start_datetime.to_date
+				#puts item.date_of_last_flat_sew
+				puts item if item.soak_start_datetime == nil or item.date_of_last_flat_sew == nil
+				puts " " if item.soak_start_datetime == nil or item.date_of_last_flat_sew == nil
+			}
+			puts "==="		
+		end
+		
+		
+
+	}
+	results_arr << @hsh
+}
+
+results_arr.each{|hsh|
+#	p hsh
+}
+=end
+
+
+=begin
+@harvested_flats = SeedFlat.where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
+@crops = @harvested_flats.pluck(:crop).uniq
+
+# get all crop names
+@crops.reject{|crop| crop.include?(" (1/2)") }.sort.each{|crop|
+	puts crop
+	#puts SeedFlat.where(crop: crop).pluck(:days_to_harvest_from_sew)
+	puts "==="
+}
+=end
+
+
+@harvested_flats = SeedFlat.where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
+@crops = @harvested_flats.pluck(:crop).uniq.reject{|crop| crop.include?(" (1/2)") }.sort
+
+# get all crop names
+@crops.each{|crop| 
+	puts crop
+	@dths = []
+	SeedFlat.where(crop: crop).each{|flat|
+		next if flat.harvested_on == nil
+		#@dths << (flat.harvested_on - flat.started_date).to_i		
+		puts flat.former_flat_id
+		puts flat.harvested_on
+		puts flat.started_date
+		puts (flat.harvested_on - flat.started_date).to_i
+		puts
+
+	}
+	#puts @dths
+	puts "==="
+}
+
+#
+
+
+
