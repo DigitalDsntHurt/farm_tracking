@@ -24,7 +24,9 @@ class SeedFlat < ApplicationRecord
 	end
 
 	def upcase_flat_id
-		self.flat_id = self.flat_id.upcase
+		unless self.flat_id == nil
+			self.flat_id = self.flat_id.upcase
+		end
 	end
 
 	def create_seed_flat_update
