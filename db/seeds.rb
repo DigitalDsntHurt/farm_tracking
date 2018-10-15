@@ -1,3 +1,4 @@
+require 'csv'
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -84,29 +85,92 @@ results_arr.each{|hsh|
 }
 =end
 
-
+=begin
 @harvested_flats = SeedFlat.where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
 @crops = @harvested_flats.pluck(:crop).uniq.reject{|crop| crop.include?(" (1/2)") }.sort
-
-# get all crop names
-@crops.each{|crop| 
-	puts crop
-	@dths = []
-	SeedFlat.where(crop: crop).each{|flat|
-		next if flat.harvested_on == nil
-		#@dths << (flat.harvested_on - flat.started_date).to_i		
-		puts flat.former_flat_id
-		puts flat.harvested_on
-		puts flat.started_date
-		puts (flat.harvested_on - flat.started_date).to_i
-		puts
-
-	}
-	#puts @dths
+@crops.each{|crop_name| 
+	puts crop_name
+	@crop_query = SeedFlat.where(crop: crop_name).where.not(harvested_on: nil).where.not(harvest_weight_oz: nil)
+	puts @crop_query.to_a.map{|flat| (flat.harvested_on - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/@crop_query.count
+	puts 
+	#}
 	puts "==="
 }
 
-#
+=end
+
+
+=begin
+## ## ## ## ## ## ## ## ## ## ## ## 
+## ## GOAL
+## seed crops table
+## crop, variety, seed_treatment, 
+## ## ## ## ## ## ## ## ## ## ## ## 
+
+## Seed Crops Table
+
+@crop_names_to_seed = SeedFlat.all.pluck(:crop).uniq.reject{|crop| crop.include?(" (1/2)")}.sort
+
+@new_crops = []
+
+@crop_names_to_seed.each{|crop_name|
+	@hsh = {}
+	Crop.column_names.each{|col_name|
+		@hsh[col_name.to_sym] = crop_name
+	}
+	@new_crops << @hsh
+}
+
+
+@new_crops.each{|hsh|
+	p hsh
+	puts "\n\n=== === \n\n"
+}
+=end
+
+csv = CSV.read(Rails.root.join('lib/seeds/seed_for_autocutsheet.csv'), headers: true)
+
+
+#Crop.create!(crop: "test", ideal_days_to_harvest: 12)
+
+results = []
+csv.each{|row|
+	p row
+	Crop.create!(
+		crop: row[0], 
+		ideal_days_to_harvest: row[1], 
+		avg_alltime_yield_per_flat_oz: row[2],
+		sale_price_per_oz: row[3].gsub("$",""),
+		sale_price_per_8oz: row[4].gsub("$",""),
+		sale_price_per_16oz: row[5].gsub("$",""),
+		sale_price_per_live_flat: row[6].gsub("$",""),
+
+		)
+
+	#@hsh = {}
+	#@hsh[:crop] = row[0]
+	#@hsh[:ideal_days_to_harvest] = row[1]
+	#@hsh[:avg_alltime_yield_per_flat_oz] = row[2]
+	#results << @hsh
+	#puts "==="
+}
+
+
+#results.each{|thing|
+#	Crop.new(thing)
+#	p thing.class
+#	p thing
+#	puts "+++"
+#}
+
+
+
+
+
+
+
+
+
 
 
 

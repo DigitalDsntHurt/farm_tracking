@@ -1,3 +1,45 @@
+<h3>new cutsheet</h3>
+
+
+	<% @crops_to_list = Crop.all.pluck(:crop).uniq %>
+	<% @crops_to_list.each{|crop_name| %>
+		<% @crop_lookup = Crop.where(crop: crop_name) %>
+		<% @live_crops = SeedFlat.where(crop: crop_name ).where.not(current_system_id: nil).to_a.reject{|flat| flat.crop.include?("(1/2)")}  %>
+		<% @ready_for_harvest = @live_crops.to_a.reject{|flat| (Date.today - flat.started_date).to_i < @crop_lookup[0].ideal_days_to_harvest } %>
+
+		<%= crop_name %> | <%= @live_crops.count %> flats | <%= @ready_for_harvest.count %> flats ready to harvest | <%= @crop_lookup[0].avg_alltime_yield_per_flat_oz * @ready_for_harvest.count %> oz ready to sell | 
+		<br>
+	<% } %>
+
+
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-2 cutsheet-header" align="right">
+			Crop
+		</div>
+		<div class="col-sm-2 cutsheet-header" align="center">
+			Available Today
+		</div>
+		<div class="col-sm-2 cutsheet-header" align="center">
+			Price per<br>1 OZ
+		</div>
+		<div class="col-sm-2 cutsheet-header" align="center">
+			Price per<br>1/2 LB
+		</div>
+		<div class="col-sm-2 cutsheet-header" align="center">
+			Price per<br>1 LB
+		</div>
+		<div class="col-sm-2 cutsheet-header" align="center">
+			Price per<br>Live Flat
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2" align="center">
+		</div>
+	</div>
+</div>
+
 
 <br>
 <br>
