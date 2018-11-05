@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
 	get 'seed_flat_updates/transplant' => 'seed_flat_updates#transplant'
 	get 'seed_flat_updates/transplant_to_sue' => 'seed_flat_updates#transplant_to_sue'
+	get 'seed_flat_updates/transplant_to_klay' => 'seed_flat_updates#transplant_to_klay'
 	get 'seed_flat_updates/transplant_to_naga' => 'seed_flat_updates#transplant_to_naga'
 	get 'seed_flat_updates/transplant_to_rezha' => 'seed_flat_updates#transplant_to_rezha'
 	get 'seed_flat_updates/transplant_to_meow' => 'seed_flat_updates#transplant_to_meow'

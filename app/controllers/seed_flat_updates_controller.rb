@@ -53,6 +53,16 @@ class SeedFlatUpdatesController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def transplant_to_klay
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+    @origin_system_id = @seed_flat.current_system_id
+    @destination_system_id = System.where(system_name: "KLAY")[0].id
+    @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+    @seed_flat.update(current_system_id: @destination_system_id)
+    redirect_back(fallback_location: root_path)
+  end    
+
   def transplant_to_naga
     @seed_flat_update = SeedFlatUpdate.new
     @seed_flat = SeedFlat.find(params[:flat])
