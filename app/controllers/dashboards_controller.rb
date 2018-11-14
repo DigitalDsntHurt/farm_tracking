@@ -104,6 +104,10 @@ class DashboardsController < ApplicationController
     @columnchart = GoogleVisualr::Interactive::ColumnChart.new(@data_table, @option)
   end
 
+  def flat_allocation
+    @allocated_flats = SeedFlat.all.where.not(sewn_for: nil).group_by{|flat| flat.sewn_for}
+  end
+
   def crop_menu
   end
 
