@@ -1,10 +1,5 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 
 =begin
 else_count = 0
@@ -84,7 +79,7 @@ results_arr.each{|hsh|
 }
 =end
 
-
+=begin
 @harvested_flats = SeedFlat.where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
 @crops = @harvested_flats.pluck(:crop).uniq.reject{|crop| crop.include?(" (1/2)") }.sort
 
@@ -106,7 +101,27 @@ results_arr.each{|hsh|
 	puts "==="
 }
 
-#
+=end
 
+=begin
+## ##
+## ## ## ## EXPORT ALL DATA TO CSV
+## ##
+require 'csv'
+@export_document = CSV.open('export.csv','w+')
+@headers = SeedFlat.column_names
+@export_document << @headers
 
+@all_flats = SeedFlat.all
 
+@all_flats.each{|record|	
+	@arr = []
+	@headers.each{|header|
+		@arr << record.send(header)
+	}
+	@export_document << @arr
+
+	puts "*\n\n=== ===\n=== === ===\n=== ===\n\n*"
+}
+
+=end

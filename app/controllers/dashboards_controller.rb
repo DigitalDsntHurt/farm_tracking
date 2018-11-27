@@ -102,6 +102,11 @@ class DashboardsController < ApplicationController
     @option = { width: '100%', height: 1200, title: 'Cilantro yield per seed weight' }
     @linechart = GoogleVisualr::Interactive::LineChart.new(@data_table, @option)
     @columnchart = GoogleVisualr::Interactive::ColumnChart.new(@data_table, @option)
+
+
+
+    ## Monthly Flats Harvested Per Crop
+    @flats_per_month = @harvested_flats.group_by{|flat| flat.harvested_on.month}
   end
 
   def flat_allocation
