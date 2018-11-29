@@ -7,6 +7,7 @@
     <tr>
       <th>started</th>
       <th>crop</th>
+      <th>variety</th>
       <th>seed qty oz</th>
       <th>soak hrs</th>
       <th>germ start date</th>
@@ -37,6 +38,7 @@
       <% end %>
         <td><%= seed_treatment.soak_start_datetime %></td>
         <td><%= seed_treatment.seed_crop %></td>
+        <td><%= seed_treatment.seed_variety %></td>
         <td><%= seed_treatment.seed_quantity_oz %></td>
         <td>
           <% if seed_treatment.soak_duration_hrs == nil %>
