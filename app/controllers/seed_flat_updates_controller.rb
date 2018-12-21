@@ -4,7 +4,7 @@ class SeedFlatUpdatesController < ApplicationController
   # GET /seed_flat_updates
   # GET /seed_flat_updates.json
   def index
-    @seed_flat_updates = SeedFlatUpdate.all
+    @seed_flat_updates = SeedFlatUpdate.all.order(updated_at: :desc)
   end
 
   # GET /seed_flat_updates/1
