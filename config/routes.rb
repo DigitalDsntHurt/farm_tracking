@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 	get 'dashboards/calculate'
 	get 'dashboards/cutsheet'
 	get 'dashboards/back_of_envelope'
+	get 'dashboards/aggregates'
 	get 'dashboards/crop_menu'
 	get 'dashboards/scratch'
 	get 'dashboards/flat_allocation'

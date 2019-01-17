@@ -1,0 +1,45 @@
+<table>
+	<tr>
+		<th style="padding-right: 22px; padding-left: 22px;">
+			crop
+		</th>
+		<th style="padding-right: 22px; padding-left: 22px;">
+			sample size (# flats)
+		</th>
+		<th style="padding-right: 22px; padding-left: 22px;">
+			avg treatment duration (days)
+		</th>
+		<th style="padding-right: 22px; padding-left: 22px;">
+			avg dth (days)
+		</th>
+		<th style="padding-right: 22px; padding-left: 22px;">
+			avg yield (oz)
+		</th>
+	</tr>
+	<% @crops.sort_by{|c| c }.each{|c| %>
+	<tr>
+		<% @crop_query = @harvested_flats.where(crop: c) %>
+		<% @treatment_query = SeedTreatment.where(seed_crop: c).where.not(date_of_first_flat_sew: nil) %>
+		
+		<td style="padding-right: 6px; padding-left: 6px;">
+			<%= c %>
+		</td>
+		<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+			<%= @crop_query.count %>
+		</td>
+		<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+			<% if @treatment_query.count == 0 %>
+				0
+			<% else %>
+				<%= @treatment_query.to_a.map{|treatment| (treatment.date_of_first_flat_sew - treatment.soak_start_date).to_i }.inject{|dur,sum| dur+sum }/@treatment_query.count %>
+			<% end %>
+		</td>
+		<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+			<%= @crop_query.to_a.map{|flat| (flat.harvested_on - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/@crop_query.count %>
+		</td>
+		<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+			<%= @crop_query.average(:harvest_weight_oz).round(2) %>
+		</td>
+	</tr>
+	<% } %>
+</table>

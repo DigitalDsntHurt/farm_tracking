@@ -109,6 +109,16 @@ class DashboardsController < ApplicationController
     @flats_per_month = @harvested_flats.group_by{|flat| flat.harvested_on.month}
   end
 
+  def aggregates
+    # Get all harvested seed flats since Oct 1, 2018
+    @query_cutoff_date = "Mon, 01 Oct 2018"
+    @harvested_flats = SeedFlat.where("started_date >= :date", date: @query_cutoff_date).where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
+    @crops = @harvested_flats.pluck(:crop).uniq
+
+    # Get avg treatment duration
+
+  end
+
   def flat_allocation
     @allocated_flats = SeedFlat.all.where.not(sewn_for: nil).group_by{|flat| flat.sewn_for}
   end
