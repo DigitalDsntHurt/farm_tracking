@@ -119,6 +119,11 @@ class DashboardsController < ApplicationController
 
   end
 
+  def crop_availability
+    
+    @crops = SeedFlat.all.pluck(:crop).uniq
+  end
+
   def flat_allocation
     @allocated_flats = SeedFlat.all.where.not(sewn_for: nil).group_by{|flat| flat.sewn_for}
   end

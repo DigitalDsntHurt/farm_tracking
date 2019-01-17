@@ -1,0 +1,16 @@
+<% @crops.sort_by{|c| c }.each{|c| %>
+	<div style="border: solid 1px black;padding:22px;">
+		<% @in_pipeline = SeedFlat.where(harvest_weight_oz: nil).where(harvested_on: nil).where(crop: c) %>
+		<h3><strong><%= c %></strong> -- currently <%= @in_pipeline.count %> flats in pipeline</h3>
+		<% @in_pipeline.group_by{|flat| flat.current_system_id }.each{|key,val| %>
+			<%= System.where(id: key)[0].system_name %><br>
+			<% val.sort_by{|flat| (Date.today - flat.started_date).to_i }.each{|flat| %>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= flat.flat_id %>: <%= (Date.today - flat.started_date).to_i %> day<br>
+			<% } %>
+		<% } %>
+	</div>
+<% } %>
+
+<br><br>
+<hr>
+<br><br>
