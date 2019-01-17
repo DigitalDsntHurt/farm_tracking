@@ -4,10 +4,10 @@
 			crop
 		</th>
 		<th style="padding-right: 22px; padding-left: 22px;">
-			sample size (# flats)
+			sample size<br>(# flats)
 		</th>
 		<th style="padding-right: 22px; padding-left: 22px;">
-			avg treatment duration (days)
+			avg treatment<br>duration (days)
 		</th>
 		<th style="padding-right: 22px; padding-left: 22px;">
 			avg dth (days)
@@ -20,7 +20,7 @@
 	<tr>
 		<% @crop_query = @harvested_flats.where(crop: c) %>
 		<% @treatment_query = SeedTreatment.where(seed_crop: c).where.not(date_of_first_flat_sew: nil) %>
-		
+
 		<td style="padding-right: 6px; padding-left: 6px;">
 			<%= c %>
 		</td>
