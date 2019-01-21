@@ -1,7 +1,9 @@
-<% @allocated_flats.each{|group| %>
-	<h3><%= group[0] %></h3>
-	<% group[1].sort_by{|flat| -(Date.today - flat.started_date).to_i }.each{|flat| %>
-		<strong><%= flat.flat_id %></strong> : <%= (Date.today - flat.started_date).to_i %> day <%= flat.crop_variety %> <%= flat.crop %><br>
+<div style="padding-left: 22px">
+	<% @allocated_flats.each{|group| %>
+		<h3><%= group[0] %></h3>
+		<% group[1].sort_by{|flat| -(Date.today - flat.started_date).to_i }.each{|flat| %>
+			<strong><%= flat.flat_id %></strong> : <%= (Date.today - flat.started_date).to_i %> day <%= flat.crop_variety %> <%= flat.crop %><br>
+		<% } %>
+		<br><hr><br>
 	<% } %>
-	<br><hr><br>
-<% } %>
+</div>
