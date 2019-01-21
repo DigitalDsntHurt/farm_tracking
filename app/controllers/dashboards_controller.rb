@@ -125,7 +125,7 @@ class DashboardsController < ApplicationController
   end
 
   def flat_allocation
-    @allocated_flats = SeedFlat.all.where.not(sewn_for: nil).group_by{|flat| flat.sewn_for}
+    @allocated_flats = SeedFlat.all.where(harvested_on: nil).where.not(sewn_for: nil).reject{|flat| flat.sewn_for.length < 2 }.group_by{|flat| flat.sewn_for}
   end
 
   def crop_menu
