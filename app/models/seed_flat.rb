@@ -5,7 +5,7 @@ class SeedFlat < ApplicationRecord
 	
 	before_create :set_current_system_id_to_propagation, :calculate_harvest_week, :convert_oz_to_lbs
 	after_create :set_date_of_first_flat_sew_on_seed_treatment, :set_date_of_last_flat_sew_on_seed_treatment, :set_destination_flat_ids_on_seed_treatment, :create_seed_flat_update
-	before_update  :move_flat_id_to_former_flat_id_on_harvest_or_kill, :kill_flat_id_on_harvest, :remove_current_system_id_on_harvest, :update_harvest_date_on_harvest, :calculate_harvest_week, :convert_oz_to_lbs, :set_days_to_harvest_from_sew, :set_days_to_harvest_from_soak
+	before_update  :move_flat_id_to_former_flat_id_on_harvest_or_kill, :kill_flat_id_on_harvest, :remove_current_system_id_on_harvest, :update_harvest_date_on_harvest, :calculate_harvest_week, :convert_oz_to_lbs, :set_days_to_harvest_from_sew, :set_days_to_harvest_from_soak, :downcase_sewn_for
 	#after_update :move_flat_id_to_harvest_notes_on_harvest
 	before_validation :upcase_flat_id
 	validates_uniqueness_of :flat_id
@@ -108,6 +108,12 @@ class SeedFlat < ApplicationRecord
 		unless self.harvested_on == nil or self.seed_treatments_id == nil
 			@soak_start_date = SeedTreatment.where(id: self.seed_treatments_id)[0].soak_start_datetime.to_date
 			self.days_to_harvest_from_soak = (self.harvested_on - @soak_start_date).to_i
+		end
+	end
+
+	def downcase_sewn_for
+		unless self.sewn_for == nil
+			self.sewn_for = self.sewn_for.downcase
 		end
 	end
 end
