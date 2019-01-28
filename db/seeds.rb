@@ -3,7 +3,6 @@
 require 'csv'
 
 =begin
-=end
 ##
 ## ## Seed Reservoirs Table From Google Sheets CSV Export
 ##
@@ -20,11 +19,10 @@ csv.to_a.each{|row|
 
 Reservoir.create(seed_arr)
 puts seed_arr.count
-
+=end
 
 
 =begin
-=end
 ##
 ## ## Seed Nutrient Solutions Table From Google Sheets CSV Export
 ##
@@ -55,7 +53,7 @@ csv.to_a[1..130].each{|row|
 
 NutrientSolution.create(seed_arr)
 puts seed_arr.count
-
+=end
 
 =begin
 else_count = 0
