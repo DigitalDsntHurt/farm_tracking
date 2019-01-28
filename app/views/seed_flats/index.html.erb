@@ -39,13 +39,13 @@
   <tbody>
     <% @seed_flats.each do |seed_flat| %>
       <% if seed_flat.harvest_weight_oz == 0.0 %>
-        <tr style="background-color: red;">
+        <tr style="background-color: #CD3333; font-size: 18px;">
       <% elsif seed_flat.harvest_weight_oz != nil %>
-          <tr style="background-color: lightgreen;">
+          <tr style="background-color: #659D32; font-size: 18px;">
       <% elsif seed_flat.date_of_first_transplant != nil %>
           <tr style="background-color: lightyellow;">
       <% else %>
-        <tr>
+        <tr style="background-color: #F5F5F5; font-size: 18px;">
       <% end %>
         <td><%= seed_flat.started_date %></td>
         <td><%= seed_flat.flat_id %></td>
@@ -55,18 +55,15 @@
         <td><%= seed_flat.medium %></td>
         <td><%= seed_flat.format %></td>
         <td><%= seed_flat.seed_weight_oz %></td>
-        <td class="seed_flat_index_text_cell_medium"><%= seed_flat.seed_media_treatment_notes %></td>
+        <td class="seed_flat_index_text_cell_medium" style="max-width:22px; white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word"><%= seed_flat.seed_media_treatment_notes %></td>
         <td><%= seed_flat.first_emerge_date %></td>
         <td><%= seed_flat.full_emerge_date %></td>
-        <td class="seed_flat_index_text_cell_medium"><%= seed_flat.emergence_notes %></td>
-        <td><%= seed_flat.date_of_first_transplant %></td>
-        <td><%= seed_flat.date_of_second_transplant %></td>
-        <td><%= seed_flat.date_of_third_transplant %></td>
+        <td class="seed_flat_index_text_cell_medium" style="max-width:22px; white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word"><%= seed_flat.emergence_notes %></td>
         <td><%= seed_flat.harvested_on %></td>
         <td><%= seed_flat.harvest_weight_oz %></td>
         <td><%= seed_flat.hrvst_wt_lbs %></td>
         <td><%= seed_flat.harvest_week %></td>
-        <td class="seed_flat_index_text_cell_medium"><%= seed_flat.harvest_notes %></td>
+        <td class="seed_flat_index_text_cell_medium" style="max-width:22px; white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word"><%= seed_flat.harvest_notes %></td>
         <td class="seed_flat_index_text_cell_medium"><%= seed_flat.former_flat_id %></td>
         <td></td>
         <td></td>

@@ -11,9 +11,19 @@ class SeedFlatsController < ApplicationController
     @seed_flats = SeedFlat.all.where(harvest_weight_oz: nil).order(updated_at: :desc)
   end
 
+  def harvested_index
+    @seed_flats = SeedFlat.all.where.not(harvest_weight_oz: nil).where.not(harvest_weight_oz: 0).order(updated_at: :desc)
+  end
+
+  def killed_index
+    @seed_flats = SeedFlat.all.where(harvest_weight_oz: 0).order(updated_at: :desc)
+  end
+
   def harvested_killed
     @seed_flats = SeedFlat.all.where.not(harvest_weight_oz: nil).order(updated_at: :desc)
   end
+
+
 
   # GET /seed_flats/1
   # GET /seed_flats/1.json

@@ -36,6 +36,8 @@ body {
 
 table.seed-flats-index {
 	border-collapse:collapse;
+  margin-left: 22px;
+  margin-right: 22px;
 	
 	th {
     	padding-right:4px;
@@ -152,7 +154,8 @@ table td.seed_flat_index_text_cell_medium {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
-    min-width: 160px;
+    min-width: 222px;
+
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
@@ -415,4 +418,10 @@ table td.seed_flat_index_text_cell_medium {
 
 tr.border_bottom td {
   border-bottom: 6px solid black;
+}
+
+
+.navbar-dropdown {
+  font-size: 22px;
+  font-weight: bold
 }

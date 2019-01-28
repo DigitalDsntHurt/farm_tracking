@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 	get 'dashboards/flat_allocation'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
+	get 'seed_flats/harvested_index' => 'seed_flats#harvested_index'
+	get 'seed_flats/killed_index' => 'seed_flats#killed_index'
 	get 'seed_flats/harvested_killed' => 'seed_flats#harvested_killed'
 	get 'seed_flats/copy' => 'seed_flats#copy'
 	get 'seed_flats/first_emerge' => 'seed_flats#first_emerge'
