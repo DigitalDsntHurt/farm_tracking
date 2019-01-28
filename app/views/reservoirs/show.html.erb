@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @reservoir.name %>
+</p>
+
+<p>
+  <strong>Size liters:</strong>
+  <%= @reservoir.size_liters %>
+</p>
+
+<p>
+  <strong>Brand:</strong>
+  <%= @reservoir.brand %>
+</p>
+
+<%= link_to 'Edit', edit_reservoir_path(@reservoir) %> |
+<%= link_to 'Back', reservoirs_path %>

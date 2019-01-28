@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :nutrient_solutions
+  resources :reservoirs
   resources :crops
   	resources :rooms
   	resources :systems

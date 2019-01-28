@@ -45,6 +45,21 @@
 		<div class="col">
 			<br/>
 			<br/>
+			<div class="dropdown">
+			  <button class="dropbtn btn btn-success">Pipeline</button>
+			  <div class="dropdown-content">
+			    <%= link_to "Rooms", "/rooms", :method => :get %>
+			    <%= link_to "Systems", "/systems", :method => :get %>
+			    <%= link_to "Reservoirs", "/reservoirs", :method => :get %>
+			    <%= link_to "Nutrient Solutions", "/nutrient_solutions", :method => :get %>
+			  </div>
+			</div>			
+			<br/>
+			<br/>			
+		</div>
+		<div class="col">
+			<br/>
+			<br/>
 			    <%= link_to 'Crops', crops_path, :class => "btn btn-success" %>
 			<br/><br/><br/>
 		</div>
@@ -88,4 +103,4 @@
 	</div>
 	
 </div>
-<br><br>
+<br><br><br><br><br><br>

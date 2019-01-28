@@ -1,0 +1,55 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date_mixed: 2019-01-27
+  reservoir: one
+  system: MyString
+  reservoir_fill_volume_liters: 1
+  topup_or_reset: MyString
+  ingredient1: MyString
+  ingredient1_qty_ml: 1
+  ingredient2: MyString
+  ingredient2_qty_ml: 1
+  ingredient3: MyString
+  ingredient3_qty_ml: 1
+  ingredient4: MyString
+  ingredient4_qty_ml: 1
+  ingredient5: MyString
+  ingredient5_qty_ml: 1
+  ingredient6: MyString
+  ingredient6_qty_ml: 1
+  ingredient7: MyString
+  ingredient7_qty_ml: 1
+  ingredient8: MyString
+  ingredient8_qty_ml: 1
+  ingredient9: MyString
+  ingredient9_qty_ml: 1
+  ingredient10: MyString
+  ingredient10_qty_ml: 1
+
+two:
+  date_mixed: 2019-01-27
+  reservoir: two
+  system: MyString
+  reservoir_fill_volume_liters: 1
+  topup_or_reset: MyString
+  ingredient1: MyString
+  ingredient1_qty_ml: 1
+  ingredient2: MyString
+  ingredient2_qty_ml: 1
+  ingredient3: MyString
+  ingredient3_qty_ml: 1
+  ingredient4: MyString
+  ingredient4_qty_ml: 1
+  ingredient5: MyString
+  ingredient5_qty_ml: 1
+  ingredient6: MyString
+  ingredient6_qty_ml: 1
+  ingredient7: MyString
+  ingredient7_qty_ml: 1
+  ingredient8: MyString
+  ingredient8_qty_ml: 1
+  ingredient9: MyString
+  ingredient9_qty_ml: 1
+  ingredient10: MyString
+  ingredient10_qty_ml: 1
