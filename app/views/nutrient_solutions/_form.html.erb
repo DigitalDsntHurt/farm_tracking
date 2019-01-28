@@ -1,0 +1,117 @@
+<%= form_with(model: nutrient_solution, local: true) do |form| %>
+  <% if nutrient_solution.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(nutrient_solution.errors.count, "error") %> prohibited this nutrient_solution from being saved:</h2>
+
+      <ul>
+      <% nutrient_solution.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+          <div class="field" align="center">
+            <%= form.label :date_mixed %><br>
+            <%= form.date_select :date_mixed, id: :nutrient_solution_date_mixed %>
+          </div>        
+      </div>
+      <div class="col-md-2">
+        <div class="field" align="center">
+          <%= form.label :reservoir_id %><br>
+          <%= form.select :reservoir_id, Reservoir.all.collect{|rez| [ "#{rez.name} - #{rez.size_liters}", rez.id ] }, include_blank: true %>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="field" align="center">
+          <%= form.label :system %><br>
+          <%= form.text_field :system, id: :nutrient_solution_system %>
+        </div>        
+      </div>
+      <div class="col-md-2">
+          <div class="field" align="center">
+            <%= form.label :reservoir_fill_volume_liters %><br>
+            <%= form.number_field :reservoir_fill_volume_liters, id: :nutrient_solution_reservoir_fill_volume_liters %> L
+          </div>
+      </div>
+      <div class="col-md-2">
+        <div class="field" align="center">
+          <%= form.label :topup_or_reset %><br>
+          <%= form.select :topup_or_reset, options_for_select(['top-up' ,'full reset']), default: "top-up" %>
+        </div>
+      </div>
+    </div>
+<br>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="field" align="center">
+          <%= form.label :ingredient1 %><br>
+          <%= form.text_field :ingredient1, id: :nutrient_solution_ingredient1, value: "vinegar"  %>
+        </div>
+        <div class="field" align="center">
+          <%= form.label :ingredient1_qty_ml %><br>
+          <%= form.number_field :ingredient1_qty_ml, id: :nutrient_solution_ingredient1_qty_ml %> mL
+        </div>
+      </div>
+        <div class="col-md-2">
+          <div class="field" align="center">
+            <%= form.label :ingredient2  %><br>
+            <%= form.text_field :ingredient2, id: :nutrient_solution_ingredient2, value: "hydrogen peroxide" %>            
+          </div>
+          <div class="field" align="center">
+            <%= form.label :ingredient2_qty_ml %><br>
+            <%= form.number_field :ingredient2_qty_ml, id: :nutrient_solution_ingredient2_qty_ml %> mL
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="field" align="center">
+            <%= form.label :ingredient3 %><br>
+            <%= form.text_field :ingredient3, id: :nutrient_solution_ingredient3, value: "FloraGro" %>
+          </div>
+          <div class="field" align="center">
+            <%= form.label :ingredient3_qty_ml %><br>
+            <%= form.number_field :ingredient3_qty_ml, id: :nutrient_solution_ingredient3_qty_ml %> mL
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="field" align="center">
+            <%= form.label :ingredient4 %><br>
+            <%= form.text_field :ingredient4, id: :nutrient_solution_ingredient4, value: "FloraMicro" %>
+          </div>
+          <div class="field" align="center">
+            <%= form.label :ingredient4_qty_ml %><br>
+            <%= form.number_field :ingredient4_qty_ml, id: :nutrient_solution_ingredient4_qty_ml %> mL
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="field" align="center">
+            <%= form.label :ingredient5 %><br>
+            <%= form.text_field :ingredient5, id: :nutrient_solution_ingredient5, value: "FloraBloom"  %>
+          </div>
+          <div class="field" align="center">
+            <%= form.label :ingredient5_qty_ml %><br>
+            <%= form.number_field :ingredient5_qty_ml, id: :nutrient_solution_ingredient5_qty_ml %> mL
+          </div>
+        </div>        
+        <div class="col-md-2">
+          <div class="field" align="center">
+            <%= form.label :ingredient6 %><br>
+            <%= form.text_field :ingredient6, id: :nutrient_solution_ingredient6, value: "Rock Supercharge"  %>
+          </div>
+          <div class="field" align="center">
+            <%= form.label :ingredient6_qty_ml %><br>
+            <%= form.number_field :ingredient6_qty_ml, id: :nutrient_solution_ingredient6_qty_ml %> mL
+          </div>
+        </div>
+    </div>
+  </div>
+<br>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,5 +1,61 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
+require 'csv'
+
+=begin
+=end
+##
+## ## Seed Reservoirs Table From Google Sheets CSV Export
+##
+seed_arr = []
+
+csv = CSV.read(Rails.root.join('db','rezs.csv'))
+csv.to_a.each{|row|
+	@hsh = {}
+	@hsh[:name] = row[0].upcase
+	@hsh[:size_liters] = row[1]
+	@hsh[:brand] = row[2]
+	seed_arr << @hsh
+}
+
+Reservoir.create(seed_arr)
+puts seed_arr.count
+
+
+
+=begin
+=end
+##
+## ## Seed Nutrient Solutions Table From Google Sheets CSV Export
+##
+seed_arr = []
+
+csv = CSV.read(Rails.root.join('db','nutsols.csv'))
+csv.to_a[1..130].each{|row|
+	@hsh = {}
+	@hsh[:date_mixed] = Date.strptime(row[1],'%m/%d/%Y').to_date
+	@hsh[:reservoir_id] = Reservoir.where(name: row[2].upcase)[0].id
+	@hsh[:system] = row[6].upcase
+	@hsh[:reservoir_fill_volume_liters] = row[8]
+	@hsh[:topup_or_reset] = row[9]
+	@hsh[:ingredient1] = row[10]
+	@hsh[:ingredient1_qty_ml] = row[11]
+	@hsh[:ingredient2] = row[12]
+	@hsh[:ingredient2_qty_ml] = row[13]
+	@hsh[:ingredient3] = row[14]
+	@hsh[:ingredient3_qty_ml] = row[15]
+	@hsh[:ingredient4] = row[16]
+	@hsh[:ingredient4_qty_ml] = row[17]
+	@hsh[:ingredient5] = row[18]
+	@hsh[:ingredient5_qty_ml] = row[19]
+	@hsh[:ingredient6] = row[20]
+	@hsh[:ingredient6_qty_ml] = row[21]
+	seed_arr << @hsh
+}
+
+NutrientSolution.create(seed_arr)
+puts seed_arr.count
+
 
 =begin
 else_count = 0

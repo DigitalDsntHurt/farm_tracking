@@ -1,0 +1,105 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+        <strong>Date mixed:</strong>
+        <%= @nutrient_solution.date_mixed %>
+    </div>
+    <div class="col">
+      <strong>Reservoir:</strong>
+      <%= link_to Reservoir.where(id: @nutrient_solution.reservoir)[0].name, "/reservoirs/#{Reservoir.where(id: @nutrient_solution.reservoir)[0].id}" %>      
+    </div>
+    <div class="col">
+      <strong>System:</strong>
+      <%= @nutrient_solution.system %>      
+    </div>
+    <div class="col">
+        <strong>Reservoir fill volume:</strong>
+        <%= @nutrient_solution.reservoir_fill_volume_liters %> L
+    </div>  
+    <div class="col">
+      <strong>Topup or reset:</strong>
+      <%= @nutrient_solution.topup_or_reset %>
+    </div>   
+  </div>
+<br>
+  <div class="row">
+    <div class="col">
+      <p>
+        &nbsp;
+      </p>
+    </div>
+    <div class="col">
+      <strong>Ingredient1:</strong><br>
+      <%= @nutrient_solution.ingredient1_qty_ml %> mL <%= @nutrient_solution.ingredient1 %>      
+    </div>     
+    <div class="col">
+      <strong>Ingredient2:</strong><br>
+      <%= @nutrient_solution.ingredient2_qty_ml %> mL <%= @nutrient_solution.ingredient2 %> 
+    </div>
+    <div class="col">
+      <strong>Ingredient3:</strong><br>
+      <%= @nutrient_solution.ingredient3_qty_ml %> mL <%= @nutrient_solution.ingredient3 %> 
+    </div>     
+    <div class="col">
+      <strong>Ingredient4:</strong><br>
+      <%= @nutrient_solution.ingredient4_qty_ml %> mL <%= @nutrient_solution.ingredient4 %> 
+    </div>     
+    <div class="col">
+      <strong>Ingredient5:</strong><br>
+      <%= @nutrient_solution.ingredient5_qty_ml %> mL <%= @nutrient_solution.ingredient5 %> 
+    </div>     
+    <div class="col">
+      <strong>Ingredient6:</strong><br>
+      <%= @nutrient_solution.ingredient6_qty_ml %> mL <%= @nutrient_solution.ingredient6 %>       
+    </div>     
+    <div class="col">
+      
+    </div>             
+  </div>
+</div>
+
+<br><br>
+<p>
+  <strong>Ingredient7:</strong>
+  <%= @nutrient_solution.ingredient7 %>
+</p>
+
+<p>
+  <strong>Ingredient7 qty ml:</strong>
+  <%= @nutrient_solution.ingredient7_qty_ml %>
+</p>
+
+<p>
+  <strong>Ingredient8:</strong>
+  <%= @nutrient_solution.ingredient8 %>
+</p>
+
+<p>
+  <strong>Ingredient8 qty ml:</strong>
+  <%= @nutrient_solution.ingredient8_qty_ml %>
+</p>
+
+<p>
+  <strong>Ingredient9:</strong>
+  <%= @nutrient_solution.ingredient9 %>
+</p>
+
+<p>
+  <strong>Ingredient9 qty ml:</strong>
+  <%= @nutrient_solution.ingredient9_qty_ml %>
+</p>
+
+<p>
+  <strong>Ingredient10:</strong>
+  <%= @nutrient_solution.ingredient10 %>
+</p>
+
+<p>
+  <strong>Ingredient10 qty ml:</strong>
+  <%= @nutrient_solution.ingredient10_qty_ml %>
+</p>
+
+<%= link_to 'Edit', edit_nutrient_solution_path(@nutrient_solution) %> |
+<%= link_to 'Back', nutrient_solutions_path %>

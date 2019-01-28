@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181008062336) do
+ActiveRecord::Schema.define(version: 20190128053248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,45 @@ ActiveRecord::Schema.define(version: 20181008062336) do
     t.float "sale_price_per_8oz"
     t.float "sale_price_per_16oz"
     t.float "sale_price_per_live_flat"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "nutrient_solutions", force: :cascade do |t|
+    t.date "date_mixed"
+    t.bigint "reservoir_id"
+    t.string "system"
+    t.integer "reservoir_fill_volume_liters"
+    t.string "topup_or_reset"
+    t.string "ingredient1"
+    t.integer "ingredient1_qty_ml"
+    t.string "ingredient2"
+    t.integer "ingredient2_qty_ml"
+    t.string "ingredient3"
+    t.integer "ingredient3_qty_ml"
+    t.string "ingredient4"
+    t.integer "ingredient4_qty_ml"
+    t.string "ingredient5"
+    t.integer "ingredient5_qty_ml"
+    t.string "ingredient6"
+    t.integer "ingredient6_qty_ml"
+    t.string "ingredient7"
+    t.integer "ingredient7_qty_ml"
+    t.string "ingredient8"
+    t.integer "ingredient8_qty_ml"
+    t.string "ingredient9"
+    t.integer "ingredient9_qty_ml"
+    t.string "ingredient10"
+    t.integer "ingredient10_qty_ml"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reservoir_id"], name: "index_nutrient_solutions_on_reservoir_id"
+  end
+
+  create_table "reservoirs", force: :cascade do |t|
+    t.string "name"
+    t.integer "size_liters"
+    t.string "brand"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -144,6 +183,7 @@ ActiveRecord::Schema.define(version: 20181008062336) do
     t.index ["room_id"], name: "index_systems_on_room_id"
   end
 
+  add_foreign_key "nutrient_solutions", "reservoirs"
   add_foreign_key "seed_flat_updates", "seed_flats"
   add_foreign_key "seed_flats", "rooms"
   add_foreign_key "seed_flats", "seed_treatments", column: "seed_treatments_id"

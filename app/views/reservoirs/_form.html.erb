@@ -1,0 +1,32 @@
+<%= form_with(model: reservoir, local: true) do |form| %>
+  <% if reservoir.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(reservoir.errors.count, "error") %> prohibited this reservoir from being saved:</h2>
+
+      <ul>
+      <% reservoir.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :reservoir_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :size_liters %>
+    <%= form.number_field :size_liters, id: :reservoir_size_liters %>
+  </div>
+
+  <div class="field">
+    <%= form.label :brand %>
+    <%= form.text_field :brand, id: :reservoir_brand %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

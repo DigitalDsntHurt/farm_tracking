@@ -6,6 +6,7 @@
       <th>started date</th>
       <th>crop</th>
       <th>variety</th>
+      <th>seed brand</th>
       <th>seed weight</th>
       <th>first emergence</th>
       <th>full emergence</th>
@@ -21,7 +22,7 @@
   <tbody>
     <% @seed_flats.each do |seed_flat| %>
       <% if seed_flat.harvest_weight_oz == 0.0 %>
-        <tr style="background-color: #CD3333; font-size: 18px;">
+        <tr style="background-color: red;">
       <% elsif seed_flat.harvest_weight_oz != nil %>
           <tr style="background-color: #659D32; font-size: 18px;">
       <% elsif seed_flat.date_of_first_transplant != nil %>
@@ -32,13 +33,14 @@
         <td><%= seed_flat.started_date %></td>
         <td><%= seed_flat.crop %></td>
         <td class="seed_flat_index_text_cell_small"><%= seed_flat.crop_variety %></td>
+        <td><%= seed_flat.seed_brand %></td>
         <td><%= seed_flat.seed_weight_oz %></td>
         <td><%= seed_flat.first_emerge_date %></td>
         <td><%= seed_flat.full_emerge_date %></td>
         <td><%= seed_flat.harvested_on %></td>
         <td><%= seed_flat.harvest_weight_oz %></td>
         <td><%= seed_flat.hrvst_wt_lbs %></td>
-        <td class="seed_flat_index_text_cell_medium" style="max-width:22px; white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word"><%= seed_flat.harvest_notes %></td>
+        <td class="seed_flat_index_text_cell_medium" style="max-width:22px; white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word" class="seed_flat_index_text_cell_medium"><%= seed_flat.harvest_notes %></td>
         <td class="seed_flat_index_text_cell_medium"><%= seed_flat.former_flat_id %></td>
         <td></td>
         <td></td>
