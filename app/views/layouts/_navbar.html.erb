@@ -42,22 +42,7 @@
 			<br/>
 			<br/>			
 		</div>
-		<div class="col">
-			<br/>
-			<br/>
-			<div class="dropdown">
-			  <button class="dropbtn btn btn-success dropdown-toggle">Flats</button>
-			  <div class="dropdown-content">
-			    <%= link_to "All", "/seed_flats", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Live", "/seed_flats/live_index", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Harvested", "/seed_flats/harvested_index", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Killed", "/seed_flats/killed_index", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Harvested + Killed", "/seed_flats/harvested_killed", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Seed Flat Updates", "/seed_flat_updates", :method => :get, :class => "navbar-dropdown" %>
-			  </div>
-			</div>			
-			<br/><br/><br/>
-		</div>		
+	
 		<div class="col">
 			<br/>
 			<br/>
@@ -74,6 +59,24 @@
 			<br/>
 			<br/>			
 		</div>
+
+		<div class="col">
+			<br/>
+			<br/>
+			<div class="dropdown">
+			  <button class="dropbtn btn btn-success dropdown-toggle">Flats</button>
+			  <div class="dropdown-content">
+			    <%= link_to "All", "/seed_flats", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "Live", "/seed_flats/live_index", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "Harvested", "/seed_flats/harvested_index", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "Killed", "/seed_flats/killed_index", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "Harvested + Killed", "/seed_flats/harvested_killed", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "Seed Flat Updates", "/seed_flat_updates", :method => :get, :class => "navbar-dropdown" %>
+			  </div>
+			</div>			
+			<br/><br/><br/>
+		</div>	
+		
 		<div class="col">
 			<br/>
 			<br/>
