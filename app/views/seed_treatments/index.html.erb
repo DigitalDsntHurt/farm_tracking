@@ -1,8 +1,49 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Seed Treatments</h1>
+<h1></h1>
+<h1 align="center">
+  Seed Treatments<br>
+  <%= link_to 'New Seed Treatment', new_seed_treatment_path, :class => "dropbtn btn btn-success" %>
+</h1>
+
+
+<table align="center">
+  <tr>
+    <th style="padding-right: 22px; padding-left: 22px;">
+      crop
+    </th>
+    <th style="padding-right: 22px; padding-left: 22px;">
+      sample size<br>(# flats)
+    </th>
+    <th style="padding-right: 22px; padding-left: 22px;">
+      avg oz / flat<br>(oz)
+    </th>
+  </tr>
+  <% @crops.sort_by{|c| c }.each{|c| %>
+  <tr>
+    <% @crop_query = @seed_treatments.where(seed_crop: c) %>
+    <% @treatment_query = SeedTreatment.where(seed_crop: c).where.not(destination_flat_ids: []) %>
+
+    <td style="padding-right: 6px; padding-left: 6px;">
+      <%= c %>
+    </td>
+    <td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+      <%= @crop_query.count %>
+    </td>
+    <td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+      <% if @treatment_query.count == 0 %>
+        0
+      <% else %>
+        <%= ( @treatment_query.to_a.map{|treatment| (treatment.seed_quantity_oz / treatment.destination_flat_ids.count) }.inject{|dur,sum| dur+sum }/@treatment_query.count ).round(2) %>
+      <% end %>
+    </td>
+
+  </tr>
+  <% } %>
+</table>
+
 <p><u><strong>Legend:</strong></u> soaking | <span style="background-color: yellow;">germinating</span> | <span style="background-color: green;">finished</span> | <span style="background-color: red;">killed</span> </p>
-<table>
+<table style="margin-left:22px; margin-right: 22px; font-size: 16px;">
   <thead>
     <tr>
       <th>started</th>
@@ -15,11 +56,13 @@
       <th>1st emerge</th>
       <th>full emerge</th>
       <th>days to full emerge</th>
+      <th>days since germ start date</th>
       <th>planned date of 1st flat sew</th>
       <th>Date of first flat sew</th>
       <th>Date of last flat sew</th>
       <th># Flats Sewn</th>
       <th>Destination flat ids</th>
+      <th>OZ / Flat</th>
       <th>Finished?</th>
       <th></th>
     </tr>
@@ -28,11 +71,11 @@
   <tbody>
     <% @seed_treatments.each do |seed_treatment| %>
       <% if seed_treatment.killed_on != nil %>
-        <tr bgcolor="red" class="border-bottom">
+        <tr bgcolor="red" class="border-bottom" style="background-color: #CD3333;">
       <% elsif seed_treatment.finished == true %>
-        <tr bgcolor="green" class="border-bottom">
+        <tr bgcolor="green" class="border-bottom" style="background-color: #659D32;">
       <% elsif seed_treatment.germination_start_date != nil %>
-        <tr bgcolor="yellow" class="border-bottom">
+        <tr bgcolor="#FFFF66" class="border-bottom">
       <% else %>
         <tr>
       <% end %>
@@ -53,6 +96,7 @@
         <td><%= seed_treatment.first_emerge_date %></td>
         <td><%= seed_treatment.full_emerge_date %></td>
         <td><%= seed_treatment.days_to_full_emergence %></td>
+        <td><strong><%= (Date.today - seed_treatment.germination_start_date).to_i %></strong></td>
         <td><%= seed_treatment.planned_date_of_first_flat_sew %></td>
         <td><%= seed_treatment.date_of_first_flat_sew %></td>
         <td><%= seed_treatment.date_of_last_flat_sew %></td>
@@ -60,7 +104,12 @@
           <% @num_flats_sewn = SeedFlat.where(seed_treatments_id: seed_treatment.id).count %>
           <%= @num_flats_sewn %>
         </td>
-        <td><%= seed_treatment.destination_flat_ids %></td>
+        <td>
+          <% seed_treatment.destination_flat_ids.each{|flat| %>
+            <%= link_to( flat, SeedFlat.where(id: flat)[0] ) %>
+          <% } %>
+        </td>
+        <td><%= (seed_treatment.seed_quantity_oz / seed_treatment.destination_flat_ids.count).round(2) %></td>
         <td><%= seed_treatment.finished %></td>
         <td>
           <table class='seed-flats-index-actions'>
@@ -106,6 +155,4 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Seed Treatment', new_seed_treatment_path %>
+<br><br>

@@ -5,6 +5,9 @@ class SeedTreatmentsController < ApplicationController
   # GET /seed_treatments.json
   def index
     @seed_treatments = SeedTreatment.all.order(soak_start_datetime: :desc)
+
+    @query_cutoff_date = "Mon, 01 Oct 2018"
+    @crops = @seed_treatments.pluck(:seed_crop).uniq
   end
 
   # GET /seed_treatments/1
