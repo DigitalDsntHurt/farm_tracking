@@ -13,7 +13,7 @@
       crop
     </th>
     <th style="padding-right: 22px; padding-left: 22px;">
-      sample size<br>(# flats)
+      sample size<br>(# treatments)
     </th>
     <th style="padding-right: 22px; padding-left: 22px;">
       avg oz / flat<br>(oz)
@@ -96,7 +96,12 @@
         <td><%= seed_treatment.first_emerge_date %></td>
         <td><%= seed_treatment.full_emerge_date %></td>
         <td><%= seed_treatment.days_to_full_emergence %></td>
-        <td><strong><%= (Date.today - seed_treatment.germination_start_date).to_i %></strong></td>
+        <td><strong>
+          <% if seed_treatment.germination_start_date == nil%>
+          <% else %>  
+            <%= (Date.today - seed_treatment.germination_start_date).to_i %>
+          <% end %>  
+          </strong></td>
         <td><%= seed_treatment.planned_date_of_first_flat_sew %></td>
         <td><%= seed_treatment.date_of_first_flat_sew %></td>
         <td><%= seed_treatment.date_of_last_flat_sew %></td>
