@@ -2,6 +2,50 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
+##
+## ## Seed Orders Table From Google Sheets CSV Export -- simple, most basic version for auto sew scheduling
+##
+seed_arr = []
+
+csv = CSV.read(Rails.root.join('db','orders.csv'))
+csv.to_a[1..-1].each{|row|
+	@hsh = {}
+	next if row[0] == nil
+	
+	seed_arr << @hsh
+}
+
+Crop.create(seed_arr)
+puts "Created #{seed_arr.count} new crops in Crops table!"
+
+
+
+=begin
+=end
+##
+## ## Seed Crops Table From Google Sheets CSV Export -- simple, most basic version for auto sew scheduling
+##
+seed_arr = []
+
+csv = CSV.read(Rails.root.join('db','crops.csv'))
+csv.to_a[1..-1].each{|row|
+	@hsh = {}
+	next if row[0] == nil
+	@hsh[:crop] = row[0].downcase
+	@hsh[:crop_variety] = row[1].downcase
+	@hsh[:ideal_soak_seed_oz_per_flat] = row[2]
+	@hsh[:ideal_treatment_days] = row[3]
+	@hsh[:ideal_sew_seed_oz_per_flat] = row[4] 
+	@hsh[:ideal_post_treatment_dth] = row[7]
+	@hsh[:ideal_total_dth] = row[8]
+	@hsh[:avg_yield_per_flat_oz] = row[9]
+	seed_arr << @hsh
+}
+
+Crop.create(seed_arr)
+puts "Created #{seed_arr.count} new crops in Crops table!"
+
+
 =begin
 ##
 ## ## Seed Reservoirs Table From Google Sheets CSV Export
