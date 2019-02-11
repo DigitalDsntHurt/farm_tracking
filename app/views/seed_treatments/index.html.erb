@@ -9,14 +9,17 @@
 
 <table align="center">
   <tr>
-    <th style="padding-right: 22px; padding-left: 22px;">
+    <th style="padding-right: 22px; padding-left: 22px; ">
       crop
     </th>
-    <th style="padding-right: 22px; padding-left: 22px;">
+    <th style="padding-right: 22px; padding-left: 22px; text-align: center;">
       sample size<br>(# treatments)
     </th>
-    <th style="padding-right: 22px; padding-left: 22px;">
+    <th style="padding-right: 22px; padding-left: 22px; text-align: center;">
       avg oz / flat<br>(oz)
+    </th>
+    <th style="padding-right: 22px; padding-left: 22px; text-align: center;">
+      avg treatment duration<br>(days)
     </th>
   </tr>
   <% @crops.sort_by{|c| c }.each{|c| %>
@@ -24,7 +27,7 @@
     <% @crop_query = @seed_treatments.where(seed_crop: c) %>
     <% @treatment_query = SeedTreatment.where(seed_crop: c).where.not(destination_flat_ids: []) %>
 
-    <td style="padding-right: 6px; padding-left: 6px;">
+    <td style="padding-right: 6px; padding-left: 6px; text-align: ">
       <%= c %>
     </td>
     <td style="padding-right: 6px; padding-left: 6px; text-align: center;">
@@ -37,7 +40,9 @@
         <%= ( @treatment_query.to_a.map{|treatment| (treatment.seed_quantity_oz / treatment.destination_flat_ids.count) }.inject{|dur,sum| dur+sum }/@treatment_query.count ).round(2) %>
       <% end %>
     </td>
-
+    <td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+      <%= ( @treatment_query.to_a.map{|treatment| ( treatment.date_of_first_flat_sew - treatment.soak_start_date).to_i.to_f }.inject{|dur,sum| dur+sum }/@treatment_query.count ).round(2) %>
+    </td>
   </tr>
   <% } %>
 </table>
