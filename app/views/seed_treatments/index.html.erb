@@ -41,7 +41,7 @@
       <% end %>
     </td>
     <td style="padding-right: 6px; padding-left: 6px; text-align: center;">
-        
+      <%= ( @treatment_query.to_a.map{|treatment| ( treatment.date_of_first_flat_sew - treatment.soak_start_date).to_i.to_f }.inject{|dur,sum| dur+sum }/@treatment_query.count ).round(2) %>
     </td>
   </tr>
   <% } %>
