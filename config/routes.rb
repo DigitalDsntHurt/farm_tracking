@@ -48,6 +48,7 @@ Rails.application.routes.draw do
 	get 'seed_flat_updates/transplant_to_livestorage' => 'seed_flat_updates#transplant_to_livestorage'
 	resources :seed_flat_updates
 	
+	get 'seed_treatments/fresh_index'
 	get 'seed_treatments/clone' => 'seed_treatments#clone'
 	get 'seed_treatments/end_soak' => 'seed_treatments#end_soak'
 	get 'seed_treatments/first_emerge' => 'seed_treatments#first_emerge'
