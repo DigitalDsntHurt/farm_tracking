@@ -25,7 +25,7 @@
   <% @crops.sort_by{|c| c }.each{|c| %>
   <tr>
     <% @crop_query = @seed_treatments.where(seed_crop: c) %>
-    <% @treatment_query = SeedTreatment.where(seed_crop: c).where.not(destination_flat_ids: []).where.not(date_of_first_flat_sew: nil) %>
+    <% @treatment_query = SeedTreatment.where(seed_crop: c).where.not(destination_flat_ids: [])#.where.not(date_of_first_flat_sew: nil) %>
 
     <td style="padding-right: 6px; padding-left: 6px;">
       <%= c %>
@@ -41,7 +41,7 @@
       <% end %>
     </td>
     <td style="padding-right: 6px; padding-left: 6px; text-align: center;">
-        <%= ( @treatment_query.to_a.map{|treatment| ( treatment.date_of_first_flat_sew - treatment.soak_start_date).to_i.to_f }.inject{|dur,sum| dur+sum }/@treatment_query.count ).round(2) %>
+        
     </td>
   </tr>
   <% } %>
