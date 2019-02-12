@@ -1,0 +1,60 @@
+<h1 align="center">
+	Soak & Sew Sked
+</h1>
+<br>
+<div class="container-fluid">
+	<% @weeks.each{|week| %>
+		<div class="row">
+			<% week.each{|day| %>
+				<% if day == Date.today %>
+					<div class="col cal-day" style="background-color: #4cbb17;">
+				<% else %>
+					<div class="col cal-day">
+				<% end %>
+					<% unless day == nil %>
+						<br>
+						<% @seeds_treated = SeedTreatment.where(soak_start_date: day) %>			
+						<p align="center">		
+							<h3><%= day.strftime("%A, %b %d") %></h3><br><hr>
+						</p>
+						
+						<h4>What to soak</h4>
+						<p>
+						...	
+						</p>
+						<h4>What to sew</h4>
+						<p>
+						...	
+						</p>
+						
+						<hr>
+
+						<p align="center">	
+							<strong><%= @seeds_treated.count %> seed varieties soaked</strong>
+						</p>
+
+						<p>
+							<% @seeds_treated.each{|treatment| %>
+								<%= treatment.seed_quantity_oz %> oz <%= treatment.seed_crop %><br>
+							<% } %>
+						</p>
+
+						<% @flats_sewn = SeedFlat.where(started_date: day) %>
+						<p align="center">		
+							<strong><%= @flats_sewn.count %> flats sewn</strong>
+						</p>
+
+						<p>
+							<% @flats_sewn.group_by(&:crop).sort_by{|crop, result| -result.count }.each{|crop, result| %>
+								<%= result.count %> flats <%= crop %><br>
+							<% } %>
+						</p>
+					<% end %>
+
+
+
+				</div>
+			<% } %>
+		</div>
+	<% } %>
+</div>
