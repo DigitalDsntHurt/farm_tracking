@@ -49,6 +49,7 @@
 			<div class="dropdown">
 			  <button class="dropbtn btn btn-success dropdown-toggle">Pipeline</button>
 			  <div class="dropdown-content">
+			    <%= link_to "Orders", "/orders", :method => :get, :class => "navbar-dropdown" %>
 			    <%= link_to "Crops", "/crops", :method => :get, :class => "navbar-dropdown" %>
 			    <%= link_to "Nutrient Solutions", "/nutrient_solutions", :method => :get, :class => "navbar-dropdown" %>
 			    <%= link_to "Reservoirs", "/reservoirs", :method => :get, :class => "navbar-dropdown" %>
