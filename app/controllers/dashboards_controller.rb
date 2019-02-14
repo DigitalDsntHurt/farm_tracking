@@ -39,6 +39,113 @@ class DashboardsController < ApplicationController
 
   end  
 
+  def soak_sew_cal
+    
+    # setup calendar cells
+    @today = Date.today - 7
+    if @today.strftime("%a") == "Mon"
+      @start_date = @today
+    else
+        @start_date = @today
+        until @start_date.strftime("%a") == "Mon"
+          @start_date -= 1
+        end
+    end
+    @end_date = @start_date+60
+    @date_range = (@start_date..@end_date)
+    @weeks = @date_range.to_a.in_groups_of(7)
+
+    # lookup orders
+    @orders = Order.all
+    @grouped_orders = @orders.group_by{|order| order.day_of_week }
+
+    @days_of_week_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+    @to_soak = []
+    @to_sew = []
+
+    @orders.sort_by(&:day_of_week).each{|order|
+      @arr = []  
+
+      @days_of_week_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+      @crop = Crop.where(crop: order.crop).where(crop_variety: order.variety)
+
+      @instruction = []
+      if @crop[0].ideal_treatment_days == 0
+        @instruction << "sew" 
+        @instruction << "#{(order.qty_oz / @crop[0].avg_yield_per_flat_oz).ceil}" 
+        @instruction << "#{order.variety} #{order.crop}"
+        @instruction << "#{order.customer}"
+      else
+        @instruction << "soak"
+        @instruction << "#{(order.qty_oz / @crop[0].avg_yield_per_flat_oz).ceil * @crop[0].ideal_soak_seed_oz_per_flat }"
+        @instruction << "#{order.variety} #{order.crop}"
+        @instruction << "#{order.customer}"
+      end
+
+      if @crop[0].ideal_total_dth % 7 == 0
+        @instruction.insert(1,"#{order.day_of_week}")
+      else
+        @ref_index = @days_of_week_ref.index(order.day_of_week) - (@crop[0].ideal_total_dth % 7)
+        @instruction.insert(1,@days_of_week_ref[@ref_index])
+      end
+
+      @to_soak << @instruction if @instruction[0] == "soak"
+      @to_sew << @instruction if @instruction[0] == "sew"
+    }
+
+    ##
+    ## ## Soak schedule
+    ##
+    @to_soak_day_adjusted = []
+    @to_soak.each{|arr|
+      if arr[1] == "Monday"
+        @to_soak_day_adjusted << [arr[0],"Sunday",arr[2],arr[3],arr[4]]
+      elsif arr[1] == "Wednesday"
+        @to_soak_day_adjusted << [arr[0],"Tuesday",arr[2],arr[3],arr[4]]
+      elsif arr[1] == "Friday"
+        @to_soak_day_adjusted << [arr[0],"Thursday",arr[2],arr[3],arr[4]]
+      elsif arr[1] == "Saturday"
+        @to_soak_day_adjusted << [arr[0],"Thursday",arr[2],arr[3],arr[4]]
+      else
+        @to_soak_day_adjusted << arr
+      end     
+    }
+    @grouped_soaks = @to_soak_day_adjusted.group_by{|arr| arr[1]}
+
+    ##
+    ## ## Sew schedule
+    ##
+    @to_sew_day_adjusted = []
+    @to_sew.each{|arr|
+      if arr[1] == "Monday"
+        @to_sew_day_adjusted << [arr[0],"Sunday",arr[2],arr[3],arr[4]]
+      elsif arr[1] == "Wednesday"
+        @to_sew_day_adjusted << [arr[0],"Tuesday",arr[2],arr[3],arr[4]]
+      elsif arr[1] == "Friday"
+        @to_sew_day_adjusted << [arr[0],"Thursday",arr[2],arr[3],arr[4]]
+      elsif arr[1] == "Saturday"
+        @to_sew_day_adjusted << [arr[0],"Thursday",arr[2],arr[3],arr[4]]
+      else
+        @to_sew_day_adjusted << arr
+      end     
+    }
+    @grouped_sews = @to_sew_day_adjusted.group_by{|arr| arr[1]}
+   
+=begin
+    @crop_groups = []
+    @grouped_sews.each{|day_arr|
+      day_arr[1].each{|instruction_arr|
+        @hsh = Hash.new(0)
+
+      }
+    }
+=end
+
+=begin
+=end
+
+  end
+
   def old_pipeline
     @propagation_shelf = SeedFlat.where(:date_of_first_transplant => nil).where(:harvest_weight_oz => nil).order(started_date: :desc, updated_at: :desc)
     @sue_shelf = SeedFlat.where.not(:date_of_first_transplant => nil).where(:date_of_second_transplant => nil).where(:date_of_third_transplant => nil).where(:harvest_weight_oz => nil).order(started_date: :desc, updated_at: :desc)

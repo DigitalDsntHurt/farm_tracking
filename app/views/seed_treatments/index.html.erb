@@ -9,7 +9,7 @@
 
 <table align="center">
   <tr>
-    <th style="padding-right: 22px; padding-left: 22px;">
+    <th style="padding-right: 22px; padding-left: 22px; ">
       crop
     </th>
     <th style="padding-right: 22px; padding-left: 22px; text-align: center;">
@@ -27,7 +27,7 @@
     <% @crop_query = @seed_treatments.where(seed_crop: c) %>
     <% @treatment_query = SeedTreatment.where(seed_crop: c).where.not(destination_flat_ids: []) %>
 
-    <td style="padding-right: 6px; padding-left: 6px;">
+    <td style="padding-right: 6px; padding-left: 6px; text-align: ">
       <%= c %>
     </td>
     <td style="padding-right: 6px; padding-left: 6px; text-align: center;">

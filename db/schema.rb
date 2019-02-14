@@ -42,6 +42,21 @@ ActiveRecord::Schema.define(version: 20190214052658) do
     t.float "sale_price_per_live_flat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "ideal_treatment_days"
+    t.float "avg_treatment_days"
+    t.float "ideal_propagation_days"
+    t.float "avg_propagation_days"
+    t.float "ideal_system_days"
+    t.float "avg_system_days"
+    t.float "ideal_post_treatment_dth"
+    t.float "avg_post_treatment_dth"
+    t.float "ideal_total_dth"
+    t.float "avg_total_dth"
+    t.float "ideal_soak_seed_oz_per_flat"
+    t.float "avg_soak_seed_oz_per_flat"
+    t.float "ideal_sew_seed_oz_per_flat"
+    t.float "avg_sew_seed_oz_per_flat"
+    t.float "avg_yield_per_flat_oz"
   end
 
   create_table "nutrient_solutions", force: :cascade do |t|
@@ -73,6 +88,17 @@ ActiveRecord::Schema.define(version: 20190214052658) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reservoir_id"], name: "index_nutrient_solutions_on_reservoir_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "customer"
+    t.string "day_of_week"
+    t.date "date"
+    t.integer "qty_oz"
+    t.string "crop"
+    t.string "variety"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reservoirs", force: :cascade do |t|
