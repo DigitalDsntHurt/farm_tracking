@@ -10,6 +10,12 @@ class SeedTreatmentsController < ApplicationController
     @crops = @seed_treatments.pluck(:seed_crop).uniq
   end
 
+  def fresh_index
+    @seed_treatments = SeedTreatment.all.where(finished: false).where(killed_on: nil).order(soak_start_datetime: :desc)
+    @query_cutoff_date = "Mon, 01 Oct 2018"
+    @crops = @seed_treatments.pluck(:seed_crop).uniq
+  end
+
   # GET /seed_treatments/1
   # GET /seed_treatments/1.json
   def show

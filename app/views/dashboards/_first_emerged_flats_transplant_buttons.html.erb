@@ -1,0 +1,8 @@
+<%= link_to 'Full Emerge',  seed_flats_full_emerge_path(:controller => "seed_flats", :action => "full_emerge", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %><br>
+
+<% Room.where(id: System.where(id: tray.current_system_id)[0].room_id)[0].systems.where.not(system_name: "propagation").each{|system| %>
+	<% next if system.retired == true %>
+	<% next if system.id == tray.current_system_id %>
+	<% @system_name_for_interpolation = system.system_name.downcase.gsub(" ","") %>
+	<%= link_to "~>#{system.system_name.upcase}", send("seed_flat_updates_transplant_to_#{@system_name_for_interpolation}_path", :controller => "seed_flat_updates", :action => "transplant_to_#{@system_name_for_interpolation}", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>	
+<% } %>
