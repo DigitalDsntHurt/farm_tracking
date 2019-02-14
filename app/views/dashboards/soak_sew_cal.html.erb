@@ -2,16 +2,6 @@
 	Soak & Sew Sked
 </h1>
 
-
-<%= @grouped_sews.count %><br>
-<% @grouped_sews.sort_by{|arr| arr[0]}.each {|arr| %>
-	<%= arr %><br>
-	<br>***<br>
-<% } %>
-
-
-<br><br><br><br><br><br>
-
 <div class="container-fluid">
 	<% @weeks.each{|week| %>
 		<div class="row">
@@ -69,10 +59,6 @@
 							
 							<% @seeds_treated = SeedTreatment.where(soak_start_date: day) %>			
 							<h4 align="center"><%= @seeds_treated.count %> Seed Varieties Soaked</h4>
-							
-							<p align="center">
-								<strong> soaked</strong>
-							</p>
 							<p>
 								<% @seeds_treated.each{|treatment| %>
 									<%= treatment.seed_quantity_oz %> oz <%= treatment.seed_crop %><br>
