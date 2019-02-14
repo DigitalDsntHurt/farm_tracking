@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   resources :nutrient_solutions
   resources :reservoirs
   resources :crops
-  	resources :rooms
-  	resources :systems
+  resources :rooms
+  resources :systems
 
 	get 'dashboards/calendar'
 	get 'dashboards/sew_calendar'

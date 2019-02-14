@@ -5,7 +5,6 @@ require 'csv'
 
 
 =begin
-=end
 ##
 ## ## Seed Orders Table From Google Sheets CSV Export -- simple, most basic version for auto sew scheduling
 ##
@@ -25,11 +24,10 @@ csv.to_a[1..-1].each{|row|
 
 Order.create(seed_arr)
 puts "Created #{seed_arr.count} new orders in Orders table!"
-
+=end
 
 
 =begin
-=end
 ##
 ## ## Seed Crops Table From Google Sheets CSV Export -- simple, most basic version for auto sew scheduling
 ##
@@ -52,7 +50,7 @@ csv.to_a[1..-1].each{|row|
 
 Crop.create(seed_arr)
 puts "Created #{seed_arr.count} new crops in Crops table!"
-
+=end
 
 =begin
 ##
