@@ -46,6 +46,9 @@ Rails.application.routes.draw do
 	get 'seed_flat_updates/transplant_to_littlefoot' => 'seed_flat_updates#transplant_to_littlefoot'
 	get 'seed_flat_updates/transplant_to_dumbo' => 'seed_flat_updates#transplant_to_dumbo'
 	get 'seed_flat_updates/transplant_to_livestorage' => 'seed_flat_updates#transplant_to_livestorage'
+	get 'seed_flat_updates/transplant_to_gar' => 'seed_flat_updates#transplant_to_gar'
+	get 'seed_flat_updates/transplant_to_lev' => 'seed_flat_updates#transplant_to_lev'
+	get 'seed_flat_updates/transplant_to_pip' => 'seed_flat_updates#transplant_to_pip'
 	resources :seed_flat_updates
 	
 	get 'seed_treatments/fresh_index'

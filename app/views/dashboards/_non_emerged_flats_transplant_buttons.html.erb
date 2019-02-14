@@ -1,0 +1,3 @@
+<%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %><br>
+<%= link_to '1st Emerge', seed_flats_first_emerge_path(:controller => "seed_flats", :action => "first_emerge", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>  
+<%= link_to 'C Full Emerge', seed_flats_cascade_full_emerge_path(:controller => "seed_flats", :action => "cascade_full_emerge", :flat => tray.id), :class => "btn btn-outline-info sf-index-actions" %>

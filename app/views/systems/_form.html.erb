@@ -51,6 +51,11 @@
     <%= form.text_area :notes, id: :system_notes %>
   </div>
 
+  <div class="field">
+    <%= form.label :retired? %>
+    <%= form.check_box :retired, id: :retired %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
