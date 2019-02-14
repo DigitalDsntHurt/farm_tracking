@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer: MyString
+  day_of_week: MyString
+  date: 2019-02-13
+  qty_oz: 1
+  crop: MyString
+  variety: MyString
+
+two:
+  customer: MyString
+  day_of_week: MyString
+  date: 2019-02-13
+  qty_oz: 1
+  crop: MyString
+  variety: MyString

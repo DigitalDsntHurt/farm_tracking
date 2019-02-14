@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @order.customer %>
+</p>
+
+<p>
+  <strong>Day of week:</strong>
+  <%= @order.day_of_week %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @order.date %>
+</p>
+
+<p>
+  <strong>Qty oz:</strong>
+  <%= @order.qty_oz %>
+</p>
+
+<p>
+  <strong>Crop:</strong>
+  <%= @order.crop %>
+</p>
+
+<p>
+  <strong>Variety:</strong>
+  <%= @order.variety %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

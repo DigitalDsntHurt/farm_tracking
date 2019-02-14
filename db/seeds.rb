@@ -2,6 +2,10 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
+
+
+=begin
+=end
 ##
 ## ## Seed Orders Table From Google Sheets CSV Export -- simple, most basic version for auto sew scheduling
 ##
@@ -11,12 +15,16 @@ csv = CSV.read(Rails.root.join('db','orders.csv'))
 csv.to_a[1..-1].each{|row|
 	@hsh = {}
 	next if row[0] == nil
-	
+	@hsh[:customer] = row[0]
+	@hsh[:day_of_week] = row[1]
+	@hsh[:qty_oz] = row[2]
+	@hsh[:crop] = row[3]
+	@hsh[:variety] = row[4]
 	seed_arr << @hsh
 }
 
-Crop.create(seed_arr)
-puts "Created #{seed_arr.count} new crops in Crops table!"
+Order.create(seed_arr)
+puts "Created #{seed_arr.count} new orders in Orders table!"
 
 
 

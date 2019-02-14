@@ -1,7 +1,31 @@
 <h1 align="center">
 	Soak & Sew Sked
 </h1>
-<br>
+<br><br><br><br><br>
+
+<%= @grouped_soaks.count %><br>
+<% @grouped_soaks.sort_by{|arr| arr[0]}.each {|arr| %>
+	<%= arr %><br>
+	<br>***<br>
+<% } %>
+
+<h1>***</h1>
+
+<%= @grouped_sews.count %><br>
+<% @grouped_sews.sort_by{|arr| arr[0]}.each {|arr| %>
+	<%= arr %><br>
+	<br>***<br>
+<% } %>
+
+<% @payload.each {|arr| %>
+	<% arr.each{|x| %>
+		<%= x %><br>
+	<% } %>
+	<br>***<br>
+<% } %>
+
+
+<br><br><br><br><br><br>
 <div class="container-fluid">
 	<% @weeks.each{|week| %>
 		<div class="row">
@@ -15,12 +39,16 @@
 						<br>
 						<% @seeds_treated = SeedTreatment.where(soak_start_date: day) %>			
 						<p align="center">		
-							<h3><%= day.strftime("%A, %b %d") %></h3><br><hr>
+							<h3 align="center"><%= day.strftime("%a, %b %d") %></h3><br><hr>
+							<% @cal_day_of_week = day.strftime("%A") %>
 						</p>
 						
 						<h4>What to soak</h4>
 						<p>
-						...	
+						<% @grouped_orders.each{|group| %>
+							<% next if group[0] != @cal_day_of_week %>
+							<%= group[0] %><br>
+						<% } %>	
 						</p>
 						<h4>What to sew</h4>
 						<p>

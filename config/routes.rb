@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :orders
   resources :nutrient_solutions
   resources :reservoirs
   resources :crops

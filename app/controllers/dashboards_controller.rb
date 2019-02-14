@@ -40,6 +40,8 @@ class DashboardsController < ApplicationController
   end  
 
   def soak_sew_cal
+    
+    # setup calendar cells
     @today = Date.today - 7
     if @today.strftime("%a") == "Mon"
       @start_date = @today
@@ -52,6 +54,108 @@ class DashboardsController < ApplicationController
     @end_date = @start_date+60
     @date_range = (@start_date..@end_date)
     @weeks = @date_range.to_a.in_groups_of(7)
+
+    # lookup orders
+    @orders = Order.all
+    @grouped_orders = @orders.group_by{|order| order.day_of_week }
+    
+    @instructions = {}
+    @grouped_orders.each{|group|
+
+    }
+
+    @days_of_week_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+    @payload = []
+    @to_soak = []
+    @to_sew = []
+
+    @orders.sort_by(&:day_of_week).each{|order|
+      @arr = []  
+
+      @days_of_week_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+      @crop = Crop.where(crop: order.crop).where(crop_variety: order.variety)
+
+      @outcome = "#{order.day_of_week} - #{order.qty_oz} oz #{order.variety} #{order.crop} for #{order.customer}"
+      
+      @fact = "#{@crop[0].crop_variety} #{@crop[0].crop} takes #{@crop[0].ideal_total_dth} total days to harvest "
+      if @crop[0].ideal_treatment_days == 0
+        @fact << "with no seed treatment"
+      else
+        @fact << "including #{@crop[0].ideal_treatment_days} days of seed treatment"
+      end
+     
+      @explainer = "To get #{order.qty_oz} oz every #{order.day_of_week} you need to "
+      if @crop[0].ideal_treatment_days == 0
+        @explainer << "sew #{(order.qty_oz / @crop[0].avg_yield_per_flat_oz).ceil} flats every "
+      else
+        @explainer << "soak #{(order.qty_oz / @crop[0].avg_yield_per_flat_oz).ceil * @crop[0].ideal_soak_seed_oz_per_flat }oz seed every "
+      end
+
+      if @crop[0].ideal_total_dth % 7 == 0
+        @explainer << "#{order.day_of_week}"
+      else
+        @ref_index = @days_of_week_ref.index(order.day_of_week) - (@crop[0].ideal_total_dth % 7)
+        @explainer << @days_of_week_ref[@ref_index]
+      end
+
+
+      @instruction = []
+
+
+      if @crop[0].ideal_treatment_days == 0
+        @instruction << "sew" 
+        @instruction << "#{(order.qty_oz / @crop[0].avg_yield_per_flat_oz).ceil}" 
+        @instruction << "#{order.variety} #{order.crop}"
+        @instruction << "#{order.customer}"
+      else
+        @instruction << "soak"
+        @instruction << "#{(order.qty_oz / @crop[0].avg_yield_per_flat_oz).ceil * @crop[0].ideal_soak_seed_oz_per_flat }"
+        @instruction << "#{order.variety} #{order.crop}"
+        @instruction << "#{order.customer}"
+      end
+
+      if @crop[0].ideal_total_dth % 7 == 0
+        @instruction.insert(1,"#{order.day_of_week}")
+      else
+        @ref_index = @days_of_week_ref.index(order.day_of_week) - (@crop[0].ideal_total_dth % 7)
+        @instruction.insert(1,@days_of_week_ref[@ref_index])
+      end
+     # 
+
+      @arr << @outcome
+      @arr << @fact
+      @arr << @explainer
+      @arr << @instruction
+      @payload << @arr
+
+
+
+      @to_soak << @instruction if @instruction[0] == "soak"
+      @to_sew << @instruction if @instruction[0] == "sew"
+    }
+
+    @uniq_crops = @to_soak.map{ |arr| arr[3] }.uniq
+    @grouped_soaks = @to_soak.group_by{|arr| arr[1]}
+
+    @soak_aggregates = {}
+    @grouped_soaks.each{ |arr|
+      @soak_aggregates[arr[0]] = {}
+      arr[1].each{|instructions|
+        @soak_aggregates[arr[0]]
+      }
+    }
+
+    @what_to_soak = {}
+    @grouped_soaks = @to_soak.group_by{|arr| arr[1]}
+    @uniq_crops = @to_soak.map{|arr| arr[3] }.uniq
+    @uniq_crops.each{|crop|
+
+    }
+
+    @grouped_sews = @to_sew.group_by{|arr| arr[1]}
+=begin
+=end
+
   end
 
   def old_pipeline
