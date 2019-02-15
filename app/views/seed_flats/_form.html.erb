@@ -13,13 +13,14 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :room_id %>
-    <%= f.select :room_id, Room.all.collect{|room| [ "#{room.name} @ #{room.location}", room.id ] } %>
-  </div>  
-
-  <div class="field">
     <%= f.label :started_date %>
     <%= f.date_select :started_date %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :current_system_id %>
+    <%= f.select :current_system_id, System.where(system_name: "propagation").collect{|system| ["#{system.system_name} - #{Room.where(id: system.room_id)[0].name}", system.id ]}, :include_blank => true  %>
   </div>
 
   <div class="field">
@@ -113,13 +114,6 @@
   <div class="field">
     <%= f.label :force_onto_freshlist %>?
     <%= f.check_box :force_onto_freshlist %>
-  </div>
-
-<p>*** *** *** *** *** *** *** *** *** *** *** *** </p>  
-
-  <div class="field">
-    <%= f.label :current_system_id %>
-    <%= f.select :current_system_id, System.all.collect{|system| ["#{system.system_name} - #{Room.where(id: system.room_id)[0].name}", system.id ] } %>
   </div>
 
 <p>*** *** *** *** *** *** *** *** *** *** *** *** </p>  

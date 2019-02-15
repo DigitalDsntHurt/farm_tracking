@@ -3,7 +3,7 @@ class SeedFlat < ApplicationRecord
 	has_one :system, foreign_key: 'current_system_id'
 
 	
-	before_create :set_current_system_id_to_propagation, :calculate_harvest_week, :convert_oz_to_lbs, :downcase_sewn_for
+	before_create :calculate_harvest_week, :convert_oz_to_lbs, :downcase_sewn_for #:set_current_system_id_to_propagation, 
 	after_create :set_date_of_first_flat_sew_on_seed_treatment, :set_date_of_last_flat_sew_on_seed_treatment, :set_destination_flat_ids_on_seed_treatment, :create_seed_flat_update, :downcase_sewn_for
 	before_update  :move_flat_id_to_former_flat_id_on_harvest_or_kill, :kill_flat_id_on_harvest, :remove_current_system_id_on_harvest, :update_harvest_date_on_harvest, :calculate_harvest_week, :convert_oz_to_lbs, :set_days_to_harvest_from_sew, :set_days_to_harvest_from_soak
 	#after_update :move_flat_id_to_harvest_notes_on_harvest
@@ -13,10 +13,10 @@ class SeedFlat < ApplicationRecord
 
 	private
 
-	def set_current_system_id_to_propagation
-		current_system = Room.where(id: self.room_id)[0].systems.where(system_name: "propagation")
-		self.current_system_id = current_system[0].id
-	end
+#	def set_current_system_id_to_propagation
+#		current_system = Room.where(id: self.room_id)[0].systems.where(system_name: "propagation")
+#		self.current_system_id = current_system[0].id
+#	end
 
 	def remove_current_system_id_on_harvest
 		unless harvest_weight_oz == nil
