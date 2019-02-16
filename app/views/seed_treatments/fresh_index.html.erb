@@ -24,7 +24,7 @@
   </tr>
   <% @crops.sort_by{|c| c }.each{|c| %>
   <tr>
-    <% @crop_query = @seed_treatments.where(seed_crop: c) %>
+    <% @crop_query = @all_seed_treatments.where(seed_crop: c) %>
     <% @treatment_query = SeedTreatment.where(seed_crop: c).where.not(destination_flat_ids: []) %>
 
     <td style="padding-right: 6px; padding-left: 6px;">
@@ -76,7 +76,7 @@
   </thead>
 
   <tbody>
-    <% @seed_treatments.each do |seed_treatment| %>
+    <% @live_seed_treatments.each do |seed_treatment| %>
       <% if seed_treatment.killed_on != nil %>
         <tr bgcolor="red" class="border-bottom" style="background-color: #CD3333;">
       <% elsif seed_treatment.finished == true %>

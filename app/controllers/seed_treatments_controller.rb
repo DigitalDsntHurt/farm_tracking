@@ -11,9 +11,10 @@ class SeedTreatmentsController < ApplicationController
   end
 
   def fresh_index
-    @seed_treatments = SeedTreatment.all.where(finished: false).where(killed_on: nil).order(soak_start_datetime: :desc)
+    @all_seed_treatments = SeedTreatment.all.order(soak_start_datetime: :desc)
+    @live_seed_treatments = SeedTreatment.all.where(finished: false).where(killed_on: nil).order(soak_start_datetime: :desc)
     @query_cutoff_date = "Mon, 01 Oct 2018"
-    @crops = @seed_treatments.pluck(:seed_crop).uniq
+    @crops = @all_seed_treatments.pluck(:seed_crop).uniq
   end
 
   # GET /seed_treatments/1

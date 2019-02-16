@@ -1,45 +1,165 @@
-<table>
-	<tr>
-		<th style="padding-right: 22px; padding-left: 22px;">
-			crop
-		</th>
-		<th style="padding-right: 22px; padding-left: 22px;">
-			sample size<br>(# flats)
-		</th>
-		<th style="padding-right: 22px; padding-left: 22px;">
-			avg treatment<br>duration (days)
-		</th>
-		<th style="padding-right: 22px; padding-left: 22px;">
-			avg dth (days)
-		</th>
-		<th style="padding-right: 22px; padding-left: 22px;">
-			avg yield (oz)
-		</th>
-	</tr>
-	<% @crops.sort_by{|c| c }.each{|c| %>
-	<tr>
-		<% @crop_query = @harvested_flats.where(crop: c) %>
-		<% @treatment_query = SeedTreatment.where(seed_crop: c).where.not(date_of_first_flat_sew: nil) %>
+<div class="container-fluid" style="margin-left:22px;">
+	
+	<h2>Crop Info (90-day averages, since <%= @query_cutoff_date %>)</h2>
+	<table>
+		<tr>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				crop
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				sample size<br>(# flats)
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				avg oz dry seed soaked<br>per sewn flat (oz)
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				avg treatment<br>days (days)
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				avg seed<br> weight(oz)
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				avg system<br>days (days)
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				avg yield (oz)
+			</th>
+		</tr>
+		<% @crops.sort_by{|c| c }.each{|c| %>
+		<tr>
+			<% @crop_query = @harvested_flats.where(crop: c) %>
+			<% @treatment_query = SeedTreatment.where(seed_crop: c).where.not(date_of_first_flat_sew: nil) %>
 
-		<td style="padding-right: 6px; padding-left: 6px;">
-			<%= c %>
-		</td>
-		<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
-			<%= @crop_query.count %>
-		</td>
-		<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
-			<% if @treatment_query.count == 0 %>
-				0
-			<% else %>
-				<%= @treatment_query.to_a.map{|treatment| (treatment.date_of_first_flat_sew - treatment.soak_start_date).to_i }.inject{|dur,sum| dur+sum }/@treatment_query.count %>
-			<% end %>
-		</td>
-		<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
-			<%= @crop_query.to_a.map{|flat| (flat.harvested_on - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/@crop_query.count %>
-		</td>
-		<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
-			<%= @crop_query.average(:harvest_weight_oz).round(2) %>
-		</td>
-	</tr>
-	<% } %>
-</table>
+			<td style="padding-right: 6px; padding-left: 6px;">
+				<%= c %>
+			</td>
+			<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+				<%= @crop_query.count %>
+			</td>
+			<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+				<% if @treatment_query.count == 0 %>
+					0
+	      		<% else %>
+		        	<%= ( @treatment_query.to_a.map{|treatment| (treatment.seed_quantity_oz / treatment.destination_flat_ids.count) }.inject{|dur,sum| dur+sum }/@treatment_query.count ).round(2) %>
+		      	<% end %>
+			</td>
+			<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+				<% if @treatment_query.count == 0 %>
+					0
+				<% else %>
+					<%= @treatment_query.to_a.map{|treatment| (treatment.date_of_first_flat_sew - treatment.soak_start_date).to_i }.inject{|dur,sum| dur+sum }/@treatment_query.count %>
+				<% end %>
+			</td>
+			<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+				<%= (@crop_query.to_a.map{|flat| flat.seed_weight_oz }.inject{|dur,sum| dur+sum }/@crop_query.count).round(2) %>
+			</td>
+			<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+				<%= @crop_query.to_a.map{|flat| (flat.harvested_on - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/@crop_query.count %>
+			</td>
+			<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
+				<%= @crop_query.average(:harvest_weight_oz).round(2) %>
+			</td>
+		</tr>
+		<% } %>
+	</table>
+
+<br><br><hr><br><br>
+
+	<h2>Pipeline Info</h2>
+	<table>
+		<tr>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				week of
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				flats sewn
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				seed sewn (oz)
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				seed sewn (lbs)
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				avg seed weight / sewn flat (oz)
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				flats harvested
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				oz harvested
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				lbs harvested
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				avg oz / harvested flat
+			</th>
+		</tr>
+		
+		<% @week_start_dates.reverse.each{|date| %>
+		<tr>
+			<td align="center">
+				<%= date %>
+				<% @week_start = date %>
+				<% @week_end = date %>
+				<% until @week_end.sunday? %>
+					<% @week_end += 1 %>
+				<% end %>
+			</td>
+			<td align="center">
+				<%= SeedFlat.where(:started_date => @week_start..@week_end).count %>
+			</td>
+			<td align="center">
+				<% @weekly_seed_weight_oz = SeedFlat.where(:started_date => @week_start..@week_end).map{|flat| flat.seed_weight_oz}.inject{|seed,sum| seed + sum } %>
+				<% if @weekly_seed_weight_oz == nil %>
+					<%= %>
+				<% else %>
+					<%= @weekly_seed_weight_oz.round(2) %>
+				<% end %>
+			</td>
+			<td align="center">
+				<% if @weekly_seed_weight_oz == nil %>
+					<%= %>
+				<% else %>
+					<%= (@weekly_seed_weight_oz/16).round(2) %>
+				<% end %>
+			</td>
+			<td align="center">
+				<% if @weekly_seed_weight_oz == nil %>
+					<%= %>
+				<% else %>
+					<%= (@weekly_seed_weight_oz/SeedFlat.where(:started_date => @week_start..@week_end).count).round(2) %>
+				<% end %>
+			</td>
+			<td align="center">
+				<%= SeedFlat.where(:harvested_on => @week_start..@week_end).count %>
+			</td>
+			<td align="center">
+				<% @weekly_oz_harvested_sum = SeedFlat.where(:harvested_on => @week_start..@week_end).where.not(harvest_weight_oz: nil).where.not(harvest_weight_oz: 0).map{|flat| flat.harvest_weight_oz }.inject{|oz,sum| oz + sum } %>
+				<% if @weekly_oz_harvested_sum == nil %>
+					<%= %>
+				<% else %>
+					<%= @weekly_oz_harvested_sum.round(2) %>
+				<% end %>
+			</td>
+			<td align="center">
+				<% @weekly_lb_harvested_sum = SeedFlat.where(:harvested_on => @week_start..@week_end).where.not(harvest_weight_oz: nil).where.not(harvest_weight_oz: 0).map{|flat| flat.hrvst_wt_lbs }.inject{|oz,sum| oz + sum } %>
+				<% if @weekly_lb_harvested_sum == nil %>
+					<%= %>
+				<% else %>
+					<%= @weekly_lb_harvested_sum.round(2) %>
+				<% end %>
+			</td>
+			<td align="center">
+				<% if @weekly_oz_harvested_sum == nil %>
+					<%= %>
+				<% else %>
+					<%= ((@weekly_oz_harvested_sum)/(SeedFlat.where(:harvested_on => @week_start..@week_end).count)).round(2) %>
+				<% end %>
+			</td>
+		</tr>
+		<% } %>
+	</table>
+
+</div>

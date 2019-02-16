@@ -219,11 +219,15 @@ class DashboardsController < ApplicationController
 
   def aggregates
     # Get all harvested seed flats since Oct 1, 2018
-    @query_cutoff_date = "Mon, 01 Oct 2018"
+    @query_cutoff_date =  (Date.today - 90) # "Mon, 01 Oct 2018"
     @harvested_flats = SeedFlat.where("started_date >= :date", date: @query_cutoff_date).where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
     @crops = @harvested_flats.pluck(:crop).uniq
 
-    # Get avg treatment duration
+    @start_date = "2018-01-01".to_date
+    @week_start_dates = [@start_date]
+    until Date.today - @start_date < 0
+      @week_start_dates << @start_date += 7
+    end
 
   end
 
