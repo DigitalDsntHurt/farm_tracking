@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 	get 'dashboards/sew_calendar'
 	get 'dashboards/soak_sew_cal'
 	get 'dashboards/pipeline'
+	get 'dashboards/page_pipeline'
+	get 'dashboards/warehouse_pipeline'
 	get 'dashboards/old_pipeline'
 	get 'dashboards/calculator'
 	get 'dashboards/calculate'

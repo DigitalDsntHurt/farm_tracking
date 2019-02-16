@@ -158,6 +158,16 @@ class DashboardsController < ApplicationController
     @propagation_system_ids = System.all.where(system_name: "propagation").to_a.map{|s| s.id}
   end
 
+  def page_pipeline
+    @rooms = Room.where(name: "Page St")
+    @propagation_system_ids = System.all.where(system_name: "propagation").where(room_id: 1).to_a.map{|s| s.id}
+  end  
+
+  def warehouse_pipeline
+    @rooms = Room.where(name: "FitzHouse")
+    @propagation_system_ids = System.all.where(system_name: "propagation").where(room_id: 2).to_a.map{|s| s.id}
+  end    
+
   def calculator
   end
 

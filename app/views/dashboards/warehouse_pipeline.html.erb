@@ -1,16 +1,10 @@
 <div style="padding-left: 22px;">
-	<h2 align="center">Jump To...</h2>
-	<h4 align="center">
-		<% @rooms.each{|room| %>
-			* <%= link_to "#{room.name}", "/dashboards/pipeline/##{room.name.gsub(" ","-")}" %>
-			<br>
-		<% } %>
-	</h4>
 	<h2 align="center">Go To...</h2>
 	<h4 align="center">
-		* <%= link_to "Page Pipeline", "/dashboards/page_pipeline" %>
-		<br>
-		* <%= link_to "Warehouse Pipeline", "/dashboards/warehouse_pipeline" %>
+		
+			* <%= link_to "Full Pipeline", "/dashboards/pipeline" %>
+			<br>
+			* <%= link_to "Page Pipeline", "/dashboards/page_pipeline" %>
 	</h4>
 	<br><br>
 
