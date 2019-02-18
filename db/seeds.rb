@@ -2,8 +2,6 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
-
-
 =begin
 ##
 ## ## Seed Orders Table From Google Sheets CSV Export -- simple, most basic version for auto sew scheduling
@@ -24,6 +22,7 @@ csv.to_a[1..-1].each{|row|
 
 Order.create(seed_arr)
 puts "Created #{seed_arr.count} new orders in Orders table!"
+
 =end
 
 
