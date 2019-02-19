@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :scheduleds
   resources :farm_ops_dos
   resources :orders
   resources :nutrient_solutions
