@@ -41,6 +41,9 @@ class DashboardsController < ApplicationController
 
   def soak_sew_cal
     
+    @wtf = SoakSchedule.new("thing").execute
+
+
     # setup calendar cells
     @today = Date.today - 7
     if @today.strftime("%a") == "Mon"
