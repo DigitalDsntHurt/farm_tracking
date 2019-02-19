@@ -1,0 +1,52 @@
+<%= form_with(model: scheduled, local: true) do |form| %>
+  <% if scheduled.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(scheduled.errors.count, "error") %> prohibited this scheduled from being saved:</h2>
+
+      <ul>
+      <% scheduled.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :verb %>
+    <%= form.text_field :verb, id: :scheduled_verb %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date, id: :scheduled_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :crop %>
+    <%= form.text_field :crop, id: :scheduled_crop %>
+  </div>
+
+  <div class="field">
+    <%= form.label :variety %>
+    <%= form.text_field :variety, id: :scheduled_variety %>
+  </div>
+
+  <div class="field">
+    <%= form.label :customer %>
+    <%= form.text_field :customer, id: :scheduled_customer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :order %>
+    <%= form.text_field :order, id: :scheduled_order %>
+  </div>
+
+  <div class="field">
+    <%= form.label :completed_on %>
+    <%= form.date_select :completed_on, id: :scheduled_completed_on %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
