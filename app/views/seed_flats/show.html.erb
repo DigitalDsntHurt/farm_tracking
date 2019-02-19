@@ -58,6 +58,12 @@
   <p>*** *** *** *** *** *** *** *** *** *** *** *** </p>
 
   <p>
+    <strong>Current_system:</strong>
+    <% unless @seed_flat.current_system_id == nil %>
+      <%= link_to "#{System.where(id: @seed_flat.current_system_id)[0].system_name} @ #{System.where(id: @seed_flat.current_system_id)[0].room.name}", System.where(id: @seed_flat.current_system_id)[0] %>
+    <% end %>
+  </p>
+  <p>
     <strong>Room:</strong>
     <% unless @seed_flat.room_id == nil %>
       <%= link_to "#{Room.where(id: @seed_flat.room_id)[0].name} @ #{Room.where(id: @seed_flat.room_id)[0].location}", Room.where(id: @seed_flat.room_id)[0] %>
