@@ -9,20 +9,59 @@ require 'csv'
 @db_crops = Crop.all
 @live_seed_flats = SeedFlat.where(harvest_weight_oz: nil)
 @live_seed_treatments = SeedTreatment.where.not(finished: true)
+@seed_treatments = SeedTreatment.all
+
 =begin
-=end
 @live_seed_flats.each{|flat|
 	@db_crop = Crop.where(crop: flat.crop).where(crop_variety: flat.crop_variety)
 	flat.update(crop_id: @db_crop[0].id)
 }
+=end
 
 =begin
-=end
 @live_seed_treatments.each{|treatment|
 	@db_crop = Crop.where(crop: treatment.seed_crop).where(crop_variety: treatment.seed_variety)
 	treatment.update(crop_id: @db_crop[0].id)
 }
+=end
+SeedFlat.where(crop: nil).delete_all
+SeedTreatment.where(seed_crop: nil).delete_all
 
+@seed_treatments.each{|treatment|
+	if treatment.seed_crop == "chives"
+		treatment.update(seed_crop: "chive", seed_variety: "allium schoenoprasum")
+	elsif treatment.seed_crop == "nasturtium"
+		treatment.update(seed_variety: "jewel mix")
+	elsif treatment.seed_crop == "swiss chard" and treatment.seed_variety == "detroit dark red"
+		treatment.update(seed_crop: "swiss chard", seed_variety: "ruby red")
+	elsif treatment.seed_crop == "cilantro"
+		treatment.update(seed_variety: "coriander halves leisure")
+	elsif treatment.seed_crop == "benitade"	
+		treatment.update(seed_variety: "japanese waterpepper")
+	elsif treatment.seed_crop == "pea"	
+		treatment.update(seed_variety: "dwarf grey sugar")
+	elsif treatment.seed_crop == nil
+		@seed_treatments.delete(treatment)
+	else
+		puts treatment
+	end
+}
+
+@seed_treatments.each{|treatment|
+	@db_crop = Crop.where(crop: treatment.seed_crop).where(crop_variety: treatment.seed_variety)
+	treatment.update(crop_id: @db_crop[0].id)
+#	@match = Crop.where(crop: treatment.seed_crop).where(crop_variety: treatment.seed_variety)
+#	if @match.count == 1
+#		#
+#	else
+#		puts "======"
+#		puts @match.count
+#		p treatment
+#		puts treatment.seed_crop
+#		puts treatment.seed_variety
+#		puts "======"
+#	end	 
+}
 
 
 =begin

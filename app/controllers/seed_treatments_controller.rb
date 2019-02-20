@@ -8,6 +8,7 @@ class SeedTreatmentsController < ApplicationController
 
     @query_cutoff_date = "Mon, 01 Oct 2018"
     @crops = @seed_treatments.pluck(:seed_crop).uniq
+    @crops = @seed_treatments.pluck(:crop_id).map{|id| Crop.where(id: id)[0].crop }.uniq
   end
 
   def fresh_index
