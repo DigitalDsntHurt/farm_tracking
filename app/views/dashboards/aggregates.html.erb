@@ -65,7 +65,7 @@
 
 <br><br><hr><br><br>
 
-	<h2>Pipeline Info</h2>
+	<h2>Pipeline Info (weekly)</h2>
 	<table>
 		<tr>
 			<th style="padding-right: 22px; padding-left: 22px;">
@@ -94,6 +94,12 @@
 			</th>
 			<th style="padding-right: 22px; padding-left: 22px;">
 				avg oz / harvested flat
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				# flat slots in pipeline
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				% of pipeline harvested
 			</th>
 		</tr>
 		
@@ -157,6 +163,20 @@
 				<% else %>
 					<%= ((@weekly_oz_harvested_sum)/(SeedFlat.where(:harvested_on => @week_start..@week_end).count)).round(2) %>
 				<% end %>
+			</td>
+			<td align="center">
+				<% @active_systems = [] %>
+				<% System.where.not(system_name: "propagation").where.not(system_name: "live storage").each{ |system| %>
+					<% if system.retired %>
+						<% @active_systems << system if system.retired_on >= @week_start %>
+					<% else %>
+						<% @active_systems << system if system.build_date <= @week_start %>
+					<% end %>
+				<% } %>
+				<%= @active_systems.map{|s| s.flat_slots }.inject{|num,sum| num + sum } %>
+			</td>
+			<td align="center">
+				@
 			</td>
 		</tr>
 		<% } %>
