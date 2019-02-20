@@ -242,7 +242,10 @@ class DashboardsController < ApplicationController
       @week_start_dates << @start_date += 7
     end
 
-
+    @month_start_dates = [@start_date.at_beginning_of_month]
+    until Date.today - @start_date < 0
+      @month_start_dates << @start_date = @start_date.at_beginning_of_month.next_month
+    end
 
   end
 
