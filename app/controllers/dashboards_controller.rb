@@ -236,11 +236,13 @@ class DashboardsController < ApplicationController
     @harvested_flats = SeedFlat.where("started_date >= :date", date: @query_cutoff_date).where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
     @crops = @harvested_flats.pluck(:crop).uniq
 
-    @start_date = "2018-01-01".to_date
+    @start_date = Date.new(2018,01,01)
     @week_start_dates = [@start_date]
     until Date.today - @start_date < 0
       @week_start_dates << @start_date += 7
     end
+
+
 
   end
 

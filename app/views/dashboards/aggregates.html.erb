@@ -299,7 +299,7 @@
 				<%= @num_flat_slots_in_pipeline %>
 			</td>
 			<td align="center">
-				<%= (@flats_harvested/@num_flat_slots_in_pipeline*100)round(2) %>%
+				<%= (@flats_harvested/@num_flat_slots_in_pipeline*100).round(2) %>%
 			</td>
 		</tr>
 		<% } %>
