@@ -178,7 +178,7 @@
 				<%= @num_flat_slots_in_pipeline %>
 			</td>
 			<td align="center">
-				<%= (SeedFlat.where(:harvested_on => @week_start..@week_end).count / @num_flat_slots_in_pipeline = @active_systems.map{|s| s.flat_slots }.inject{|num,sum| num + sum }*100).round(2) %>%
+				<%= (SeedFlat.where(:harvested_on => @week_start..@week_end).count / @num_flat_slots_in_pipeline = @active_systems.map{|s| s.flat_slots }.inject{|num,sum| num + sum })*100 %>%
 
 
 			</td>
