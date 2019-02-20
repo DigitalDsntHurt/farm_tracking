@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190219181459) do
+ActiveRecord::Schema.define(version: 20190220035545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -230,6 +230,7 @@ ActiveRecord::Schema.define(version: 20190219181459) do
     t.datetime "updated_at", null: false
     t.string "system_name"
     t.boolean "retired"
+    t.integer "flat_slots"
     t.index ["room_id"], name: "index_systems_on_room_id"
   end
 
