@@ -2,6 +2,29 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
+##
+## ## Update crop_id on all active seed flats
+##
+
+@db_crops = Crop.all
+@live_seed_flats = SeedFlat.where(harvest_weight_oz: nil)
+@live_seed_treatments = SeedTreatment.where.not(finished: true)
+=begin
+=end
+@live_seed_flats.each{|flat|
+	@db_crop = Crop.where(crop: flat.crop).where(crop_variety: flat.crop_variety)
+	flat.update(crop_id: @db_crop[0].id)
+}
+
+=begin
+=end
+@live_seed_treatments.each{|treatment|
+	@db_crop = Crop.where(crop: treatment.seed_crop).where(crop_variety: treatment.seed_variety)
+	treatment.update(crop_id: @db_crop[0].id)
+}
+
+
+
 =begin
 ##
 ## ## Seed Orders Table From Google Sheets CSV Export -- simple, most basic version for auto sew scheduling

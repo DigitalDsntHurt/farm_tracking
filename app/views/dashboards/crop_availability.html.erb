@@ -22,3 +22,30 @@
 <br><br>
 <hr>
 <br><br>
+
+<h1>******</h1>
+
+<% @crops_from_crops_table.sort_by{|c| c.crop }.each{|c| %>
+	<div style="border: solid 1px black;padding:22px;">
+		<% @in_pipeline = SeedFlat.where(harvest_weight_oz: nil).where(harvested_on: nil).where(crop: c.crop).where(crop_variety: c.crop_variety) %>
+		<h3><strong><%= c.crop %></strong>, <%= c.crop_variety %> -- <%= @in_pipeline.count %> flats in pipeline</h3>
+		<% @in_pipeline.group_by{|flat| flat.current_system_id }.each{|key,val| %>
+			
+				<%= System.where(id: key)[0].system_name %><br>
+				<% val.sort_by{|flat| (Date.today - flat.started_date).to_i }.each{|flat| %>
+					<% if flat.sewn_for == nil or flat.sewn_for.length < 2 %>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= flat.flat_id %>: <%= (Date.today - flat.started_date).to_i %> day<br>
+					<% else %>
+						<strong>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= flat.flat_id %>: <%= (Date.today - flat.started_date).to_i %> day, for <%= flat.sewn_for %><br>
+						</strong>
+					<% end %>
+			
+			<% } %>
+		<% } %>
+	</div>
+<% } %>
+
+<br><br>
+<hr>
+<br><br>

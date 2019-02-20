@@ -86,18 +86,8 @@
   </p>  
 
   <p>
-    <strong>Crop:</strong>
-    <%= @seed_flat.crop %>
-  </p>
-
-  <p>
-    <strong>Crop variety:</strong>
-    <%= @seed_flat.crop_variety %>
-  </p>
-
-  <p>
-    <strong>Seed brand:</strong>
-    <%= @seed_flat.seed_brand %>
+    <strong>Crop ID:</strong>
+    <%= link_to("#{Crop.where(id: @seed_flat.crop_id)[0].crop} - #{Crop.where(id: @seed_flat.crop_id)[0].crop_variety}", Crop.where(id: @seed_flat.crop_id)[0]) %>
   </p>
 
   <p>

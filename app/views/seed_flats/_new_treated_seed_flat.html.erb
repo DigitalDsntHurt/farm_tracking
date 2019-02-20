@@ -37,15 +37,10 @@
     <%= f.label :started_date %>
     <%= f.date_select :started_date %>
   </div>
-
+  
   <div class="field">
     <%= f.label :crop %>
-    <%= f.text_field :crop %>
-  </div>
-
-  <div class="field">
-    <%= f.label :crop_variety %>
-    <%= f.text_field :crop_variety %>
+    <%= f.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ] }, :include_blank => true %>
   </div>
 
   <div class="field">

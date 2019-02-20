@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190220052337) do
+ActiveRecord::Schema.define(version: 20190220185619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20190220052337) do
     t.float "ideal_sew_seed_oz_per_flat"
     t.float "avg_sew_seed_oz_per_flat"
     t.float "avg_yield_per_flat_oz"
+    t.string "seed_supplier"
   end
 
   create_table "farm_ops_dos", force: :cascade do |t|
@@ -186,6 +187,7 @@ ActiveRecord::Schema.define(version: 20190220052337) do
     t.boolean "exclude_from_freshlist"
     t.boolean "force_onto_freshlist"
     t.string "sewn_for"
+    t.integer "crop_id"
     t.index ["current_system_id"], name: "index_seed_flats_on_current_system_id"
     t.index ["room_id"], name: "index_seed_flats_on_room_id"
     t.index ["seed_treatments_id"], name: "index_seed_flats_on_seed_treatments_id"
@@ -216,6 +218,7 @@ ActiveRecord::Schema.define(version: 20190220052337) do
     t.text "destination_flat_ids", default: [], array: true
     t.boolean "finished"
     t.date "soak_start_date"
+    t.integer "crop_id"
   end
 
   create_table "systems", force: :cascade do |t|

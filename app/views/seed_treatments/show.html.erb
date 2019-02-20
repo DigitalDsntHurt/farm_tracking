@@ -6,18 +6,8 @@
 </p>
 
 <p>
-  <strong>Seed crop:</strong>
-  <%= @seed_treatment.seed_crop %>
-</p>
-
-<p>
-  <strong>Seed variety:</strong>
-  <%= @seed_treatment.seed_variety %>
-</p>
-
-<p>
-  <strong>Seed brand:</strong>
-  <%= @seed_treatment.seed_brand %>
+  <strong>Crop:</strong>
+  <%= link_to("#{Crop.where(id: @seed_treatment.crop_id)[0].crop} - #{Crop.where(id: @seed_treatment.crop_id)[0].crop_variety}", Crop.where(id: @seed_treatment.crop_id)[0]) %>
 </p>
 
 <p>

@@ -55,7 +55,6 @@
     <tr>
       <th>started</th>
       <th>crop</th>
-      <th>variety</th>
       <th>seed qty oz</th>
       <th>soak hrs</th>
       <th>germ start date</th>
@@ -87,8 +86,7 @@
         <tr>
       <% end %>
         <td><%= seed_treatment.soak_start_datetime %></td>
-        <td><%= seed_treatment.seed_crop %></td>
-        <td><%= seed_treatment.seed_variety %></td>
+        <td><%= link_to("#{Crop.where(id: seed_treatment.crop_id)[0].crop} - #{Crop.where(id: seed_treatment.crop_id)[0].crop_variety}", Crop.where(id: seed_treatment.crop_id)[0]) %></td>
         <td><%= seed_treatment.seed_quantity_oz %></td>
         <td>
           <% if seed_treatment.soak_duration_hrs == nil %>

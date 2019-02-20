@@ -32,20 +32,10 @@
     <%= f.label :flat_identifier %>
     <%= f.text_field :flat_id %>
   </div>
-
+  
   <div class="field">
-    <%= f.label :crop %>
-    <%= f.text_field :crop %>
-  </div>
-
-  <div class="field">
-    <%= f.label :crop_variety %>
-    <%= f.text_field :crop_variety %>
-  </div>
-
-  <div class="field">
-    <%= f.label :seed_brand %>
-    <%= f.text_field :seed_brand %>
+    <%= f.label :crop_id %>
+    <%= f.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
   </div>
 
   <div class="field">
@@ -64,16 +54,6 @@
   </div>
 
   <div class="field">
-    <%= f.label :seed_media_treatment_notes %>
-    <%= f.text_field :seed_media_treatment_notes %>
-  </div>
-
-  <div class="field">
-    <%= f.label :seed_treatments_id %>
-    <%= f.select :seed_treatments_id, SeedTreatment.all.collect{|treatment| ["#{treatment.seed_crop} - #{treatment.soak_start_datetime.strftime('%a, %e %b')}", treatment.id ] }, :include_blank => true %>
-  </div>
-
-  <div class="field">
     <%= f.label :first_emerge_date %>
     <%= f.date_select :first_emerge_date, include_blank: true  %>
   </div>
@@ -86,21 +66,6 @@
   <div class="field">
     <%= f.label :emergence_notes %>
     <%= f.text_field :emergence_notes %>
-  </div>
-
-  <div class="field">
-    <%= f.label :date_of_first_transplant %>
-    <%= f.date_select :date_of_first_transplant, include_blank: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :date_of_second_transplant %>
-    <%= f.date_select :date_of_second_transplant, include_blank: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :date_of_third_transplant %>
-    <%= f.date_select :date_of_third_transplant, include_blank: true %>
   </div>
 
 <p>*** *** *** *** *** *** *** *** *** *** *** *** </p>

@@ -14,7 +14,7 @@ class SeedTreatmentsController < ApplicationController
     @all_seed_treatments = SeedTreatment.all.order(soak_start_datetime: :desc)
     @live_seed_treatments = SeedTreatment.all.where(finished: false).where(killed_on: nil).order(soak_start_datetime: :desc)
     @query_cutoff_date = "Mon, 01 Oct 2018"
-    @crops = @all_seed_treatments.pluck(:seed_crop).uniq
+    @crops = @live_seed_treatments.pluck(:crop_id).map{|id| Crop.where(id: id)[0].crop }.uniq
   end
 
   # GET /seed_treatments/1
@@ -112,6 +112,6 @@ class SeedTreatmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seed_treatment_params
-      params.require(:seed_treatment).permit(:soak_start_datetime, :seed_crop, :seed_variety, :seed_brand, :seed_quantity_oz, :soak_solution, :soak_duration_hrs, :post_soak_treatment, :soak_notes, :germination_start_date, :germination_vehicle, :first_emerge_date, :full_emerge_date, :days_to_full_emergence, :emergence_notes, :killed_on, :planned_date_of_first_flat_sew, :date_of_first_flat_sew, :date_of_last_flat_sew, :destination_flat_ids, :finished)
+      params.require(:seed_treatment).permit(:soak_start_datetime, :seed_crop, :seed_variety, :seed_brand, :seed_quantity_oz, :soak_solution, :soak_duration_hrs, :post_soak_treatment, :soak_notes, :germination_start_date, :germination_vehicle, :first_emerge_date, :full_emerge_date, :days_to_full_emergence, :emergence_notes, :killed_on, :planned_date_of_first_flat_sew, :date_of_first_flat_sew, :date_of_last_flat_sew, :destination_flat_ids, :finished, :crop_id)
     end
 end
