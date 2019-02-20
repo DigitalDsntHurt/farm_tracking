@@ -139,7 +139,8 @@
 				<% end %>
 			</td>
 			<td align="center">
-				<%= SeedFlat.where(:harvested_on => @week_start..@week_end).count %>
+				<% @flats_harvested = SeedFlat.where(:harvested_on => @week_start..@week_end).count %>
+				<%= @flats_harvested %>
 			</td>
 			<td align="center">
 				<% @weekly_oz_harvested_sum = SeedFlat.where(:harvested_on => @week_start..@week_end).where.not(harvest_weight_oz: nil).where.not(harvest_weight_oz: 0).map{|flat| flat.harvest_weight_oz }.inject{|oz,sum| oz + sum } %>
@@ -173,10 +174,11 @@
 						<% @active_systems << system if system.build_date <= @week_start %>
 					<% end %>
 				<% } %>
-				<%= @active_systems.map{|s| s.flat_slots }.inject{|num,sum| num + sum } %>
+				<% @num_flat_slots_in_pipeline = @active_systems.map{|s| s.flat_slots }.inject{|num,sum| num + sum }%>
+				<%= @num_flat_slots_in_pipeline %>
 			</td>
 			<td align="center">
-				@
+				<%= (@flats_harvested/@num_flat_slots_in_pipeline*100)round(2) %>%
 			</td>
 		</tr>
 		<% } %>
