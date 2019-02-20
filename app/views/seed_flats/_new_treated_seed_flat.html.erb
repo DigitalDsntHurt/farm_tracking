@@ -13,9 +13,9 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :room_id %>
-    <%= f.select :room_id, Room.all.collect{|room| [ "#{room.name} @ #{room.location}", room.id ] } %>
-  </div>  
+    <%= f.label :current_system_id %>
+    <%= f.select :current_system_id, System.where(system_name: "propagation").collect{|system| ["#{system.system_name} - #{Room.where(id: system.room_id)[0].name}", system.id ]}.reverse %>
+  </div> 
 
   <div class="field">
     <%= f.label :sewn_for %>
@@ -41,11 +41,6 @@
   <div class="field">
     <%= f.label :crop %>
     <%= f.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ] }, :include_blank => true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :seed_brand %>
-    <%= f.text_field :seed_brand %>
   </div>
 
   <div class="field">
