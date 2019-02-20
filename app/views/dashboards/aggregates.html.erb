@@ -178,10 +178,131 @@
 				<%= @num_flat_slots_in_pipeline %>
 			</td>
 			<td align="center">
-				<%= (@flats_harvested/@num_flat_slots_in_pipeline*100)round(2) %>%
+				<%= (@flats_harvested/@num_flat_slots_in_pipeline*100).round(2) %>%
 			</td>
 		</tr>
 		<% } %>
 	</table>
+
+<br><br><hr><br><br>
+
+	<h2>Pipeline Info (monthly)</h2>
+	<table>
+		<tr>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				week of
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				flats sewn
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				seed sewn (oz)
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				seed sewn (lbs)
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				avg seed weight / sewn flat (oz)
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				flats harvested
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				oz harvested
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				lbs harvested
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				avg oz / harvested flat
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				# flat slots in pipeline
+			</th>
+			<th style="padding-right: 22px; padding-left: 22px;">
+				% of pipeline harvested
+			</th>
+		</tr>
+		
+		<% @week_start_dates.reverse.each{|date| %>
+		<tr>
+			<td align="center">
+				<%= date %>
+				<% @week_start = date %>
+				<% @week_end = date %>
+				<% until @week_end.sunday? %>
+					<% @week_end += 1 %>
+				<% end %>
+			</td>
+			<td align="center">
+				<%= SeedFlat.where(:started_date => @week_start..@week_end).count %>
+			</td>
+			<td align="center">
+				<% @weekly_seed_weight_oz = SeedFlat.where(:started_date => @week_start..@week_end).map{|flat| flat.seed_weight_oz}.inject{|seed,sum| seed + sum } %>
+				<% if @weekly_seed_weight_oz == nil %>
+					<%= %>
+				<% else %>
+					<%= @weekly_seed_weight_oz.round(2) %>
+				<% end %>
+			</td>
+			<td align="center">
+				<% if @weekly_seed_weight_oz == nil %>
+					<%= %>
+				<% else %>
+					<%= (@weekly_seed_weight_oz/16).round(2) %>
+				<% end %>
+			</td>
+			<td align="center">
+				<% if @weekly_seed_weight_oz == nil %>
+					<%= %>
+				<% else %>
+					<%= (@weekly_seed_weight_oz/SeedFlat.where(:started_date => @week_start..@week_end).count).round(2) %>
+				<% end %>
+			</td>
+			<td align="center">
+				<% @flats_harvested = SeedFlat.where(:harvested_on => @week_start..@week_end).count %>
+				<%= @flats_harvested %>
+			</td>
+			<td align="center">
+				<% @weekly_oz_harvested_sum = SeedFlat.where(:harvested_on => @week_start..@week_end).where.not(harvest_weight_oz: nil).where.not(harvest_weight_oz: 0).map{|flat| flat.harvest_weight_oz }.inject{|oz,sum| oz + sum } %>
+				<% if @weekly_oz_harvested_sum == nil %>
+					<%= %>
+				<% else %>
+					<%= @weekly_oz_harvested_sum.round(2) %>
+				<% end %>
+			</td>
+			<td align="center">
+				<% @weekly_lb_harvested_sum = SeedFlat.where(:harvested_on => @week_start..@week_end).where.not(harvest_weight_oz: nil).where.not(harvest_weight_oz: 0).map{|flat| flat.hrvst_wt_lbs }.inject{|oz,sum| oz + sum } %>
+				<% if @weekly_lb_harvested_sum == nil %>
+					<%= %>
+				<% else %>
+					<%= @weekly_lb_harvested_sum.round(2) %>
+				<% end %>
+			</td>
+			<td align="center">
+				<% if @weekly_oz_harvested_sum == nil %>
+					<%= %>
+				<% else %>
+					<%= ((@weekly_oz_harvested_sum)/(SeedFlat.where(:harvested_on => @week_start..@week_end).count)).round(2) %>
+				<% end %>
+			</td>
+			<td align="center">
+				<% @active_systems = [] %>
+				<% System.where.not(system_name: "propagation").where.not(system_name: "live storage").each{ |system| %>
+					<% if system.retired %>
+						<% @active_systems << system if system.retired_on >= @week_start %>
+					<% else %>
+						<% @active_systems << system if system.build_date <= @week_start %>
+					<% end %>
+				<% } %>
+				<% @num_flat_slots_in_pipeline = @active_systems.map{|s| s.flat_slots }.inject{|num,sum| num + sum }%>
+				<%= @num_flat_slots_in_pipeline %>
+			</td>
+			<td align="center">
+				<%= (@flats_harvested/@num_flat_slots_in_pipeline*100)round(2) %>%
+			</td>
+		</tr>
+		<% } %>
+	</table>	
 
 </div>
