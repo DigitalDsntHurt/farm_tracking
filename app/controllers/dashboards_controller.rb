@@ -41,7 +41,7 @@ class DashboardsController < ApplicationController
 
   def soak_sew_cal
     
-    @wtf = SoakSchedule.new("thing").execute
+    #@wtf = SoakSchedule.new("thing").execute
 
 
     # setup calendar cells
