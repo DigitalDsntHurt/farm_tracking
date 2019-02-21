@@ -34,6 +34,13 @@ body {
   z-index:1;
 }
 
+.sticky-page-header {
+  position: relative;
+    top: 1;
+    left: 1;
+ z-index:0; 
+}
+
 table.seed-flats-index {
 	border-collapse:collapse;
   margin-left: 22px;

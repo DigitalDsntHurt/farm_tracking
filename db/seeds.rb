@@ -2,8 +2,13 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
+
+
+
+
+=begin
 ##
-## ## Update crop_id on all active seed flats
+## ## Update crop_id on all active seed flats + all seed treatments
 ##
 
 @db_crops = Crop.all
@@ -11,19 +16,19 @@ require 'csv'
 @live_seed_treatments = SeedTreatment.where.not(finished: true)
 @seed_treatments = SeedTreatment.all
 
-=begin
+
 @live_seed_flats.each{|flat|
 	@db_crop = Crop.where(crop: flat.crop).where(crop_variety: flat.crop_variety)
 	flat.update(crop_id: @db_crop[0].id)
 }
-=end
 
-=begin
+
 @live_seed_treatments.each{|treatment|
 	@db_crop = Crop.where(crop: treatment.seed_crop).where(crop_variety: treatment.seed_variety)
 	treatment.update(crop_id: @db_crop[0].id)
 }
-=end
+
+
 SeedFlat.where(crop: nil).delete_all
 SeedTreatment.where(seed_crop: nil).delete_all
 
@@ -49,19 +54,11 @@ SeedTreatment.where(seed_crop: nil).delete_all
 
 @seed_treatments.each{|treatment|
 	@db_crop = Crop.where(crop: treatment.seed_crop).where(crop_variety: treatment.seed_variety)
-	treatment.update(crop_id: @db_crop[0].id)
-#	@match = Crop.where(crop: treatment.seed_crop).where(crop_variety: treatment.seed_variety)
-#	if @match.count == 1
-#		#
-#	else
-#		puts "======"
-#		puts @match.count
-#		p treatment
-#		puts treatment.seed_crop
-#		puts treatment.seed_variety
-#		puts "======"
-#	end	 
+	treatment.update(crop_id: @db_crop[0].id) 
 }
+=end
+
+
 
 
 =begin
@@ -86,6 +83,7 @@ Order.create(seed_arr)
 puts "Created #{seed_arr.count} new orders in Orders table!"
 
 =end
+
 
 
 =begin
@@ -113,6 +111,8 @@ Crop.create(seed_arr)
 puts "Created #{seed_arr.count} new crops in Crops table!"
 =end
 
+
+
 =begin
 ##
 ## ## Seed Reservoirs Table From Google Sheets CSV Export
@@ -131,6 +131,7 @@ csv.to_a.each{|row|
 Reservoir.create(seed_arr)
 puts seed_arr.count
 =end
+
 
 
 =begin
@@ -166,6 +167,8 @@ NutrientSolution.create(seed_arr)
 puts seed_arr.count
 =end
 
+
+
 =begin
 else_count = 0
 else_arr = []
@@ -191,6 +194,7 @@ SeedFlat.where(:harvest_weight_oz => nil).to_a.each{|seed_flat|
 puts else_count
 p else_arr
 =end
+
 
 
 =begin
@@ -232,6 +236,7 @@ results_arr.each{|hsh|
 =end
 
 
+
 =begin
 @harvested_flats = SeedFlat.where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
 @crops = @harvested_flats.pluck(:crop).uniq
@@ -267,6 +272,8 @@ results_arr.each{|hsh|
 }
 
 =end
+
+
 
 =begin
 ## ##

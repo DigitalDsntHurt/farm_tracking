@@ -1,31 +1,28 @@
-<% @crops.sort_by{|c| c }.each{|c| %>
-	<div style="border: solid 1px black;padding:22px;">
-		<% @in_pipeline = SeedFlat.where(harvest_weight_oz: nil).where(harvested_on: nil).where(crop: c) %>
-		<h3><strong><%= c %></strong> -- currently <%= @in_pipeline.count %> flats in pipeline</h3>
-		<% @in_pipeline.group_by{|flat| flat.current_system_id }.each{|key,val| %>
-			
-				<%= System.where(id: key)[0].system_name %><br>
-				<% val.sort_by{|flat| (Date.today - flat.started_date).to_i }.each{|flat| %>
-					<% if flat.sewn_for == nil or flat.sewn_for.length < 2 %>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= flat.flat_id %>: <%= (Date.today - flat.started_date).to_i %> day<br>
-					<% else %>
-						<strong>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= flat.flat_id %>: <%= (Date.today - flat.started_date).to_i %> day, for <%= flat.sewn_for %><br>
-						</strong>
-					<% end %>
-			
-			<% } %>
-		<% } %>
+
+<div class="sticky-page-header">
+	<div class="container fluid">
+		<div class="row">
+			<h2>
+				Jump To...
+			</h2>
+		</div>	
+		<% @crops_from_crops_table.sort_by{|c| c.crop }.in_groups_of(4).each{|group| %>
+		
+		
+			<div class="row">
+				<% group.each{|c| %>
+					<div class="col">
+						* <%= link_to "#{c.crop}","/dashboards/crop_availability/##{c.crop.gsub(" ","-")}" %>				
+					</div>
+				<% } %>
+			</div>
+		<% } %>	
 	</div>
-<% } %>
+</div>
 
-<br><br>
-<hr>
-<br><br>
-
-<h1>******</h1>
-
-<% @crops_from_crops_table.sort_by{|c| c.crop }.each{|c| %>
+<% @crops_loop = @crops_from_crops_table.sort_by{|c| c.crop } %>
+<%@crops_loop.each_with_index{ |c,i| %>
+	
 	<div style="border: solid 1px black;padding:22px;">
 		<% @in_pipeline = SeedFlat.where(harvest_weight_oz: nil).where(harvested_on: nil).where(crop: c.crop).where(crop_variety: c.crop_variety) %>
 		<h3><strong><%= c.crop %></strong>, <%= c.crop_variety %> -- <%= @in_pipeline.count %> flats in pipeline</h3>
@@ -43,6 +40,8 @@
 			
 			<% } %>
 		<% } %>
+		<% next if @crops_loop[i+1] == nil %>
+		<div id=<%= @crops_loop[i+1].crop.gsub(" ","-") %>><br><br><br><br><br><br></div>
 	</div>
 <% } %>
 
