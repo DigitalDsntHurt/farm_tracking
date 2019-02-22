@@ -34,7 +34,7 @@
   </div>
   
   <div class="field">
-    <%= f.label :crop_id %>
+    <%= f.label :crop %>
     <%= f.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
   </div>
 

@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 	get 'seed_flats/killed_index' => 'seed_flats#killed_index'
 	get 'seed_flats/harvested_killed' => 'seed_flats#harvested_killed'
 	get 'seed_flats/copy' => 'seed_flats#copy'
+	get 'seed_flats/copy_treated_seed_flat' => 'seed_flats#copy_treated_seed_flat'
 	get 'seed_flats/first_emerge' => 'seed_flats#first_emerge'
 	get 'seed_flats/full_emerge' => 'seed_flats#full_emerge'
 	get 'seed_flats/cascade_full_emerge' => 'seed_flats#cascade_full_emerge'
