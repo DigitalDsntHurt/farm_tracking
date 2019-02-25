@@ -61,7 +61,7 @@
 							<h4 align="center"><%= @seeds_treated.count %> Seed Varieties Soaked</h4>
 							<p>
 								<% @seeds_treated.each{|treatment| %>
-									<%= treatment.seed_quantity_oz %> oz <%= treatment.seed_crop %><br>
+									<%= treatment.seed_quantity_oz %> oz <%= Crop.where(id: treatment.crop_id)[0].crop %><br>
 								<% } %>
 							</p>
 
@@ -70,8 +70,8 @@
 							<% @flats_sewn = SeedFlat.where(started_date: day) %>
 							<h4 align="center"><%= @flats_sewn.count %> Flats Sewn</h4>
 							<p>
-								<% @flats_sewn.group_by(&:crop).sort_by{|crop, result| -result.count }.each{|crop, result| %>
-									<%= result.count %> flats <%= crop %><br>
+								<% @flats_sewn.group_by(&:crop_id).sort_by{|crop, result| -result.count }.each{|crop, result| %>
+									<%= result.count %> flats <%= Crop.where(id: crop)[0].crop %><br>
 								<% } %>
 							</p>
 							
