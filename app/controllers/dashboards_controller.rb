@@ -75,12 +75,12 @@ class DashboardsController < ApplicationController
       @instruction = []
       if @crop[0].ideal_treatment_days == 0
         @instruction << "sew" 
-        @instruction << "#{(order.qty_oz / @crop[0].avg_yield_per_flat_oz).ceil}" 
+        @instruction << "#{(order.qty_oz / @crop[0].ideal_yield_per_flat_oz).ceil}" 
         @instruction << "#{order.variety} #{order.crop}"
         @instruction << "#{order.customer}"
       else
         @instruction << "soak"
-        @instruction << "#{(order.qty_oz / @crop[0].avg_yield_per_flat_oz).ceil * @crop[0].ideal_soak_seed_oz_per_flat }"
+        @instruction << "#{(order.qty_oz / @crop[0].ideal_yield_per_flat_oz).ceil * @crop[0].ideal_soak_seed_oz_per_flat }"
         @instruction << "#{order.variety} #{order.crop}"
         @instruction << "#{order.customer}"
       end
