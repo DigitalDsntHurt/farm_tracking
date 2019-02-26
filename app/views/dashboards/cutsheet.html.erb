@@ -1,150 +1,43 @@
-<h3>new cutsheet</h3>
-
-
-	<% @crops_to_list = Crop.all.pluck(:crop).uniq %>
-	<% @crops_to_list.each{|crop_name| %>
-		<% @crop_lookup = Crop.where(crop: crop_name) %>
-		<% @live_crops = SeedFlat.where(crop: crop_name ).where.not(current_system_id: nil).to_a.reject{|flat| flat.crop.include?("(1/2)")}  %>
-		<% @ready_for_harvest = @live_crops.to_a.reject{|flat| (Date.today - flat.started_date).to_i < @crop_lookup[0].ideal_days_to_harvest } %>
-
-		<%= crop_name %> | <%= @live_crops.count %> flats | <%= @ready_for_harvest.count %> flats ready to harvest | <%= @crop_lookup[0].avg_alltime_yield_per_flat_oz * @ready_for_harvest.count %> oz ready to sell | 
-		<br>
-	<% } %>
-
-
-
-<div class="container-fluid">
+<div class="container-fluid table-responsive">
 	<div class="row">
-		<div class="col-sm-2 cutsheet-header" align="right">
-			Crop
+		<div class="col-sm-2" style="font-weight: bold; text-align: center;" scope="col">
+			Product
 		</div>
-		<div class="col-sm-2 cutsheet-header" align="center">
-			Available Today
+		<div class="col-sm-1" style="font-weight: bold; text-align: center;" scope="col">
+			Max Order
 		</div>
-		<div class="col-sm-2 cutsheet-header" align="center">
-			Price per<br>1 OZ
+		<div class="col-sm-1" style="font-weight: bold; text-align: center;" scope="col">
+			OZ Price
 		</div>
-		<div class="col-sm-2 cutsheet-header" align="center">
-			Price per<br>1/2 LB
+		<div class="col-sm-1" style="font-weight: bold; text-align: center;" scope="col">
+			1/2 LB Price
 		</div>
-		<div class="col-sm-2 cutsheet-header" align="center">
-			Price per<br>1 LB
-		</div>
-		<div class="col-sm-2 cutsheet-header" align="center">
-			Price per<br>Live Flat
+		<div class="col-sm-1" style="font-weight: bold; text-align: center;" scope="col">
+			LB Price
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-sm-2" align="center">
+	<% @available.each{|group| %>
+		<div class="row">
+			<div class="col-sm-2" scope="row">
+				<% if Crop.where(id: group[0])[0].crop == "pea" or Crop.where(id: group[0])[0].crop == "sunflower" or Crop.where(id: group[0])[0].crop == "corn" %>
+					<%= Crop.where(id: group[0])[0].crop %>, <%= Crop.where(id: group[0])[0].crop_variety %> (shoot)
+				<% else %>
+					<%= Crop.where(id: group[0])[0].crop %>, <%= Crop.where(id: group[0])[0].crop_variety %> (micro)
+				<% end %>
+			</div>
+			<div class="col-sm-1" style="text-align: center;" scope="row">
+				<%= group[1].count * @ref[group[0]][3]%> oz			
+			</div>
+			<div class="col-sm-1" style="text-align: center;" scope="row">
+				<%= number_to_currency(Crop.where(id: group[0])[0].sale_price_per_oz) %>
+			</div>
+			<div class="col-sm-1" style="text-align: center;" scope="row">
+				<%= number_to_currency(Crop.where(id: group[0])[0].sale_price_per_8oz) %>
+			</div>
+			<div class="col-sm-1" style="text-align: center;" scope="row">
+				<%= number_to_currency(Crop.where(id: group[0])[0].sale_price_per_16oz) %>
+			</div>
 		</div>
-	</div>
+	<% } %>	
 </div>
 
-
-<br>
-<br>
-<br>
-<br>
-
-<h3>static / constant values -- 8oz/flat | manual pricing</h3>
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-2 cutsheet-header" align="right">
-		</div>
-		<div class="col-sm-2 cutsheet-header" align="center">
-			Max Purchase
-		</div>
-		<div class="col-sm-2 cutsheet-header" align="center">
-			Price per<br>1/2 LB
-		</div>
-		<div class="col-sm-2 cutsheet-header" align="center">
-			Price per<br>1 LB
-		</div>
-	</div>
-	<% @flats_for_harvest.group_by{|flat| flat.crop }.each{|thing| %>
-		<div class="row">
-			<div class="col-sm-2 cutsheet-header" align="right">
-				<%= thing[0] %>
-			</div>
-			<div class="col-sm-2" align="center">
-				<% @crop_pounds = thing[1].count/2.0 %>
-				<% if @crop_pounds > 1 %>
-					<%= @crop_pounds %> LBS
-				<% else %>
-					<%= @crop_pounds %> LB
-				<% end %>
-			</div>
-			<div class="col-sm-2" align="center">
-				<% if thing[0] == "pea" %>
-					$30
-				<% elsif thing[0].include?"mix" %>
-					$30
-				<% elsif thing[0] == "kale" %>
-					$25
-				<% elsif thing[0] == "broccoli" %>
-					$25
-				<% elsif thing[0] == "radish" %>
-					$25
-				<% else %>	
-					$25
-				<% end %>
-			</div>
-			<div class="col-sm-2" align="center">
-				<% if thing[0] == "pea" %>
-					$55
-				<% elsif thing[0].include?"mix" %>
-					$55	
-				<% elsif thing[0] == "kale" %>
-					$45
-				<% elsif thing[0] == "broccoli" %>
-					$45
-				<% elsif thing[0] == "radish" %>
-					$45
-				<% else %>	
-					$45
-				<% end %>
-			</div>
-		</div>
-	<% } %>
-
-<br><br>
-<hr>
-<br><br>
-
-<h3>semi-dynamic values -- per-crop oz avg / flat | manual pricing</h3><br>
-
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-1 cutsheet-header" align="right">
-			
-		</div>
-		<div class="col-xs-2 cutsheet-header" align="center">
-			Max Purchase
-		</div>
-		<div class="col-xs-2 cutsheet-header" align="center">
-			Price per<br>1/2 LB
-		</div>
-		<div class="col-xs-2 cutsheet-header" align="center">
-			Price per<br>1 LB
-		</div>
-	</div>
-	<% @harvest_avgs.each{|thing| %>
-		<div class="row">
-			<div class="col-sm-1 cutsheet-header" align="right">
-				<%= thing %>
-			</div>
-			<div class="col" align="center">
-				
-			</div>
-			<div class="col" align="center">
-				
-			</div>
-			<div class="col" align="center">
-				
-			</div>
-		</div>
-	<% } %>
-
-<br><br>
-<hr>
-<br><br>

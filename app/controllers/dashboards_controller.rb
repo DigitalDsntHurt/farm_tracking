@@ -181,20 +181,16 @@ class DashboardsController < ApplicationController
   end
 
   def cutsheet
-    # @harvest_avgs = [{:crop => "cropname", :avg_dtm => 15, :avg_oz_per_flat => 8 },{:crop => "cropname", :avg_dtm => 15, :avg_oz_per_flat => 8 }]
-    @flats_for_harvest = SeedFlat.where(:harvest_weight_oz => nil).where("started_date < ?",(Date.today-14))
+    @ref = {}
+    Crop.all.each{|crop|
+      @ref[crop.id] = [crop.crop, crop.crop_variety, crop.ideal_post_treatment_dth, crop.ideal_yield_per_flat_oz]
+    }
+    
+    @available = SeedFlat.where(sewn_for: "").where(harvest_weight_oz: nil).select{|flat| ((Date.today - flat.started_date).to_i) >= @ref[flat.crop_id][2] }.group_by{|flat| flat.crop_id }
+    #@available.select{|flat| (Date.today - flat.started_date).to_i < @ref[flat.crop_id][2] }
 
-    @harvest_avgs = []
-    @harvested_flats = SeedFlat.where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
-    @crops = @harvested_flats.pluck(:crop).uniq
-#    @crops.each{|crop_name|
-#      @hsh = {}
-#      @hsh[:crop] = crop_name
-#      @avg_harvest_weight = @harvested_flats.where(crop: crop_name).average(:seed_weight_oz)
-#      @hsh[:avg_opf] = @avg_harvest_weight
-#      @harvest_avgs << @hsh
-#    }
-
+    #@available = SeedFlat.where()
+    #@overgrow = [crop,max_order,oz_price,8oz_price,16oz_price]
   end
 
   def back_of_envelope
