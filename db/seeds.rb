@@ -4,7 +4,7 @@ require 'csv'
 
 
 ##
-## ## assign new crop ids to seed flats sewn with old crops data
+## ## assign new crop ids to seed flats sewn with old crops data after massive crops seed fuckup
 ##
 @old_crops = { 
 	2 => ["arugula","eruca sativa"],
