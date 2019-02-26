@@ -6,18 +6,8 @@
 </p>
 
 <p>
-  <strong>Seed crop:</strong>
-  <%= @seed_treatment.seed_crop %>
-</p>
-
-<p>
-  <strong>Seed variety:</strong>
-  <%= @seed_treatment.seed_variety %>
-</p>
-
-<p>
-  <strong>Seed brand:</strong>
-  <%= @seed_treatment.seed_brand %>
+  <strong>Crop:</strong>
+  <%= link_to("#{Crop.where(id: @seed_treatment.crop_id)[0].crop} - #{Crop.where(id: @seed_treatment.crop_id)[0].crop_variety}", Crop.where(id: @seed_treatment.crop_id)[0]) %>
 </p>
 
 <p>
@@ -109,7 +99,7 @@
       <%= link_to 'Clone', seed_treatments_clone_path(:controller => "seed_treatments", :action => "clone", :seed_treatment => @seed_treatment.id), :class => "dropbtn btn btn-success" %>
     </div>
     <div class="col-xs" style="margin-right:6px;">
-      <%= link_to 'Seed Treatments', seed_treatments_path, :class => "dropbtn btn btn-success" %>
+      <%= link_to 'Seed Treatments', seed_treatments_fresh_index_path, :class => "dropbtn btn btn-success" %>
     </div>
   </div>
 </div>

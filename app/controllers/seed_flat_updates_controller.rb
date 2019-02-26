@@ -4,7 +4,7 @@ class SeedFlatUpdatesController < ApplicationController
   # GET /seed_flat_updates
   # GET /seed_flat_updates.json
   def index
-    @seed_flat_updates = SeedFlatUpdate.all
+    @seed_flat_updates = SeedFlatUpdate.all.order(updated_at: :desc)
   end
 
   # GET /seed_flat_updates/1
@@ -43,6 +43,16 @@ class SeedFlatUpdatesController < ApplicationController
     @seed_flat = SeedFlat.find(params[:flat])
   end
 
+  def transplant_to_raquel
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+    @origin_system_id = @seed_flat.current_system_id
+    @destination_system_id = System.where(system_name: "RAQUEL")[0].id
+    @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+    @seed_flat.update(current_system_id: @destination_system_id)
+    redirect_back(fallback_location: root_path)
+  end
+
   def transplant_to_sue
     @seed_flat_update = SeedFlatUpdate.new
     @seed_flat = SeedFlat.find(params[:flat])
@@ -52,6 +62,16 @@ class SeedFlatUpdatesController < ApplicationController
     @seed_flat.update(current_system_id: @destination_system_id)
     redirect_back(fallback_location: root_path)
   end
+
+  def transplant_to_klay
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+    @origin_system_id = @seed_flat.current_system_id
+    @destination_system_id = System.where(system_name: "KLAY")[0].id
+    @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+    @seed_flat.update(current_system_id: @destination_system_id)
+    redirect_back(fallback_location: root_path)
+  end    
 
   def transplant_to_naga
     @seed_flat_update = SeedFlatUpdate.new
@@ -72,6 +92,16 @@ class SeedFlatUpdatesController < ApplicationController
     @seed_flat.update(current_system_id: @destination_system_id)
     redirect_back(fallback_location: root_path)
   end
+
+  def transplant_to_meow
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+    @origin_system_id = @seed_flat.current_system_id
+    @destination_system_id = System.where(system_name: "MEOW")[0].id
+    @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+    @seed_flat.update(current_system_id: @destination_system_id)
+    redirect_back(fallback_location: root_path)
+  end  
 
   def transplant_to_littlefoot
     @seed_flat_update = SeedFlatUpdate.new
@@ -102,6 +132,36 @@ class SeedFlatUpdatesController < ApplicationController
     @seed_flat.update(current_system_id: @destination_system_id)
     redirect_back(fallback_location: root_path)
   end
+
+  def transplant_to_gar
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+    @origin_system_id = @seed_flat.current_system_id
+    @destination_system_id = System.where(system_name: "GAR")[0].id#.where(room_id: @seed_flat.room_id)[0].id
+    @seed_flat.update(current_system_id: @destination_system_id)
+    @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def transplant_to_lev
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+    @origin_system_id = @seed_flat.current_system_id
+    @destination_system_id = System.where(system_name: "LEV")[0].id#.where(room_id: @seed_flat.room_id)[0].id
+    @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+    @seed_flat.update(current_system_id: @destination_system_id)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def transplant_to_pip
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+    @origin_system_id = @seed_flat.current_system_id
+    @destination_system_id = System.where(system_name: "PIP")[0].id#.where(room_id: @seed_flat.room_id)[0].id
+    @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+    @seed_flat.update(current_system_id: @destination_system_id)
+    redirect_back(fallback_location: root_path)
+  end  
 
   # PATCH/PUT /seed_flat_updates/1
   # PATCH/PUT /seed_flat_updates/1.json

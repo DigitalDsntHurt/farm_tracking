@@ -6,6 +6,11 @@
 </p>
 
 <p>
+  <strong>System Name</strong>
+  <%= @system.system_name %>
+</p>
+
+<p>
   <strong>Build date:</strong>
   <%= @system.build_date %>
 </p>
@@ -26,6 +31,11 @@
 </p>
 
 <p>
+  <strong>Flat Slots:</strong>
+  <%= @system.flat_slots %>
+</p>
+
+<p>
   <strong>Lights:</strong>
   <%= @system.lights %>
 </p>
@@ -33,6 +43,15 @@
 <p>
   <strong>Notes:</strong>
   <%= @system.notes %>
+</p>
+
+<p>
+  <strong>Retired?:</strong>
+  <%= @system.retired %>
+</p>
+<p>
+  <strong>Retired On:</strong>
+  <%= @system.retired_on %>
 </p>
 
 <%= link_to 'Edit', edit_system_path(@system) %> |

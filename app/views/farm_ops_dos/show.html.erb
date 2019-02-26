@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Verb:</strong>
+  <%= @farm_ops_do.verb %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @farm_ops_do.date %>
+</p>
+
+<p>
+  <strong>Crop:</strong>
+  <%= @farm_ops_do.crop %>
+</p>
+
+<p>
+  <strong>Variety:</strong>
+  <%= @farm_ops_do.variety %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @farm_ops_do.customer %>
+</p>
+
+<%= link_to 'Edit', edit_farm_ops_do_path(@farm_ops_do) %> |
+<%= link_to 'Back', farm_ops_dos_path %>

@@ -12,10 +12,17 @@
     </div>
   <% end %>
 
+<h1>treated seed flat form</h1>
+
   <div class="field">
-    <%= f.label :room_id %>
-    <%= f.select :room_id, Room.all.collect{|room| [ "#{room.name} @ #{room.location}", room.id ] } %>
-  </div>  
+    <%= f.label :current_system_id %>
+    <%= f.select :current_system_id, System.where(system_name: "propagation").collect{|system| ["#{system.system_name} - #{Room.where(id: system.room_id)[0].name}", system.id ]}.reverse %>
+  </div> 
+
+  <div class="field">
+    <%= f.label :sewn_for %>
+    <%= f.text_field :sewn_for %>
+  </div>
 
   <div class="field">
     <%= f.label :flat_identifier %>
@@ -32,20 +39,10 @@
     <%= f.label :started_date %>
     <%= f.date_select :started_date %>
   </div>
-
+  
   <div class="field">
     <%= f.label :crop %>
-    <%= f.text_field :crop %>
-  </div>
-
-  <div class="field">
-    <%= f.label :crop_variety %>
-    <%= f.text_field :crop_variety %>
-  </div>
-
-  <div class="field">
-    <%= f.label :seed_brand %>
-    <%= f.text_field :seed_brand %>
+    <%= f.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ] }, :include_blank => true %>
   </div>
 
   <div class="field">

@@ -1,0 +1,2 @@
+json.extract! nutrient_solution, :id, :date_mixed, :reservoir_id, :system, :reservoir_fill_volume_liters, :topup_or_reset, :ingredient1, :ingredient1_qty_ml, :ingredient2, :ingredient2_qty_ml, :ingredient3, :ingredient3_qty_ml, :ingredient4, :ingredient4_qty_ml, :ingredient5, :ingredient5_qty_ml, :ingredient6, :ingredient6_qty_ml, :ingredient7, :ingredient7_qty_ml, :ingredient8, :ingredient8_qty_ml, :ingredient9, :ingredient9_qty_ml, :ingredient10, :ingredient10_qty_ml, :created_at, :updated_at
+json.url nutrient_solution_url(nutrient_solution, format: :json)

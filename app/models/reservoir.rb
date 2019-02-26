@@ -1,0 +1,2 @@
+class Reservoir < ApplicationRecord
+end

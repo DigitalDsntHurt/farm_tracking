@@ -17,18 +17,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :seed_crop %>
-    <%= form.text_field :seed_crop, id: :seed_treatment_seed_crop %>
-  </div>
-
-  <div class="field">
-    <%= form.label :seed_variety %>
-    <%= form.text_field :seed_variety, id: :seed_treatment_seed_variety %>
-  </div>
-
-  <div class="field">
-    <%= form.label :seed_brand %>
-    <%= form.text_field :seed_brand, id: :seed_treatment_seed_brand %>
+    <%= form.label :crop_id %>
+    <%= form.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
   </div>
 
   <div class="field">

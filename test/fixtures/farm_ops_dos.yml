@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  verb: MyString
+  date: 2019-02-18
+  crop: MyString
+  variety: MyString
+  customer: MyString
+
+two:
+  verb: MyString
+  date: 2019-02-18
+  crop: MyString
+  variety: MyString
+  customer: MyString

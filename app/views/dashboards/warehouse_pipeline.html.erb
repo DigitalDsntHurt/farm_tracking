@@ -1,0 +1,63 @@
+<div style="padding-left: 22px;">
+	<h2 align="center">Go To...</h2>
+	<h4 align="center">
+		
+			* <%= link_to "Full Pipeline", "/dashboards/pipeline" %>
+			<br>
+			* <%= link_to "Page Pipeline", "/dashboards/page_pipeline" %>
+	</h4>
+	<br><br>
+
+	<% @rooms.each{|room| %>
+		<div id=<%= room.name.gsub(" ","-") %>>
+			<h1 align="center"><strong><u><%= room.name.upcase %></u></strong></h1>
+			<% room.systems.each{|system| %>
+				<% next if system.retired == true %>
+				<br><h1 align="center"><strong>~~ <%= system.system_name %> ~~</strong></h1><br>
+				<% @system_flats = SeedFlat.where(current_system_id: system.id).order(started_date: :desc, updated_at: :desc).reject{|tray| tray.harvest_weight_oz != nil } %>
+				<% @system_flats.to_a.in_groups_of(4).each{ |shelf| %>
+					<div class="row" style="margin-left:5%;margin-right:5%;">
+						<% shelf.each{ |tray| %>
+							<div class="col-sm-3" align="center" style="padding:0px;">
+								<div class="card">
+									<% unless tray == nil or tray.harvest_weight_oz != nil %>
+										<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
+										<p class="card-text">
+											<%= (Date.today-tray.started_date).to_i %>-day <strong><%= tray.crop_variety %> <%= tray.crop %></strong><br/>
+											<%= tray.seed_weight_oz %> oz seed sewn on <%= tray.started_date %><br/>
+												<% unless tray.sewn_for == nil or tray.sewn_for.length < 2 %>
+													Sewn for <strong><%= tray.sewn_for %></strong><br/>
+												<% end %>
+											~ ~ ~ ~ ~ ~ ~ ~ ~ ~<br/>
+											
+											<%-# non emerged flats / in propagation -%>
+											<% if tray.first_emerge_date == nil %>
+							                	<%= render "non_emerged_flats_transplant_buttons", tray: tray %>
+
+							                <%-# first emerged flats / in propagation -%>
+											<% elsif tray.first_emerge_date != nil and tray.full_emerge_date == nil %>
+												<%= render "first_emerged_flats_transplant_buttons", tray: tray %>
+
+							                <%-# full emerged flats before transplant / in propagation -%>
+							                <% elsif @propagation_system_ids.include?(tray.current_system_id) %>
+							                	<%= render "full_emerged_flats_in_propagation_transplant_buttons", tray: tray %>
+
+							                <%-# flats beyond / moved out of propagation -%>
+							                <% else %>
+							                	<%= render "full_emerged_flats_in_pipeline_transplant_buttons", tray: tray %>
+							                	
+							                <% end %>
+										</p>
+									<% end %>
+								</div>
+							</div>
+						<% } %>
+					</div>
+				<% } %>
+			<% } %>
+			
+			<br><br>
+			<hr>
+		</div>
+	<% } %>
+</div>
