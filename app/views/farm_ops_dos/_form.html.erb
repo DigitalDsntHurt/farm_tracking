@@ -1,0 +1,42 @@
+<%= form_with(model: farm_ops_do, local: true) do |form| %>
+  <% if farm_ops_do.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(farm_ops_do.errors.count, "error") %> prohibited this farm_ops_do from being saved:</h2>
+
+      <ul>
+      <% farm_ops_do.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :verb %>
+    <%= form.text_field :verb, id: :farm_ops_do_verb %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date, id: :farm_ops_do_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :crop %>
+    <%= form.text_field :crop, id: :farm_ops_do_crop %>
+  </div>
+
+  <div class="field">
+    <%= form.label :variety %>
+    <%= form.text_field :variety, id: :farm_ops_do_variety %>
+  </div>
+
+  <div class="field">
+    <%= form.label :customer %>
+    <%= form.text_field :customer, id: :farm_ops_do_customer %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

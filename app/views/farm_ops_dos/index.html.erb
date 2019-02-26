@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Farm Ops Dos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Verb</th>
+      <th>Date</th>
+      <th>Crop</th>
+      <th>Variety</th>
+      <th>Customer</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @farm_ops_dos.each do |farm_ops_do| %>
+      <tr>
+        <td><%= farm_ops_do.verb %></td>
+        <td><%= farm_ops_do.date %></td>
+        <td><%= farm_ops_do.crop %></td>
+        <td><%= farm_ops_do.variety %></td>
+        <td><%= farm_ops_do.customer %></td>
+        <td><%= link_to 'Show', farm_ops_do %></td>
+        <td><%= link_to 'Edit', edit_farm_ops_do_path(farm_ops_do) %></td>
+        <td><%= link_to 'Destroy', farm_ops_do, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Farm Ops Do', new_farm_ops_do_path %>

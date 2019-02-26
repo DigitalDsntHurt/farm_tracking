@@ -42,6 +42,11 @@
   </div>
 
   <div class="field">
+    <%= form.label :flat_slots %>
+    <%= form.number_field :flat_slots, id: :flat_slots %>
+  </div>
+
+  <div class="field">
     <%= form.label :lights %>
     <%= form.text_area :lights, id: :system_lights %>
   </div>
@@ -49,6 +54,16 @@
   <div class="field">
     <%= form.label :notes %>
     <%= form.text_area :notes, id: :system_notes %>
+  </div>
+
+  <div class="field">
+    <%= form.label :retired? %>
+    <%= form.check_box :retired, id: :retired %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :retired_on %>
+    <%= form.date_select :retired_on, id: :retired_on, include_blank: true %>
   </div>
 
   <div class="actions">

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  verb: MyString
+  date: 2019-02-19
+  crop: MyString
+  variety: MyString
+  customer: MyString
+  order: MyString
+  completed_on: 2019-02-19
+
+two:
+  verb: MyString
+  date: 2019-02-19
+  crop: MyString
+  variety: MyString
+  customer: MyString
+  order: MyString
+  completed_on: 2019-02-19

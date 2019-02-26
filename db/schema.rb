@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181008062336) do
+ActiveRecord::Schema.define(version: 20190226001416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,12 +42,102 @@ ActiveRecord::Schema.define(version: 20181008062336) do
     t.float "sale_price_per_live_flat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "ideal_treatment_days"
+    t.float "avg_treatment_days"
+    t.float "ideal_propagation_days"
+    t.float "avg_propagation_days"
+    t.float "ideal_system_days"
+    t.float "avg_system_days"
+    t.float "ideal_post_treatment_dth"
+    t.float "avg_post_treatment_dth"
+    t.float "ideal_total_dth"
+    t.float "avg_total_dth"
+    t.float "ideal_soak_seed_oz_per_flat"
+    t.float "avg_soak_seed_oz_per_flat"
+    t.float "ideal_sew_seed_oz_per_flat"
+    t.float "avg_sew_seed_oz_per_flat"
+    t.float "avg_yield_per_flat_oz"
+    t.string "seed_supplier"
+    t.float "ideal_yield_per_flat_oz"
+  end
+
+  create_table "farm_ops_dos", force: :cascade do |t|
+    t.string "verb"
+    t.date "date"
+    t.string "crop"
+    t.string "variety"
+    t.string "customer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "completed_on"
+  end
+
+  create_table "nutrient_solutions", force: :cascade do |t|
+    t.date "date_mixed"
+    t.bigint "reservoir_id"
+    t.string "system"
+    t.integer "reservoir_fill_volume_liters"
+    t.string "topup_or_reset"
+    t.string "ingredient1"
+    t.integer "ingredient1_qty_ml"
+    t.string "ingredient2"
+    t.integer "ingredient2_qty_ml"
+    t.string "ingredient3"
+    t.integer "ingredient3_qty_ml"
+    t.string "ingredient4"
+    t.integer "ingredient4_qty_ml"
+    t.string "ingredient5"
+    t.integer "ingredient5_qty_ml"
+    t.string "ingredient6"
+    t.integer "ingredient6_qty_ml"
+    t.string "ingredient7"
+    t.integer "ingredient7_qty_ml"
+    t.string "ingredient8"
+    t.integer "ingredient8_qty_ml"
+    t.string "ingredient9"
+    t.integer "ingredient9_qty_ml"
+    t.string "ingredient10"
+    t.integer "ingredient10_qty_ml"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reservoir_id"], name: "index_nutrient_solutions_on_reservoir_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "customer"
+    t.string "day_of_week"
+    t.date "date"
+    t.integer "qty_oz"
+    t.string "crop"
+    t.string "variety"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reservoirs", force: :cascade do |t|
+    t.string "name"
+    t.integer "size_liters"
+    t.string "brand"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.string "location"
     t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "scheduleds", force: :cascade do |t|
+    t.string "verb"
+    t.date "date"
+    t.string "crop"
+    t.string "variety"
+    t.string "customer"
+    t.string "order"
+    t.date "completed_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -98,6 +188,7 @@ ActiveRecord::Schema.define(version: 20181008062336) do
     t.boolean "exclude_from_freshlist"
     t.boolean "force_onto_freshlist"
     t.string "sewn_for"
+    t.integer "crop_id"
     t.index ["current_system_id"], name: "index_seed_flats_on_current_system_id"
     t.index ["room_id"], name: "index_seed_flats_on_room_id"
     t.index ["seed_treatments_id"], name: "index_seed_flats_on_seed_treatments_id"
@@ -128,6 +219,7 @@ ActiveRecord::Schema.define(version: 20181008062336) do
     t.text "destination_flat_ids", default: [], array: true
     t.boolean "finished"
     t.date "soak_start_date"
+    t.integer "crop_id"
   end
 
   create_table "systems", force: :cascade do |t|
@@ -141,9 +233,13 @@ ActiveRecord::Schema.define(version: 20181008062336) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "system_name"
+    t.boolean "retired"
+    t.integer "flat_slots"
+    t.date "retired_on"
     t.index ["room_id"], name: "index_systems_on_room_id"
   end
 
+  add_foreign_key "nutrient_solutions", "reservoirs"
   add_foreign_key "seed_flat_updates", "seed_flats"
   add_foreign_key "seed_flats", "rooms"
   add_foreign_key "seed_flats", "seed_treatments", column: "seed_treatments_id"

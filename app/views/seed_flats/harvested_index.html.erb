@@ -1,0 +1,81 @@
+<p id="notice"><%= notice %></p>
+
+<table class="seed-flats-index" style="margin-right: 22px; margin-left: 22px;">
+  <thead>
+    <tr>
+      <th>started date</th>
+      <th>crop</th>
+      <th>variety</th>
+      <th>seed brand</th>
+      <th>seed weight</th>
+      <th>first emergence</th>
+      <th>full emergence</th>
+      <th>harvested</th>
+      <th>harvest wt oz</th>
+      <th>harvest wt lbs</th>
+      <th>harvest notes</th>
+      <th>former flat id</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @seed_flats.each do |seed_flat| %>
+      <% if seed_flat.harvest_weight_oz == 0.0 %>
+        <tr style="background-color: red;">
+      <% elsif seed_flat.harvest_weight_oz != nil %>
+          <tr style="background-color: #659D32; font-size: 18px;">
+      <% elsif seed_flat.date_of_first_transplant != nil %>
+          <tr style="background-color: lightyellow;">
+      <% else %>
+        <tr>
+      <% end %>
+        <td><%= seed_flat.started_date %></td>
+        <td><%= seed_flat.crop %></td>
+        <td class="seed_flat_index_text_cell_small"><%= seed_flat.crop_variety %></td>
+        <td><%= seed_flat.seed_brand %></td>
+        <td><%= seed_flat.seed_weight_oz %></td>
+        <td><%= seed_flat.first_emerge_date %></td>
+        <td><%= seed_flat.full_emerge_date %></td>
+        <td><%= seed_flat.harvested_on %></td>
+        <td><%= seed_flat.harvest_weight_oz %></td>
+        <td><%= seed_flat.hrvst_wt_lbs %></td>
+        <td class="seed_flat_index_text_cell_medium" style="max-width:22px; white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word" class="seed_flat_index_text_cell_medium"><%= seed_flat.harvest_notes %></td>
+        <td class="seed_flat_index_text_cell_medium"><%= seed_flat.former_flat_id %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+          <table class='seed-flats-index-actions'>
+            <tr align="center">
+              <td>
+                <%= link_to 'Show', seed_flat, :class => "btn btn-outline-info sf-index-actions" %>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+
+
+<br><br><br><br>
+<hr><hr>
+<br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+

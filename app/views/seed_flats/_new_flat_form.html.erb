@@ -1,0 +1,105 @@
+
+<%= form_for(seed_flat) do |f| %>
+  <% if seed_flat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(seed_flat.errors.count, "error") %> prohibited this seed_flat from being saved:</h2>
+
+      <ul>
+      <% seed_flat.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :started_date %>
+    <%= f.date_select :started_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :current_system_id %>
+    <%= f.select :current_system_id, System.where(system_name: "propagation").collect{|system| ["#{system.system_name} - #{Room.where(id: system.room_id)[0].name}", system.id ]}.reverse %>
+  </div>
+
+  <div class="field">
+    <%= f.label :sewn_for %>
+    <%= f.text_field :sewn_for %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :flat_identifier %>
+    <%= f.text_field :flat_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :crop %>
+    <%= f.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :medium %>
+    <%= f.text_field :medium, value: "biostrate felt" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :format %>
+    <%= f.text_field :format, value: "matt" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :seed_weight %>
+    <%= f.text_field :seed_weight_oz %>
+  </div>
+
+  <div class="field">
+    <%= f.label :first_emerge_date %>
+    <%= f.date_select :first_emerge_date, include_blank: true  %>
+  </div>
+
+  <div class="field">
+    <%= f.label :full_emerge_date %>
+    <%= f.date_select :full_emerge_date, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :emergence_notes %>
+    <%= f.text_field :emergence_notes %>
+  </div>
+
+<p>*** *** *** *** *** *** *** *** *** *** *** *** </p>
+
+  <div class="field">
+    <%= f.label :exclude_from_freshlist %>?
+    <%= f.check_box :exclude_from_freshlist %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :force_onto_freshlist %>?
+    <%= f.check_box :force_onto_freshlist %>
+  </div>
+
+<p>*** *** *** *** *** *** *** *** *** *** *** *** </p>  
+
+  <div class="field">
+    <%= f.label :harvested_on %>
+    <%= f.date_select :harvested_on, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :harvest_weight_oz %>
+    <%= f.text_field :harvest_weight_oz %>
+  </div>
+  
+  </div>
+
+  <div class="field">
+    <%= f.label :harvest_notes %>
+    <%= f.text_field :harvest_notes %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

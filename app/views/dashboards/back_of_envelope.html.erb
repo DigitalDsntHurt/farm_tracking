@@ -78,7 +78,6 @@
 <hr>
 <br><br>
 
-
 <h3 align="center">Avg Yield Per Seed Weight</h3>
 <%= @cilantro %>
 
@@ -89,3 +88,14 @@
 <br><br>
 <hr>
 <br><br>
+
+<div style="padding:33px;">
+
+	<h1>Monthly Flats Harvested Per Crop</h1>
+	<% @flats_per_month.each{|group| %>
+		Month: <%= group[0] %>
+		# flats: <%= group[1].count %>
+		<br>
+	<% } %>
+
+</div>

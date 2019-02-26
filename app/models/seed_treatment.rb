@@ -2,7 +2,7 @@ class SeedTreatment < ApplicationRecord
 	has_many :seed_flats
 	
 	before_create :calculate_planned_date_of_first_flat_sew
-	before_save :calculate_days_to_full_emergence, :set_soak_start_date #, :downcase_all
+	before_save :calculate_days_to_full_emergence, :set_soak_start_date #, :remove_white_spaces_from_crop_names #, :downcase_all
 
 
 	private
@@ -31,5 +31,9 @@ class SeedTreatment < ApplicationRecord
 	def set_soak_start_date
 		self.soak_start_date = self.soak_start_datetime.to_date
 	end
+
+#	def remove_white_spaces_from_crop_names
+#		self.seed_crop = self.seed_crop.gsub! /(\A\s*|\s*\z)/, ''
+#	end
 
 end

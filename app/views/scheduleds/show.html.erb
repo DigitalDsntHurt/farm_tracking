@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Verb:</strong>
+  <%= @scheduled.verb %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @scheduled.date %>
+</p>
+
+<p>
+  <strong>Crop:</strong>
+  <%= @scheduled.crop %>
+</p>
+
+<p>
+  <strong>Variety:</strong>
+  <%= @scheduled.variety %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @scheduled.customer %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @scheduled.order %>
+</p>
+
+<p>
+  <strong>Completed on:</strong>
+  <%= @scheduled.completed_on %>
+</p>
+
+<%= link_to 'Edit', edit_scheduled_path(@scheduled) %> |
+<%= link_to 'Back', scheduleds_path %>

@@ -58,6 +58,12 @@
   <p>*** *** *** *** *** *** *** *** *** *** *** *** </p>
 
   <p>
+    <strong>Current_system:</strong>
+    <% unless @seed_flat.current_system_id == nil %>
+      <%= link_to "#{System.where(id: @seed_flat.current_system_id)[0].system_name} @ #{System.where(id: @seed_flat.current_system_id)[0].room.name}", System.where(id: @seed_flat.current_system_id)[0] %>
+    <% end %>
+  </p>
+  <p>
     <strong>Room:</strong>
     <% unless @seed_flat.room_id == nil %>
       <%= link_to "#{Room.where(id: @seed_flat.room_id)[0].name} @ #{Room.where(id: @seed_flat.room_id)[0].location}", Room.where(id: @seed_flat.room_id)[0] %>
@@ -80,18 +86,8 @@
   </p>  
 
   <p>
-    <strong>Crop:</strong>
-    <%= @seed_flat.crop %>
-  </p>
-
-  <p>
-    <strong>Crop variety:</strong>
-    <%= @seed_flat.crop_variety %>
-  </p>
-
-  <p>
-    <strong>Seed brand:</strong>
-    <%= @seed_flat.seed_brand %>
+    <strong>Crop ID:</strong>
+    <%= link_to("#{Crop.where(id: @seed_flat.crop_id)[0].crop} - #{Crop.where(id: @seed_flat.crop_id)[0].crop_variety}", Crop.where(id: @seed_flat.crop_id)[0]) %>
   </p>
 
   <p>
@@ -206,14 +202,20 @@
       <div class="col-xs" style="margin-right:6px;">
         <%= link_to 'Edit', edit_seed_flat_path(@seed_flat), :class => "dropbtn btn btn-success" %>
       </div>
+
+      
       <div class="col-xs" style="margin-right:6px;">
-        <%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => @seed_flat.id), :class => "dropbtn btn btn-success" %>
+        <% if @seed_flat.seed_treatments_id == nil %>
+          <%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => @seed_flat.id), :class => "dropbtn btn btn-success" %>
+        <% else %>
+          <%= link_to 'Clone', seed_flats_copy_treated_seed_flat_path(:controller => "seed_flats", :action => "copy_treated_seed_flat", :old_seed_flat => @seed_flat.id), :class => "dropbtn btn btn-success" %>
+        <% end %>        
       </div>
       <div class="col-xs" style="margin-right:6px;">
         <%= link_to 'New Seed Flat', new_seed_flat_path, :class => "dropbtn btn btn-success" %>
       </div>
       <div class="col-xs" style="margin-right:6px;">
-        <%= link_to 'Seed Treatments', seed_treatments_path, :class => "dropbtn btn btn-success" %>
+        <%= link_to 'Seed Treatments', seed_treatments_fresh_index_path, :class => "dropbtn btn btn-success" %>
       </div>
     </div>
   </div>
