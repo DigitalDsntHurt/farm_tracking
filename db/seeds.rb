@@ -4,6 +4,36 @@ require 'csv'
 
 
 
+##
+## ## Seed Crops Table From Google Sheets CSV Export -- simple, most basic version for auto sew scheduling
+##
+seed_arr = []
+
+csv = CSV.read(Rails.root.join('db','crops.csv'))
+csv.to_a[1..-1].each{|row|
+	@hsh = {}
+	next if row[0] == nil
+	@hsh[:crop] = row[0].downcase
+	@hsh[:crop_variety] = row[1].downcase
+	@hsh[:ideal_soak_seed_oz_per_flat] = row[2]
+	@hsh[:ideal_treatment_days] = row[3]
+	@hsh[:ideal_sew_seed_oz_per_flat] = row[4]
+	@hsh[:ideal_propagation_days] = row[5]
+	@hsh[:ideal_system_days] = row[6]
+	@hsh[:ideal_post_treatment_dth] = row[7]
+	@hsh[:ideal_total_dth] = row[8]
+	@hsh[:ideal_yield_per_flat_oz] = row[9]
+	@hsh[:sale_price_per_oz] = row[10].gsub("$","")
+	@hsh[:sale_price_per_8oz] = row[11].gsub("$","")
+	@hsh[:sale_price_per_16oz] = row[12].gsub("$","")
+	@hsh[:sale_price_per_live_flat] = row[13].gsub("$","")
+	seed_arr << @hsh
+}
+
+Crop.create(seed_arr)
+puts "Created #{seed_arr.count} new crops in Crops table!"
+=begin
+=end
 
 
 =begin
@@ -82,33 +112,6 @@ csv.to_a[1..-1].each{|row|
 Order.create(seed_arr)
 puts "Created #{seed_arr.count} new orders in Orders table!"
 
-=end
-
-
-
-=begin
-##
-## ## Seed Crops Table From Google Sheets CSV Export -- simple, most basic version for auto sew scheduling
-##
-seed_arr = []
-
-csv = CSV.read(Rails.root.join('db','crops.csv'))
-csv.to_a[1..-1].each{|row|
-	@hsh = {}
-	next if row[0] == nil
-	@hsh[:crop] = row[0].downcase
-	@hsh[:crop_variety] = row[1].downcase
-	@hsh[:ideal_soak_seed_oz_per_flat] = row[2]
-	@hsh[:ideal_treatment_days] = row[3]
-	@hsh[:ideal_sew_seed_oz_per_flat] = row[4] 
-	@hsh[:ideal_post_treatment_dth] = row[7]
-	@hsh[:ideal_total_dth] = row[8]
-	@hsh[:avg_yield_per_flat_oz] = row[9]
-	seed_arr << @hsh
-}
-
-Crop.create(seed_arr)
-puts "Created #{seed_arr.count} new crops in Crops table!"
 =end
 
 
