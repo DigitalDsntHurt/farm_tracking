@@ -16,7 +16,12 @@
     <%= f.label :started_date %>
     <%= f.date_select :started_date %>
   </div>
-
+<% if false %>
+  <div class="field">
+    <%= f.label :seed_treatments_id %>
+    <%= f.select :seed_treatments_id, SeedTreatment.where.not(finished: true).collect{|treatment| ["#{treatment.seed_variety} #{treatment.seed_crop} soaked on #{treatment.soak_start_date}", treatment.id ]}, include_blank: true %>
+  </div>
+<% end %>
   <div class="field">
     <%= f.label :current_system_id %>
     <%= f.select :current_system_id, System.where(retired_on: nil).collect{|system| ["#{system.system_name} - #{Room.where(id: system.room_id)[0].name}", system.id ]} %>
@@ -102,4 +107,45 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+<% end %>
+
+<% if false %>
+
+<h1>*** === ***</h1>
+
+<%= form_for(seed_flat) do |f| %>
+  <% if seed_flat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(seed_flat.errors.count, "error") %> prohibited this seed_flat from being saved:</h2>
+
+      <ul>
+      <% seed_flat.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% SeedFlat.column_names.each{|column_name| %>
+    <%= column_name %>
+    <% if column_name == "started_date" %>
+      <div class="field">
+        <%= f.date_select column_name.to_sym %>
+      </div>
+    <% elsif column_name == "crop_id" %>  
+      <div class="field">
+      <%= f.select column_name.to_sym, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
+  </div>
+    <% else %>    
+      <div class="field">
+        <%= f.text_field column_name.to_sym %>
+      </div>
+    <% end %>
+  <% } %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
 <% end %>
