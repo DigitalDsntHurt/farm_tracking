@@ -19,7 +19,7 @@
 
   <div class="field">
     <%= f.label :current_system_id %>
-    <%= f.select :current_system_id, System.where(retired: nil).collect{|system| ["#{system.system_name} - #{Room.where(id: system.room_id)[0].name}", system.id ]} %>
+    <%= f.select :current_system_id, System.where(retired_on: nil).collect{|system| ["#{system.system_name} - #{Room.where(id: system.room_id)[0].name}", system.id ]} %>
   </div>
 
   <div class="field">

@@ -3,6 +3,7 @@
 require 'csv'
 
 
+=begin
 ##
 ## ## assign new crop ids to seed flats sewn with old crops data after massive crops seed fuckup
 ##
@@ -137,6 +138,9 @@ treatments_with_crop_ids.each{|treatment|
 	problem_treatments << treatment if Crop.where(id: treatment.crop_id).count == 0
 }
 puts problem_treatments.count
+=end
+
+
 
 =begin
 ##
