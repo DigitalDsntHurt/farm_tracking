@@ -2,6 +2,16 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
+##
+## ## update crop_id on all Orders
+##
+@orders = Order.all
+@orders.each{|order|
+	@crop_id = Crop.where(crop: order.crop).where(crop_variety: order.variety)
+	next if @crop_id.count == 0
+	order.update(crop_id: @crop_id[0].id)
+}
+
 
 =begin
 ##

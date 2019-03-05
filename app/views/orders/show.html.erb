@@ -22,6 +22,11 @@
 
 <p>
   <strong>Crop:</strong>
+  <%= Crop.where(id: @order.crop_id)[0].crop %>, <%= Crop.where(id: @order.crop_id)[0].crop_variety %>
+</p>
+
+<p>
+  <strong>Crop:</strong>
   <%= @order.crop %>
 </p>
 
