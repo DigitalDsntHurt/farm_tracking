@@ -8,6 +8,7 @@
       <th style="padding-left:16px;padding-right:16px;padding-bottom:6px;">Customer</th>
       <th style="padding-left:16px;padding-right:16px;padding-bottom:6px;">Day of week</th>
       <th style="padding-left:16px;padding-right:16px;padding-bottom:6px;">Date</th>
+      <th style="padding-left:16px;padding-right:16px;padding-bottom:6px;">Standing Order?</th>
       <th style="padding-left:16px;padding-right:16px;padding-bottom:6px;">Qty oz</th>
       <th style="padding-left:16px;padding-right:16px;padding-bottom:6px;">Crop</th>
       <th style="padding-left:16px;padding-right:16px;padding-bottom:6px;">Cancelled On</th>
@@ -25,6 +26,7 @@
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= order.customer %></td>
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= order.day_of_week %></td>
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= order.date %></td>
+        <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= order.standing_order %></td>
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= order.qty_oz %></td>
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= Crop.where(id: order.crop_id)[0].crop %>, <%= Crop.where(id: order.crop_id)[0].crop_variety %></td>
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= order.cancelled_on %></td>

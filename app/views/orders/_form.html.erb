@@ -27,6 +27,11 @@
   </div>
 
   <div class="field">
+    <%= form.label :standing_order %>
+    <%= form.check_box :standing_order %>
+  </div>
+
+  <div class="field">
     <%= form.label :qty_oz %>
     <%= form.number_field :qty_oz, id: :order_qty_oz %>
   </div>
