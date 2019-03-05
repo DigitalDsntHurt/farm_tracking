@@ -3,12 +3,14 @@
 require 'csv'
 
 =begin
-=end
 ##
 ## ## set standing_order field on all Orders to true
 ##
 
 Order.update_all(standing_order: true)
+=end
+
+
 
 =begin
 ##
@@ -21,6 +23,8 @@ Order.update_all(standing_order: true)
 	order.update(crop_id: @crop_id[0].id)
 }
 =end
+
+
 
 =begin
 ##

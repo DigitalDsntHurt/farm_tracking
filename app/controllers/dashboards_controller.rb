@@ -54,7 +54,7 @@ class DashboardsController < ApplicationController
 ##
 
   def ops_calendar
-    # setup calendar cells
+  # setup calendar cells
     @today = Date.today - 7
     if @today.strftime("%a") == "Mon"
       @start_date = @today
@@ -68,53 +68,6 @@ class DashboardsController < ApplicationController
     @date_range = (@start_date..@end_date)
     @weeks = @date_range.to_a.in_groups_of(7)
 
-    # lookup orders
-    @orders = Order.all
-    @days_of_week_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
-    
-    @to_soak = []
-    @to_sew = []
-
-##
-## ##
-##
-    @orders.sort_by(&:day_of_week).each{|order|
-      @arr = []  
-      @crop = Crop.where(crop: order.crop).where(crop_variety: order.variety)
-
-      @instruction = []
-      if @crop[0].ideal_treatment_days == 0
-        @instruction << "sew" 
-        @instruction << "#{(order.qty_oz / @crop[0].ideal_yield_per_flat_oz).ceil}" 
-        @instruction << "#{order.variety} #{order.crop}"
-        @instruction << "#{order.customer}"
-      else
-        @instruction << "soak"
-        @instruction << "#{(order.qty_oz / @crop[0].ideal_yield_per_flat_oz).ceil * @crop[0].ideal_soak_seed_oz_per_flat }"
-        @instruction << "#{order.variety} #{order.crop}"
-        @instruction << "#{order.customer}"
-      end
-
-      if @crop[0].ideal_total_dth % 7 == 0
-        @instruction.insert(1,"#{order.day_of_week}")
-      else
-        @ref_index = @days_of_week_ref.index(order.day_of_week) - (@crop[0].ideal_total_dth % 7)
-        @instruction.insert(1,@days_of_week_ref[@ref_index])
-      end
-
-      @to_soak << @instruction if @instruction[0] == "soak"
-      @to_sew << @instruction if @instruction[0] == "sew"
-    }
-
-    ##
-    ## ## Soak schedule
-    ##
-    @grouped_soaks = day_adjust_dos(@to_soak)
-
-    ##
-    ## ## Sew schedule
-    ##
-    @grouped_sews = day_adjust_dos(@to_sew)
 
   end
 
