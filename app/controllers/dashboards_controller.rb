@@ -1,10 +1,61 @@
 class DashboardsController < ApplicationController
-  def calendar
-  	
-  	@seed_flats = SeedFlat.all
-  	@grouped_seed_flats = SeedFlat.all.group_by{ |flat| flat.started_date }
+
+##
+## ## helper methods
+##
+  helper_method :add_shit
+  
+  def add_shit(n1,n2)
+    n1 + n2
+  end
+
+  def turn_orders_into_soak_instructions(orders)
+    @payload = []
+    @days_of_week_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
     
-    @today = Date.today - 21
+
+
+
+    return @payload
+  end
+
+  def turn_orders_into_sew_instructions(orders)
+    @payload = []
+    @days_of_week_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+    
+    
+    
+    
+    return @payload
+  end
+
+  def day_adjust_dos(input)
+    @payload = []
+    input.each{|arr|
+      if arr[1] == "Monday"
+        @payload << [arr[0],"Sunday",arr[2],arr[3],arr[4]]
+      elsif arr[1] == "Wednesday"
+        @payload << [arr[0],"Tuesday",arr[2],arr[3],arr[4]]
+      elsif arr[1] == "Friday"
+        @payload << [arr[0],"Thursday",arr[2],arr[3],arr[4]]
+      elsif arr[1] == "Saturday"
+        @payload << [arr[0],"Thursday",arr[2],arr[3],arr[4]]
+      else
+        @payload << arr
+      end
+    }
+
+    return @payload.group_by{|arr| arr[1]}
+  end
+
+
+##
+## ## standard controller view methods
+##
+
+  def ops_calendar
+    # setup calendar cells
+    @today = Date.today - 7
     if @today.strftime("%a") == "Mon"
       @start_date = @today
     else
@@ -16,28 +67,67 @@ class DashboardsController < ApplicationController
     @end_date = @start_date+60
     @date_range = (@start_date..@end_date)
     @weeks = @date_range.to_a.in_groups_of(7)
+
+    # lookup orders
+    @orders = Order.all
+    @days_of_week_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+    
+    @to_soak = []
+    @to_sew = []
+
+##
+## ##
+##
+    @orders.sort_by(&:day_of_week).each{|order|
+      @arr = []  
+      @crop = Crop.where(crop: order.crop).where(crop_variety: order.variety)
+
+      @instruction = []
+      if @crop[0].ideal_treatment_days == 0
+        @instruction << "sew" 
+        @instruction << "#{(order.qty_oz / @crop[0].ideal_yield_per_flat_oz).ceil}" 
+        @instruction << "#{order.variety} #{order.crop}"
+        @instruction << "#{order.customer}"
+      else
+        @instruction << "soak"
+        @instruction << "#{(order.qty_oz / @crop[0].ideal_yield_per_flat_oz).ceil * @crop[0].ideal_soak_seed_oz_per_flat }"
+        @instruction << "#{order.variety} #{order.crop}"
+        @instruction << "#{order.customer}"
+      end
+
+      if @crop[0].ideal_total_dth % 7 == 0
+        @instruction.insert(1,"#{order.day_of_week}")
+      else
+        @ref_index = @days_of_week_ref.index(order.day_of_week) - (@crop[0].ideal_total_dth % 7)
+        @instruction.insert(1,@days_of_week_ref[@ref_index])
+      end
+
+      @to_soak << @instruction if @instruction[0] == "soak"
+      @to_sew << @instruction if @instruction[0] == "sew"
+    }
+
+    ##
+    ## ## Soak schedule
+    ##
+    @grouped_soaks = day_adjust_dos(@to_soak)
+
+    ##
+    ## ## Sew schedule
+    ##
+    @grouped_sews = day_adjust_dos(@to_sew)
 
   end
 
-  def sew_calendar
-    
-    @seed_flats = SeedFlat.all
-    @grouped_seed_flats = SeedFlat.all.group_by{ |flat| flat.started_date }
-    
-    @today = Date.today - 21
-    if @today.strftime("%a") == "Mon"
-      @start_date = @today
-    else
-        @start_date = @today
-        until @start_date.strftime("%a") == "Mon"
-          @start_date -= 1
-        end
-    end
-    @end_date = @start_date+60
-    @date_range = (@start_date..@end_date)
-    @weeks = @date_range.to_a.in_groups_of(7)
 
-  end  
+
+
+
+
+
+
+
+
+
 
   def soak_sew_cal
     
@@ -133,21 +223,50 @@ class DashboardsController < ApplicationController
       end     
     }
     @grouped_sews = @to_sew_day_adjusted.group_by{|arr| arr[1]}
-   
-=begin
-    @crop_groups = []
-    @grouped_sews.each{|day_arr|
-      day_arr[1].each{|instruction_arr|
-        @hsh = Hash.new(0)
-
-      }
-    }
-=end
-
-=begin
-=end
 
   end
+
+
+  def calendar
+  	
+  	@seed_flats = SeedFlat.all
+  	@grouped_seed_flats = SeedFlat.all.group_by{ |flat| flat.started_date }
+    
+    @today = Date.today - 21
+    if @today.strftime("%a") == "Mon"
+      @start_date = @today
+    else
+        @start_date = @today
+        until @start_date.strftime("%a") == "Mon"
+          @start_date -= 1
+        end
+    end
+    @end_date = @start_date+60
+    @date_range = (@start_date..@end_date)
+    @weeks = @date_range.to_a.in_groups_of(7)
+
+  end
+
+  def sew_calendar
+    
+    @seed_flats = SeedFlat.all
+    @grouped_seed_flats = SeedFlat.all.group_by{ |flat| flat.started_date }
+    
+    @today = Date.today - 21
+    if @today.strftime("%a") == "Mon"
+      @start_date = @today
+    else
+        @start_date = @today
+        until @start_date.strftime("%a") == "Mon"
+          @start_date -= 1
+        end
+    end
+    @end_date = @start_date+60
+    @date_range = (@start_date..@end_date)
+    @weeks = @date_range.to_a.in_groups_of(7)
+
+  end
+
 
   def old_pipeline
     @propagation_shelf = SeedFlat.where(:date_of_first_transplant => nil).where(:harvest_weight_oz => nil).order(started_date: :desc, updated_at: :desc)

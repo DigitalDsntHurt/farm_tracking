@@ -11,19 +11,25 @@
       <th style="padding-left:16px;padding-right:16px;padding-bottom:6px;">Qty oz</th>
       <th style="padding-left:16px;padding-right:16px;padding-bottom:6px;">Crop</th>
       <th style="padding-left:16px;padding-right:16px;padding-bottom:6px;">Variety</th>
+      <th style="padding-left:16px;padding-right:16px;padding-bottom:6px;">Cancelled On</th>
       <th colspan="3" style="padding-left:16px;padding-right:16px;padding-bottom:6px;"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @orders.each do |order| %>
-      <tr>
+      <% if order.cancelled_on != nil %>
+        <tr class="border-bottom" style="background-color: #CD3333;">
+      <% else %>
+        <tr class="border-bottom">
+      <% end %>
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= order.customer %></td>
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= order.day_of_week %></td>
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= order.date %></td>
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= order.qty_oz %></td>
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= order.crop %></td>
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= order.variety %></td>
+        <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= order.cancelled_on %></td>
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= link_to 'Show', order %></td>
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= link_to 'Edit', edit_order_path(order) %></td>
         <td style="padding-left:12px;padding-right:12px;padding-top:3px;"><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>

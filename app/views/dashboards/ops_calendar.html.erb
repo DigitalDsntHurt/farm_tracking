@@ -1,0 +1,92 @@
+
+<h1 align="center">
+	<%= add_shit(1000,6) %>
+</h1>
+
+
+<h1 align="center">
+	Soak & Sew Sked <%= @wtf %>
+</h1>
+
+<div class="container-fluid">
+	<% @weeks.each{|week| %>
+		<div class="row">
+			<% week.each{|day| %>
+				<% if day == Date.today %>
+					<div class="col cal-day" style="background-color: #4cbb17;">
+				<% else %>
+					<div class="col cal-day">
+				<% end %>
+					<% unless day == nil %>
+						<br>
+						<% @seeds_treated = SeedTreatment.where(soak_start_date: day) %>			
+						<p align="center">		
+              
+							<h3 align="center"><%= day.strftime("%a, %b %d") %></h3><br><hr>
+							<% @cal_day_of_week = day.strftime("%A") %>
+						</p>
+						
+						
+
+						<h4 align="center">What to soak</h4>
+						<p>
+						<% @hsh = Hash.new(0) %>							
+						<% @grouped_soaks.each{|group| %>
+							<% next if group[0] != @cal_day_of_week%>
+							<% group[1].each{|instruction| %>
+								<% @hsh[instruction[3]] += instruction[2].to_f %>
+							<% } %>
+						<% } %>	
+						<% @hsh.each{|k,v| %>
+							* <%= v.round(2) %>oz <%= k %><br>
+						<% } %>
+						</p>
+						
+
+
+						<h4 align="center">What to sew</h4>
+						<p>
+						<% @grouped_sews.each{|group| %>
+							<% next if group[0] != @cal_day_of_week%>
+							<% group[1].sort_by{|group| group[1][3].split(" ")[-1]}.each{|instruction| %>
+								<% if instruction[2].to_i > 1 %>
+									* <%= instruction[2] %> flats <%= instruction[3] %> for <%= instruction[4] %><br>
+								<% else %>
+									* <%= instruction[2] %> flat <%= instruction[3] %> for <%= instruction[4] %><br>
+								<% end %>
+							<% } %>
+						<% } %>
+						</p>
+
+
+
+						<p align="center">***</p>						
+						<div class="container-fluid" style="background-color: #86c5da;"><br>
+							
+							<% @seeds_treated = SeedTreatment.where(soak_start_date: day) %>			
+							<h4 align="center"><%= @seeds_treated.count %> Seed Varieties Soaked</h4>
+							<p>
+								<% @seeds_treated.each{|treatment| %>
+									<%= treatment.seed_quantity_oz %> oz <%= Crop.where(id: treatment.crop_id)[0].crop_variety %> <%= Crop.where(id: treatment.crop_id)[0].crop %><br>
+								<% } %>
+							</p>
+
+
+							
+							<% @flats_sewn = SeedFlat.where(started_date: day) %>
+							<h4 align="center"><%= @flats_sewn.count %> Flats Sewn</h4>
+							<p>
+								<% @flats_sewn.group_by(&:crop_id).sort_by{|crop, result| -result.count }.each{|crop, result| %>
+									<%= result.count %> flats <%= Crop.where(id: crop)[0].crop_variety %> <%= Crop.where(id: crop)[0].crop %><br>
+								<% } %>
+							</p>
+							
+							<br>
+						</div>
+					<% end %><br>
+
+				</div>
+			<% } %>
+		</div>
+	<% } %>
+</div>

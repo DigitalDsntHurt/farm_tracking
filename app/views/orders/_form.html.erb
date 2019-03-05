@@ -41,6 +41,11 @@
     <%= form.text_field :variety, id: :order_variety %>
   </div>
 
+  <div class="field">
+    <%= form.label :cancelled_on %>
+    <%= form.date_select :cancelled_on, id: :cancelled_on, include_blank: true %>
+  </div>  
+
   <div class="actions">
     <%= form.submit %>
   </div>
