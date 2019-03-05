@@ -71,8 +71,6 @@ GEM
     execjs (2.7.0)
     ffi (1.10.0)
     ffi (1.10.0-java)
-    ffi (1.10.0-x64-mingw32)
-    ffi (1.10.0-x86-mingw32)
     fugit (1.1.8)
       et-orbi (~> 1.1, >= 1.1.7)
       raabro (~> 1.1)
@@ -110,13 +108,7 @@ GEM
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
     nokogiri (1.10.1-java)
-    nokogiri (1.10.1-x64-mingw32)
-      mini_portile2 (~> 2.4.0)
-    nokogiri (1.10.1-x86-mingw32)
-      mini_portile2 (~> 2.4.0)
     pg (0.21.0)
-    pg (0.21.0-x64-mingw32)
-    pg (0.21.0-x86-mingw32)
     popper_js (1.14.5)
     puma (3.12.0)
     puma (3.12.0-java)
@@ -214,9 +206,6 @@ GEM
 PLATFORMS
   java
   ruby
-  x64-mingw32
-  x86-mingw32
-  x86-mswin32
 
 DEPENDENCIES
   better_errors
