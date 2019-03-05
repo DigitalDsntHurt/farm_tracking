@@ -30,5 +30,10 @@
   <%= @order.variety %>
 </p>
 
+<p>
+  <strong>Cancelled On:</strong>
+  <%= @order.cancelled_on %>
+</p>
+
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>
