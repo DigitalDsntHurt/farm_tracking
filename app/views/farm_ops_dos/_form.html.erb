@@ -22,13 +22,18 @@
   </div>
 
   <div class="field">
-    <%= form.label :crop %>
-    <%= form.text_field :crop, id: :farm_ops_do_crop %>
+    <%= form.label :crop_id %>
+    <%= form.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
   </div>
 
   <div class="field">
-    <%= form.label :variety %>
-    <%= form.text_field :variety, id: :farm_ops_do_variety %>
+    <%= form.label :qty %>
+    <%= form.number_field :qty, id: :qty %>
+  </div>
+
+  <div class="field">
+    <%= form.label :qty_units %>
+    <%= form.text_field :qty_units, id: :qty_units %>
   </div>
 
   <div class="field">

@@ -1,23 +1,28 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Verb:</strong>
-  <%= @farm_ops_do.verb %>
-</p>
-
-<p>
   <strong>Date:</strong>
   <%= @farm_ops_do.date %>
 </p>
 
 <p>
-  <strong>Crop:</strong>
-  <%= @farm_ops_do.crop %>
+  <strong>Verb:</strong>
+  <%= @farm_ops_do.verb %>
 </p>
 
 <p>
-  <strong>Variety:</strong>
-  <%= @farm_ops_do.variety %>
+  <strong>Crop:</strong>
+  <%= Crop.where(id: @farm_ops_do.crop_id)[0].crop %>, <%= Crop.where(id: @farm_ops_do.crop_id)[0].crop_variety %>
+</p>
+
+<p>
+  <strong>Qty:</strong>
+  <%= @farm_ops_do.qty %>
+</p>
+
+<p>
+  <strong>Qty Units:</strong>
+  <%= @farm_ops_do.qty_units %>
 </p>
 
 <p>

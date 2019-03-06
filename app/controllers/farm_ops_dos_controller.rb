@@ -61,6 +61,16 @@ class FarmOpsDosController < ApplicationController
     end
   end
 
+  def mark_farm_ops_dos_done
+    #@seed_flat_update = SeedFlatUpdate.new
+    @do = FarmOpsDo.find(params[:do])
+    #@origin_system_id = @seed_flat.current_system_id
+    #@destination_system_id = System.where(system_name: "RAQUEL")[0].id
+    #@seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+    @do.update(completed_on: Date.today)
+    redirect_back(fallback_location: root_path)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_farm_ops_do
@@ -69,6 +79,6 @@ class FarmOpsDosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def farm_ops_do_params
-      params.require(:farm_ops_do).permit(:verb, :date, :crop, :variety, :customer)
+      params.require(:farm_ops_do).permit(:verb, :date, :crop, :variety, :customer, :crop_id, :qty, :qty_units)
     end
 end

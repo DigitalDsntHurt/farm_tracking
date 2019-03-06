@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   resources :scheduleds
-  resources :farm_ops_dos
+  
   resources :orders
   resources :nutrient_solutions
   resources :reservoirs
@@ -68,6 +68,10 @@ Rails.application.routes.draw do
 	get 'seed_treatments/finish' => 'seed_treatments#finish'
 	get 'seed_treatments/kill' => 'seed_treatments#kill'
 	resources :seed_treatments
+
+
+	get 'farm_ops_dos/mark_farm_ops_dos_done' => 'farm_ops_dos#mark_farm_ops_dos_done'
+	resources :farm_ops_dos
 	
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 	root 'dashboards#pipeline'
