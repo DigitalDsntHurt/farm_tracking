@@ -7,6 +7,10 @@ class CropsController < ApplicationController
     @crops = Crop.all.order(:crop)
   end
 
+  def crop_ref
+    @crops = Crop.all.order(:crop)
+  end
+
   # GET /crops/1
   # GET /crops/1.json
   def show

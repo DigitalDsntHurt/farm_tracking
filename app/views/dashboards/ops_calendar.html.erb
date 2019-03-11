@@ -25,35 +25,19 @@
 
 						<h2 align="center">To Do</h2>
 						
+
 						<% to_soak_query = FarmOpsDo.where(date: day).where(verb: "soak") %>
 						<% soaked_query = SeedTreatment.where(soak_start_date: day) %>
-						<h4 align="center">To soak: <%= soaked_query.count %> of <%= to_soak_query.count %> completed</h4>
-						<% to_soak_query.order(completed_on: :desc).each{ |soak_do| %>
-							<% if soak_do.completed_on == nil %>
-								<%= link_to farm_ops_dos_mark_farm_ops_dos_done_path(:controller => "farm_ops_dos", :action => "mark_farm_ops_do_done", :do => soak_do.id), :class => "btn btn-outline-primary btn-sm" do %>
-									<span class="glyphicon glyphicon-unchecked"></span> <%= soak_do.qty %> <%= soak_do.qty_units %> <%= Crop.where(id: soak_do.crop_id)[0].crop %>, <%= Crop.where(id: soak_do.crop_id)[0].crop_variety %>
-								<% end %>
-							<% else %>
-								<button type="button" class="btn btn-outline-dark btn-sm">
-						          <span class="glyphicon glyphicon-check"></span> <%= soak_do.qty %> <%= soak_do.qty_units %> <%= Crop.where(id: soak_do.crop_id)[0].crop %>, <%= Crop.where(id: soak_do.crop_id)[0].crop_variety %>
-						        </button>
-							<% end %>
-						<% } %>
-
+						<%= render partial: "dashboards/ops_calendar_partials/soak_to_dos", locals: {day: day, soaked_query: soaked_query, to_soak_query: to_soak_query} %>
 
 						<% to_sew_query = FarmOpsDo.where(date: day).where(verb: "sew") %>
 						<% sewn_query = SeedFlat.where(started_date: day) %>
-						<h4 align="center">To sew: <%= sewn_query.count %> of <%= to_sew_query.count %> completed</h4>
-						<% to_sew_query.each{ |sew_do| %>
-							<%= sew_do.qty %> <%= sew_do.qty_units %> <%= Crop.where(id: sew_do.crop_id)[0].crop %>, <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %> for <%= sew_do.customer %><br>
-						<% } %>
+						<%= render partial: "dashboards/ops_calendar_partials/sew_to_dos", locals: {day: day, sewn_query: sewn_query, to_sew_query: to_sew_query} %>
 
 						<% to_harvest_query = FarmOpsDo.where(date: day).where(verb: "harvest") %>
 						<% harvested_query = SeedFlat.where(harvested_on: day) %>
-						<h4 align="center">To harvest: <%= harvested_query.count %> of <%= to_harvest_query.count %> completed</h4>
-						<% to_harvest_query.each{ |harvest_do| %>
-							<%= harvest_do.qty %> <%= harvest_do.qty_units %> <%= Crop.where(id: harvest_do.crop_id)[0].crop %>, <%= Crop.where(id: harvest_do.crop_id)[0].crop_variety %> for <%= harvest_do.customer %><br>
-						<% } %>
+						<%= render partial: "dashboards/ops_calendar_partials/harvest_to_dos", locals: {day: day, harvested_query: harvested_query, to_harvest_query: to_harvest_query} %>
+						
 
 
 						<h1 align="center">***</h1>						

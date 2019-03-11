@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :orders
   resources :nutrient_solutions
   resources :reservoirs
-  resources :crops
+  
   resources :rooms
   resources :systems
 
@@ -69,6 +69,8 @@ Rails.application.routes.draw do
 	get 'seed_treatments/kill' => 'seed_treatments#kill'
 	resources :seed_treatments
 
+	get 'crops/crop_ref' => 'crops#crop_ref'
+	resources :crops
 
 	get 'farm_ops_dos/mark_farm_ops_dos_done' => 'farm_ops_dos#mark_farm_ops_dos_done'
 	resources :farm_ops_dos
