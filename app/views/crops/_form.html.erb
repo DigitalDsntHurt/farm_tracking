@@ -12,9 +12,30 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :crop %>
-    <%= form.text_field :crop, id: :crop_crop %>
+    <h2>
+      <%= form.label "#{crop.crop}, #{crop.crop_variety}" %>
+    </h2>
   </div>
+
+  <br><br>
+
+  <div class="field">
+    <%= form.label :ideal_soak_seed_oz_per_flat %>
+    <%= form.number_field :ideal_soak_seed_oz_per_flat, id: :ideal_soak_seed_oz_per_flat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ideal_treatment_days %>
+    <%= form.number_field :ideal_treatment_days, id: :ideal_treatment_days %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ideal_sew_seed_oz_per_flat %>
+    <%= form.number_field :ideal_sew_seed_oz_per_flat, id: :ideal_sew_seed_oz_per_flat %>
+  </div>
+
+
+  <br><br>
 
   <div class="field">
     <%= form.label :crop_variety %>

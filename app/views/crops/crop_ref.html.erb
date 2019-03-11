@@ -7,12 +7,11 @@
 <table class="sticky-head" style="margin-left: 22px;">
   <thead>
     <tr>
-      <th style="padding-right: 12px;">Crop</th>
+      <th style="padding-right: 12px; line-height: 80px">Crop</th>
       <th style="padding-right: 12px;">Crop variety</th>
       <th style="padding-right: 12px;">Soak OZ per Flat</th>
       <th style="padding-right: 12px;">Treatment Days</th>
       <th style="padding-right: 12px;">Sew OZ per Flat</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -20,14 +19,10 @@
     <% @crops.each do |crop| %>
       <tr class="border-bottom" style="line-height: 40px; padding-right: 12px;">
         <td><%= crop.crop %></td>
-        <td><%= crop.crop_variety %></td>
+        <td><%= link_to crop.crop_variety, crop %></td>
         <td align="center"><%= crop.ideal_soak_seed_oz_per_flat %></td>
         <td align="center"><%= crop.ideal_treatment_days %></td>
         <td align="center"><%= crop.ideal_sew_seed_oz_per_flat %></td>
-
-        <td><%= link_to 'Show', crop %></td>
-        <td><%= link_to 'Edit', edit_crop_path(crop) %></td>
-        <td><%= link_to 'Destroy', crop, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
