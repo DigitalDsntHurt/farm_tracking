@@ -60,6 +60,28 @@ body {
  z-index:0; 
 }
 
+table.index-table {
+  border-collapse:collapse;
+  margin-left: 22px;
+  margin-right: 22px;
+  
+  th {
+      padding-right:4px;
+      padding-left:4px;
+      white-space:nowrap;
+      border-right:1px solid black;
+  }
+  tr {
+    border:1px solid black;
+    line-height: 33px;
+  }
+  td {
+      padding-right:8px;
+      padding-left:8px;
+      white-space:nowrap;
+  }
+}
+
 table.seed-flats-index {
 	border-collapse:collapse;
   margin-left: 22px;
