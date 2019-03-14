@@ -1,6 +1,8 @@
 <h1>Editing System</h1>
 
 <%= render 'form', system: @system %>
-
-<%= link_to 'Show', @system %> |
-<%= link_to 'Back', systems_path %>
+<br>
+<div style="margin-left:22px;">
+	<%= link_to 'Show', @system, :class => "btn btn-success" %>
+	<%= link_to 'Back', systems_path, :class => "btn btn-success" %>
+</div>

@@ -61,19 +61,26 @@ body {
 }
 
 table.index-table {
-  border-collapse:collapse;
+  
   margin-left: 22px;
   margin-right: 22px;
   
   th {
-      padding-right:4px;
-      padding-left:4px;
+      padding-right:12px;
       white-space:nowrap;
-      border-right:1px solid black;
+      line-height: 80px;
+      text-transform: uppercase;
+  }
+  thead tr:nth-child(1) th{
+    background: white;
+    position: sticky;
+    top: 112px;
+    z-index: 0;
   }
   tr {
-    border:1px solid black;
-    line-height: 33px;
+    border-bottom: 1px solid black;
+    line-height: 40px;
+    padding-right: 12px;
   }
   td {
       padding-right:8px;

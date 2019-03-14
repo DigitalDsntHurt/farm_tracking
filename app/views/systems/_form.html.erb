@@ -1,3 +1,5 @@
+<div style="margin-left:22px;">
+
 <%= form_with(model: system, local: true) do |form| %>
   <% if system.errors.any? %>
     <div id="error_explanation">
@@ -77,6 +79,8 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Update System", :class => "btn btn-success" %>
   </div>
 <% end %>
+
+</div>

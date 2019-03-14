@@ -102,7 +102,7 @@ class DashboardsController < ApplicationController
     @weeks = @date_range.to_a.in_groups_of(7)
 
     # lookup orders
-    @orders = Order.all
+    @orders = Order.where(cancelled_on: nil)
     @grouped_orders = @orders.group_by{|order| order.day_of_week }
 
     @days_of_week_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]

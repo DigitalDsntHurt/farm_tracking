@@ -4,7 +4,7 @@ class SystemsController < ApplicationController
   # GET /systems
   # GET /systems.json
   def index
-    @systems = System.all.order(:build_date)
+    @systems = System.all.order(:room_id).order(:build_date)
   end
 
   # GET /systems/1
