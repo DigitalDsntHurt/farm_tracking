@@ -120,7 +120,7 @@ class DashboardsController < ApplicationController
       if @crop[0].ideal_treatment_days == 0
         @instruction << "sew" 
         @instruction << "#{(order.qty_oz / @crop[0].ideal_yield_per_flat_oz).ceil}" 
-        @instruction << "#{order.variety} #{order.crop}"
+        @instruction << "#{Crop.where(id: order.crop_id)[0].crop_variety} #{Crop.where(id: order.crop_id)[0].crop}"
         @instruction << "#{order.customer}"
       else
         @instruction << "soak"
