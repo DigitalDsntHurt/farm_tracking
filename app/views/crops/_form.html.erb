@@ -25,12 +25,27 @@
   </div>
 
   <div class="field">
+    <%= form.label :ideal_treatment_days %>
+    <%= form.number_field :ideal_treatment_days, step: :any %>
+  </div>
+
+  <div class="field">
     <%= form.label :ideal_sew_seed_oz_per_flat %>
     <%= form.number_field :ideal_sew_seed_oz_per_flat, step: :any %>
   </div>
 
+  <div class="field">
+    <%= form.label :ideal_propagation_days %>
+    <%= form.number_field :ideal_propagation_days, step: :any %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ideal_system_days %>
+    <%= form.number_field :ideal_system_days, step: :any %>
+  </div>
 
   <br><br>
+  <div>*** *** ***</div>
 
   <div class="field">
     <%= form.label :crop_variety %>

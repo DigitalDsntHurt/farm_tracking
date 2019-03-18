@@ -8,21 +8,35 @@
   <thead>
     <tr>
       <th>Crop</th>
-      <th>Crop variety</th>
       <th>Soak OZ per Flat</th>
       <th>Treatment Days</th>
       <th>Sew OZ per Flat</th>
+      <th>Propagation days</th>
+      <th>System days</th>
+      <th>Total DTH</th>
+      <th>Yield per flat</th>
     </tr>
   </thead>
 
   <tbody>
     <% @crops.each do |crop| %>
       <tr>
-        <td><%= crop.crop %></td>
-        <td><%= link_to crop.crop_variety, crop %></td>
-        <td align="center"><%= crop.ideal_soak_seed_oz_per_flat %></td>
-        <td align="center"><%= crop.ideal_treatment_days %></td>
-        <td align="center"><%= crop.ideal_sew_seed_oz_per_flat %></td>
+        <td><%= link_to "#{crop.crop}, #{crop.crop_variety}", crop %></td>
+        <% if crop.ideal_soak_seed_oz_per_flat == 0.0 %>
+          <td align="center"> -- </td>
+        <% else %>
+          <td align="center"><%= crop.ideal_soak_seed_oz_per_flat %> oz</td>
+        <% end %>
+        <% if crop.ideal_treatment_days == 0.0 %>
+          <td align="center"> -- </td>
+        <% else %>
+          <td align="center"><%= crop.ideal_treatment_days %></td>
+        <% end %>
+        <td align="center"><%= crop.ideal_sew_seed_oz_per_flat %> oz</td>
+        <td align="center"><%= crop.ideal_propagation_days %></td>
+        <td align="center"><%= crop.ideal_system_days %></td>
+        <td align="center"><%= crop.ideal_total_dth %></td>
+        <td align="center"><%= crop.ideal_yield_per_flat_oz %> oz</td>
       </tr>
     <% end %>
   </tbody>

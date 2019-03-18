@@ -2,11 +2,10 @@
 
 <h1>Crops</h1>
 
-<table>
+<table style="margin-left:22px;">
   <thead>
     <tr>
       <th>Crop</th>
-      <th>Crop variety</th>
       <th>ideal_soak_seed_oz_per_flat</th>
       <th>ideal_treatment_days</th>
       <th>ideal_sew_seed_oz_per_flat</th>
@@ -43,9 +42,8 @@
   <tbody>
     <% @crops.each do |crop| %>
       <tr>
-        <td><%= crop.crop %></td>
-        <td><%= crop.crop_variety %></td>
-        <td><%= crop.ideal_soak_seed_oz_per_flat %></td>
+        <td style="white-space: nowrap;"><%= link_to "#{crop.crop}, #{crop.crop_variety}", crop %></td>
+        <td style="padding-left:12px;"><%= crop.ideal_soak_seed_oz_per_flat %></td>
         <td><%= crop.ideal_treatment_days %></td>
         <td><%= crop.ideal_sew_seed_oz_per_flat %></td>
         <td><%= crop.ideal_post_treatment_dth %></td>

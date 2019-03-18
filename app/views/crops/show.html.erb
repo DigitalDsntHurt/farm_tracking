@@ -1,14 +1,40 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Crop:</strong>
-  <%= @crop.crop %>
-</p>
+<h2>
+  <%= @crop.crop %>, <%= @crop.crop_variety %>
+</h2>
 
 <p>
-  <strong>Crop variety:</strong>
-  <%= @crop.crop_variety %>
+  <strong>Ideal soak seed oz per flat:</strong>
+  <%= @crop.ideal_soak_seed_oz_per_flat %>
 </p>
+<p>
+  <strong>Ideal treatment days:</strong>
+  <%= @crop.ideal_treatment_days %>
+</p>
+<p>
+  <strong>Ideal sew seed oz per flat:</strong>
+  <%= @crop.ideal_sew_seed_oz_per_flat %>
+</p>
+<p>
+  <strong>Ideal propagation days:</strong>
+  <%= @crop.ideal_propagation_days %>
+</p>
+<p>
+  <strong>Ideal system days:</strong>
+  <%= @crop.ideal_system_days %>
+</p>
+<p>
+  <strong>Ideal total dth:</strong>
+  <%= @crop.ideal_total_dth %>
+</p>
+<p>
+  <strong>Ideal yield per flat oz:</strong>
+  <%= @crop.ideal_yield_per_flat_oz %>
+</p>
+
+  <br><br>
+  <div>*** *** ***</div>
 
 <p>
   <strong>Seed treatment:</strong>
