@@ -112,8 +112,9 @@ class DashboardsController < ApplicationController
     @orders.sort_by(&:day_of_week).each{|order|
       @arr = []  
 
-      @days_of_week_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
-      @crop = Crop.where(crop: order.crop).where(crop_variety: order.variety)
+      #@days_of_week_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+      #@crop = Crop.where(crop: order.crop).where(crop_variety: order.variety)
+      @crop = Crop.where(id: order.crop_id)
 
       @instruction = []
       if @crop[0].ideal_treatment_days == 0
