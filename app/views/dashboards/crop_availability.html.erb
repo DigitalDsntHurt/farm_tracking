@@ -21,10 +21,10 @@
 </div>
 
 <% @crops_loop = @crops_from_crops_table.sort_by{|c| c.crop } %>
-<%@crops_loop.each_with_index{ |c,i| %>
+<% @crops_loop.each_with_index{ |c,i| %>
 	
 	<div style="border: solid 1px black;padding:22px;">
-		<% @in_pipeline = SeedFlat.where(harvest_weight_oz: nil).where(harvested_on: nil).where(crop: c.crop).where(crop_variety: c.crop_variety) %>
+		<% @in_pipeline = SeedFlat.where(harvest_weight_oz: nil).where(harvested_on: nil).where(crop_id: c) %>
 		<h3><strong><%= c.crop %></strong>, <%= c.crop_variety %> -- <%= @in_pipeline.count %> flats in pipeline</h3>
 		<% @in_pipeline.group_by{|flat| flat.current_system_id }.each{|key,val| %>
 			
