@@ -1,0 +1,28 @@
+<div style="border-top: solid black 2px;">
+	<h2 align="center">
+		Overdue
+	</h2>
+	<div align="center">
+		<% @propagation_flats.select{|flat,num| num < 0 }.each{|flat| %>
+			<%= link_to "#{flat[0].flat_id}, #{Crop.where(id: flat[0].crop_id)[0].crop_variety} #{Crop.where(id: flat[0].crop_id)[0].crop}", flat[0] %>: <%= (flat[1]*-1).to_i %> days overdue at <%= Room.where(id: System.where(id: flat[0].current_system_id)[0].room_id )[0].name %>
+			<br>
+		<% } %>
+	</div>
+</div>
+
+<% 30.times do |i| %>
+	<div style="border-top: solid black 2px;">
+		<h2 align="center">
+			<%= @today.strftime("%A, %B %d") %>
+		</h2>
+		<div align="center">
+			<% @propagation_flats.select{|flat,num| num == i }.each{|flat| %>
+				<%= link_to "#{flat[0].flat_id}, #{Crop.where(id: flat[0].crop_id)[0].crop_variety} #{Crop.where(id: flat[0].crop_id)[0].crop}", flat[0] %> at <%= Room.where(id: System.where(id: flat[0].current_system_id)[0].room_id )[0].name %>
+				<br>
+			<% } %>
+		</div>	
+
+	<br/>	
+	</div>
+	<% @today += 1 %>
+<% end %>

@@ -242,7 +242,19 @@ class DashboardsController < ApplicationController
   def warehouse_pipeline
     @rooms = Room.where(name: "FitzHouse")
     @propagation_system_ids = System.all.where(system_name: "propagation").where(room_id: 2).to_a.map{|s| s.id}
-  end    
+  end   
+
+  def transplant_calendar
+    @today = Date.today
+    @propagation_system_ids = System.where(system_name: "propagation").map{|system| system.id }
+    @propagation_flats = []
+    @propagation_system_ids.each{|system_id|
+      SeedFlat.where(current_system_id: system_id).where(harvested_on: nil).each{|flat| @propagation_flats << flat }
+    }
+    @propagation_flats.map!{|flat| [flat,((Date.today-flat.started_date).to_i) - (Crop.where(id: flat.crop_id)[0].ideal_propagation_days)] }.sort_by!{|flat,num| num }
+    #@propagation_flats
+  
+  end 
 
   def calculator
   end
