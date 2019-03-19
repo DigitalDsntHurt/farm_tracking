@@ -1,0 +1,71 @@
+<% @rooms.each{|room| %>
+	<div id=<%= room.name.gsub(" ","-") %>>
+		<h1 align="center"><strong><u><%= room.name.upcase %></u></strong></h1>
+		<% room.systems.each{|system| %>
+			<% next if system.retired == true %>
+			<br><h1 align="center"><strong>~~ <%= system.system_name %> ~~</strong></h1><br>
+			<% @system_flats = SeedFlat.where(current_system_id: system.id).order(started_date: :desc, updated_at: :desc).reject{|tray| tray.harvest_weight_oz != nil } %>
+			<% @system_flats.to_a.sort_by{|flat| ((Date.today-flat.started_date).to_i) - (Crop.where(id: flat.crop_id)[0].ideal_propagation_days) }.in_groups_of(4).each{ |shelf| %>
+				<div class="row" style="margin-left:5%;margin-right:5%;">
+					<% shelf.each{ |tray| %>
+						<div class="col-sm-3" align="center" style="padding:0px;">
+							<div class="card">
+								<% unless tray == nil or tray.harvest_weight_oz != nil %>
+									<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
+									
+									<% if system.system_name == "propagation" %>
+										<% @propagation_days = (Date.today-tray.started_date).to_i %>
+										<% @ideal_propagation_days = Crop.where(id: tray.crop_id)[0].ideal_propagation_days %>
+										
+										<% if @propagation_days > @ideal_propagation_days %>
+											<p class="card-text" style="background: #FF6600;">
+										<% elsif @propagation_days == @ideal_propagation_days %>
+											<p class="card-text" style="background: #FF8433;">
+										<% elsif @propagation_days - @ideal_propagation_days == -1 %>
+											<p class="card-text" style="background: #FFA366;">
+										<% elsif @propagation_days - @ideal_propagation_days == -2 %>
+											<p class="card-text" style="background: #FFE0CC;">
+										<% else %>
+											<p class="card-text">
+										<% end %>
+									<% else %>
+										<p class="card-text">
+									<% end %>
+	
+										<%= (Date.today-tray.started_date).to_i %>-day <strong><%= Crop.where(id: tray.crop_id)[0].crop_variety %> <%= Crop.where(id: tray.crop_id)[0].crop %></strong><br/>
+										<%= tray.seed_weight_oz %> oz seed sewn on <%= tray.started_date %><br/>
+											<% unless tray.sewn_for == nil or tray.sewn_for.length < 2 %>
+												Sewn for <strong><%= tray.sewn_for %></strong><br/>
+											<% end %>
+										~ ~ ~ ~ ~ ~ ~ ~ ~ ~<br/>
+										
+										<%-# non emerged flats / in propagation -%>
+										<% if tray.first_emerge_date == nil %>
+						                	<%= render "non_emerged_flats_transplant_buttons", tray: tray %>
+
+						                <%-# first emerged flats / in propagation -%>
+										<% elsif tray.first_emerge_date != nil and tray.full_emerge_date == nil %>
+											<%= render "first_emerged_flats_transplant_buttons", tray: tray %>
+
+						                <%-# full emerged flats before transplant / in propagation -%>
+						                <% elsif @propagation_system_ids.include?(tray.current_system_id) %>
+						                	<%= render "full_emerged_flats_in_propagation_transplant_buttons", tray: tray %>
+
+						                <%-# flats beyond / moved out of propagation -%>
+						                <% else %>
+						                	<%= render "full_emerged_flats_in_pipeline_transplant_buttons", tray: tray %>
+						                	
+						                <% end %>
+									</p>
+								<% end %>
+							</div>
+						</div>
+					<% } %>
+				</div>
+			<% } %>
+		<% } %>
+		
+		<br><br>
+		<hr>
+	</div>
+<% } %>
