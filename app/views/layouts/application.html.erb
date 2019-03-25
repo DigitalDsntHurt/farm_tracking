@@ -18,6 +18,7 @@
   </script>
 
   <link href="https://fonts.googleapis.com/css?family=Concert+One|Indie+Flower|Montserrat:900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:800,1200" rel="stylesheet">
 
   <script src='https://www.google.com/jsapi'></script>
 
@@ -29,7 +30,7 @@
   </head>
 
   <body>
-    <%= render :partial => '/layouts/navbar.html.erb' %>
+    <%= render :partial => '/layouts/navbar.html.erb' unless @disable_nav %>
       <%= yield %>
   </body>
 </html>

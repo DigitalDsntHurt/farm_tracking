@@ -350,4 +350,12 @@ class DashboardsController < ApplicationController
 
   def scratch
   end
+
+  def labels
+    @disable_nav = true
+    @crops = Crop.all
+  end
+
+
+
 end

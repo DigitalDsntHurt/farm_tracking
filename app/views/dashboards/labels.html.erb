@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link href="labels.css" rel="stylesheet" type="text/css" >
+    <style>
+    body {
+        width: 8.5in;
+        margin: 0in .1875in;
+        }
+
+    
+    </style>
+
+</head>
+<body>
+
+    <div class="label"><img src="https://boulderinformationservices.files.wordpress.com/2011/08/barcode_sample.png" /><br>Human readable</div>
+    <div class="label"><img src="https://boulderinformationservices.files.wordpress.com/2011/08/barcode_sample.png" /><br>Human readable</div>
+    <% @crops.each{|crop| %>
+        <% 10.times do %>
+            <div class="label">
+                <div class="sf-text">GROWN IN SAN FRANCISCO by</div>
+                <div class="branding-text">X-STREET FARMS</div>
+
+                <div class="crop-text"><%= crop.crop.upcase %></div>
+                <div class="variety-text"><%= crop.crop_variety %></div>
+                <table align="center">
+                    <tr>
+                        <td width="88px">
+                            <%= image_tag "/img/simple-logo.png", align: "left", width: "39px" %>
+                        </td>
+                        <td>
+                            <table class="label-table">
+                                <tr>
+                                    <td class="write-ins">______ oz</td>
+                                    <td class="write-ins">harvested on : ____________</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="88px">
+                            
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        <% end %>
+        <div class="page-break"></div>        
+    <% } %>    
+
+
+    <div class="page-break"></div>
+
+</body>
+</html>

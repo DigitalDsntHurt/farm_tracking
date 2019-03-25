@@ -182,8 +182,79 @@ table td.seed_flat_index_text_cell_medium {
 }
 
 
+/* Labels */
+.label{
+        /* Avery 5160 labels -- CSS and HTML by MM at Boulder Information Services */
+        width: 3.96in; /* plus .6 inches from padding */
+        height: 1.96in; /* plus .125 inches from padding */
+        padding: .125in .3in 0;
+        margin-right: .125in; /* the gutter */
 
+        float: left;
 
+        text-align: center;
+        overflow: hidden;
+
+        outline: 1px dotted; /* outline doesn't occupy space like border does */
+
+         .sf-text{
+          color: black;
+          font-family: 'Gothic A1', sans-serif;
+          font-weight:800;
+          font-size: 13px;
+          padding-top: 8px;
+          padding-bottom: 6px;
+        }
+        .branding-text{
+          color: black;
+          font-family: 'Gothic A1', sans-serif;
+          font-weight:800;
+          font-size: 16px;
+          padding-top: 0px;
+          padding-bottom: 8px;
+        }
+        .variety-text{
+          color: black;
+          font-family: 'Gothic A1', sans-serif;
+          font-weight:800;
+          font-size: 16px;
+          font-style: italic;
+          padding-top:2px;
+        } 
+        .crop-text{
+          color: black;
+          font-family: 'Gothic A1', sans-serif;
+          font-weight:800;
+          font-size: 33px;
+          border-top: solid black 1px;
+          padding-top: 22px;
+          padding-bottom: 0px;
+        }
+
+        table.label-table{
+          margin: 0 auto;
+          margin-top: 22px;
+
+        }
+
+        .write-ins{
+          color: black;
+          font-family: 'Gothic A1', sans-serif;
+          font-weight:400;
+          font-size: 8px;
+          padding: 4px;
+        }    
+        }
+
+.label_logo{
+  width: 22px;
+  left:1px;
+}
+.page-break  {
+        clear: left;
+        display:block;
+        page-break-after:always;
+        }
 
 
 
