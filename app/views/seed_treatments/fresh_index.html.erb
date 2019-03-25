@@ -49,46 +49,63 @@
   <% } %>
 </table>
 
-<p><u><strong>Legend:</strong></u> soaking | <span style="background-color: yellow;">germinating</span> | <span style="background-color: green;">finished</span> | <span style="background-color: red;">killed</span> </p>
-<table style="margin-left:22px; margin-right: 22px; font-size: 16px;">
+<p style="padding-left: 14px;"><u><strong>Legend:</strong></u> soaking | <span style="background-color: yellow;">germinating</span> | <span style="background-color: green;">finished</span> | <span style="background-color: red;">killed</span> </p>
+<table class="index-table">
   <thead>
     <tr>
-      <th>started</th>
-      <th>crop</th>
-      <th>seed qty oz</th>
-      <th>soak hrs</th>
-      <th>germ start date</th>
-      <th>germ vehicle</th>
-      <th>1st emerge</th>
-      <th>full emerge</th>
-      <th>days to full emerge</th>
-      <th>days since germ start date</th>
-      <th>planned date of 1st flat sew</th>
-      <th>Date of first flat sew</th>
-      <th>Date of last flat sew</th>
-      <th># Flats Sewn</th>
-      <th>Destination flat ids</th>
-      <th>OZ / Flat</th>
-      <th>Finished?</th>
       <th></th>
+      <th align="center" style="padding-left: 14px;">started</th>
+      <th align="center">crop</th>
+      <th align="center">seed qty oz</th>
+      <th align="center">soak hrs</th>
+      <th align="center">germ start</th>
+      <th align="center">1st em</th>
+      <th align="center">full em</th>
+      <th align="center">days since start</th>
+      <th align="center">planned 1st sew</th>
+      <th align="center">last sew date</th>
+      <th align="center"># Flats Sown</th>
+      <th align="center">Destination flat ids</th>
     </tr>
   </thead>
 
   <tbody>
     <% @live_seed_treatments.each do |seed_treatment| %>
       <% if seed_treatment.killed_on != nil %>
-        <tr bgcolor="red" class="border-bottom" style="background-color: #CD3333;">
+        <tr bgcolor="red">
       <% elsif seed_treatment.finished == true %>
-        <tr bgcolor="green" class="border-bottom" style="background-color: #659D32;">
+        <tr bgcolor="green">
       <% elsif seed_treatment.germination_start_date != nil %>
-        <tr bgcolor="#FFFF66" class="border-bottom">
+        <tr bgcolor="#FFFF66">
       <% else %>
         <tr>
       <% end %>
-        <td><%= seed_treatment.soak_start_datetime %></td>
-        <td><%= link_to("#{Crop.where(id: seed_treatment.crop_id)[0].crop} - #{Crop.where(id: seed_treatment.crop_id)[0].crop_variety}", Crop.where(id: seed_treatment.crop_id)[0]) %></td>
-        <td><%= seed_treatment.seed_quantity_oz %></td>
-        <td>
+        <td style="border-right: black 1px solid">
+          <table class='seed-flats-index-actions'>
+            <tr align="center">
+              <td>
+                <%= link_to 'End Soak', seed_treatments_end_soak_path(:controller => "seed_treatments", :action => "end_soak", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
+              </td>
+            </tr>
+            <tr align="center">
+              <td>
+                <%= link_to 'First Emerge', seed_treatments_first_emerge_path(:controller => "seed_treatments", :action => "first_emerge", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
+                <%= link_to 'Full Emerge', seed_treatments_full_emerge_path(:controller => "seed_treatments", :action => "full_emerge", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
+              </td>
+            </tr>
+            <tr align="center">
+              <td>
+                <%= link_to 'Sew Flat', seed_flats_new_treated_seed_flat_path(:controller => "seed_flats", :action => "new_treated_seed_flat", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
+                <%= link_to 'Finish', seed_treatments_finish_path(:controller => "seed_flats", :action => "finish", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <td style="padding-left: 14px;" align="center"><%= seed_treatment.soak_start_datetime.strftime("%b %d") unless seed_treatment.germination_start_date == nil %></td>
+        <td align="center"><%= link_to("#{Crop.where(id: seed_treatment.crop_id)[0].crop} - #{Crop.where(id: seed_treatment.crop_id)[0].crop_variety}", seed_treatment) %></td>
+        <td align="center"><%= seed_treatment.seed_quantity_oz %></td>
+        <td align="center">
           <% if seed_treatment.soak_duration_hrs == nil %>
             <%= ((Time.now - seed_treatment.soak_start_datetime)/60/60).round(2) %>
           <% else %>
@@ -96,69 +113,25 @@
           <% end %>
           
         </td>
-        <td><%= seed_treatment.germination_start_date %></td>
-        <td><%= seed_treatment.germination_vehicle %></td>
-        <td><%= seed_treatment.first_emerge_date %></td>
-        <td><%= seed_treatment.full_emerge_date %></td>
-        <td><%= seed_treatment.days_to_full_emergence %></td>
-        <td><strong>
-          <% if seed_treatment.germination_start_date == nil%>
+        <td align="center"><%= seed_treatment.germination_start_date %></td>
+        <td align="center"><%= seed_treatment.first_emerge_date %></td>
+        <td align="center"><%= seed_treatment.full_emerge_date %></td>
+        <td align="center"><strong>
+          <% if seed_treatment.germination_start_date == nil %>
           <% else %>  
             <%= (Date.today - seed_treatment.germination_start_date).to_i %>
           <% end %>  
           </strong></td>
-        <td><%= seed_treatment.planned_date_of_first_flat_sew %></td>
-        <td><%= seed_treatment.date_of_first_flat_sew %></td>
-        <td><%= seed_treatment.date_of_last_flat_sew %></td>
-        <td>
+        <td align="center"><%= seed_treatment.planned_date_of_first_flat_sew %></td>
+        <td align="center"><%= seed_treatment.date_of_last_flat_sew %></td>
+        <td align="center">
           <% @num_flats_sewn = SeedFlat.where(seed_treatments_id: seed_treatment.id).count %>
           <%= @num_flats_sewn %>
         </td>
-        <td>
+        <td align="center">
           <% seed_treatment.destination_flat_ids.each{|flat| %>
             <%= link_to( flat, SeedFlat.where(id: flat)[0] ) %>
           <% } %>
-        </td>
-        <td><%= (seed_treatment.seed_quantity_oz / seed_treatment.destination_flat_ids.count).round(2) %></td>
-        <td><%= seed_treatment.finished %></td>
-        <td>
-          <table class='seed-flats-index-actions'>
-            <tr align="center">
-              <td>
-                <%= link_to 'End Soak', seed_treatments_end_soak_path(:controller => "seed_treatments", :action => "end_soak", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
-              </td>
-              <td>
-                <%= link_to 'First Emerge', seed_treatments_first_emerge_path(:controller => "seed_treatments", :action => "first_emerge", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
-              </td>
-              <td>
-                <%= link_to 'Full Emerge', seed_treatments_full_emerge_path(:controller => "seed_treatments", :action => "full_emerge", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
-              </td>
-              <td>
-                <%= link_to 'Sew Flat', seed_flats_new_treated_seed_flat_path(:controller => "seed_flats", :action => "new_treated_seed_flat", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
-              </td>
-              <td>
-                <%= link_to 'Finish', seed_treatments_finish_path(:controller => "seed_flats", :action => "finish", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
-              </td>
-            </tr>
-            <tr align="center">
-              <td>
-                <%= link_to 'Show', seed_treatment, :class => "btn btn-outline-info sf-index-actions" %>
-              </td>
-              <td>
-                <%= link_to 'Edit', edit_seed_treatment_path(seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>    
-              </td>
-              <td>
-                <%= link_to 'Clone', seed_treatments_clone_path(:controller => "seed_treatments", :action => "clone", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
-              </td>
-              <td>
-                <%= link_to 'Kill', seed_treatments_kill_path(:controller => "seed_treatments", :action => "kill", :seed_group => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>            
-              </td>
-              <td>
-                <%= link_to 'Destroy', seed_treatment, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-outline-info sf-index-actions" %>    
-              </td>
-              <td></td>
-            </tr>
-          </table>
         </td>
       </tr>
     <% end %>
