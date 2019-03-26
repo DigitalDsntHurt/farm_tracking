@@ -174,6 +174,9 @@ class SeedFlatUpdatesController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def dummy_method
+  end
+
   # PATCH/PUT /seed_flat_updates/1
   # PATCH/PUT /seed_flat_updates/1.json
   def update
