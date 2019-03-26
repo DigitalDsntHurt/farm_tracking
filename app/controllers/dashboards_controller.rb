@@ -256,6 +256,10 @@ class DashboardsController < ApplicationController
   
   end 
 
+  def harvest_calendar
+    @today = Date.today
+  end  
+
   def calculator
   end
 
@@ -345,10 +349,6 @@ class DashboardsController < ApplicationController
   end
 
   def crop_menu
-  end
-
-
-  def scratch
   end
 
   def labels
