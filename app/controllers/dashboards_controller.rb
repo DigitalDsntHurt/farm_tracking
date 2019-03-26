@@ -258,6 +258,16 @@ class DashboardsController < ApplicationController
 
   def harvest_calendar
     @today = Date.today
+    @active_flats = SeedFlat.where(harvest_weight_oz: nil).where.not(current_system_id: nil).where.not(flat_id: "")
+    #@flat_harvest_days = Hash.new([])
+    @flat_harvest_days = Hash.new{|hash,key| hash[key] = [] }
+    @active_flats.each{|flat|
+      @flat_crop = flat.crop_id
+      @flat_started_date = flat.started_date
+      @flat_harvest_date = @flat_started_date + Crop.where(id: @flat_crop)[0].ideal_total_dth
+      #@flat_harvest_days << [flat, @flat_crop, @flat_started_date, @flat_harvest_date]
+      @flat_harvest_days[@flat_harvest_date] << [flat.flat_id, "#{Crop.where(id: @flat_crop)[0].crop}, #{Crop.where(id: @flat_crop)[0].crop_variety}", flat.sewn_for, @flat_started_date, @flat_harvest_date]
+    }
   end  
 
   def calculator

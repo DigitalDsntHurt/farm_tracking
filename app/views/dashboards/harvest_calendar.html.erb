@@ -5,7 +5,15 @@
 			<%= @today.strftime("%A, %B %d") %>
 		</h2>
 		<div align="center">
-			
+			<% @flat_harvest_days[@today].sort_by{|arr| arr[2]}.each{|arr| %>
+				<% if arr[2] == "" %>
+					<%= arr[0] %> | <%= arr[1] %><br>
+				<% else %>
+					<strong><%= arr[0] %> | <%= arr[1] %> for <%= arr[2] %></strong><br>
+				<% end %>
+
+				
+			<% } %>
 		</div>	
 
 	<br/>	
