@@ -333,7 +333,11 @@ class DashboardsController < ApplicationController
     # Get all harvested seed flats since Oct 1, 2018
     @query_cutoff_date =  (Date.today - 90) # "Mon, 01 Oct 2018"
     @harvested_flats = SeedFlat.where("started_date >= :date", date: @query_cutoff_date).where.not(harvest_weight_oz: 0.0).where.not(harvest_weight_oz: nil)
-    @crops = @harvested_flats.pluck(:crop).uniq
+    #@crops_w_variety = Crop.all.to_a.map{|crop| [crop.crop, crop.crop_variety] }
+    @crops = Crop.all#.to_a
+    #@harvested_flats.each{|flat|
+    #  @crops << [Crop.where(crop: flat.crop_id)[0].crop, Crop.where(crop: flat.crop_id)[0].crop_variety]
+    #}
 
     @start_date = Date.new(2018,01,01)
     @week_start_dates = [@start_date]

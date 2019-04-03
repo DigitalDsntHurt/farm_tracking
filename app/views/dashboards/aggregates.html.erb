@@ -25,39 +25,55 @@
 				avg yield (oz)
 			</th>
 		</tr>
-		<% @crops.sort_by{|c| c }.each{|c| %>
+		<% @crops.sort_by{|c| c.crop }.each{|c| %>
 		<tr>
-			<% @crop_query = @harvested_flats.where(crop: c) %>
-			<% @treatment_query = SeedTreatment.where(seed_crop: c).where.not(date_of_first_flat_sew: nil) %>
+			<% @crop_query = @harvested_flats.where(crop_id: c) %>
+			<% @treatment_query = SeedTreatment.where(crop_id: c).where.not(date_of_first_flat_sew: nil) %>
 
 			<td style="padding-right: 6px; padding-left: 6px;">
-				<%= c %>
+				<%= c.crop %>, <%= c.crop_variety %>
 			</td>
 			<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
-				<%= @crop_query.count %>
+				<% if @crop_query.count == 0%>
+					<u>no data</u>
+				<% else %>
+					<%= @crop_query.count %>
+				<% end %>
 			</td>
 			<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
 				<% if @treatment_query.count == 0 %>
-					0
+					<u>n/a</u>
 	      		<% else %>
 		        	<%= ( @treatment_query.to_a.map{|treatment| (treatment.seed_quantity_oz / treatment.destination_flat_ids.count) }.inject{|dur,sum| dur+sum }/@treatment_query.count ).round(2) %>
 		      	<% end %>
 			</td>
 			<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
 				<% if @treatment_query.count == 0 %>
-					0
+					<u>n/a</u>
 				<% else %>
 					<%= @treatment_query.to_a.map{|treatment| (treatment.date_of_first_flat_sew - treatment.soak_start_date).to_i }.inject{|dur,sum| dur+sum }/@treatment_query.count %>
 				<% end %>
 			</td>
 			<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
-				<%= (@crop_query.to_a.map{|flat| flat.seed_weight_oz }.inject{|dur,sum| dur+sum }/@crop_query.count).round(2) %>
+				<% if @crop_query.count == 0 %>
+					<u>no data</u>
+				<% else %>
+					<%= (@crop_query.map{|flat| flat.seed_weight_oz }.inject{|dur,sum| dur+sum }/@crop_query.count).round(2) %>
+				<% end %>	
 			</td>
 			<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
-				<%= @crop_query.to_a.map{|flat| (flat.harvested_on - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/@crop_query.count %>
+				<% if @crop_query.count == 0 %>
+					<u>no data</u>
+				<% else %>
+					<%= @crop_query.to_a.map{|flat| (flat.harvested_on - flat.started_date).to_i }.inject{|dur,sum| dur+sum }/@crop_query.count %>
+				<% end %>	
 			</td>
 			<td style="padding-right: 6px; padding-left: 6px; text-align: center;">
-				<%= @crop_query.average(:harvest_weight_oz).round(2) %>
+				<% if @crop_query.count == 0 %>
+					<u>no data</u>
+				<% else %>	
+					<%= @crop_query.average(:harvest_weight_oz).round(2) %>
+				<% end %>	
 			</td>
 		</tr>
 		<% } %>
