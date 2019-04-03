@@ -146,13 +146,13 @@ class DashboardsController < ApplicationController
     @to_soak_day_adjusted = []
     @to_soak.each{|arr|
       if arr[1] == "Monday"
-        @to_soak_day_adjusted << [arr[0],"Sunday",arr[2],arr[3],arr[4]]
+        @to_soak_day_adjusted << [arr[0],"Sunday",arr[2],arr[3],arr[4],false]
       elsif arr[1] == "Wednesday"
-        @to_soak_day_adjusted << [arr[0],"Tuesday",arr[2],arr[3],arr[4]]
+        @to_soak_day_adjusted << [arr[0],"Tuesday",arr[2],arr[3],arr[4],false]
       elsif arr[1] == "Friday"
-        @to_soak_day_adjusted << [arr[0],"Thursday",arr[2],arr[3],arr[4]]
+        @to_soak_day_adjusted << [arr[0],"Thursday",arr[2],arr[3],arr[4],false]
       elsif arr[1] == "Saturday"
-        @to_soak_day_adjusted << [arr[0],"Thursday",arr[2],arr[3],arr[4]]
+        @to_soak_day_adjusted << [arr[0],"Thursday",arr[2],arr[3],arr[4],false]
       else
         @to_soak_day_adjusted << arr
       end     
@@ -365,7 +365,5 @@ class DashboardsController < ApplicationController
     @disable_nav = true
     @crops = Crop.all
   end
-
-
 
 end

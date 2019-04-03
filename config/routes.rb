@@ -29,6 +29,8 @@ Rails.application.routes.draw do
 	get 'dashboards/scratch'
 	get 'dashboards/flat_allocation'
 	get 'dashboards/labels'
+	get 'dashboards/customers'
+	get 'dashboards/add_customer'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
 	get 'seed_flats/harvested_index' => 'seed_flats#harvested_index'

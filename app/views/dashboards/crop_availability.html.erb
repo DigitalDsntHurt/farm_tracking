@@ -34,11 +34,15 @@
 				<%= System.where(id: key)[0].system_name %><br>
 				<% val.sort_by{|flat| (Date.today - flat.started_date).to_i }.each{|flat| %>
 					<% if flat.sewn_for == nil or flat.sewn_for.length < 2 %>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= flat.flat_id %>: <%= (Date.today - flat.started_date).to_i %> day<br>
+						<div>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day", flat %>
+						</div>
 					<% else %>
+						<div>
 						<strong>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= flat.flat_id %>: <%= (Date.today - flat.started_date).to_i %> day, for <%= flat.sewn_for %><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day, for #{flat.sewn_for}", flat %>
 						</strong>
+						</div>
 					<% end %>
 			
 			<% } %>
