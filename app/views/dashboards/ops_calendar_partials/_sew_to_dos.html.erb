@@ -1,4 +1,4 @@
-<h4 align="center">To sew: <%= sewn_query.count %> of <%= to_sew_query.count %> completed</h4>
+<h4 align="center">To sew: <%= done_sew_query.count %> of <%= to_sew_query.count %> completed</h4>
 
 <% to_sew_query.order(completed_on: :desc).each{ |sew_do| %>
 	<% if sew_do.completed_on == nil %>
@@ -7,9 +7,10 @@
 		<% end %>
 		<%= sew_do.qty %> <%= sew_do.qty_units %> <%= Crop.where(id: sew_do.crop_id)[0].crop %>, <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %><br>
 	<% else %>
-		<button type="button" class="btn btn-outline-dark btn-sm">
+		<%= link_to farm_ops_dos_mark_farm_ops_dos_undone_path(:controller => "farm_ops_dos", :action => "mark_farm_ops_do_undone", :do => sew_do.id), :class => "btn btn-outline-primary btn-sm" do %>
           <span class="glyphicon glyphicon-check"></span> 
-      	</button><%= sew_do.qty %> <%= sew_do.qty_units %> 
+      	<% end %>
+      	<%= sew_do.qty %> <%= sew_do.qty_units %> 
       	<%= Crop.where(id: sew_do.crop_id)[0].crop %>, <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %><br>
         
 	<% end %>

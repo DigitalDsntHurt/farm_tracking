@@ -2,9 +2,10 @@
 
 <h1>Farm Ops Dos</h1>
 
-<table>
+<table class="index-table">
   <thead>
     <tr>
+      <th>Done?</th>
       <th>Date</th>
       <th>Verb</th>
       <th>qty</th>
@@ -16,8 +17,19 @@
   </thead>
 
   <tbody>
-    <% @farm_ops_dos.each do |farm_ops_do| %>
-      <tr>
+    <% @farm_ops_dos.reverse.each do |farm_ops_do| %>
+      <% if farm_ops_do.completed_on == nil %>
+        <tr>
+      <% else %>
+        <tr style="background-color: #74b566;">
+      <% end %>
+        <td>
+          <% if farm_ops_do.completed_on == nil %>
+            <span class="glyphicon glyphicon-unchecked"></span> 
+          <% else %>
+            <span class="glyphicon glyphicon-check"></span> 
+          <% end %>
+        </td>
         <td><%= farm_ops_do.date %></td>
         <td><%= farm_ops_do.verb %></td>
         <td><%= farm_ops_do.qty %></td>

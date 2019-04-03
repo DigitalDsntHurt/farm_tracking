@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :verb %>
-    <%= form.text_field :verb, id: :farm_ops_do_verb %>
+    <%= form.select :verb, ["soak","sew","harvest","other"], include_blank: true %>
   </div>
 
   <div class="field">

@@ -78,6 +78,7 @@ Rails.application.routes.draw do
 	resources :crops
 
 	get 'farm_ops_dos/mark_farm_ops_dos_done' => 'farm_ops_dos#mark_farm_ops_dos_done'
+	get 'farm_ops_dos/mark_farm_ops_dos_undone' => 'farm_ops_dos#mark_farm_ops_dos_undone'
 	resources :farm_ops_dos
 	
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
