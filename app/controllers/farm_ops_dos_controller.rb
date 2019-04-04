@@ -81,6 +81,6 @@ class FarmOpsDosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def farm_ops_do_params
-      params.require(:farm_ops_do).permit(:verb, :date, :crop, :variety, :customer, :crop_id, :qty, :qty_units)
+      params.require(:farm_ops_do).permit(:verb, :date, :crop, :variety, :customer, :crop_id, :qty, :qty_units, :order_id)
     end
 end

@@ -1,0 +1,71 @@
+<p id="notice"><%= notice %></p>
+
+<table class="index-table">
+  <thead>
+    <tr>
+      <th>flat id</th>
+      <th>started date</th>
+      <th>customer</th>
+      <th>sewn for</th>
+      <th>crop</th>
+      <th>seed weight</th>
+      <th>treatment</th>
+      <th>harvested</th>
+      <th>harvest wt oz</th>
+      <th>harvest wt lbs</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @seed_flats.each do |seed_flat| %>
+      <% if seed_flat.harvest_weight_oz == 0.0 %>
+        <tr style="background-color: #CD3333; font-size: 18px;">
+      <% elsif seed_flat.harvest_weight_oz != nil %>
+          <tr style="background-color: #659D32; font-size: 18px;">
+      <% elsif seed_flat.date_of_first_transplant != nil %>
+          <tr style="background-color: lightyellow;">
+      <% else %>
+        <tr style="background-color: #F5F5F5; font-size: 18px;">
+      <% end %>
+        <td>
+          <% if seed_flat.harvest_weight_oz == nil%>
+            <%=link_to seed_flat.flat_id, seed_flat %>
+          <% else %>
+            <%= link_to seed_flat.former_flat_id, seed_flat %>
+          <% end %>
+        </td>      
+        <td><%= seed_flat.started_date %></td>
+        <td><%= seed_flat.sewn_for %></td>
+        <td>
+          <% if seed_flat.customer_id == nil %>
+            n/a
+          <% else %>
+            <%= Customer.where(id: seed_flat.customer_id)[0].name %>
+          <% end %>
+          
+        </td>
+        <td>
+          <% if seed_flat.crop_id == nil %>
+            <%= seed_flat.crop %>, <%= seed_flat.crop_variety %>
+          <% else %>
+            <%= Crop.where(id: seed_flat.crop_id)[0].crop %>, <%= Crop.where(id: seed_flat.crop_id)[0].crop_variety %>
+          <% end %>
+        </td>
+        <td><%= seed_flat.seed_weight_oz %></td>
+        <td>
+          <% if seed_flat.seed_treatments_id == nil %>
+            n/a
+          <% else %>
+            <% @treatment = SeedTreatment.where(id: seed_flat.seed_treatments_id)[0] %>
+            <%= link_to @treatment.id, @treatment %>
+          <% end %>
+          
+        </td>
+        <td><%= seed_flat.harvested_on %></td>
+        <td><%= seed_flat.harvest_weight_oz %></td>
+        <td><%= seed_flat.hrvst_wt_lbs %></td>
+      </tr>
+
+    <% end %>
+  </tbody>
+</table>

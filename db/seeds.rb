@@ -3,6 +3,162 @@
 require 'csv'
 
 =begin
+
+##
+## ## Seed Customers Table From Google Sheets CSV Export
+##
+seed_arr = []
+
+csv = CSV.read(Rails.root.join('db','customers.csv'))
+csv.to_a[0..-1].each{|row|
+	@hsh = {}
+	next if row[0] == nil
+	@hsh[:name] = row[0].downcase
+	seed_arr << @hsh
+}
+
+p seed_arr
+
+Customer.create(seed_arr)
+puts "Created #{seed_arr.count} new customers in Customers table!"
+=end
+
+=begin
+
+##
+## ## Update all Orders w/ customer_id
+##
+#Customer.create(name: "otd")
+@customers = Customer.all.pluck(:name)
+@orders = Order.all
+
+@orders.each{|order|
+	if order.customer.downcase == " " or order.customer.downcase == ""
+		order.update(customer: nil)
+	elsif order.customer.downcase == "alx"
+		order.update(customer: "alx gastropub")
+	elsif order.customer.downcase == "front porch"
+		order.update(customer: "the front porch")		
+	elsif order.customer.downcase == "local kitchen and wine merchants"
+		order.update(customer: "local kitchen & wine merchant")		
+	else
+
+	end
+}
+
+@orders.each{|order|
+	if @customers.include?(order.customer.downcase)
+		#puts "#{order.customer.downcase} matches #{@customers[@customers.index(order.customer.downcase)]}"
+		order.update(customer_id: Customer.where(name: @customers[@customers.index(order.customer.downcase)])[0].id )
+	else
+		puts "#{order.customer.downcase} matches nothing"
+	end
+}
+=end
+
+
+=begin
+
+##
+## ## Update all SeedFlats w/ customer_id
+##
+#Customer.create(name: "black sands")
+#Customer.create(name: "cassava")
+@customers = Customer.all.pluck(:name)
+@flats = SeedFlat.all
+
+@flats.each{|flat|
+	unless flat.sewn_for == nil
+		if flat.sewn_for.downcase == " " or flat.sewn_for.downcase == ""
+			flat.update(sewn_for: nil)
+		elsif flat.sewn_for.downcase == "alx"
+			flat.update(sewn_for: "alx gastropub")
+		elsif flat.sewn_for.downcase == "front porch"
+			flat.update(sewn_for: "the front porch")		
+		elsif flat.sewn_for.downcase == "local kitchen and wine merchants"
+			flat.update(sewn_for: "local kitchen & wine merchant")
+		elsif flat.sewn_for.downcase == "liholiho"
+			flat.update(sewn_for: "liholiho yacht club")	
+		elsif flat.sewn_for.downcase == "lombardi's"
+			flat.update(sewn_for: "overgrow")				
+		else
+
+		end
+	end
+}
+
+@flats.each{|flat|
+	unless flat.sewn_for == nil
+		if @customers.include?(flat.sewn_for.downcase)
+			#puts "#{flat.sewn_for.downcase} matches #{@customers[@customers.index(flat.sewn_for.downcase)]}"
+			flat.update(customer_id: Customer.where(name: @customers[@customers.index(flat.sewn_for.downcase)])[0].id )
+		else
+			puts "#{flat.sewn_for.downcase} matches nothing"
+		end
+	end
+}
+=end
+
+
+
+=begin
+=end
+##
+## ## one-time seed to initiate FarmOpsDos
+##
+
+@days_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+@today = Date.today
+
+@orders = Order.where(cancelled_on: nil).sort_by(&:day_of_week)
+
+@orders.each{|order|
+	@instruction = []
+
+	@crop = Crop.where(id: order.crop_id)[0]
+	
+	if @crop.ideal_treatment_days > 0 # crops for seed treatment
+		
+	else # crops for dry seed sewing
+		@instruction << order # set instruction order
+		# sort out instruction day of week
+		@wday = ""
+		if @crop.ideal_total_dth % 7 == 0
+	    	@wday += "#{order.day_of_week}"
+	    else
+	    	@days_ref_index = @days_ref.index(order.day_of_week) - (@crop.ideal_total_dth % 7)
+	        @wday += @days_ref[@days_ref_index]
+	    end
+	    # adjust day of week to ops days (Tue, Thu, Sun)
+	    if @wday == "Monday"
+	    	@wday = "Sunday"
+		elsif @wday == "Wednesday"
+			@wday = "Tuesday"
+		elsif @wday == "Friday" or @wday == "Saturday"
+			@wday = "Thursday"
+		else
+		end
+		@instruction << @wday # set instruction day of week
+		@instruction << "sew" # set instruction verb
+		@instruction << @crop # set instruction crop
+		@instruction << "#{(order.qty_oz / @crop.ideal_yield_per_flat_oz).ceil}" # set instruction qty
+		@instruction << "flats" # set instruction qty_oz
+	end
+
+
+
+	if @instruction.length > 4
+		puts @instruction 
+		puts "***" 
+	end
+
+}
+
+
+
+
+
+=begin
 ##
 ## ## set standing_order field on all Orders to true
 ##

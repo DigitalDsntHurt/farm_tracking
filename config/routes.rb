@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :customers
   resources :scheduleds
   
   resources :orders
@@ -33,6 +34,7 @@ Rails.application.routes.draw do
 	get 'dashboards/add_customer'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
+	get 'seed_flats/basic_index' => 'seed_flats#basic_index'
 	get 'seed_flats/harvested_index' => 'seed_flats#harvested_index'
 	get 'seed_flats/killed_index' => 'seed_flats#killed_index'
 	get 'seed_flats/harvested_killed' => 'seed_flats#harvested_killed'

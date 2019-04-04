@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= form.label :qty %>
-    <%= form.number_field :qty, id: :qty %>
+    <%= form.number_field :qty, class: :text_field, step: :any %>
   </div>
 
   <div class="field">
@@ -40,6 +40,11 @@
     <%= form.label :customer %>
     <%= form.text_field :customer, id: :farm_ops_do_customer %>
   </div>
+
+  <div class="field">
+    <%= form.label :order %>
+    <%= form.select :order_id, Order.all.collect{|order| ["#{order.day_of_week} for #{order.customer}: #{order.qty_oz}oz #{Crop.where(id: order.crop_id)[0].crop} " , order.id] }, include_blank: true %>
+  </div>  
 
   <div class="actions">
     <%= form.submit %>

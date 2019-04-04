@@ -141,7 +141,7 @@ class DashboardsController < ApplicationController
     }
 
     ##
-    ## ## Soak schedule
+    ## ## Date Adjustments to Soak schedule
     ##
     @to_soak_day_adjusted = []
     @to_soak.each{|arr|
@@ -160,7 +160,7 @@ class DashboardsController < ApplicationController
     @grouped_soaks = @to_soak_day_adjusted.group_by{|arr| arr[1]}
 
     ##
-    ## ## Sew schedule
+    ## ##  Date Adjustments to Sew schedule
     ##
     @to_sew_day_adjusted = []
     @to_sew.each{|arr|
