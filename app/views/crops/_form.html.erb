@@ -18,6 +18,16 @@
   </div>
 
   <br><br>
+ 
+  <div class="field">
+    <%= form.label :crop %>
+    <%= form.text_field :crop, id: :crop %>
+  </div>  
+
+  <div class="field">
+    <%= form.label :crop_variety %>
+    <%= form.text_field :crop_variety, id: :crop_crop_variety %>
+  </div>  
 
   <div class="field">
     <%= form.label :ideal_soak_seed_oz_per_flat %>
@@ -56,11 +66,6 @@
 
   <br><br>
   <div>*** *** ***</div>
-
-  <div class="field">
-    <%= form.label :crop_variety %>
-    <%= form.text_field :crop_variety, id: :crop_crop_variety %>
-  </div>
 
   <div class="field">
     <%= form.label :seed_treatment %>
