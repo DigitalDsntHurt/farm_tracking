@@ -1,6 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<div style="margin-left:16px;" align="center">
 <h1>Crops</h1>
+<%= link_to 'New Crop', new_crop_path, class: "btn btn-success" %>
+</div>
 
 <table style="margin-left:22px;">
   <thead>
@@ -81,5 +84,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Crop', new_crop_path %>
