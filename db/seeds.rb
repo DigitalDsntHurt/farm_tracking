@@ -17,8 +17,6 @@ csv.to_a[0..-1].each{|row|
 	seed_arr << @hsh
 }
 
-p seed_arr
-
 Customer.create(seed_arr)
 puts "Created #{seed_arr.count} new customers in Customers table!"
 =end
@@ -107,55 +105,73 @@ puts "Created #{seed_arr.count} new customers in Customers table!"
 ## ## one-time seed to initiate FarmOpsDos
 ##
 
-@days_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+#@days_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 @today = Date.today
 
 @orders = Order.where(cancelled_on: nil).sort_by(&:day_of_week)
 
+#@sew_instructions = []
+#@soak_instructions = []
+@instructions = []
+
+#
+## seed soak and sew dos
+#
 @orders.each{|order|
-	@instruction = []
 
 	@crop = Crop.where(id: order.crop_id)[0]
 	
 	if @crop.ideal_treatment_days > 0 # crops for seed treatment
-		
+		@instruction = {}
+		@instruction[:order_id] = order.id # set instruction order
+		@instruction[:date] = OpsCal.set_ops_day_of_week(@crop,order) # sort out instruction date for next day of week
+		@instruction[:verb] = "soak"
+        @instruction[:crop_id] = @crop.id # set instruction crop
+        @instruction[:qty] = OpsCal.soak_quantity(@crop,order) # set instruction qty (OUNCES)
+        @instruction[:qty_units] = "oz" # set instruction qty_units
+        #@soak_instructions << @instruction
+        @instructions << @instruction
+
 	else # crops for dry seed sewing
-		@instruction << order # set instruction order
-		# sort out instruction day of week
-		@wday = ""
-		if @crop.ideal_total_dth % 7 == 0
-	    	@wday += "#{order.day_of_week}"
-	    else
-	    	@days_ref_index = @days_ref.index(order.day_of_week) - (@crop.ideal_total_dth % 7)
-	        @wday += @days_ref[@days_ref_index]
-	    end
-	    # adjust day of week to ops days (Tue, Thu, Sun)
-	    if @wday == "Monday"
-	    	@wday = "Sunday"
-		elsif @wday == "Wednesday"
-			@wday = "Tuesday"
-		elsif @wday == "Friday" or @wday == "Saturday"
-			@wday = "Thursday"
-		else
-		end
-		@instruction << @wday # set instruction day of week
-		@instruction << "sew" # set instruction verb
-		@instruction << @crop # set instruction crop
-		@instruction << "#{(order.qty_oz / @crop.ideal_yield_per_flat_oz).ceil}" # set instruction qty
-		@instruction << "flats" # set instruction qty_oz
+		@instruction = {}
+		@instruction[:order_id] = order.id # set instruction order		
+		@instruction[:date] = OpsCal.set_ops_day_of_week(@crop,order) # sort out instruction date for next day of week
+		@instruction[:verb] = "sew" # set instruction verb
+		@instruction[:crop_id] = @crop.id # set instruction crop
+		@instruction[:qty] = OpsCal.sew_quantity(@crop,order) # set instruction qty (FLATS)
+		@instruction[:qty_units] = "flats" # set instruction qty_units
+		#@sew_instructions << @instruction
+		@instructions << @instruction
 	end
-
-
-
-	if @instruction.length > 4
-		puts @instruction 
-		puts "***" 
-	end
-
 }
 
+@sew = @instructions.select{|i| i[:verb] == "sew" } #.select{|i| i[:date].sunday? }
+@sunday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].sunday? })#
+@tuesday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].tuesday? })
+@thursday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].thursday? })
+FarmOpsDo.create(@sew)
+FarmOpsDo.create(@sunday_soak)
+FarmOpsDo.create(@tuesday_soak)
+FarmOpsDo.create(@thursday_soak)
 
+#
+## seed harvest dos
+#
+@harvest_instructions = []
+@orders.each{|order|
+	next if order.customer_id == 1
+	@crop = Crop.where(id: order.crop_id)[0]
+	@instruction = {}
+	@instruction[:order_id] = order.id # set instruction order
+	@instruction[:date] = OpsCal.date_of_next(order.day_of_week) #OpsCal.date_of_next(order.day_of_week) # sort out instruction date for next day of week
+	@instruction[:verb] = "harvest"
+    @instruction[:crop_id] = @crop.id # set instruction crop
+    @instruction[:qty] = order.qty_oz # set instruction qty (OUNCES)
+    @instruction[:qty_units] = "oz" # set instruction qty_units
+    @harvest_instructions << @instruction
+}
 
+FarmOpsDo.create(@harvest_instructions)
 
 
 =begin

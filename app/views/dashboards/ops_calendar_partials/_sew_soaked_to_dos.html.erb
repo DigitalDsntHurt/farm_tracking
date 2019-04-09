@@ -1,6 +1,6 @@
-<h3 align="center"><u>To sew (dry): <%= done_sew_query.count %> of <%= to_sew_query.count %> completed</u></h3>
+<h3 align="center"><u>To sew (soaked): <%= done_sew_soaked_query.count %> of <%= to_sew_soaked_query.count %> completed</u></h3>
 
-<% to_sew_query.order(completed_on: :desc).each{ |sew_do| %>
+<% to_sew_soaked_query.order(completed_on: :desc).each{ |sew_do| %>
 	<% if sew_do.completed_on == nil %>
 		<h4>
 			<%= link_to farm_ops_dos_mark_farm_ops_dos_done_path(:controller => "farm_ops_dos", :action => "mark_farm_ops_do_done", :do => sew_do.id), :class => "btn btn-outline-primary btn-sm" do %>
