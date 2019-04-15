@@ -69,17 +69,22 @@ module OpsCal
 			@hsh = {}
 			@hsh[:date] = i[1][0][:date]
 			@hsh[:verb] = i[1][0][:verb]
-			@hsh[:crop_id] = i[1][0][:crop_id]
-			@hsh[:qty] = 0
+			@hsh[:crop_id] = i[1][0][:crop_id]	
 			@hsh[:qty_units] = i[1][0][:qty_units]
+			@hsh[:qty] = 0
+			@hsh[:order_ids] = []
 			if i[1].count > 1
 				i[1].each{|hsh|
 					@hsh[:qty] += hsh[:qty] 
+					@hsh[:order_ids] << hsh[:order_id]
 				}
 				soak << @hsh
 			else
-				soak << i[1][0]
+				@hsh[:qty] += i[1][0][:qty] 
+				@hsh[:order_ids] << i[1][0][:order_id]
+				soak << @hsh
 			end
+
 		}
 
 		soak

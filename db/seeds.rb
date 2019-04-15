@@ -3,7 +3,10 @@
 require 'csv'
 
 =begin
+=end
 
+#=begin
+#=end
 ##
 ## ## Seed Customers Table From Google Sheets CSV Export
 ##
@@ -18,11 +21,13 @@ csv.to_a[0..-1].each{|row|
 }
 
 Customer.create(seed_arr)
-puts "Created #{seed_arr.count} new customers in Customers table!"
-=end
+#puts "Created #{seed_arr.count} new customers in Customers table!"
 
-=begin
 
+
+
+#=begin
+#=end
 ##
 ## ## Update all Orders w/ customer_id
 ##
@@ -38,7 +43,9 @@ puts "Created #{seed_arr.count} new customers in Customers table!"
 	elsif order.customer.downcase == "front porch"
 		order.update(customer: "the front porch")		
 	elsif order.customer.downcase == "local kitchen and wine merchants"
-		order.update(customer: "local kitchen & wine merchant")		
+		order.update(customer: "local kitchen & wine merchant")
+	elsif order.customer.downcase == "hotel san francisco"
+		order.update(customer: "hotel san francisco")			
 	else
 
 	end
@@ -52,11 +59,11 @@ puts "Created #{seed_arr.count} new customers in Customers table!"
 		puts "#{order.customer.downcase} matches nothing"
 	end
 }
-=end
 
 
-=begin
 
+#=begin
+#=end
 ##
 ## ## Update all SeedFlats w/ customer_id
 ##
@@ -78,7 +85,9 @@ puts "Created #{seed_arr.count} new customers in Customers table!"
 		elsif flat.sewn_for.downcase == "liholiho"
 			flat.update(sewn_for: "liholiho yacht club")	
 		elsif flat.sewn_for.downcase == "lombardi's"
-			flat.update(sewn_for: "overgrow")				
+			flat.update(sewn_for: "overgrow")
+		elsif flat.sewn_for.downcase == "hotel san francisco"
+			flat.update(sewn_for: "hotel san francisco")					
 		else
 
 		end
@@ -95,12 +104,12 @@ puts "Created #{seed_arr.count} new customers in Customers table!"
 		end
 	end
 }
-=end
 
 
 
-=begin
-=end
+
+#=begin
+#=end
 ##
 ## ## one-time seed to initiate FarmOpsDos
 ##
@@ -149,6 +158,10 @@ puts "Created #{seed_arr.count} new customers in Customers table!"
 @sunday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].sunday? })#
 @tuesday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].tuesday? })
 @thursday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].thursday? })
+
+#p @sunday_soak#.sample.push(:key => "val")
+
+
 FarmOpsDo.create(@sew)
 FarmOpsDo.create(@sunday_soak)
 FarmOpsDo.create(@tuesday_soak)
@@ -172,6 +185,19 @@ FarmOpsDo.create(@thursday_soak)
 }
 
 FarmOpsDo.create(@harvest_instructions)
+=begin
+=end
+
+
+
+
+
+
+
+
+
+
+
 
 
 =begin

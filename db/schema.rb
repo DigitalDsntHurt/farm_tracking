@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190404205503) do
+ActiveRecord::Schema.define(version: 20190412203226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20190404205503) do
     t.string "qty_units"
     t.integer "order_id"
     t.integer "treatment_id"
+    t.string "order_ids", default: [], array: true
   end
 
   create_table "nutrient_solutions", force: :cascade do |t|
@@ -236,6 +237,7 @@ ActiveRecord::Schema.define(version: 20190404205503) do
     t.boolean "finished"
     t.date "soak_start_date"
     t.integer "crop_id"
+    t.string "order_ids", default: [], array: true
   end
 
   create_table "systems", force: :cascade do |t|

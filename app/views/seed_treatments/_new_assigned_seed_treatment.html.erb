@@ -1,0 +1,54 @@
+<%= form_with(model: @seed_treatment, local: true) do |form| %>
+  <% if @seed_treatment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@seed_treatment.errors.count, "error") %> prohibited this @seed_treatment from being saved:</h2>
+
+      <ul>
+      <% @seed_treatment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :soak_start_datetime %>
+    <%= form.datetime_select :soak_start_datetime, id: :seed_treatment_soak_start_datetime %>
+  </div>
+
+  <div class="field">
+    <%= form.label :crop_id %>
+    <%= form.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :seed_quantity_oz %>
+    <%= form.text_field :seed_quantity_oz, id: :seed_treatment_seed_quantity_oz %>
+  </div>
+
+  <div class="field">
+    <%= form.label :soak_solution %>
+    <%= form.text_field :soak_solution, id: :seed_treatment_soak_solution, :value => "germ nutsol" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :order_ids %>
+    <%= form.text_area :order_ids, id: :order_ids %>
+  </div>
+
+  <p>****** ****** ****** ****** ****** ******</p>
+
+  <div class="field">
+    <%= form.label :killed_on %>
+    <%= form.date_select :killed_on, id: :seed_treatment_killed_on, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :finished? %>
+    <%= form.check_box :finished %>
+  </div>  
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

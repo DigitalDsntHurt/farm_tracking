@@ -3,6 +3,7 @@ class SeedTreatment < ApplicationRecord
 	
 	before_create :calculate_planned_date_of_first_flat_sew
 	after_create :create_rinse_farm_ops_do
+	after_update :create_sew_farm_ops_do
 	before_save :calculate_days_to_full_emergence, :set_soak_start_date #, :remove_white_spaces_from_crop_names #, :downcase_all
 
 
@@ -40,6 +41,23 @@ class SeedTreatment < ApplicationRecord
 		@rinse_do[:crop_id] = self.crop_id
 		@rinse_do[:treatment_id] = self.id 
 		FarmOpsDo.create(@rinse_do)
+	end
+
+	def create_sew_farm_ops_do
+		if self.germination_start_date != nil
+			self.order_ids.each{|order_id|
+				@sew_do = {}
+				@sew_do[:date] = (self.germination_start_date + Crop.where(id: crop_id)[0].ideal_treatment_days)#.to_i
+				@sew_do[:verb] = "sew soaked"
+				@sew_do[:crop_id] = self.crop_id
+				@sew_do[:qty] = 3
+				@sew_do[:qty_units] = "flats"
+				@sew_do[:treatment_id] = self.id
+				@sew_do[:order_id] = order_id
+				#@sew_do[:] 
+				FarmOpsDo.create(@sew_do)
+			}
+		end
 	end
 
 end
