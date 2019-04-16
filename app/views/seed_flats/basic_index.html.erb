@@ -5,7 +5,6 @@
     <tr>
       <th>flat id</th>
       <th>started date</th>
-      <th>customer</th>
       <th>sewn for</th>
       <th>crop</th>
       <th>seed weight</th>
@@ -35,7 +34,6 @@
           <% end %>
         </td>      
         <td><%= seed_flat.started_date %></td>
-        <td><%= seed_flat.sewn_for %></td>
         <td>
           <% if seed_flat.customer_id == nil %>
             n/a

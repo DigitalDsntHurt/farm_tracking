@@ -10,6 +10,7 @@ class SeedFlat < ApplicationRecord
 	before_save :downcase_sewn_for #:remove_white_spaces_from_crop_names,
 	before_validation :upcase_flat_id
 	validates_uniqueness_of :flat_id
+	before_destroy :delete_seed_flat_updates
 
 	private
 
@@ -116,6 +117,10 @@ class SeedFlat < ApplicationRecord
 		unless self.sewn_for == nil
 			self.sewn_for = self.sewn_for.downcase
 		end
+	end
+
+	def delete_seed_flat_updates
+		SeedFlatUpdate.where(seed_flat_id: self.id).delete_all
 	end
 
 #	def remove_white_spaces_from_crop_names

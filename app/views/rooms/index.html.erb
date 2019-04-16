@@ -2,20 +2,31 @@
 
 <h1>Rooms</h1>
 
+
+
+
 <div class="container-fluid">
   <% @rooms.in_groups_of(2).each{|first_room,second_room| %>
     <div class="row">
       <div class="col" style="border-right: solid black 1px;">
         <h4 align="center"><%= first_room.name %></h4>
         <% first_room.systems.each{|system| %>
-          <p><%= system.system_name %></p>
+          <p><%= system.system_name %> - <%= system.flat_slots %> flat slots</p>
         <% } %>
       </div>
       <div class="col">
         <% unless second_room == nil %>
-          <h4 align="center"><%= second_room.name %></h4>
+          <% @flat_slots_in_room = 0 %>
+          <% System.where(room_id: second_room.id).each{|system| %>
+            <% @flat_slots_in_room += system.flat_slots unless system.flat_slots == nil %>
+          <% } %>
+          <h4 align="center">
+            <%= second_room.name %><br><%= @flat_slots_in_room %> flat slots in room
+          </h4>
           <% second_room.systems.each{|system| %>
-            <p><%= system.system_name %></p>
+            <p>
+              <%= link_to "#{system.system_name}", system %> (<%= SeedFlat.where(current_system_id: system.id).count %> occupied of <%= system.flat_slots %> flat slots in system)<br>
+            </p>
           <% } %>
         <% end %>
       </div>

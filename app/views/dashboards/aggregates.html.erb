@@ -79,7 +79,7 @@
 		<% } %>
 	</table>
 
-<br><br><hr><br><br>
+<br><br><hr><br>
 
 	<h2>Pipeline Info (weekly)</h2>
 	<table>
@@ -194,9 +194,12 @@
 				<%= @num_flat_slots_in_pipeline %>
 			</td>
 			<td align="center">
+				<% @num_flat_slots_in_pipeline = @active_systems.map{|s| s.flat_slots }.inject{|num,sum| num + sum } %>
+				<% @flats_harvested = SeedFlat.where(:harvested_on => @week_start..@week_end).count %>
+				<%= (@flats_harvested.to_f / @num_flat_slots_in_pipeline.to_f * 100).round(2) %>%
+				<% if false %>
 				<%= (SeedFlat.where(:harvested_on => @week_start..@week_end).count / @num_flat_slots_in_pipeline = @active_systems.map{|s| s.flat_slots }.inject{|num,sum| num + sum })*100 %>%
-
-
+				<% end %>
 			</td>
 		</tr>
 		<% } %>

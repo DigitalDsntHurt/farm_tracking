@@ -69,4 +69,20 @@
 <%= link_to 'Edit', edit_system_path(@system), :class => "btn btn-success"  %>
 <%= link_to 'Back', systems_path, :class => "btn btn-success" %>
 
+<br><br><hr>
+<h3>Flats in <%= @system.system_name%></h3>
+<table>
+<% SeedFlat.where(current_system_id: @system.id).in_groups_of(9).each{|group| %>
+  <tr>
+    <% group.each{|flat| %>
+      <td style="padding-right:12px;">
+        <% unless flat == nil %>
+          <%= link_to "#{flat.flat_id}", flat %>
+        <% end %>
+      </td>
+    <% } %>
+  </tr>
+<% } %>
+</table>
+
 </div>

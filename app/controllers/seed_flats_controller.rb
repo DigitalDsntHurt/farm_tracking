@@ -94,9 +94,10 @@ class SeedFlatsController < ApplicationController
   def destroy
     @seed_flat.destroy
     respond_to do |format|
-      format.html { redirect_to seed_flats_url, notice: 'Seed flat was successfully destroyed.' }
+      format.html { redirect_to seed_flats_basic_index_path, notice: 'Seed flat was successfully destroyed.' }
       format.json { head :no_content }
     end
+
   end
 
   def copy
