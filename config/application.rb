@@ -18,7 +18,9 @@ module V1
         end if File.exists?(env_file)
     end
 
+    
     # set time zone to US Pacific Time
     config.time_zone = "Pacific Time (US & Canada)"
+    #config.autoload_paths += %W(#{config.root}/lib)
   end
 end

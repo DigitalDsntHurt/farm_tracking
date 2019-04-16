@@ -26,17 +26,27 @@
 						<h2 align="center">To Do</h2>
 						
 
-						<% to_soak_query = FarmOpsDo.where(date: day).where(verb: "soak") %>
-						<% soaked_query = SeedTreatment.where(soak_start_date: day) %>
-						<%= render partial: "dashboards/ops_calendar_partials/soak_to_dos", locals: {day: day, soaked_query: soaked_query, to_soak_query: to_soak_query} %>
+						<% to_soak_query = FarmOpsDo.where(date: day).where(verb: "soak").order(:completed_on).order(:crop_id) %>
+						<% done_soak_query = FarmOpsDo.where(date: day).where(verb: "soak").where.not(completed_on: nil) %>
+						<%= render partial: "dashboards/ops_calendar_partials/soak_to_dos", locals: {day: day, done_soak_query: done_soak_query, to_soak_query: to_soak_query} %>
 
-						<% to_sew_query = FarmOpsDo.where(date: day).where(verb: "sew") %>
-						<% sewn_query = SeedFlat.where(started_date: day) %>
-						<%= render partial: "dashboards/ops_calendar_partials/sew_to_dos", locals: {day: day, sewn_query: sewn_query, to_sew_query: to_sew_query} %>
+						<% to_rinse_query = FarmOpsDo.where(date: day).where(verb: "rinse").order(:completed_on).order(:crop_id) %>
+						<% done_rinse_query = FarmOpsDo.where(date: day).where(verb: "rinse").where.not(completed_on: nil) %>
+						<%= render partial: "dashboards/ops_calendar_partials/rinse_to_dos", locals: {day: day, done_rinse_query: done_rinse_query, to_rinse_query: to_rinse_query} %>
 
-						<% to_harvest_query = FarmOpsDo.where(date: day).where(verb: "harvest") %>
-						<% harvested_query = SeedFlat.where(harvested_on: day) %>
-						<%= render partial: "dashboards/ops_calendar_partials/harvest_to_dos", locals: {day: day, harvested_query: harvested_query, to_harvest_query: to_harvest_query} %>
+						<% to_sew_soaked_query = FarmOpsDo.where(date: day).where(verb: "sew soaked").order(:completed_on).order(:crop_id) %>
+						<% done_sew_soaked_query = FarmOpsDo.where(date: day).where(verb: "sew soaked").where.not(completed_on: nil) %>
+						<%= render partial: "dashboards/ops_calendar_partials/sew_soaked_to_dos", locals: {day: day, done_sew_soaked_query: done_sew_soaked_query, to_sew_soaked_query: to_sew_soaked_query} %>
+
+						<% to_sew_query = FarmOpsDo.where(date: day).where(verb: "sew").order(:completed_on).order(:crop_id) %>
+						<% done_sew_query = FarmOpsDo.where(date: day).where(verb: "sew").where.not(completed_on: nil) %>
+						<%= render partial: "dashboards/ops_calendar_partials/sew_to_dos", locals: {day: day, done_sew_query: done_sew_query, to_sew_query: to_sew_query} %>
+
+						<% if false %>
+						<% to_harvest_query = FarmOpsDo.where(date: day).where(verb: "harvest").order(:completed_on).order(:crop_id) %>
+						<% done_harvest_query = FarmOpsDo.where(date: day).where(verb: "harvest").where.not(completed_on: nil) %>
+						<%= render partial: "dashboards/ops_calendar_partials/harvest_to_dos", locals: {day: day, done_harvest_query: done_harvest_query, to_harvest_query: to_harvest_query} %>
+						<% end %>
 						
 
 
@@ -46,7 +56,7 @@
 							<h2 align="center">Done</h2>
 							
 									
-
+							<% soaked_query = SeedTreatment.where(soak_start_date: day) %>
 							<div data-toggle="collapse" data-target="#soaked-seeds-<%= day %>"><h4 align="center"><h4 align="center"><u><%= soaked_query.count %> Seed Varieties Soaked</u></h4>
 								<% soaked_query.each{|treatment| %>
 									<div id="soaked-seeds-<%= day %>" class="collapse">
@@ -56,7 +66,7 @@
 							</div>	
 
 							
-							
+							<% sewn_query = SeedFlat.where(started_date: day) %>
 							<div data-toggle="collapse" data-target="#sewn-flats-<%= day %>"><h4 align="center"><u><%= sewn_query.count %> Flats Sewn</u></h4>
 								<% sewn_query.each{|flat| %>	
 									<div id="sewn-flats-<%= day %>" class="collapse">
@@ -66,7 +76,7 @@
 							</div>	
 
 
-							
+							<% harvested_query = SeedFlat.where(harvested_on: day) %>
 							<div data-toggle="collapse" data-target="#harvested-flats-<%= day %>"><h4 align="center"><u><%= harvested_query.count %> Flats Harvested</u></h4>
 								<% harvested_query.each{|flat| %>
 									<% if flat.flat_id == nil %> 

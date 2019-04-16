@@ -63,12 +63,6 @@
       <%= link_to "#{System.where(id: @seed_flat.current_system_id)[0].system_name} @ #{System.where(id: @seed_flat.current_system_id)[0].room.name}", System.where(id: @seed_flat.current_system_id)[0] %>
     <% end %>
   </p>
-  <p>
-    <strong>Room:</strong>
-    <% unless @seed_flat.room_id == nil %>
-      <%= link_to "#{Room.where(id: @seed_flat.room_id)[0].name} @ #{Room.where(id: @seed_flat.room_id)[0].location}", Room.where(id: @seed_flat.room_id)[0] %>
-    <% end %>
-  </p>
 
   <p>
     <strong>Started date:</strong>
@@ -77,8 +71,8 @@
 
   <p>
     <strong>Sewn For:</strong>
-    <%= @seed_flat.sewn_for %>
-  </p>  
+    <%= Customer.where(id: @seed_flat.customer_id)[0].name unless @seed_flat.customer_id == nil %>
+  </p>    
 
   <p>
     <strong>Flat ID:</strong>
@@ -106,11 +100,6 @@
   </p>
 
   <p>
-    <strong>Seed media treatment notes:</strong>
-    <%= @seed_flat.seed_media_treatment_notes %>
-  </p>
-
-  <p>
     <strong>Seed treatments id:</strong>
     <% @seed_treatment = SeedTreatment.where(id: @seed_flat.seed_treatments_id) %>
     <% if @seed_treatment.count != 0 %>
@@ -130,25 +119,7 @@
     <%= @seed_flat.full_emerge_date %>
   </p>
 
-  <p>
-    <strong>Emergence notes:</strong>
-    <%= @seed_flat.emergence_notes %>
-  </p>
-
-  <p>
-    <strong>Date of first transplant:</strong>
-    <%= @seed_flat.date_of_first_transplant %>
-  </p>
-
-  <p>
-    <strong>Date of second transplant:</strong>
-    <%= @seed_flat.date_of_second_transplant %>
-  </p>
-
-  <p>
-    <strong>Date of third transplant:</strong>
-    <%= @seed_flat.date_of_third_transplant %>
-  </p>
+  
 <p>*** *** *** *** *** *** *** *** *** *** *** *** </p>
   <p>
     <strong>Exclude from FreshList?</strong>

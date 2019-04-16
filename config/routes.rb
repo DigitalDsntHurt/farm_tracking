@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :customers
   resources :scheduleds
   
   resources :orders
@@ -33,6 +34,7 @@ Rails.application.routes.draw do
 	get 'dashboards/add_customer'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
+	get 'seed_flats/basic_index' => 'seed_flats#basic_index'
 	get 'seed_flats/harvested_index' => 'seed_flats#harvested_index'
 	get 'seed_flats/killed_index' => 'seed_flats#killed_index'
 	get 'seed_flats/harvested_killed' => 'seed_flats#harvested_killed'
@@ -47,6 +49,7 @@ Rails.application.routes.draw do
 	get 'seed_flats/harvest' => 'seed_flats#harvest'
 	get 'seed_flats/kill' => 'seed_flats#kill'
 	get 'seed_flats/new_treated_seed_flat' => 'seed_flats#new_treated_seed_flat'
+	get 'seed_flats/new_treated_seed_flat_from_ops_cal' => 'seed_flats#new_treated_seed_flat_from_ops_cal'
 	resources :seed_flats
 
 	get 'seed_flat_updates/transplant' => 'seed_flat_updates#transplant'
@@ -72,12 +75,14 @@ Rails.application.routes.draw do
 	get 'seed_treatments/full_emerge' => 'seed_treatments#full_emerge'
 	get 'seed_treatments/finish' => 'seed_treatments#finish'
 	get 'seed_treatments/kill' => 'seed_treatments#kill'
+	get 'seed_treatments/new_assigned_seed_treatment' => 'seed_treatments#new_assigned_seed_treatment'
 	resources :seed_treatments
 
 	get 'crops/crop_ref' => 'crops#crop_ref'
 	resources :crops
 
 	get 'farm_ops_dos/mark_farm_ops_dos_done' => 'farm_ops_dos#mark_farm_ops_dos_done'
+	get 'farm_ops_dos/mark_farm_ops_dos_undone' => 'farm_ops_dos#mark_farm_ops_dos_undone'
 	resources :farm_ops_dos
 	
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

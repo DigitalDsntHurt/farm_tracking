@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190312230343) do
+ActiveRecord::Schema.define(version: 20190416175917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,12 @@ ActiveRecord::Schema.define(version: 20190312230343) do
     t.float "ideal_yield_per_flat_oz"
   end
 
+  create_table "customers", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "farm_ops_dos", force: :cascade do |t|
     t.string "verb"
     t.date "date"
@@ -73,6 +79,9 @@ ActiveRecord::Schema.define(version: 20190312230343) do
     t.integer "crop_id"
     t.float "qty"
     t.string "qty_units"
+    t.integer "order_id"
+    t.integer "treatment_id"
+    t.string "order_ids", default: [], array: true
   end
 
   create_table "nutrient_solutions", force: :cascade do |t|
@@ -110,7 +119,7 @@ ActiveRecord::Schema.define(version: 20190312230343) do
     t.string "customer"
     t.string "day_of_week"
     t.date "date"
-    t.integer "qty_oz"
+    t.float "qty_oz"
     t.string "crop"
     t.string "variety"
     t.datetime "created_at", null: false
@@ -118,6 +127,7 @@ ActiveRecord::Schema.define(version: 20190312230343) do
     t.date "cancelled_on"
     t.integer "crop_id"
     t.boolean "standing_order"
+    t.integer "customer_id"
   end
 
   create_table "reservoirs", force: :cascade do |t|
@@ -195,6 +205,7 @@ ActiveRecord::Schema.define(version: 20190312230343) do
     t.boolean "force_onto_freshlist"
     t.string "sewn_for"
     t.integer "crop_id"
+    t.integer "customer_id"
     t.index ["current_system_id"], name: "index_seed_flats_on_current_system_id"
     t.index ["room_id"], name: "index_seed_flats_on_room_id"
     t.index ["seed_treatments_id"], name: "index_seed_flats_on_seed_treatments_id"
@@ -226,6 +237,8 @@ ActiveRecord::Schema.define(version: 20190312230343) do
     t.boolean "finished"
     t.date "soak_start_date"
     t.integer "crop_id"
+    t.string "order_ids", default: [], array: true
+    t.string "order_dummies"
   end
 
   create_table "systems", force: :cascade do |t|

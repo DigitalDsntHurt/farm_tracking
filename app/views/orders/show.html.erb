@@ -1,8 +1,9 @@
+<div style="margin-left:16px;">
 <p id="notice"><%= notice %></p>
 
 <p>
   <strong>Customer:</strong>
-  <%= @order.customer %>
+  <%= Customer.where(id: @order.customer_id)[0].name unless @order.customer_id == nil %>
 </p>
 
 <p>
@@ -35,5 +36,6 @@
   <%= @order.cancelled_on %>
 </p>
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<%= link_to 'Edit', edit_order_path(@order), class: "btn btn-success" %>
+<%= link_to 'Back', orders_path, class: "btn btn-success" %>
+</div>

@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :customer %>
-    <%= form.text_field :customer, id: :order_customer %>
+    <%= form.select :customer_id, Customer.all.collect{|customer| ["#{customer.name}", customer.id ]}, include_blank: true %>
   </div>
 
   <div class="field">
@@ -33,7 +33,7 @@
 
   <div class="field">
     <%= form.label :qty_oz %>
-    <%= form.number_field :qty_oz, id: :order_qty_oz %>
+    <%= form.number_field :qty_oz, class: :text_field, step: :any %>
   </div>
 
   <div class="field">

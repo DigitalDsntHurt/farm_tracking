@@ -55,7 +55,7 @@ class DashboardsController < ApplicationController
 
   def ops_calendar
   # setup calendar cells
-    @today = Date.today - 7
+    @today = Date.today - 3
     if @today.strftime("%a") == "Mon"
       @start_date = @today
     else
@@ -64,9 +64,9 @@ class DashboardsController < ApplicationController
           @start_date -= 1
         end
     end
-    @end_date = @start_date+60
+    @end_date = @start_date+21
     @date_range = (@start_date..@end_date)
-    @weeks = @date_range.to_a.in_groups_of(7)
+    @weeks = @date_range.to_a.in_groups_of(3)
 
 
   end
@@ -141,7 +141,7 @@ class DashboardsController < ApplicationController
     }
 
     ##
-    ## ## Soak schedule
+    ## ## Date Adjustments to Soak schedule
     ##
     @to_soak_day_adjusted = []
     @to_soak.each{|arr|
@@ -160,7 +160,7 @@ class DashboardsController < ApplicationController
     @grouped_soaks = @to_soak_day_adjusted.group_by{|arr| arr[1]}
 
     ##
-    ## ## Sew schedule
+    ## ##  Date Adjustments to Sew schedule
     ##
     @to_sew_day_adjusted = []
     @to_sew.each{|arr|

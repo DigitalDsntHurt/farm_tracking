@@ -3,6 +3,207 @@
 require 'csv'
 
 =begin
+=end
+
+#=begin
+#=end
+##
+## ## Seed Customers Table From Google Sheets CSV Export
+##
+seed_arr = []
+
+csv = CSV.read(Rails.root.join('db','customers.csv'))
+csv.to_a[0..-1].each{|row|
+	@hsh = {}
+	next if row[0] == nil
+	@hsh[:name] = row[0].downcase
+	seed_arr << @hsh
+}
+
+Customer.create(seed_arr)
+#puts "Created #{seed_arr.count} new customers in Customers table!"
+
+
+
+
+#=begin
+#=end
+##
+## ## Update all Orders w/ customer_id
+##
+#Customer.create(name: "otd")
+@customers = Customer.all.pluck(:name)
+@orders = Order.all
+
+#
+## alter customer strings in Orders table to customer name strings in Customers table
+#
+@orders.each{|order|
+	if order.customer.downcase == " " or order.customer.downcase == ""
+		order.update(customer: nil)
+	elsif order.customer.downcase == "alx"
+		order.update(customer: "alx gastropub")
+	elsif order.customer.downcase == "front porch"
+		order.update(customer: "the front porch")		
+	elsif order.customer.downcase == "local kitchen and wine merchants"
+		order.update(customer: "local kitchen & wine merchant")
+	elsif order.customer.downcase == "hotel san francisco"
+		order.update(customer: "hotel san francisco")			
+	else
+
+	end
+}
+
+#
+## update customer_id column in Orders table with new, corrected customer name string
+#
+@orders.each{|order|
+	if @customers.include?(order.customer.downcase)
+		order.update(customer_id: Customer.where(name: @customers[@customers.index(order.customer.downcase)])[0].id )
+	else
+		puts "#{order.customer.downcase} matches nothing"
+	end
+}
+
+
+
+#=begin
+#=end
+##
+## ## Update all SeedFlats w/ customer_id
+##
+#Customer.create(name: "black sands")
+#Customer.create(name: "cassava")
+@customers = Customer.all.pluck(:name)
+@flats = SeedFlat.all
+
+@flats.each{|flat|
+	unless flat.sewn_for == nil
+		if flat.sewn_for.downcase == " " or flat.sewn_for.downcase == ""
+			flat.update(sewn_for: nil)
+		elsif flat.sewn_for.downcase == "alx"
+			flat.update(sewn_for: "alx gastropub")
+		elsif flat.sewn_for.downcase == "front porch"
+			flat.update(sewn_for: "the front porch")		
+		elsif flat.sewn_for.downcase == "local kitchen and wine merchants"
+			flat.update(sewn_for: "local kitchen & wine merchant")
+		elsif flat.sewn_for.downcase == "liholiho"
+			flat.update(sewn_for: "liholiho yacht club")	
+		elsif flat.sewn_for.downcase == "lombardi's"
+			flat.update(sewn_for: "overgrow")
+		elsif flat.sewn_for.downcase == "hotel san francisco"
+			flat.update(sewn_for: "hotel san francisco")					
+		else
+
+		end
+	end
+}
+
+@flats.each{|flat|
+	unless flat.sewn_for == nil
+		if @customers.include?(flat.sewn_for.downcase)
+			#puts "#{flat.sewn_for.downcase} matches #{@customers[@customers.index(flat.sewn_for.downcase)]}"
+			flat.update(customer_id: Customer.where(name: @customers[@customers.index(flat.sewn_for.downcase)])[0].id )
+		else
+			puts "#{flat.sewn_for.downcase} matches nothing"
+		end
+	end
+}
+
+
+
+
+=begin
+=end
+##
+## ## one-time seed to initiate FarmOpsDos
+##
+
+@today = Date.today
+@orders = Order.where(cancelled_on: nil).sort_by(&:day_of_week)
+@instructions = []
+
+#
+## seed soak and sew dos
+#
+@orders.each{|order|
+
+	@crop = Crop.where(id: order.crop_id)[0]
+	
+	if @crop.ideal_treatment_days > 0 # crops for seed treatment
+		@instruction = {}
+		@instruction[:order_id] = order.id # set instruction order
+		@instruction[:date] = OpsCal.set_ops_day_of_week(@crop,order) # sort out instruction date for next day of week
+		@instruction[:verb] = "soak"
+        @instruction[:crop_id] = @crop.id # set instruction crop
+        @instruction[:qty] = OpsCal.soak_quantity(@crop,order) # set instruction qty (OUNCES)
+        @instruction[:qty_units] = "oz" # set instruction qty_units
+
+        @instructions << @instruction
+
+	else # crops for dry seed sewing
+		@instruction = {}
+		@instruction[:order_id] = order.id # set instruction order		
+		@instruction[:date] = OpsCal.set_ops_day_of_week(@crop,order) # sort out instruction date for next day of week
+		@instruction[:verb] = "sew" # set instruction verb
+		@instruction[:crop_id] = @crop.id # set instruction crop
+		@instruction[:qty] = OpsCal.sew_quantity(@crop,order) # set instruction qty (FLATS)
+		@instruction[:qty_units] = "flats" # set instruction qty_units
+		
+		@instructions << @instruction
+	end
+}
+
+@sew = @instructions.select{|i| i[:verb] == "sew" }.select{|i| i[:date].thursday? }
+#@sunday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].sunday? })#
+#@tuesday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].tuesday? })
+@thursday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].thursday? })
+
+#@sunday_soak.each{|thing|
+#	p thing
+#	thing[:order_ids].each{|id|
+#		puts "#{Crop.where(id: Order.where(id: id)[0].crop_id)[0].crop} for #{Customer.where(id: Order.where(id: id)[0].customer_id)[0].name}"
+#	}
+#	puts "==="
+#}
+
+FarmOpsDo.create(@sew)
+#FarmOpsDo.create(@sunday_soak)
+#FarmOpsDo.create(@tuesday_soak)
+FarmOpsDo.create(@thursday_soak)
+
+
+=begin
+#
+## seed harvest dos
+#
+@harvest_instructions = []
+@orders.each{|order|
+	next if order.customer_id == 1
+	@crop = Crop.where(id: order.crop_id)[0]
+	@instruction = {}
+	@instruction[:order_id] = order.id # set instruction order
+	@instruction[:date] = OpsCal.date_of_next(order.day_of_week) #OpsCal.date_of_next(order.day_of_week) # sort out instruction date for next day of week
+	@instruction[:verb] = "harvest"
+    @instruction[:crop_id] = @crop.id # set instruction crop
+    @instruction[:qty] = order.qty_oz # set instruction qty (OUNCES)
+    @instruction[:qty_units] = "oz" # set instruction qty_units
+    @harvest_instructions << @instruction
+}
+
+FarmOpsDo.create(@harvest_instructions)
+=end
+
+
+
+
+
+
+
+
+
+
+=begin
 ##
 ## ## set standing_order field on all Orders to true
 ##

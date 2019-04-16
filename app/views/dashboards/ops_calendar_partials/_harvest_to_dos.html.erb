@@ -1,16 +1,19 @@
-<h4 align="center">To harvest: <%= harvested_query.count %> of <%= to_harvest_query.count %> completed</h4>
+<h3 align="center"><u>To harvest: <%= done_harvest_query.count %> of <%= to_harvest_query.count %> completed</u></h3>
 
-<% to_harvest_query.order(completed_on: :desc).each{ |harvest_do| %>
+<% to_harvest_query.order(completed_on: :desc).sort_by{|hdo| Order.where(id: hdo.order_id)[0].customer_id }.each{ |harvest_do| %>
 	<% if harvest_do.completed_on == nil %>
-		<%= link_to farm_ops_dos_mark_farm_ops_dos_done_path(:controller => "farm_ops_dos", :action => "mark_farm_ops_do_done", :do => harvest_do.id), :class => "btn btn-outline-primary btn-sm" do %>
-			<span class="glyphicon glyphicon-unchecked"></span>
-		<% end %>
-		<%= harvest_do.qty %> <%= harvest_do.qty_units %> <%= Crop.where(id: harvest_do.crop_id)[0].crop %>, <%= Crop.where(id: harvest_do.crop_id)[0].crop_variety %><br>
+		<h4>
+			<%= link_to farm_ops_dos_mark_farm_ops_dos_done_path(:controller => "farm_ops_dos", :action => "mark_farm_ops_do_done", :do => harvest_do.id), :class => "btn btn-outline-primary btn-sm" do %>
+				<span class="glyphicon glyphicon-unchecked"></span>
+			<% end %>
+			<%= harvest_do.qty %><%= harvest_do.qty_units %> <%= Crop.where(id: harvest_do.crop_id)[0].crop_variety %> <%= Crop.where(id: harvest_do.crop_id)[0].crop.capitalize %> for <%= Customer.where(id: Order.where(id: harvest_do.order_id)[0].customer_id)[0].name.capitalize %>
+		</h4>
 	<% else %>
-		<button type="button" class="btn btn-outline-dark btn-sm">
-          <span class="glyphicon glyphicon-check"></span> 
-      	</button><%= harvest_do.qty %> <%= harvest_do.qty_units %> 
-      	<%= Crop.where(id: harvest_do.crop_id)[0].crop %>, <%= Crop.where(id: harvest_do.crop_id)[0].crop_variety %><br>
-        
+		<h4>
+			<%= link_to farm_ops_dos_mark_farm_ops_dos_undone_path(:controller => "farm_ops_dos", :action => "mark_farm_ops_do_undone", :do => harvest_do.id), :class => "btn btn-outline-primary btn-sm" do %>
+          		<span class="glyphicon glyphicon-check"></span> 
+      		<% end %>
+      		<%= harvest_do.qty %><%= harvest_do.qty_units %> <%= Crop.where(id: harvest_do.crop_id)[0].crop_variety %> <%= Crop.where(id: harvest_do.crop_id)[0].crop.capitalize %> for <%= Customer.where(id: Order.where(id: harvest_do.order_id)[0].customer_id)[0].name.capitalize %>
+        </h4>
 	<% end %>
 <% } %>
