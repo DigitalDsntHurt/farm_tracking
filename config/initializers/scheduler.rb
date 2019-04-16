@@ -1,6 +1,6 @@
 require 'rufus-scheduler'
 
-s = Rufus::Scheduler.new
+scheduler = Rufus::Scheduler.new
 
 
 ##
