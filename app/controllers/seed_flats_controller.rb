@@ -65,11 +65,15 @@ class SeedFlatsController < ApplicationController
     
     @seed_flat = SeedFlat.new
     @seed_flat.update(:crop_id => @seed_treatment_object.crop_id, :crop => @seed_treatment_object.seed_crop, :crop_variety => @seed_treatment_object.seed_variety, :seed_brand => @seed_treatment_object.seed_brand, :seed_treatments_id => @seed_treatment_id, :first_emerge_date => @seed_treatment_object.first_emerge_date, :full_emerge_date => @seed_treatment_object.full_emerge_date, :seed_media_treatment_notes => @seed_treatment_object.soak_notes, :emergence_notes => @seed_treatment_object.emergence_notes )
-    
-    #@seed_treatment_object.update(:destination_flat_ids => @seed_flat.id)
-
-    #render new_seed_flat_path(@seed_flat)
   end  
+
+#  def new_treated_seed_flat_from_ops_cal
+#    @seed_treatment_id = params[:seed_treatment]
+#    @seed_treatment_object = SeedTreatment.where(id: @seed_treatment_id)[0]
+    
+#   @seed_flat = SeedFlat.new
+#    @seed_flat.update(:crop_id => @seed_treatment_object.crop_id, :seed_treatments_id => @seed_treatment_id, :first_emerge_date => @seed_treatment_object.first_emerge_date, :full_emerge_date => @seed_treatment_object.full_emerge_date )
+#  end  
 
   # PATCH/PUT /seed_flats/1
   # PATCH/PUT /seed_flats/1.json

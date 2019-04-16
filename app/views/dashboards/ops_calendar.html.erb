@@ -26,24 +26,24 @@
 						<h2 align="center">To Do</h2>
 						
 
-						<% to_soak_query = FarmOpsDo.where(date: day).where(verb: "soak") %>
+						<% to_soak_query = FarmOpsDo.where(date: day).where(verb: "soak").order(:completed_on).order(:crop_id) %>
 						<% done_soak_query = FarmOpsDo.where(date: day).where(verb: "soak").where.not(completed_on: nil) %>
 						<%= render partial: "dashboards/ops_calendar_partials/soak_to_dos", locals: {day: day, done_soak_query: done_soak_query, to_soak_query: to_soak_query} %>
 
-						<% to_rinse_query = FarmOpsDo.where(date: day).where(verb: "rinse") %>
+						<% to_rinse_query = FarmOpsDo.where(date: day).where(verb: "rinse").order(:completed_on).order(:crop_id) %>
 						<% done_rinse_query = FarmOpsDo.where(date: day).where(verb: "rinse").where.not(completed_on: nil) %>
 						<%= render partial: "dashboards/ops_calendar_partials/rinse_to_dos", locals: {day: day, done_rinse_query: done_rinse_query, to_rinse_query: to_rinse_query} %>
 
-						<% to_sew_soaked_query = FarmOpsDo.where(date: day).where(verb: "sew soaked") %>
+						<% to_sew_soaked_query = FarmOpsDo.where(date: day).where(verb: "sew soaked").order(:completed_on).order(:crop_id) %>
 						<% done_sew_soaked_query = FarmOpsDo.where(date: day).where(verb: "sew soaked").where.not(completed_on: nil) %>
 						<%= render partial: "dashboards/ops_calendar_partials/sew_soaked_to_dos", locals: {day: day, done_sew_soaked_query: done_sew_soaked_query, to_sew_soaked_query: to_sew_soaked_query} %>
 
-						<% to_sew_query = FarmOpsDo.where(date: day).where(verb: "sew") %>
+						<% to_sew_query = FarmOpsDo.where(date: day).where(verb: "sew").order(:completed_on).order(:crop_id) %>
 						<% done_sew_query = FarmOpsDo.where(date: day).where(verb: "sew").where.not(completed_on: nil) %>
 						<%= render partial: "dashboards/ops_calendar_partials/sew_to_dos", locals: {day: day, done_sew_query: done_sew_query, to_sew_query: to_sew_query} %>
 
 						<% if false %>
-						<% to_harvest_query = FarmOpsDo.where(date: day).where(verb: "harvest") %>
+						<% to_harvest_query = FarmOpsDo.where(date: day).where(verb: "harvest").order(:completed_on).order(:crop_id) %>
 						<% done_harvest_query = FarmOpsDo.where(date: day).where(verb: "harvest").where.not(completed_on: nil) %>
 						<%= render partial: "dashboards/ops_calendar_partials/harvest_to_dos", locals: {day: day, done_harvest_query: done_harvest_query, to_harvest_query: to_harvest_query} %>
 						<% end %>

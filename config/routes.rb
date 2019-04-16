@@ -49,6 +49,7 @@ Rails.application.routes.draw do
 	get 'seed_flats/harvest' => 'seed_flats#harvest'
 	get 'seed_flats/kill' => 'seed_flats#kill'
 	get 'seed_flats/new_treated_seed_flat' => 'seed_flats#new_treated_seed_flat'
+	get 'seed_flats/new_treated_seed_flat_from_ops_cal' => 'seed_flats#new_treated_seed_flat_from_ops_cal'
 	resources :seed_flats
 
 	get 'seed_flat_updates/transplant' => 'seed_flat_updates#transplant'

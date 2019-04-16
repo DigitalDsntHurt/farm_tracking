@@ -1,0 +1,87 @@
+<div style="margin-left: 12px;">
+<%= form_for(seed_flat) do |f| %>
+  <% if seed_flat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(seed_flat.errors.count, "error") %> prohibited this seed_flat from being saved:</h2>
+
+      <ul>
+      <% seed_flat.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<h1>treated seed flat form</h1>
+<h3>Sewing a new flat of <u><%= Crop.where(id: seed_flat.crop_id)[0].crop %>, <%= Crop.where(id: seed_flat.crop_id)[0].crop_variety %></u> from <u>treatment started on <%= link_to SeedTreatment.where(id: seed_flat.seed_treatments_id)[0].soak_start_datetime.strftime('%e %b'), SeedTreatment.where(id: seed_flat.seed_treatments_id)[0] %></u></h3><br>
+
+  <div class="field">
+    <h4>
+    <%= f.label :sewn_for %>
+    <%= f.select :customer_id, Customer.all.collect{|customer| ["#{customer.name}", customer.id ]}, selected: "overgrow" %>
+    </h4>
+  </div>
+
+  <div class="field">
+    <table>
+      <tr>
+        <td><h4>Flat ID&nbsp;</h4></td>
+        <td><h4><%= f.text_field :flat_id %></h4></td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="field">
+    <h4>
+    <%= f.label :seed_weight %>
+    <%= f.text_field :seed_weight_oz %>
+    </h4>
+  </div>
+<br><br><br><br>
+<p>****** ****** ****** ****** ****** ******</p>
+<p>no data entry below</p>
+<p>****** ****** ****** ****** ****** ******</p>
+  <div class="field">
+    <%= f.label :current_system_id %>
+    <%= f.select :current_system_id, System.where(system_name: "propagation").collect{|system| ["#{system.system_name} - #{Room.where(id: system.room_id)[0].name}", system.id ]}.reverse %>
+  </div> 
+  <div class="field">
+    <%= f.label :started_date %>
+    <%= f.date_select :started_date %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :crop %>
+    <%= f.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ] }, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :medium %>
+    <%= f.text_field :medium, value: "biostrate felt" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :format %>
+    <%= f.text_field :format, value: "matt" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :seed_treatments_id %>
+    <%= f.select :seed_treatments_id, SeedTreatment.all.collect{|treatment| ["#{treatment.seed_crop} - #{treatment.soak_start_datetime.strftime('%a, %e %b')}", treatment.id ] }, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :first_emerge_date %>
+    <%= f.date_select :first_emerge_date, include_blank: true  %>
+  </div>
+
+  <div class="field">
+    <%= f.label :full_emerge_date %>
+    <%= f.date_select :full_emerge_date, include_blank: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>

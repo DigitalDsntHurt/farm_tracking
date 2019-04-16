@@ -13,10 +13,22 @@
 
   <% @hrs = ((Time.now - seed_treatment.soak_start_datetime)/60/60).round(2) %>
 
-  <h5>
-    <%= seed_treatment.seed_quantity_oz %> of <%= seed_treatment.seed_crop %>, <%= seed_treatment.seed_variety %> (<%= seed_treatment.seed_brand %>) 
+  <h4>
+    <%= seed_treatment.seed_quantity_oz %> of <%= Crop.where(id: seed_treatment.crop_id)[0].crop %>, <%= Crop.where(id: seed_treatment.crop_id)[0].crop_variety %> 
+    <% if seed_treatment.order_ids.length == 0 %>
+    for OverGrow
+    <% else %>
+      for 
+      <% seed_treatment.order_ids.each_with_index{|order_id,i| %>
+        <% if i+1 == seed_treatment.order_ids.count %>
+          <%= Customer.where(id: Order.where(id: order_id)[0].customer_id)[0].name %>
+        <% else %>
+          <%= Customer.where(id: Order.where(id: order_id)[0].customer_id)[0].name %>, 
+        <% end %>
+      <% } %>
+    <% end %>
       <br>soaked in <%= seed_treatment.soak_solution %> for <%= @hrs %> hrs on <%= seed_treatment.soak_start_datetime.strftime("%A, %d %b %Y at %l:%M %p") %>
-  </h5><br><br>
+  </h4><br><br>
 
   <div class="field">
     <%= form.label :soak_duration_hrs %>

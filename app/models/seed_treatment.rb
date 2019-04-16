@@ -1,20 +1,12 @@
 class SeedTreatment < ApplicationRecord
 	has_many :seed_flats
-	#has_many :orders
-	#serialize :order_ids, Array
 	
-	#before_validation :add_order_ids_to_array
 	before_create :calculate_planned_date_of_first_flat_sew, :convert_order_dummies_to_order_ids
 	after_create :create_rinse_farm_ops_do
-	#after_update 
-	before_save :calculate_days_to_full_emergence, :set_soak_start_date, :create_sew_farm_ops_do #, :remove_white_spaces_from_crop_names #, :downcase_all
+	before_save :calculate_days_to_full_emergence, :set_soak_start_date, :create_sew_farm_ops_do
 
 
 	private
-
-#	def downcase_all
-#		self.
-#	end
 
 	def calculate_planned_date_of_first_flat_sew
 		if self.seed_crop == "pea" or self.seed_crop == "sunflower"
@@ -27,16 +19,11 @@ class SeedTreatment < ApplicationRecord
 	end
 
 	def convert_order_dummies_to_order_ids
-		self.order_dummies.split(",").each{|id|
-			self.order_ids << id
-		}
-	end
-
-	def add_order_ids_to_array
-		puts "****\n****\n"
-		puts Crop.where(id: self.crop_id)[0].crop
-		puts self.order_ids#.split(",")
-		puts "****\n****\n"
+		unless self.order_dummies == nil
+			self.order_dummies.split(",").each{|id|
+				self.order_ids << id
+			}
+		end	
 	end
 
 	def calculate_days_to_full_emergence
@@ -63,7 +50,7 @@ class SeedTreatment < ApplicationRecord
 		if self.germination_start_date != nil
 			@date = (self.germination_start_date + Crop.where(id: crop_id)[0].ideal_treatment_days)
 			if self.order_ids.count == 0
-				FarmOpsDo.create(verb: "sew soaked", crop_id: self.crop_id, date: @date, crop_id: self.crop_id, qty: (self.seed_quantity_oz / Crop.where(id: self.crop_id)[0].ideal_soak_seed_oz_per_flat).ceil, qty_units: "flats", treatment_id: self.id)
+				FarmOpsDo.create(verb: "sew soaked", crop_id: self.crop_id, date: @date, qty: (self.seed_quantity_oz / Crop.where(id: self.crop_id)[0].ideal_soak_seed_oz_per_flat).ceil, qty_units: "flats", treatment_id: self.id)
 			else
 				@sew_dos = []
 				self.order_ids.each{|order_id|
