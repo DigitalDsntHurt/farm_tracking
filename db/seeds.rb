@@ -154,9 +154,9 @@ Customer.create(seed_arr)
 	end
 }
 
-@sew = @instructions.select{|i| i[:verb] == "sew" } #.select{|i| i[:date].sunday? }
+@sew = @instructions.select{|i| i[:verb] == "sew" }.select{|i| i[:date].thursday? }
 #@sunday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].sunday? })#
-@tuesday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].tuesday? })
+#@tuesday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].tuesday? })
 @thursday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].thursday? })
 
 #@sunday_soak.each{|thing|
@@ -169,7 +169,7 @@ Customer.create(seed_arr)
 
 FarmOpsDo.create(@sew)
 #FarmOpsDo.create(@sunday_soak)
-FarmOpsDo.create(@tuesday_soak)
+#FarmOpsDo.create(@tuesday_soak)
 FarmOpsDo.create(@thursday_soak)
 
 
