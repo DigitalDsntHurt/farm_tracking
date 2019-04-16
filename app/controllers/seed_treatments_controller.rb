@@ -106,10 +106,11 @@ class SeedTreatmentsController < ApplicationController
   end
 
   def new_assigned_seed_treatment
-    @order_ids = params[:order_ids]
+    #@order_ids = params[:order_ids]
+    @order_dummies = params[:order_ids]
     @crop_id = params[:crop_id]
     @seed_quantity_oz = params[:qty]
-    @seed_treatment = SeedTreatment.new(:order_ids => @order_ids, :crop_id => @crop_id, :seed_quantity_oz => @seed_quantity_oz)
+    @seed_treatment = SeedTreatment.new(:order_dummies => @order_dummies.join(","), :crop_id => @crop_id, :seed_quantity_oz => @seed_quantity_oz)
     #@seed_treatment.update(:order_ids => @order_ids )
   end
 
@@ -121,6 +122,6 @@ class SeedTreatmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seed_treatment_params
-      params.require(:seed_treatment).permit(:soak_start_datetime, :seed_crop, :seed_variety, :seed_brand, :seed_quantity_oz, :soak_solution, :soak_duration_hrs, :post_soak_treatment, :soak_notes, :germination_start_date, :germination_vehicle, :first_emerge_date, :full_emerge_date, :days_to_full_emergence, :emergence_notes, :killed_on, :planned_date_of_first_flat_sew, :date_of_first_flat_sew, :date_of_last_flat_sew, :destination_flat_ids, :finished, :crop_id, :order_ids)
+      params.require(:seed_treatment).permit(:soak_start_datetime, :seed_crop, :seed_variety, :seed_brand, :seed_quantity_oz, :soak_solution, :soak_duration_hrs, :post_soak_treatment, :soak_notes, :germination_start_date, :germination_vehicle, :first_emerge_date, :full_emerge_date, :days_to_full_emergence, :emergence_notes, :killed_on, :planned_date_of_first_flat_sew, :date_of_first_flat_sew, :date_of_last_flat_sew, :destination_flat_ids, :finished, :crop_id, :order_ids, :order_dummies)
     end
 end

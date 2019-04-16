@@ -7,9 +7,18 @@
 				<span class="glyphicon glyphicon-unchecked"></span>
 			<% end %>
 			<% if sew_do.qty < 2 %>
-				<%= sew_do.qty.to_i %> <%= sew_do.qty_units[0..-2] %> <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %> <%= Crop.where(id: sew_do.crop_id)[0].crop.capitalize %> for <%= Customer.where(id: Order.where(id: sew_do.order_id)[0].customer_id)[0].name.capitalize %>
+				<% if sew_do.order_id == nil%>
+					<%= sew_do.qty.to_i %> <%= sew_do.qty_units[0..-2] %> <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %> <%= Crop.where(id: sew_do.crop_id)[0].crop.capitalize %> for OverGrow
+				<% else %>
+					<%= sew_do.qty.to_i %> <%= sew_do.qty_units[0..-2] %> <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %> <%= Crop.where(id: sew_do.crop_id)[0].crop.capitalize %> for <%= Customer.where(id: Order.where(id: sew_do.order_id)[0].customer_id)[0].name.capitalize %>
+				<% end %>
 			<% else %>
-				<%= sew_do.qty.to_i %> <%= sew_do.qty_units %> <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %> <%= Crop.where(id: sew_do.crop_id)[0].crop.capitalize %> for <%= Customer.where(id: Order.where(id: sew_do.order_id)[0].customer_id)[0].name.capitalize %>
+				<% if sew_do.order_id == nil%>
+					<%= sew_do.qty.to_i %> <%= sew_do.qty_units %> <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %> <%= Crop.where(id: sew_do.crop_id)[0].crop.capitalize %> for OverGrow
+				<% else %>
+					<%= sew_do.qty.to_i %> <%= sew_do.qty_units %> <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %> <%= Crop.where(id: sew_do.crop_id)[0].crop.capitalize %> for <%= Customer.where(id: Order.where(id: sew_do.order_id)[0].customer_id)[0].name.capitalize %>
+				<% end %>
+				
 			<% end %>
 			
 		</h4>
@@ -19,9 +28,17 @@
           		<span class="glyphicon glyphicon-check"></span> 
       		<% end %>
       		<% if sew_do.qty < 2 %>
-				<%= sew_do.qty.to_i %> <%= sew_do.qty_units[0..-2] %> <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %> <%= Crop.where(id: sew_do.crop_id)[0].crop.capitalize %> for <%= Customer.where(id: Order.where(id: sew_do.order_id)[0].customer_id)[0].name.capitalize %>
+      			<% if sew_do.order_id == nil%>
+      				<%= sew_do.qty.to_i %> <%= sew_do.qty_units[0..-2] %> <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %> <%= Crop.where(id: sew_do.crop_id)[0].crop.capitalize %> for OverGrow
+      			<% else %>
+      				<%= sew_do.qty.to_i %> <%= sew_do.qty_units[0..-2] %> <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %> <%= Crop.where(id: sew_do.crop_id)[0].crop.capitalize %> for <%= Customer.where(id: Order.where(id: sew_do.order_id)[0].customer_id)[0].name.capitalize %>
+      			<% end %>
 			<% else %>
-				<%= sew_do.qty.to_i %> <%= sew_do.qty_units %> <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %> <%= Crop.where(id: sew_do.crop_id)[0].crop.capitalize %> for <%= Customer.where(id: Order.where(id: sew_do.order_id)[0].customer_id)[0].name.capitalize %>
+				<% if sew_do.order_id == nil%>
+					<%= sew_do.qty.to_i %> <%= sew_do.qty_units %> <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %> <%= Crop.where(id: sew_do.crop_id)[0].crop.capitalize %> for OverGrow
+      			<% else %>
+      				<%= sew_do.qty.to_i %> <%= sew_do.qty_units %> <%= Crop.where(id: sew_do.crop_id)[0].crop_variety %> <%= Crop.where(id: sew_do.crop_id)[0].crop.capitalize %> for <%= Customer.where(id: Order.where(id: sew_do.order_id)[0].customer_id)[0].name.capitalize %>
+      			<% end %>
 			<% end %>
       	</h4>	
         

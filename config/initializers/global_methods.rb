@@ -1,3 +1,9 @@
+module Farm
+
+	def self.order_crop(order_id)
+		Order.where(id: order_id)[0]
+	end
+end
 
 module OpsCal
 

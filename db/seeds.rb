@@ -35,6 +35,9 @@ Customer.create(seed_arr)
 @customers = Customer.all.pluck(:name)
 @orders = Order.all
 
+#
+## alter customer strings in Orders table to customer name strings in Customers table
+#
 @orders.each{|order|
 	if order.customer.downcase == " " or order.customer.downcase == ""
 		order.update(customer: nil)
@@ -51,9 +54,11 @@ Customer.create(seed_arr)
 	end
 }
 
+#
+## update customer_id column in Orders table with new, corrected customer name string
+#
 @orders.each{|order|
 	if @customers.include?(order.customer.downcase)
-		#puts "#{order.customer.downcase} matches #{@customers[@customers.index(order.customer.downcase)]}"
 		order.update(customer_id: Customer.where(name: @customers[@customers.index(order.customer.downcase)])[0].id )
 	else
 		puts "#{order.customer.downcase} matches nothing"
@@ -108,19 +113,14 @@ Customer.create(seed_arr)
 
 
 
-#=begin
-#=end
+=begin
+=end
 ##
 ## ## one-time seed to initiate FarmOpsDos
 ##
 
-#@days_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 @today = Date.today
-
 @orders = Order.where(cancelled_on: nil).sort_by(&:day_of_week)
-
-#@sew_instructions = []
-#@soak_instructions = []
 @instructions = []
 
 #
@@ -138,7 +138,7 @@ Customer.create(seed_arr)
         @instruction[:crop_id] = @crop.id # set instruction crop
         @instruction[:qty] = OpsCal.soak_quantity(@crop,order) # set instruction qty (OUNCES)
         @instruction[:qty_units] = "oz" # set instruction qty_units
-        #@soak_instructions << @instruction
+
         @instructions << @instruction
 
 	else # crops for dry seed sewing
@@ -149,24 +149,31 @@ Customer.create(seed_arr)
 		@instruction[:crop_id] = @crop.id # set instruction crop
 		@instruction[:qty] = OpsCal.sew_quantity(@crop,order) # set instruction qty (FLATS)
 		@instruction[:qty_units] = "flats" # set instruction qty_units
-		#@sew_instructions << @instruction
+		
 		@instructions << @instruction
 	end
 }
 
 @sew = @instructions.select{|i| i[:verb] == "sew" } #.select{|i| i[:date].sunday? }
-@sunday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].sunday? })#
+#@sunday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].sunday? })#
 @tuesday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].tuesday? })
 @thursday_soak = OpsCal.aggreagte_soak_quantities(@instructions.select{|i| i[:verb] == "soak" }.select{|i| i[:date].thursday? })
 
-#p @sunday_soak#.sample.push(:key => "val")
-
+#@sunday_soak.each{|thing|
+#	p thing
+#	thing[:order_ids].each{|id|
+#		puts "#{Crop.where(id: Order.where(id: id)[0].crop_id)[0].crop} for #{Customer.where(id: Order.where(id: id)[0].customer_id)[0].name}"
+#	}
+#	puts "==="
+#}
 
 FarmOpsDo.create(@sew)
-FarmOpsDo.create(@sunday_soak)
+#FarmOpsDo.create(@sunday_soak)
 FarmOpsDo.create(@tuesday_soak)
 FarmOpsDo.create(@thursday_soak)
 
+
+=begin
 #
 ## seed harvest dos
 #
@@ -185,11 +192,7 @@ FarmOpsDo.create(@thursday_soak)
 }
 
 FarmOpsDo.create(@harvest_instructions)
-=begin
 =end
-
-
-
 
 
 

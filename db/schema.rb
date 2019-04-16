@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190412203226) do
+ActiveRecord::Schema.define(version: 20190416175917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -238,6 +238,7 @@ ActiveRecord::Schema.define(version: 20190412203226) do
     t.date "soak_start_date"
     t.integer "crop_id"
     t.string "order_ids", default: [], array: true
+    t.string "order_dummies"
   end
 
   create_table "systems", force: :cascade do |t|
