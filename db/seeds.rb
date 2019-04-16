@@ -3,7 +3,7 @@
 require 'csv'
 
 =begin
-=end
+
 
 #=begin
 #=end
@@ -113,8 +113,8 @@ Customer.create(seed_arr)
 
 
 
-=begin
-=end
+#=begin
+#=end
 ##
 ## ## one-time seed to initiate FarmOpsDos
 ##
@@ -171,6 +171,8 @@ FarmOpsDo.create(@sew)
 #FarmOpsDo.create(@sunday_soak)
 #FarmOpsDo.create(@tuesday_soak)
 FarmOpsDo.create(@thursday_soak)
+=end
+
 
 
 =begin
