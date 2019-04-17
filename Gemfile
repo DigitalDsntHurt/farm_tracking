@@ -39,6 +39,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'bootstrap', '>= 4.1.2'
+gem 'bootstrap-datepicker-rails'
 
 gem "simple_calendar", "~> 2.0"
 gem 'jquery-ui-rails', '5.0.5'
@@ -48,6 +49,7 @@ gem 'gchart'
 gem "google_visualr", ">= 2.5"
 
 gem 'rufus-scheduler'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

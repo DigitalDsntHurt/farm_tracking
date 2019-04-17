@@ -60,12 +60,12 @@
 
   <div class="field">
     <%= form.label :first_emerge_date %>
-    <%= form.date_select :first_emerge_date, id: :seed_treatment_first_emerge_date, :include_blank => true %>
+    <%= form.text_field :first_emerge_date, id: :seed_treatment_full_emerge_date, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true } %>
   </div>
 
   <div class="field">
     <%= form.label :full_emerge_date %>
-    <%= form.date_select :full_emerge_date, id: :seed_treatment_full_emerge_date, :include_blank => true %>
+    <%= form.text_field :full_emerge_date, id: :seed_treatment_full_emerge_date, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true } %>
   </div>
 
   <div class="field">
