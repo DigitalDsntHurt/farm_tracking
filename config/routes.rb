@@ -80,6 +80,7 @@ Rails.application.routes.draw do
 	get 'seed_treatments/finish' => 'seed_treatments#finish'
 	get 'seed_treatments/kill' => 'seed_treatments#kill'
 	get 'seed_treatments/new_assigned_seed_treatment' => 'seed_treatments#new_assigned_seed_treatment'
+	get 'seed_treatments/cascade_full_emerge' => 'seed_treatments#cascade_full_emerge'
 	resources :seed_treatments
 
 	get 'crops/crop_ref' => 'crops#crop_ref'
