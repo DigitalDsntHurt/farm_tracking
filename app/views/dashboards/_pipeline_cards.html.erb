@@ -1,3 +1,6 @@
+
+
+
 <% @rooms.each{|room| %>
 	<div id=<%= room.name.gsub(" ","-") %>>
 		<h1 align="center"><strong><u><%= room.name.upcase %></u></strong></h1>
@@ -11,7 +14,22 @@
 						<div class="col-sm-3" align="center" style="padding:0px;">
 							<div class="card">
 								<% unless tray == nil or tray.harvest_weight_oz != nil %>
-									<h3 class="card-header"><%= link_to tray.flat_id, tray %></h3>
+									<div class="card-header">
+										<table align="center">
+											<tr>
+												<td style="padding:12px">
+													<%= check_box_tag("flat_ids[]", tray.id, false, :class => "checkbox-inline")  %>
+												</td>
+												<td style="padding:12px">
+													<h3><%= link_to tray.flat_id, tray %></h3>			
+												</td>
+												<td style="padding:12px">
+													
+												</td>
+											</tr>
+										</table>
+									</div>
+									
 									
 									<% if system.system_name == "propagation" %>
 										<% @propagation_days = (Date.today-tray.started_date).to_i %>

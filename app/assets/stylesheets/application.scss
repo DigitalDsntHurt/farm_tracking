@@ -62,6 +62,18 @@ body {
  z-index:0; 
 }
 
+table.pipeline-table {
+  margin-top:-111px;
+  th {
+    background: #cccccc;
+  }
+  thead tr:nth-child(1) th{
+    position: sticky;
+    top: 112px;
+    z-index: 10;
+  }
+}
+
 table.index-table {
   
   margin-left: 22px;
@@ -555,5 +567,21 @@ tr.border_bottom td {
 
 
 
+.checkbox-inline{
+  width: 24px;
+  height: 24px;
+}
 
-
+/* .squaredThree */
+.squaredcheck {
+  width: 60px;
+  position: relative;
+  margin: 20px auto;
+  input[type=checkbox] {
+    visibility: hidden;
+    &:checked + label:after {
+      opacity: 1;
+    }    
+  }
+}
+/* end .squaredThree */

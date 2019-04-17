@@ -1,18 +1,33 @@
-<div style="padding-left: 22px;">
-	<h2 align="center">Jump To...</h2>
-	<h4 align="center">
-		<% @rooms.each{|room| %>
-			* <%= link_to "#{room.name}", "/dashboards/pipeline/##{room.name.gsub(" ","-")}" %>
-			<br>
-		<% } %>
-	</h4>
-	<h2 align="center">Go To...</h2>
-	<h4 align="center">
-		* <%= link_to "Page Pipeline", "/dashboards/page_pipeline" %>
-		<br>
-		* <%= link_to "Warehouse Pipeline", "/dashboards/warehouse_pipeline" %>
-	</h4>
-	<br><br>
+<%= form_tag bulk_actions_seed_flats_path, method: :put do %>
+	<div align="center">
+		<table class="pipeline-table">
+			<thead>
+				<tr>
+					<th style="padding:12px;">
+						<div align="center">
+							<h4 align="center" style="border-bottom: solid black 1px;">
+								Jump To... 
+								<% @rooms.each{|room| %>
+									* <%= link_to "#{room.name}", "/dashboards/pipeline/##{room.name.gsub(" ","-")}" %> &nbsp 
+								<% } %>
+								  | &nbsp; 
+								Go To... &nbsp; * <%= link_to "Page Pipeline", "/dashboards/page_pipeline" %> &nbsp; * <%= link_to "Warehouse Pipeline", "/dashboards/warehouse_pipeline" %><br><br>
+							</h4>
+							<h3>Bulk Actions</h3>
+							<%= submit_tag "Mark First Emerged", action: 'bulk_mark_first_emerge', class: "btn btn-secondary" %> &nbsp; 
+							<%= submit_tag "Mark Full Emerged", action: 'bulk_mark_full_emerge', class: "btn btn-secondary"  %> &nbsp; 
+							<%= submit_tag "Mark Cascade Full Emerged", action: 'bulk mark full emerge', class: "btn btn-secondary" %>
+							<br><br>
+						</div>
+					</th>
+				<tr>
+			</thead>	
+				<td>
+					<%= render "pipeline_cards" %>
+				</td>
+			</tr>
+		</table>
+	</div>
+<% end %>
 
-	<%= render "pipeline_cards" %>
-</div>
+<br><br>
