@@ -1,4 +1,8 @@
-<h3 align="center"><u>Misc ToDos: <%= done_query.count %> of <%= to_do_query.count %> completed</u></h3>
+<% if day < Date.today %>
+	<h3 align="center"><u>Misc ToDos: <%= done_query.count %> of <%= to_do_query.count %> completed</u></h3>
+<% else %>
+	<h3 align="center"><u>Misc ToDos: <%= done_query.count %> of <%= to_do_query.count %> completed</u> <%= link_to "New Do", new_farm_ops_do_path, class: "btn btn-primary" %></h3>
+<% end %>
 
 <% to_do_query.order(completed_on: :desc).each{ |to_do| %>
 	<% if to_do.completed_on == nil %>

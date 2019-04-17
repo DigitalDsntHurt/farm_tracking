@@ -8,7 +8,7 @@
 		<div class="row">
 			<% week.each{|day| %>
 				<% if day == Date.today %>
-					<div class="col cal-day" style="background-color: #4cbb17;">
+					<div class="col cal-day" style="background-color: #4cbb17;" id="today">
 				<% else %>
 					<div class="col cal-day">
 				<% end %>
