@@ -38,7 +38,11 @@
         <td><%= farm_ops_do.verb %></td>
         <td><%= farm_ops_do.qty %></td>
         <td><%= farm_ops_do.qty_units %></td>
-        <td><%= Crop.where(id: farm_ops_do.crop_id)[0].crop %>, <%= Crop.where(id: farm_ops_do.crop_id)[0].crop_variety %></td>
+        <td>
+          <% unless farm_ops_do.crop_id == nil %>
+            <%= Crop.where(id: farm_ops_do.crop_id)[0].crop %>, <%= Crop.where(id: farm_ops_do.crop_id)[0].crop_variety %>
+          <% end %>
+        </td>
         <td><%= farm_ops_do.customer %></td>
         <td>
           <% if farm_ops_do.order_id == nil %>
