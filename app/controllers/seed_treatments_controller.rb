@@ -83,6 +83,20 @@ class SeedTreatmentsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def cascade_full_emerge
+    @seed_treatment = SeedTreatment.find(params[:seed_treatment])
+    @date_diff = (Date.today - @seed_treatment.germination_start_date).to_i
+    if @date_diff == 0
+      @seed_treatment.update(first_emerge_date: Date.today, full_emerge_date: Date.today)
+    elsif @date_diff == 1
+      @seed_treatment.update(first_emerge_date: (Date.today-1), full_emerge_date: Date.today)
+    else
+      @seed_treatment.update(first_emerge_date: Date.today-(@date_diff/2.0), full_emerge_date: Date.today)
+    end
+    @seed_treatment.update(:full_emerge_date => Date.today)
+    redirect_back(fallback_location: root_path)
+  end
+
   def finish
     @seed_treatment = SeedTreatment.find(params[:seed_treatment])
     @seed_treatment.update(finished: true)

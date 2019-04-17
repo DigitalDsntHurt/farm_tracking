@@ -19,7 +19,7 @@
 body {
   margin: 0;
   padding-top: 122px;
-  z-index:-1;
+  z-index:0;
 }
 
 .nav {
@@ -33,7 +33,7 @@ body {
 	position: fixed;
   	top: 0;
   	left: 0;
-  z-index:1;
+    z-index:1;
 }
 
 .navbar-dropdown {
@@ -59,7 +59,12 @@ body {
   position: relative;
     top: 1;
     left: 1;
- z-index:0; 
+    z-index:1; 
+}
+
+.card{
+  position: relative;
+  z-index:-1;
 }
 
 table.pipeline-table {
@@ -70,7 +75,7 @@ table.pipeline-table {
   thead tr:nth-child(1) th{
     position: sticky;
     top: 112px;
-    z-index: 10;
+    z-index: 0;
   }
 }
 
@@ -182,19 +187,12 @@ table td.seed_flat_index_text_cell_medium {
 	width:144px;
 }
 
-
-
-
-
-
-
 .cal-day{
   border:1px solid black;
   width:14%;
   min-height:200px;
 
 }
-
 
 /* Labels */
 .label-container{
@@ -276,14 +274,10 @@ table td.seed_flat_index_text_cell_medium {
         }
 
 
-
-
-
 /* Dropdown Button */
 .dropbtn {
     background-color: #4CAF50;
     color: white;
-    
     font-size: 16px;
     border: none;
 }
@@ -300,7 +294,6 @@ table td.seed_flat_index_text_cell_medium {
     position: absolute;
     background-color: #f1f1f1;
     min-width: 222px;
-
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
@@ -308,7 +301,6 @@ table td.seed_flat_index_text_cell_medium {
 /* Links inside the dropdown */
 .dropdown-content a {
     color: black;
-    
     text-decoration: none;
     display: block;
 }
