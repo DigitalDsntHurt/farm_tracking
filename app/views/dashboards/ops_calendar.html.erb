@@ -26,6 +26,10 @@
 						<h2 align="center">To Do</h2>
 						
 
+						<% to_do_query = FarmOpsDo.where(date: day).where.not(verb: "soak").where.not(verb: "rinse").where.not(verb: "sew soaked").where.not(verb: "sew").where.not(verb: "harvest").order(:completed_on).order(:crop_id) %>
+						<% done_query = FarmOpsDo.where(date: day).where.not(verb: "soak").where.not(verb: "rinse").where.not(verb: "sew soaked").where.not(verb: "sew").where.not(verb: "harvest").where.not(completed_on: nil) %>
+						<%= render partial: "dashboards/ops_calendar_partials/misc_to_dos", locals: {day: day, done_query: done_query, to_do_query: to_do_query} %>
+
 						<% to_soak_query = FarmOpsDo.where(date: day).where(verb: "soak").order(:completed_on).order(:crop_id) %>
 						<% done_soak_query = FarmOpsDo.where(date: day).where(verb: "soak").where.not(completed_on: nil) %>
 						<%= render partial: "dashboards/ops_calendar_partials/soak_to_dos", locals: {day: day, done_soak_query: done_soak_query, to_soak_query: to_soak_query} %>

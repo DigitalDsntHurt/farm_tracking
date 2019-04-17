@@ -1,0 +1,20 @@
+<h3 align="center"><u>Misc ToDos: <%= done_query.count %> of <%= to_do_query.count %> completed</u></h3>
+
+<% to_do_query.order(completed_on: :desc).each{ |to_do| %>
+	<% if to_do.completed_on == nil %>
+		<h4>
+			<%= link_to farm_ops_dos_mark_farm_ops_dos_done_path(:controller => "farm_ops_dos", :action => "mark_farm_ops_do_done", :do => to_do.id), :class => "btn btn-outline-primary btn-sm" do %>
+				<span class="glyphicon glyphicon-unchecked"></span>
+			<% end %>
+			<%= to_do.verb %>
+		</h4>
+	<% else %>
+		<h4>
+			<%= link_to farm_ops_dos_mark_farm_ops_dos_undone_path(:controller => "farm_ops_dos", :action => "mark_farm_ops_do_undone", :do => to_do.id), :class => "btn btn-outline-primary btn-sm" do %>
+	        	<span class="glyphicon glyphicon-check"></span> 
+	      	<% end %>
+	      	<%= to_do.verb %>
+      	</h4>
+        
+	<% end %>
+<% } %>

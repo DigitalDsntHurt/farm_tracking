@@ -17,6 +17,11 @@
   </div>
 
   <div class="field">
+    <%= form.label :verb %>
+    <%= form.text_field :verb %>
+  </div>  
+
+  <div class="field">
     <%= form.label :date %>
     <%= form.date_select :date, id: :farm_ops_do_date %>
   </div>
