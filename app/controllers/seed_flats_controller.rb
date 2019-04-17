@@ -177,6 +177,35 @@ class SeedFlatsController < ApplicationController
     #render new_seed_flat_path(@seed_flat)
   end
 
+  def bulk_actions
+    unless params[:flat_ids] == nil
+      if params[:commit] == "Mark First Emerged"
+        params[:flat_ids].each{|id|
+          SeedFlat.where(id: id).update(first_emerge_date: Date.today)
+        }
+      elsif params[:commit] == "Mark Full Emerged"
+        params[:flat_ids].each{|id|
+          SeedFlat.where(id: id).update(full_emerge_date: Date.today)
+        }
+      elsif params[:commit] == "Mark Cascade Full Emerged"
+        params[:flat_ids].each{|id|
+          @seed_flat = SeedFlat.where(id: id)
+          @date_diff = (Date.today - @seed_flat[0].started_date).to_i
+          if @date_diff == 0
+            @seed_flat.update(first_emerge_date: Date.today, full_emerge_date: Date.today)
+          elsif @date_diff == 1
+            @seed_flat.update(first_emerge_date: (Date.today-1), full_emerge_date: Date.today)
+          else
+            @seed_flat.update(first_emerge_date: Date.today-(@date_diff/2.0), full_emerge_date: Date.today)
+          end
+        }
+      else
+
+      end
+    end
+    redirect_back(fallback_location: root_path)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_seed_flat
