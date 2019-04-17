@@ -1,43 +1,46 @@
-<p id="notice"><%= notice %></p>
+<div style="margin-left:22px;">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Date:</strong>
-  <%= @farm_ops_do.date %>
-</p>
+  <p>
+    <strong>Date:</strong>
+    <%= @farm_ops_do.date %>
+  </p>
 
-<p>
-  <strong>Verb:</strong>
-  <%= @farm_ops_do.verb %>
-</p>
+  <p>
+    <strong>Verb:</strong>
+    <%= @farm_ops_do.verb %>
+  </p>
 
-<p>
-  <strong>Crop:</strong>
-  <% unless @farm_ops_do.crop_id == nil %>
-    <%= Crop.where(id: @farm_ops_do.crop_id)[0].crop %>, <%= Crop.where(id: @farm_ops_do.crop_id)[0].crop_variety %>
-  <% end %>
-</p>
+  <p>
+    <strong>Crop:</strong>
+    <% unless @farm_ops_do.crop_id == nil %>
+      <%= Crop.where(id: @farm_ops_do.crop_id)[0].crop %>, <%= Crop.where(id: @farm_ops_do.crop_id)[0].crop_variety %>
+    <% end %>
+  </p>
 
-<p>
-  <strong>Qty:</strong>
-  <%= @farm_ops_do.qty %>
-</p>
+  <p>
+    <strong>Qty:</strong>
+    <%= @farm_ops_do.qty %>
+  </p>
 
-<p>
-  <strong>Qty Units:</strong>
-  <%= @farm_ops_do.qty_units %>
-</p>
+  <p>
+    <strong>Qty Units:</strong>
+    <%= @farm_ops_do.qty_units %>
+  </p>
 
-<p>
-  <strong>Customer:</strong>
-  <%= @farm_ops_do.customer %>
-</p>
+  <p>
+    <strong>Customer:</strong>
+    <%= @farm_ops_do.customer %>
+  </p>
 
-<p>
-  <strong>Order:</strong>
-  <% unless @farm_ops_do.order_id == nil %>
-    <%= link_to "#{Order.where(id: @farm_ops_do.order_id)[0].day_of_week} for #{Order.where(id: @farm_ops_do.order_id)[0].customer}: #{Order.where(id: @farm_ops_do.order_id)[0].qty_oz}oz #{Crop.where(id: Order.where(id: @farm_ops_do.order_id)[0].crop_id)[0].crop} ", Order.where(id: @farm_ops_do.order_id)[0] %>
-  <% end %>
-</p>
+  <p>
+    <strong>Order:</strong>
+    <% unless @farm_ops_do.order_id == nil %>
+      <%= link_to "#{Order.where(id: @farm_ops_do.order_id)[0].day_of_week} for #{Order.where(id: @farm_ops_do.order_id)[0].customer}: #{Order.where(id: @farm_ops_do.order_id)[0].qty_oz}oz #{Crop.where(id: Order.where(id: @farm_ops_do.order_id)[0].crop_id)[0].crop} ", Order.where(id: @farm_ops_do.order_id)[0] %>
+    <% end %>
+  </p>
 
-<%= link_to 'Edit', edit_farm_ops_do_path(@farm_ops_do) %> |
-<%= link_to 'Back', farm_ops_dos_path %>
+  <%= link_to 'Edit', edit_farm_ops_do_path(@farm_ops_do), :class=>"btn btn-success" %>
+  <%= link_to 'Back', farm_ops_dos_path, :class=>"btn btn-success" %>
+  <%= link_to 'New Do', new_farm_ops_do_path, :class=>"btn btn-success" %>
+</div>
