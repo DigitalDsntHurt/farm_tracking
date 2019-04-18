@@ -43,7 +43,8 @@
 
   <div class="field">
     <%= form.label :cancelled_on %>
-    <%= form.date_select :cancelled_on, id: :cancelled_on, include_blank: true %>
+    
+    <%= form.text_field :cancelled_on, include_blank: true, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }  %>
   </div>  
 
   <div class="actions">
