@@ -3,14 +3,18 @@ class SeedFlat < ApplicationRecord
 	has_one :system, foreign_key: 'current_system_id'
 
 	
-	before_create :calculate_harvest_week, :convert_oz_to_lbs, :downcase_sewn_for #:set_current_system_id_to_propagation, 
-	after_create :set_date_of_first_flat_sew_on_seed_treatment, :set_date_of_last_flat_sew_on_seed_treatment, :set_destination_flat_ids_on_seed_treatment, :create_seed_flat_update, :downcase_sewn_for
+	before_create :calculate_harvest_week, :convert_oz_to_lbs, :set_customer_id_if_blank 
+	after_create :set_date_of_first_flat_sew_on_seed_treatment, :set_date_of_last_flat_sew_on_seed_treatment, :set_destination_flat_ids_on_seed_treatment, :create_seed_flat_update
 	before_update  :move_flat_id_to_former_flat_id_on_harvest_or_kill, :kill_flat_id_on_harvest, :remove_current_system_id_on_harvest, :update_harvest_date_on_harvest, :calculate_harvest_week, :convert_oz_to_lbs, :set_days_to_harvest_from_sew, :set_days_to_harvest_from_soak
-	#after_update :move_flat_id_to_harvest_notes_on_harvest
-	before_save :downcase_sewn_for #:remove_white_spaces_from_crop_names,
-	before_validation :upcase_flat_id
+	before_validation :upcase_and_remove_whitespace_from_flat_id
 	validates_uniqueness_of :flat_id
 	before_destroy :delete_seed_flat_updates
+
+	#:set_current_system_id_to_propagation, :downcase_sewn_for,
+	#after_update :move_flat_id_to_harvest_notes_on_harvest
+	#before_save :downcase_sewn_for #:remove_white_spaces_from_crop_names,
+	#, :downcase_sewn_for
+	#, :remove_white_space_from_flat_id
 
 	private
 
@@ -25,15 +29,21 @@ class SeedFlat < ApplicationRecord
 		end
 	end
 
-	def upcase_flat_id
+	def upcase_and_remove_whitespace_from_flat_id
 		unless self.flat_id == nil
-			self.flat_id = self.flat_id.upcase
+			self.flat_id = self.flat_id.gsub(" ","").upcase
 		end
 	end
 
 	def create_seed_flat_update
 		#@propagation_rack = Room.where(id: self.room_id)[0].systems.where(system_name: "propagation")[0].id
 		#SeedFlatUpdate.create(seed_flat_id: self.id, update_type: "sew", update_datetime: Time.now, destination_system_id: @propagation_rack)
+	end
+
+	def set_customer_id_if_blank
+		if self.customer_id == nil
+			self.customer_id = Customer.where(name: "overgrow")[0].id
+		end
 	end
 
 	def convert_oz_to_lbs
@@ -113,11 +123,11 @@ class SeedFlat < ApplicationRecord
 		end
 	end
 
-	def downcase_sewn_for
-		unless self.sewn_for == nil
-			self.sewn_for = self.sewn_for.downcase
-		end
-	end
+	#def downcase_sewn_for
+	#	unless self.sewn_for == nil
+	#		self.sewn_for = self.sewn_for.downcase
+	#	end
+	#end
 
 	def delete_seed_flat_updates
 		SeedFlatUpdate.where(seed_flat_id: self.id).delete_all
