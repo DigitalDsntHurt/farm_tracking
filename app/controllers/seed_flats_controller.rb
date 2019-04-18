@@ -199,6 +199,10 @@ class SeedFlatsController < ApplicationController
             @seed_flat.update(first_emerge_date: Date.today-(@date_diff/2.0), full_emerge_date: Date.today)
           end
         }
+      elsif params[:commit] = "Kill"
+        params[:flat_ids].each{|id|
+          SeedFlat.where(id: id).update(harvest_weight_oz: 0)
+        }
       else
 
       end
