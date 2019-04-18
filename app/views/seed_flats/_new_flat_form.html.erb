@@ -28,7 +28,7 @@
   <div class="field">
     <h4>
     <%= f.label :crop %>
-    <%= f.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
+    <%= f.select :crop_id, Crop.all.order(:crop).collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
     </h4>
   </div>
 

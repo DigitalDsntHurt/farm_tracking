@@ -11,14 +11,16 @@
     </div>
   <% end %>
 
+  <% if false %>
   <div class="field">
     <%= form.label :verb %>
     <%= form.select :verb, ["soak","rinse","sew","harvest","other"], include_blank: true %>
   </div>
+  <% end %>
 
   <div class="field">
     <%= form.label :verb %>
-    <%= form.text_field :verb %>
+    <%= form.text_field :verb, :value => "soak, rinse, sew, sew soaked, harvest, other", style: "font-style: italic;" %>
   </div>  
 
   <div class="field">
@@ -27,8 +29,15 @@
   </div>
 
   <div class="field">
+    <%= form.label :order %>
+    <%= form.select :order_id, Order.all.order(:day_of_week).order(:customer_id).collect{|order| ["#{order.day_of_week} for #{order.customer}: #{order.qty_oz}oz #{Crop.where(id: order.crop_id)[0].crop} " , order.id] }, include_blank: true %>
+  </div>
+
+<p>*** *** *** ***</p>
+
+  <div class="field">
     <%= form.label :crop_id %>
-    <%= form.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
+    <%= form.select :crop_id, Crop.all.order(:crop).collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
   </div>
 
   <div class="field">
@@ -46,10 +55,8 @@
     <%= form.text_field :customer, id: :farm_ops_do_customer %>
   </div>
 
-  <div class="field">
-    <%= form.label :order %>
-    <%= form.select :order_id, Order.all.collect{|order| ["#{order.day_of_week} for #{order.customer}: #{order.qty_oz}oz #{Crop.where(id: order.crop_id)[0].crop} " , order.id] }, include_blank: true %>
-  </div>
+<p>*** *** *** ***</p>  
+
   <div class="field">
     <%= form.label :treatment_id %>
     <%= form.select :treatment_id, SeedTreatment.all.collect{|treatment| ["#{Crop.where(id: treatment.crop_id)[0].crop}, #{Crop.where(id: treatment.crop_id)[0].crop_variety} soaked on #{treatment.soak_start_date} " , treatment.id] }, include_blank: true %>
