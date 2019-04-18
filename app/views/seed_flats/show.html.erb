@@ -181,6 +181,9 @@
         <% end %>        
       </div>
       <div class="col-xs" style="margin-right:6px;">
+        <%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => @seed_flat.id), :class => "dropbtn btn btn-success" %>
+      </div>
+      <div class="col-xs" style="margin-right:6px;">
         <%= link_to 'Destroy', @seed_flat, method: :delete, data: { confirm: 'Are you sure?' }, :class => "dropbtn btn btn-success" %>
       </div>
       <div class="col-xs" style="margin-right:6px;">
