@@ -14,7 +14,7 @@
   <div class="field">
     <h4>
     <%= f.label :sewn_for %>
-    <%= f.select :customer_id, Customer.all.collect{|customer| ["#{customer.name}", customer.id ]}, selected: "overgrow" %>
+    <%= f.select :customer_id, Customer.all.collect{|customer| ["#{customer.name}", customer.id ]}, include_blank: true %>
     </h4>
   </div>
 
