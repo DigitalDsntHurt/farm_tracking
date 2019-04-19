@@ -1,8 +1,11 @@
 <p id="notice"><%= notice %></p>
 
+
+<%= form_tag bulk_actions_farm_ops_dos_path, method: :put do %>
+
 <h1 style="margin-left:22px;">
-  Farm Ops Dos<br>
-  <%= link_to "New ToDo", new_farm_ops_do_path, :class=>"btn btn-success" %>
+  Farm Ops Dos: <%= link_to "New ToDo", new_farm_ops_do_path, :class=>"btn btn-success" %><br>
+  Bulk Actions: <%= submit_tag "Delete", class: "btn btn-secondary" %>
 </h1>
 
 <table class="index-table">
@@ -16,7 +19,7 @@
       <th>Crop</th>
       <th>Customer</th>
       <th>Order</th>
-      <th colspan="3"></th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
@@ -55,11 +58,14 @@
         <td><%= link_to 'Show', farm_ops_do %></td>
         <td><%= link_to 'Edit', edit_farm_ops_do_path(farm_ops_do) %></td>
         <td><%= link_to 'Destroy', farm_ops_do, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= check_box_tag("do_ids[]", farm_ops_do.id, false, :class => "checkbox-inline") %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+
+<% end %>
 
 <%= link_to 'New Farm Ops Do', new_farm_ops_do_path %>

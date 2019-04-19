@@ -109,12 +109,12 @@ Customer.create(seed_arr)
 		end
 	end
 }
+=end
 
 
 
-
-#=begin
-#=end
+=begin
+=end
 ##
 ## ## one-time seed to initiate FarmOpsDos
 ##
@@ -168,10 +168,10 @@ Customer.create(seed_arr)
 #}
 
 FarmOpsDo.create(@sew)
-#FarmOpsDo.create(@sunday_soak)
-#FarmOpsDo.create(@tuesday_soak)
+FarmOpsDo.create(@sunday_soak)
+FarmOpsDo.create(@tuesday_soak)
 FarmOpsDo.create(@thursday_soak)
-=end
+
 
 
 

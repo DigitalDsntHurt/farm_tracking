@@ -73,6 +73,18 @@ class FarmOpsDosController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def bulk_actions
+    unless params[:do_ids] == nil
+      if params[:commit] == "Delete"
+        params[:do_ids].each{|id|
+          FarmOpsDo.where(id: id).delete_all
+        }
+      end
+    end
+
+    redirect_back(fallback_location: farm_ops_dos_path)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_farm_ops_do
