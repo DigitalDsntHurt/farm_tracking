@@ -20,7 +20,8 @@ module V1
 
     
     # set time zone to US Pacific Time
-    config.time_zone = "Pacific Time (US & Canada)"
+    #config.time_zone = "Pacific Time (US & Canada)"
+    config.time_zone = 'America/Los_Angeles'
     #config.autoload_paths += %W(#{config.root}/lib)
   end
 end
