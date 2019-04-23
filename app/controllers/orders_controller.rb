@@ -37,6 +37,11 @@ class OrdersController < ApplicationController
     end
   end
 
+  def clone
+    @order = Order.find(params[:order]).dup
+    render new_order_path(@order)
+  end  
+
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update

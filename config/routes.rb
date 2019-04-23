@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :customers
   resources :scheduleds
   
+  get 'orders/clone' => 'orders#clone'
   resources :orders
   resources :nutrient_solutions
   resources :reservoirs
