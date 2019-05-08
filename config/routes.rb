@@ -73,6 +73,8 @@ Rails.application.routes.draw do
 	get 'seed_flat_updates/transplant_to_jez' => 'seed_flat_updates#transplant_to_jez'
 	get 'seed_flat_updates/transplant_to_dil' => 'seed_flat_updates#transplant_to_dil'
 	get 'seed_flat_updates/transplant_to_mia' => 'seed_flat_updates#transplant_to_mia'
+	get 'seed_flat_updates/transplant_to_bam' => 'seed_flat_updates#transplant_to_bam'
+	get 'seed_flat_updates/transplant_to_lip' => 'seed_flat_updates#transplant_to_lip'
 	resources :seed_flat_updates
 	
 	get 'seed_treatments/fresh_index'

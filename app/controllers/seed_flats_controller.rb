@@ -222,7 +222,27 @@ class SeedFlatsController < ApplicationController
           @destination_system_id = System.where(system_name: "MIA")[0].id
           @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
           @seed_flat.update(current_system_id: @destination_system_id)
-        }    
+        }
+      elsif params[:commit] == "Transplant To BAM"
+        params[:flat_ids].each{|id|
+          #SeedFlat.where(id: id).update(harvest_weight_oz: 0)
+          @seed_flat_update = SeedFlatUpdate.new
+          @seed_flat = SeedFlat.where(id: id)[0]
+          @origin_system_id = @seed_flat.current_system_id
+          @destination_system_id = System.where(system_name: "BAM")[0].id
+          @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+          @seed_flat.update(current_system_id: @destination_system_id)
+        }
+      elsif params[:commit] == "Transplant To LIP"
+        params[:flat_ids].each{|id|
+          #SeedFlat.where(id: id).update(harvest_weight_oz: 0)
+          @seed_flat_update = SeedFlatUpdate.new
+          @seed_flat = SeedFlat.where(id: id)[0]
+          @origin_system_id = @seed_flat.current_system_id
+          @destination_system_id = System.where(system_name: "LIP")[0].id
+          @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+          @seed_flat.update(current_system_id: @destination_system_id)
+        }  
       else
 
       end
