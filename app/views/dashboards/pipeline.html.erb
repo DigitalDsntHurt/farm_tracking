@@ -14,16 +14,19 @@
 								Go To... &nbsp; * <%= link_to "Page Pipeline", "/dashboards/page_pipeline" %> &nbsp; * <%= link_to "Warehouse Pipeline", "/dashboards/warehouse_pipeline" %><br><br>
 							</h4>
 							<h3>Bulk Actions</h3>
-							<%= submit_tag "Mark First Emerged", class: "btn btn-secondary" %> &nbsp; 
-							<%= submit_tag "Mark Full Emerged", class: "btn btn-secondary"  %> &nbsp; 
-							<%= submit_tag "Mark Cascade Full Emerged", class: "btn btn-secondary" %> &nbsp; 
-							<%= submit_tag "Kill", class: "btn btn-secondary"  %> &nbsp; 
-							<%= submit_tag "Transplant To DIL", class: "btn btn-secondary"  %> &nbsp;
-							<%= submit_tag "Transplant To MIA", class: "btn btn-secondary"  %> &nbsp;
-							<%= submit_tag "Transplant To BAM", class: "btn btn-secondary"  %> &nbsp;
-							<%= submit_tag "Transplant To LIP", class: "btn btn-secondary"  %> &nbsp; 
-							<br><br>
-						</div>
+							<%= submit_tag "Mark First Emerged", class: "btn btn-success" %> &nbsp; 
+							<%= submit_tag "Mark Full Emerged", class: "btn btn-success"  %> &nbsp; 
+							<%= submit_tag "Mark Cascade Full Emerged", class: "btn btn-success" %> &nbsp; 
+							<%= submit_tag "Kill", class: "btn btn-success"  %> &nbsp;
+							<div class="dropdown">
+			  					<button class="dropbtn btn btn-success dropdown-toggle">Transplant to...</button>
+			  					<div class="dropdown-content">
+			    					<% System.where(room_id: 2).where(retired: false).where.not(system_name: "1. propagation").where.not(system_name: "propagation").order(:system_name).each{|system| %>
+			    						<%= submit_tag "~>#{system.system_name}", class: "navbar-dropdown btn btn-success", style: "margin:6px; width:222px;" %>	
+			    					<% } %>
+								</div>
+							</div>
+						</div>	
 					</th>
 				<tr>
 			</thead>	

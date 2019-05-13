@@ -3,6 +3,15 @@ module Farm
 	def self.order_crop(order_id)
 		Order.where(id: order_id)[0]
 	end
+
+	def self.transplant(flat_id,destination_system)
+		@seed_flat_update = SeedFlatUpdate.new
+		@seed_flat = SeedFlat.where(id: flat_id)[0]
+		@origin_system_id = @seed_flat.current_system_id
+		@destination_system_id = System.where(system_name: destination_system)[0].id
+		@seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
+		@seed_flat.update(current_system_id: @destination_system_id)
+	end
 end
 
 module OpsCal

@@ -1,12 +1,12 @@
 
 
 
-<% @rooms.each{|room| %>
+<% @rooms.reverse.each{|room| %>
 	<div id=<%= room.name.gsub(" ","-") %>>
 		<h1 align="center"><strong><u><%= room.name.upcase %></u></strong></h1>
-		<% room.systems.each{|system| %>
+		<% room.systems.order(:system_name).each{|system| %>
 			<% next if system.retired == true %>
-			<br><h1 align="center"><strong>~~ <%= system.system_name %> ~~</strong></h1><br>
+			<br><h1 align="center"><strong>~<%= system.system_name %>~</strong></h1><br>
 			<% @system_flats = SeedFlat.where(current_system_id: system.id).order(started_date: :desc, updated_at: :desc).reject{|tray| tray.harvest_weight_oz != nil } %>
 			<% @system_flats.to_a.sort_by{|flat| ((Date.today-flat.started_date).to_i) - (Crop.where(id: flat.crop_id)[0].ideal_propagation_days) }.in_groups_of(4).each{ |shelf| %>
 				<div class="row" style="margin-left:5%;margin-right:5%;">
@@ -31,31 +31,30 @@
 									</div>
 									
 									
-									<% if system.system_name == "propagation" %>
+									<% if system.system_name.include?("propagation") %>
 										<% @propagation_days = (Date.today-tray.started_date).to_i %>
 										<% @ideal_propagation_days = Crop.where(id: tray.crop_id)[0].ideal_propagation_days %>
+										<% @transplant_date_diff = @ideal_propagation_days - @propagation_days %>
 										
-										<% if @propagation_days > @ideal_propagation_days %>
-											<p class="card-text" style="background: #FF6600;">
-										<% elsif @propagation_days == @ideal_propagation_days %>
-											<p class="card-text" style="background: #FF8433;">
-										<% elsif @propagation_days - @ideal_propagation_days == -1 %>
-											<p class="card-text" style="background: #FFA366;">
-										<% elsif @propagation_days - @ideal_propagation_days == -2 %>
-											<p class="card-text" style="background: #FFE0CC;">
+										<% if @transplant_date_diff > 0 %>
+											<p class="card-text" style="background: #74b566;">
+										<% elsif @transplant_date_diff == 0  %>
+											<p class="card-text" style="background: #99874c;">
+										<% elsif @transplant_date_diff < 0 %>
+											<p class="card-text" style="background: #cc3300;">
 										<% else %>
 											<p class="card-text">
 										<% end %>
 									<% else %>
 										<p class="card-text">
 									<% end %>
-	
-										<%= (Date.today-tray.started_date).to_i %>-day <strong><%= Crop.where(id: tray.crop_id)[0].crop_variety %> <%= Crop.where(id: tray.crop_id)[0].crop %></strong><br/>
+										
+										
+										<%= (Date.today-tray.started_date).to_i %>-day <strong><%= Crop.where(id: tray.crop_id)[0].crop_variety %> <%= Crop.where(id: tray.crop_id)[0].crop.capitalize %></strong><br/>
 										<%= tray.seed_weight_oz %> oz seed sewn on <%= tray.started_date %><br/>
 											<% unless tray.sewn_for == nil or tray.sewn_for.length < 2 %>
 												Sewn for <strong><%= tray.sewn_for %></strong><br/>
 											<% end %>
-										~ ~ ~ ~ ~ ~ ~ ~ ~ ~<br/>
 										
 										<%-# non emerged flats / in propagation -%>
 										<% if tray.first_emerge_date == nil %>

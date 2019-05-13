@@ -1,27 +1,4 @@
-
-<% if false %>
-	<div class="sticky-page-header">
-		<div class="container fluid">
-			<div class="row">
-				<h2>
-					Jump To...
-				</h2>
-			</div>	
-			<% @crops_from_crops_table.sort_by{|c| c.crop }.in_groups_of(4).each{|group| %>
-			
-			
-				<div class="row">
-					<% group.each{|c| %>
-						<div class="col">
-							* <%= link_to "#{c.crop}","/dashboards/crop_availability/##{c.crop.gsub(" ","-")}" %>				
-						</div>
-					<% } %>
-				</div>
-			<% } %>	
-		</div>
-	</div>
-
-<% end %>	
+	
 
 <% @crops_loop = @crops_from_crops_table.sort_by{|c| c.crop } %>
 <% @crops_loop.each_with_index{ |c,i| %>

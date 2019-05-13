@@ -232,6 +232,7 @@ class DashboardsController < ApplicationController
   def pipeline
     @rooms = Room.all
     @propagation_system_ids = System.all.where(system_name: "propagation").to_a.map{|s| s.id}
+    @propagation_system_ids = System.where('system_name LIKE ?', '%propagation%').all.to_a.map{|s| s.id}
   end
 
   def page_pipeline
