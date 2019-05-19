@@ -203,10 +203,10 @@ class DashboardsController < ApplicationController
 
   def sew_calendar
     
-    @seed_flats = SeedFlat.all
-    @grouped_seed_flats = SeedFlat.all.group_by{ |flat| flat.started_date }
-    
-    @today = Date.today - 21
+    #
+    ## setup calendar
+    #
+    @today = Date.today #- 7
     if @today.strftime("%a") == "Mon"
       @start_date = @today
     else
@@ -215,10 +215,37 @@ class DashboardsController < ApplicationController
           @start_date -= 1
         end
     end
-    @end_date = @start_date+60
+    @end_date = @start_date+14
     @date_range = (@start_date..@end_date)
     @weeks = @date_range.to_a.in_groups_of(7)
 
+    #
+    ## create soak schedule
+    #
+    @soak_instructions = []
+    @orders = Order.where(cancelled_on: nil)#.sort_by(&:day_of_week)
+
+    @orders.each{|order|
+      @crop = Crop.where(id: order.crop_id)[0]
+      next if @crop.ideal_treatment_days == 0
+
+      @instruction = {}
+      @instruction[:order_id] = order.id # set instruction order
+      #@instruction[:date] = OpsCal.set_ops_day_of_week(@crop,order) # sort out instruction date for next day of week
+      @instruction[:date] = OpsCal.date_of_next(order.day_of_week)
+      @instruction[:verb] = "soak"
+      @instruction[:crop_id] = @crop.id # set instruction crop
+      @instruction[:qty] = OpsCal.soak_quantity(@crop,order) # set instruction qty (OUNCES)
+      @instruction[:qty_units] = "oz" # set instruction qty_units
+      @soak_instructions << @instruction
+    }
+
+    @to_soak = OpsCal.aggreagte_soak_quantities(@soak_instructions)
+
+    #
+    ## create sew schedule
+    #
+    
   end
 
 
@@ -258,17 +285,20 @@ class DashboardsController < ApplicationController
   end 
 
   def harvest_calendar
-    @today = Date.today
-    @active_flats = SeedFlat.where(harvest_weight_oz: nil).where.not(current_system_id: nil).where.not(flat_id: "")
-    #@flat_harvest_days = Hash.new([])
-    @flat_harvest_days = Hash.new{|hash,key| hash[key] = [] }
-    @active_flats.each{|flat|
-      @flat_crop = flat.crop_id
-      @flat_started_date = flat.started_date
-      @flat_harvest_date = @flat_started_date + Crop.where(id: @flat_crop)[0].ideal_total_dth
-      #@flat_harvest_days << [flat, @flat_crop, @flat_started_date, @flat_harvest_date]
-      @flat_harvest_days[@flat_harvest_date] << [flat.flat_id, "#{Crop.where(id: @flat_crop)[0].crop}, #{Crop.where(id: @flat_crop)[0].crop_variety}", flat.sewn_for, @flat_started_date, @flat_harvest_date]
-    }
+    #
+    ## setup calendar
+    #
+    @start_date = Date.today #- 7
+    @end_date = @start_date+90
+    @date_range = (@start_date..@end_date)
+
+
+    #
+    ##
+    #
+    @active_flats = SeedFlat.where(harvest_weight_oz: nil).where.not(current_system_id: nil).where.not(flat_id: "").order(:started_date)
+    @grouped_orders = Order.where(cancelled_on: nil).reject{|order| Customer.where(id: order.customer_id)[0].name == "overgrow" }.group_by(&:day_of_week)
+    @orders = Order.where(cancelled_on: nil).reject{|order| Customer.where(id: order.customer_id)[0].name == "overgrow" }
   end  
 
   def calculator

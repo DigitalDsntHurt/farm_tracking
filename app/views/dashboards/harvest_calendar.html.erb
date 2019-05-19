@@ -1,22 +1,42 @@
+<% @flats_for_allocation = @active_flats.to_a %>
 
-<% 120.times do |i| %>
-	<div style="border-top: solid black 2px;">
-		<h2 align="center">
-			<%= @today.strftime("%A, %B %d") %>
-		</h2>
-		<div align="center">
-			<% @flat_harvest_days[@today].sort_by{|arr| arr[2]}.each{|arr| %>
-				<% if arr[2] == "" %>
-					<%= arr[0] %> | <%= arr[1] %><br>
+<div class="padded-container">
+	<% @date_range.each{|date| %>
+		<h1>
+			<%= date.strftime("%a, %b %d") %>
+		</h1>
+		<% @orders.select{|order| order.day_of_week == date.strftime("%A") }.each{|order| %>
+			<h4>
+				<% if order.qty_oz < 16 %>
+					<%= order.qty_oz %> oz <%= Crop.where(id: order.crop_id)[0].crop_variety %> <%= Crop.where(id: order.crop_id)[0].crop.capitalize %> for <%= Customer.where(id: order.customer_id)[0].name %>
+				<% elsif %>
+					<%= order.qty_oz / 16.0 %> lb <%= Crop.where(id: order.crop_id)[0].crop_variety %> <%= Crop.where(id: order.crop_id)[0].crop.capitalize %> for <%= Customer.where(id: order.customer_id)[0].name %>
 				<% else %>
-					<strong><%= arr[0] %> | <%= arr[1] %> for <%= arr[2] %></strong><br>
+					<%= order.qty_oz / 16.0 %> lbs <%= Crop.where(id: order.crop_id)[0].crop_variety %> <%= Crop.where(id: order.crop_id)[0].crop.capitalize %> for <%= Customer.where(id: order.customer_id)[0].name %>
 				<% end %>
+				<% @num_flats_to_harvest = OpsCal.harvest_quantity(order) %>
+				<ul>need to harvest <%= @num_flats_to_harvest %> flats
+					<% @flats_for_allocation.select{|flat| flat.crop_id == order.crop_id }[0..@num_flats_to_harvest].each{|flat| %>
+						<li>
+							<%= link_to "#{(Date.today - flat.started_date).to_i} day - #{flat.flat_id}", flat %>
+							<% @flats_for_allocation.delete(flat) %>
+						</li>
+					<% } %>
+				</ul>
+			</h4>
+		<% } %>
+	<% } %>
+	
 
-				
-			<% } %>
-		</div>	
 
-	<br/>	
-	</div>
-	<% @today += 1 %>
-<% end %>
+	<% @grouped_orders.sort_by{|obj| OpsCal.date_of_next(obj[0]) }.each{|group| %>
+		<h1>
+			<%= group[0] %>
+		</h1>
+		<% group[1].each{|order| %>
+			<h4>
+				<%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop_variety %> <%= Crop.where(id: order.crop_id)[0].crop.capitalize %> for <%= Customer.where(id: order.customer_id)[0].name %>
+			</h4>
+		<% } %>
+	<% } %>
+</div>

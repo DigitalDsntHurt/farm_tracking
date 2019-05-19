@@ -39,5 +39,56 @@
   </tbody>
 </table>
 
-<br>
 <br><br>
+<hr>
+<br><br>
+
+<% @customer_orders.each{|customer_group| %>
+  <h2>
+    <%= Customer.where(id: customer_group[0])[0].name %>      
+  </h2>
+  <ul>
+    <h3>Monday</h3>
+    <% customer_group[1].select{|order| order.day_of_week == "Monday" }.each{|order| %>
+      <li>
+        <%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop_variety %>, <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>
+      </li>
+    <% } %>
+    <h3>Tuesday</h3>
+    <% customer_group[1].select{|order| order.day_of_week == "Tuesday" }.each{|order| %>
+      <li>
+        <%= order.day_of_week %>: <%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop_variety %>, <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>
+      </li>
+    <% } %>
+    <h3>Wednesday</h3>
+    <% customer_group[1].select{|order| order.day_of_week == "Wednesday" }.each{|order| %>
+      <li>
+        <%= order.day_of_week %>: <%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop_variety %>, <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>
+      </li>
+    <% } %>
+    <h3>Thursday</h3>
+    <% customer_group[1].select{|order| order.day_of_week == "Thursday" }.each{|order| %>
+      <li>
+        <%= order.day_of_week %>: <%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop_variety %>, <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>
+      </li>
+    <% } %>
+    <h3>Friday</h3>
+    <% customer_group[1].select{|order| order.day_of_week == "Friday" }.each{|order| %>
+      <li>
+        <%= order.day_of_week %>: <%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop_variety %>, <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>
+      </li>
+    <% } %>
+    <h3>Saturday</h3>
+    <% customer_group[1].select{|order| order.day_of_week == "Saturday" }.each{|order| %>
+      <li>
+        <%= order.day_of_week %>: <%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop_variety %>, <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>
+      </li>
+    <% } %>
+    <h3>Sunday</h3>
+    <% customer_group[1].select{|order| order.day_of_week == "Sunday" }.each{|order| %>
+      <li>
+        <%= order.day_of_week %>: <%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop_variety %>, <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>
+      </li>
+    <% } %>
+  </ul>
+<% } %>

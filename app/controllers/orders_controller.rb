@@ -5,6 +5,7 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
     @orders = Order.all.order(:customer,:day_of_week)
+    @customer_orders = @orders.select{|order| order.cancelled_on == nil }.group_by{|order| order.customer_id }
   end
 
   # GET /orders/1

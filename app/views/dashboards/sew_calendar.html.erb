@@ -1,7 +1,50 @@
+<h2>soak</h2>
+<table style="margin-left:22px;">
+	<% @orders.order(:day_of_week).order(:customer_id).each{|order| %>
+		<% next if Crop.where(id: order.crop_id)[0].ideal_treatment_days == 0 %>
+		<tr>
+			<td>
+				<%= Customer.where(id: order.customer_id)[0].name %> | <%= order.day_of_week %> | <%= order.qty_oz %> oz <%= Crop.where(id: order.crop_id)[0].crop_variety %> <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>
+			</td>
+			<td>
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; soak <%= OpsCal.soak_quantity(Crop.where(id: order.crop_id)[0],order).round(2) %> oz every <%= OpsCal.get_action_day(Crop.where(id: order.crop_id)[0],order) %>
+			</td>
+		</tr>
+	<% } %>
+</table>
 <br><br>
-<h3 class="page-header">
-	Sew Calendar
-</h3>
+<h2>sew</h2>
+<table style="margin-left:22px;">
+	<% @orders.order(:day_of_week).order(:customer_id).each{|order| %>
+		<% next if Crop.where(id: order.crop_id)[0].ideal_treatment_days != 0 %>
+		<tr>
+			<td>
+				<%= Customer.where(id: order.customer_id)[0].name %> | <%= order.day_of_week %> | <%= order.qty_oz %> oz <%= Crop.where(id: order.crop_id)[0].crop_variety %> <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>
+			</td>
+			<td>
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; sew <%= OpsCal.sew_quantity(Crop.where(id: order.crop_id)[0],order) %> flats every <%= OpsCal.get_action_day(Crop.where(id: order.crop_id)[0],order) %>
+			</td>
+		</tr>
+	<% } %>
+</table>
+<br><br>
+<h2>harvest</h2>
+<table style="margin-left:22px;">
+	<% @orders.order(:day_of_week).order(:customer_id).each{|order| %>
+		<tr>
+			<td>
+				<%= Customer.where(id: order.customer_id)[0].name %> | <%= order.day_of_week %> | <%= order.qty_oz %> oz <%= Crop.where(id: order.crop_id)[0].crop_variety %> <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>
+			</td>
+			<td>
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; harvest <%= order.qty_oz %> oz every <%= order.day_of_week %>
+			</td>
+		</tr>
+	<% } %>
+</table>
+<br><br>
+<h1 align="center">
+	sked
+</h1>
 <br>
 <div class="container-fluid">
 	<% @weeks.each{|week| %>
@@ -13,35 +56,23 @@
 					<div class="col cal-day">
 				<% end %>
 					<% unless day == nil %>
-						
-						<% @seeds_treated = SeedTreatment.where(soak_start_date: day) %>			
-						<p align="center">		
-							<strong><%= day.strftime("%A, %b %d") %></strong><br><hr>
-						</p>
-						<p align="center">	
-							<strong><%= @seeds_treated.count %> seed varieties soaked</strong>
-						</p>
+						<h2 align="center">		
+							<strong><%= day.strftime("%a, %b %d") %></strong><br><hr>
+						</h2>
 
-						<p>
-							<% @seeds_treated.each{|treatment| %>
-								<%= treatment.seed_quantity_oz %> oz <%= treatment.seed_crop %><br>
+						<h3 align="center">Soak</h3>
+						<div>
+							<% @to_soak.select{|soak_hsh| soak_hsh[:date] == day }.each{|soak_hsh| %>
+								<%= soak_hsh %>
+								<%= soak_hsh[:qty] %><%= soak_hsh[:qty_units] %> <%= Crop.where(id: soak_hsh[:crop_id])[0].crop_variety %> <%= Crop.where(id: soak_hsh[:crop_id])[0].crop.capitalize %><br><br><br>
 							<% } %>
-						</p>
+						</div>
 
-						<% @flats_sewn = SeedFlat.where(started_date: day) %>
-						<p align="center">		
-							<strong><%= @flats_sewn.count %> flats sewn</strong>
-						</p>
-
-						<p>
-							<% @flats_sewn.group_by(&:crop).sort_by{|crop, result| -result.count }.each{|crop, result| %>
-								<%= result.count %> flats <%= crop %><br>
-							<% } %>
-						</p>
+						<h3 align="center">Sew</h3>
+						<div>
+							
+						</div>
 					<% end %>
-
-
-
 				</div>
 			<% } %>
 		</div>

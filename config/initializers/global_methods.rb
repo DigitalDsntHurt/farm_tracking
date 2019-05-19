@@ -68,6 +68,19 @@ module OpsCal
 	    OpsCal.date_of_next(wday)
 	end
 
+	def self.get_action_day(crop,order)
+		wday = ""
+
+		if crop.ideal_total_dth % 7 == 0
+	    	wday += "#{order.day_of_week}"
+	    else
+	    	@total_dth = crop.ideal_treatment_days + crop.ideal_propagation_days + crop.ideal_system_days
+	    	@days_ref_index = OpsCal.days_ref.index(order.day_of_week) - (@total_dth % 7)
+	        wday += OpsCal.days_ref[@days_ref_index]
+	    end
+	    wday
+	end
+
 	def self.soak_quantity(crop,order)
 		# this calculates a number of OUNCES
 		(order.qty_oz / crop.ideal_yield_per_flat_oz).ceil * crop.ideal_soak_seed_oz_per_flat 
@@ -76,6 +89,10 @@ module OpsCal
 	def self.sew_quantity(crop,order)
 		# this calculates a number of FLATS
 		(order.qty_oz / crop.ideal_yield_per_flat_oz).ceil
+	end
+
+	def self.harvest_quantity(order)
+		(order.qty_oz / Crop.where(id: order.crop_id)[0].ideal_yield_per_flat_oz).ceil
 	end
 
 	def self.aggreagte_soak_quantities(instructions)
