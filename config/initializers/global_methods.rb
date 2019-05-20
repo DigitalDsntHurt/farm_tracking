@@ -68,6 +68,21 @@ module OpsCal
 	    OpsCal.date_of_next(wday)
 	end
 
+	def self.set_ops_day(date)
+		@return = date
+		if date.monday?
+	    	@return - 1
+		elsif date.wednesday?
+			@return - 1
+		elsif date.friday?
+			@return - 1
+		elsif date.saturday?
+			@return - 2
+		else
+			@return
+		end
+	end
+
 	def self.get_action_day(crop,order)
 		wday = ""
 

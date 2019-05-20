@@ -4,7 +4,7 @@
 <% @crops_loop.each_with_index{ |c,i| %>
 	
 	<div style="border: solid 1px black;padding:22px;">
-		<% @in_pipeline = SeedFlat.where(harvest_weight_oz: nil).where(harvested_on: nil).where(crop_id: c) %>
+		<% @in_pipeline = SeedFlat.where(harvest_weight_oz: nil).where(crop_id: c) %>
 		<h3><strong><%= c.crop %></strong>, <%= c.crop_variety %> -- <%= @in_pipeline.count %> flats in pipeline</h3>
 		<% @in_pipeline.group_by{|flat| flat.current_system_id }.each{|key,val| %>
 			

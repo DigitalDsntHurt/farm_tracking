@@ -223,24 +223,34 @@ class DashboardsController < ApplicationController
     ## create soak schedule
     #
     @soak_instructions = []
+    @sew_instructions = []
     @orders = Order.where(cancelled_on: nil)#.sort_by(&:day_of_week)
 
     @orders.each{|order|
       @crop = Crop.where(id: order.crop_id)[0]
-      next if @crop.ideal_treatment_days == 0
-
-      @instruction = {}
-      @instruction[:order_id] = order.id # set instruction order
-      #@instruction[:date] = OpsCal.set_ops_day_of_week(@crop,order) # sort out instruction date for next day of week
-      @instruction[:date] = OpsCal.date_of_next(order.day_of_week)
-      @instruction[:verb] = "soak"
-      @instruction[:crop_id] = @crop.id # set instruction crop
-      @instruction[:qty] = OpsCal.soak_quantity(@crop,order) # set instruction qty (OUNCES)
-      @instruction[:qty_units] = "oz" # set instruction qty_units
-      @soak_instructions << @instruction
+      if @crop.ideal_treatment_days == 0
+        @instruction = {}
+        @instruction[:order_id] = order.id # set instruction order
+        @instruction[:date] = OpsCal.set_ops_day(OpsCal.date_of_next(order.day_of_week))
+        @instruction[:verb] = "sew"
+        @instruction[:crop_id] = @crop.id # set instruction crop
+        @instruction[:qty] = OpsCal.sew_quantity(@crop,order) # set instruction qty (FLATS)
+        @instruction[:qty_units] = "flats" # set instruction qty_units
+        @sew_instructions << @instruction
+      else
+        @instruction = {}
+        @instruction[:order_id] = order.id # set instruction order
+        @instruction[:date] = OpsCal.set_ops_day(OpsCal.date_of_next(order.day_of_week))
+        @instruction[:verb] = "soak"
+        @instruction[:crop_id] = @crop.id # set instruction crop
+        @instruction[:qty] = OpsCal.soak_quantity(@crop,order) # set instruction qty (OUNCES)
+        @instruction[:qty_units] = "oz" # set instruction qty_units
+        @soak_instructions << @instruction
+      end
     }
 
     @to_soak = OpsCal.aggreagte_soak_quantities(@soak_instructions)
+    @to_sew = OpsCal.aggreagte_soak_quantities(@sew_instructions)
 
     #
     ## create sew schedule
