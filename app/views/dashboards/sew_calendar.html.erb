@@ -3,13 +3,13 @@
 	<% OpsCal.days_ref.each{|day| %>
 		<% day_dos = @to_soak.select{|hsh| hsh[:date].strftime("%A") == day } %>
 		<% next if day_dos.count == 0 %>
-		<h2>
+		<h3>
 			<%= day %>
-		</h2>
+		</h3>
 		<ul>
 			<% day_dos.each{|hsh| %>
 				<li>
-					<%= hsh[:verb] %> <%= hsh[:qty].round(2) %><%= hsh[:qty_units] %> <%= Crop.where(id: hsh[:crop_id])[0].crop_variety %>, <%= Crop.where(id: hsh[:crop_id])[0].crop.capitalize %>
+					<%= hsh[:verb] %> <%= hsh[:qty].round(2) %><%= hsh[:qty_units] %> <%= Crop.where(id: hsh[:crop_id])[0].crop_variety %>, <%= Crop.where(id: hsh[:crop_id])[0].crop.capitalize %> -- <%= hsh[:order_id] %>
 				</li>
 			<% } %>
 		</ul>
@@ -19,13 +19,13 @@
 	<% OpsCal.days_ref.each{|day| %>
 		<% day_dos = @to_sew.select{|hsh| hsh[:date].strftime("%A") == day } %>
 		<% next if day_dos.count == 0 %>
-		<h2>
+		<h3>
 			<%= day %>
-		</h2>
+		</h3>
 		<ul>
 			<% day_dos.each{|hsh| %>
 				<li>
-					<%= hsh[:verb] %> <%= hsh[:qty].round(2) %> <%= hsh[:qty_units] %> <%= Crop.where(id: hsh[:crop_id])[0].crop_variety %>, <%= Crop.where(id: hsh[:crop_id])[0].crop.capitalize %>
+					<%= hsh[:verb] %> <%= hsh[:qty].round(2) %> <%= hsh[:qty_units] %> <%= Crop.where(id: hsh[:crop_id])[0].crop_variety %>, <%= Crop.where(id: hsh[:crop_id])[0].crop.capitalize %> -- <%= hsh[:order_id] %>
 				</li>
 			<% } %>
 		</ul>

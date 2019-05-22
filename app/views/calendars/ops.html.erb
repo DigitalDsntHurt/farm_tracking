@@ -1,0 +1,140 @@
+<h1 align="center">USE</h1>
+
+<h1>SOAK</h1>
+<% @final_soak_instructions.each{|inst| %>
+	<h1>
+		<%= inst[0] %>
+	</h1>
+	<ul style="list-style: none;">
+		<% inst[1].each{|hsh| %>
+			<li>
+				<%= hsh[:qty].round(2) %> <%= hsh[:qty_units] %> 
+				<%= Crop.where(id: Order.where(id: hsh[:order_ids].sample)[0].crop_id)[0].crop_variety %> <%= Crop.where(id: Order.where(id: hsh[:order_ids].sample)[0].crop_id)[0].crop.capitalize %>
+			</li>
+		<% } %>
+	</ul>
+<% } %>
+
+<h1>SEW</h1>
+<% @final_sew_instructions.each{|inst| %>
+	<h1>
+		<%= inst[0] %>
+	</h1>
+	<ul style="list-style: none;">
+		<% inst[1].each{|hsh| %>
+			<li>
+				<%= hsh[:qty].round(2).to_i %> 
+				<% if hsh[:qty].round(2) > 1 %>
+					<%= hsh[:qty_units] %>s 
+				<% else %>
+					<%= hsh[:qty_units] %>
+				<% end %>
+				<%= Crop.where(id: Order.where(id: hsh[:order_ids].sample)[0].crop_id)[0].crop_variety %> <%= Crop.where(id: Order.where(id: hsh[:order_ids].sample)[0].crop_id)[0].crop.capitalize %>
+			</li>
+		<% } %>
+	</ul>
+<% } %>
+
+<h1>HARVEST</h1>
+<% @harvest_instructions.each{|inst| %>
+	<h1><%= inst[0] %></h1>
+	<ul style="list-style: none;">
+	<% inst[1].sort_by{|hsh| Customer.where(id: Order.where(id: hsh[:order_id])[0].customer_id)[0].name }.each{|hsh| %>
+		<li>
+			<%= hsh[:qty].to_i %> <%= hsh[:qty_units] %> <%= Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop_variety %> <%= Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop.capitalize %> for <%= Customer.where(id: Order.where(id: hsh[:order_id])[0].customer_id)[0].name %>
+		</li>
+	<% } %>
+	</ul>
+<% } %>
+
+
+
+<br><br><br><br>
+<hr>
+<br><br><br><br>
+
+
+
+<h1 align="center">V2</h1>
+<h1>SOAK ORDERS</h1>
+<%= @soak_orders %>
+<br><br>
+<hr>
+<br><br>
+
+<h1>SOAK INSTRUCTIONS</h1>
+<% @soak_instructions.sort_by{|inst| inst[:day]}.each{|inst| %>
+	<%= inst %><br><br>
+<% } %>
+<br><br>
+<hr>
+<br><br>
+
+<h1>AGGREGATED SOAK INSTRUCTIONS</h1>
+<% @final_soak_instructions.each{|inst| %>
+	<h1>
+		<%= inst[0] %>
+	</h1>
+	<ul style="list-style: none;">
+		<% inst[1].each{|hsh| %>
+			<li>
+				<%= hsh[:verb] %> <%= hsh[:qty].round(2) %> <%= hsh[:qty_units] %> 
+				<%= Crop.where(id: Order.where(id: hsh[:order_ids].sample)[0].crop_id)[0].crop_variety %> <%= Crop.where(id: Order.where(id: hsh[:order_ids].sample)[0].crop_id)[0].crop.capitalize %>
+				<ul>
+					<% hsh[:order_ids].each{|order_id| %>
+						<li>
+							<%= order_id %>: <%= Order.where(id: order_id)[0].qty_oz %> oz <%= Crop.where(id: Order.where(id: order_id)[0].crop_id)[0].crop_variety %> <%= Crop.where(id: Order.where(id: order_id)[0].crop_id)[0].crop.capitalize %> for <%= Customer.where(id: Order.where(id: order_id)[0].customer_id)[0].name %> on <%= Order.where(id: order_id)[0].day_of_week %>
+						</li>
+					<% } %>
+				</ul>
+			</li>
+		<% } %>
+	</ul>
+<% } %>
+
+<br><br>
+<hr>
+<br><br>
+
+<% if false %>
+
+
+<h1 align="center">V1</h1>
+<table>
+	<tr>
+		<td>
+			<h1>SOAK</h1>
+				<% @final_soak_instructions.each{|date_group| %>
+					<h1>
+						<%= date_group[0].strftime("%A") %>
+					</h1>
+					<ul style="list-style: none;">
+						<% date_group[1].each{|hsh| %>
+							<li>
+								<%= hsh[:qty].round(2) %> <%= hsh[:qty_units] %> <%= Crop.where(id: Order.where(id: hsh[:order_ids][0])[0].crop_id)[0].crop_variety %> <%= Crop.where(id: Order.where(id: hsh[:order_ids][0])[0].crop_id)[0].crop.capitalize %>
+								<% if false %>
+								 (for 
+								<% hsh[:order_ids].each{|order_id| %>
+									<%= Customer.where(id: Order.where(id: order_id)[0].customer_id)[0].name %>'s <%= Order.where(id: order_id)[0].day_of_week %> order,
+								<% } %>
+								)
+								<% end %>
+							</li>
+						<% } %>
+					</ul>
+				<% } %>
+		</td>
+		<td>
+			<h1>SEW</h1>
+
+		</td>
+		<td>
+			<h1>HARVEST</h1>
+		</td>
+	</tr>
+</table>
+
+
+<% end %>
+
+

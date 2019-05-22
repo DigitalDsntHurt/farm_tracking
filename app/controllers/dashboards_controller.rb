@@ -249,8 +249,8 @@ class DashboardsController < ApplicationController
       end
     }
 
-    @to_soak = OpsCal.aggreagte_soak_quantities(@soak_instructions)
-    @to_sew = OpsCal.aggreagte_soak_quantities(@sew_instructions)
+    @to_soak = OpsCal.aggreagte_soak_or_sew_quantities(@soak_instructions)
+    @to_sew = OpsCal.aggreagte_soak_or_sew_quantities(@sew_instructions)
 
     #
     ## create sew schedule
