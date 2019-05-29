@@ -43,7 +43,7 @@
 <p>****** ****** ****** ****** ****** ******</p>
   <div class="field">
     <%= f.label :current_system_id %>
-    <%= f.select :current_system_id, System.where(system_name: "propagation").collect{|system| ["#{system.system_name} - #{Room.where(id: system.room_id)[0].name}", system.id ]}.reverse %>
+    <%= f.select :current_system_id, System.where(system_name: "1. propagation").collect{|system| ["#{system.system_name} - #{Room.where(id: system.room_id)[0].name}", system.id ]}.reverse %>
   </div> 
   <div class="field">
     <%= f.label :started_date %>
