@@ -13,6 +13,11 @@ Rails.application.routes.draw do
   resources :rooms
   resources :systems
 
+	get 'dashboards/crop_availability'
+	get 'dashboards/aggregates'
+	get 'dashboards/averages'
+	get 'dashboards/yield_per_dth'
+	get 'dashboards/yield_per_seed_weight'
 	get 'dashboards/calendar'
 	get 'dashboards/sew_calendar'
 	get 'dashboards/soak_sew_cal'
@@ -27,8 +32,6 @@ Rails.application.routes.draw do
 	get 'dashboards/calculate'
 	get 'dashboards/cutsheet'
 	get 'dashboards/back_of_envelope'
-	get 'dashboards/aggregates'
-	get 'dashboards/crop_availability'
 	get 'dashboards/crop_menu'
 	get 'dashboards/scratch'
 	get 'dashboards/flat_allocation'

@@ -1,0 +1,42 @@
+<% @harvested_flats.each{|crop_group| %>
+	<h2>
+		<%= Crop.where(id: crop_group[0])[0].crop.capitalize %>, <%= Crop.where(id: crop_group[0])[0].crop_variety %>
+	</h2>
+
+	<table class="data-table">
+		<thead>
+			<th>
+				dth
+			</th>
+			<th>
+				flats harvested
+			</th>
+			<th>
+				avg yield
+			</th>
+		</thead>
+		<% @max_dth = crop_group[1].map{|flat| flat.days_to_harvest_from_sew }.max %>
+		<% @min_dth = crop_group[1].map{|flat| flat.days_to_harvest_from_sew }.min %>
+		<% @dth_ranges = [] %>
+		<% until @min_dth > @max_dth %>
+			<% @dth_ranges << (@min_dth..(@min_dth+1)) %>
+			<% @min_dth += 2 %>
+		<% end %>
+		<% @dth_ranges.each{|range| %>
+			<% @flats = crop_group[1].select{|flat| range === flat.days_to_harvest_from_sew } %>
+			<% @flat_yields = @flats.map{|flat| flat.harvest_weight_oz } %>	
+			<% next if @flats.count < 1 %>
+			<tr>
+				<td>
+					<%= range.first %> - <%= range.last %>
+				</td>
+				<td>
+					<%= @flats.count %>
+				</td>
+				<td>
+					<%= (@flat_yields.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+				</td>
+			</tr>
+		<% } %>
+	</table>
+<% } %>	

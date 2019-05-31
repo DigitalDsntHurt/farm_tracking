@@ -1,0 +1,109 @@
+
+	<table class="data-table">
+		<thead>
+			<th>
+				Crop
+			</th>
+			<th>
+				Yield - 3wk
+			</th>
+			<th>
+				Yield - 3mo
+			</th>
+			<th>
+				Yield - 6mo
+			</th>
+			<th>
+				Yield - 9mo
+			</th>
+			<th>
+				Yield - 12mo
+			</th>
+			<th>
+				Yield - alltime
+			</th>
+			<th>
+				~
+			</th>
+			<th>
+				DTH - 3wk
+			</th>
+			<th>
+				DTH - 3mo
+			</th>
+			<th>
+				DTH - 6mo
+			</th>
+			<th>
+				DTH - 9mo
+			</th>
+			<th>
+				DTH - 12mo
+			</th>
+			<th>
+				DTH - alltime
+			</th>
+		</thead>
+		<% @harvested_flats.each{|crop_group| %>
+			<tr>
+				<td style="text-align: right;">
+					<strong>
+						<%= Crop.where(id: crop_group[0])[0].crop.upcase %>, <%= Crop.where(id: crop_group[0])[0].crop_variety %>
+					</strong>
+				</td>
+				<td>
+					<% @flats = crop_group[1].select{|flat| (@three_weeks_ago..@today) === flat.harvested_on } %>
+					<%= (@flats.map{|flat| flat.harvest_weight_oz }.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+				</td>
+				<td>
+					<% @flats = crop_group[1].select{|flat| (@three_months_ago..@today) === flat.harvested_on } %>
+					<%= (@flats.map{|flat| flat.harvest_weight_oz }.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+				</td>
+				<td>
+					<% @flats = crop_group[1].select{|flat| (@six_months_ago..@today) === flat.harvested_on } %>
+					<%= (@flats.map{|flat| flat.harvest_weight_oz }.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+				</td>
+				<td>
+					<% @flats = crop_group[1].select{|flat| (@nine_months_ago..@today) === flat.harvested_on } %>
+					<%= (@flats.map{|flat| flat.harvest_weight_oz }.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+				</td>
+				<td>
+					<% @flats = crop_group[1].select{|flat| (@twelve_months_ago..@today) === flat.harvested_on } %>
+					<%= (@flats.map{|flat| flat.harvest_weight_oz }.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+				</td>
+				<td>
+					<% @flats = crop_group[1] %>
+					<%= (@flats.map{|flat| flat.harvest_weight_oz }.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+				</td>
+				<td>
+					~
+				</td>
+				<td>
+					<% @flats = crop_group[1].select{|flat| (@three_weeks_ago..@today) === flat.harvested_on } %>
+					<%= (@flats.map{|flat| flat.days_to_harvest_from_sew }.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+				</td>
+				<td>
+					<% @flats = crop_group[1].select{|flat| (@three_months_ago..@today) === flat.harvested_on } %>
+					<%= (@flats.map{|flat| flat.days_to_harvest_from_sew }.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+				</td>
+				<td>
+					<% @flats = crop_group[1].select{|flat| (@six_months_ago..@today) === flat.harvested_on } %>
+					<%= (@flats.map{|flat| flat.days_to_harvest_from_sew }.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+				</td>
+				<td>
+					<% @flats = crop_group[1].select{|flat| (@nine_months_ago..@today) === flat.harvested_on } %>
+					<%= (@flats.map{|flat| flat.days_to_harvest_from_sew }.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+				</td>
+				<td>
+					<% @flats = crop_group[1].select{|flat| (@twelve_months_ago..@today) === flat.harvested_on } %>
+					<%= (@flats.map{|flat| flat.days_to_harvest_from_sew }.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+				</td>
+				<td>
+					<% @flats = crop_group[1] %>
+					<%= (@flats.map{|flat| flat.days_to_harvest_from_sew }.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+				</td>
+			</tr>
+		<% } %>
+	</table>
+<div style="padding:33px;">
+</div>	

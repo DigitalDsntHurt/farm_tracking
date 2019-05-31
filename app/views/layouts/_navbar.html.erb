@@ -37,12 +37,11 @@
 				<%= link_to "Transplant Calendar", "/dashboards/transplant_calendar", :method => :get, :class => "navbar-dropdown"  %>
 			    <%= link_to "Harvest Calendar", "/dashboards/harvest_calendar", :method => :get, :class => "navbar-dropdown"  %>
 			    <%= link_to "Soak & Sew Cal", "/dashboards/soak_sew_cal", :method => :get, :class => "navbar-dropdown"  %>
-			    <%= link_to "Aggregates", "/dashboards/aggregates", :method => :get, :class => "navbar-dropdown" %>
 			  </div>
 			</div>			
 			<br/>
 			<br/>			
-		</div>	
+		</div>		
 
 		<div class="col">
 			<br/>
@@ -106,6 +105,22 @@
 			</div>			
 			<br/><br/><br/>
 		</div>
+		
+		<div class="col">
+			<br/>
+			<br/>
+			<div class="dropdown">
+			  <button class="dropbtn btn btn-success dropdown-toggle">Data</button>
+			  <div class="dropdown-content">
+			    <%= link_to "Aggregates", "/dashboards/aggregates", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "Averages", "/dashboards/averages", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "Yield / DTH", "/dashboards/yield_per_dth", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "Yield / Seed Weight", "/dashboards/yield_per_seed_weight", :method => :get, :class => "navbar-dropdown" %>
+			  </div>
+			</div>			
+			<br/>
+			<br/>			
+		</div>		
 	</div>
 </div>
 <div class="spacer">

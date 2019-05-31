@@ -393,8 +393,25 @@ class DashboardsController < ApplicationController
 
   end
 
+  def averages
+    @harvested_flats = SeedFlat.where.not(harvest_weight_oz: nil).where.not(harvest_weight_oz: 0).group_by{|flat| flat.crop_id }.reject{|crop_group| crop_group == nil }.sort_by{|crop_group| Crop.where(id: crop_group[0])[0].crop }
+    @today = Date.today
+    @three_weeks_ago = @today - 21
+    @three_months_ago = @today - 91
+    @six_months_ago = @today - 182
+    @nine_months_ago = @today - 274
+    @twelve_months_ago = @today - 366
+  end
+
+  def yield_per_seed_weight
+    @harvested_flats = SeedFlat.where.not(harvest_weight_oz: nil).where.not(harvest_weight_oz: 0).group_by{|flat| flat.crop_id }.reject{|crop_group| crop_group == nil }.sort_by{|crop_group| Crop.where(id: crop_group[0])[0].crop }
+  end
+
+  def yield_per_dth
+    @harvested_flats = SeedFlat.where.not(harvest_weight_oz: nil).where.not(harvest_weight_oz: 0).group_by{|flat| flat.crop_id }.reject{|crop_group| crop_group == nil }.sort_by{|crop_group| Crop.where(id: crop_group[0])[0].crop }
+  end
+
   def crop_availability
-    
     @crops = SeedFlat.all.pluck(:crop).uniq
     @crops_from_crops_table = Crop.all#.to_a
   end

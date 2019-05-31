@@ -533,3 +533,31 @@ tr.border_bottom td {
   }
 }
 /* end .squaredThree */
+
+
+table.data-table{
+  margin:33px;
+  
+  thead tr:nth-child(1) th{
+    background: white;
+    position: sticky;
+    top: 112px;
+    z-index: 1;
+  }
+
+  th{
+    border-right: solid black 1px;
+    padding:12px;
+  }
+
+  tr{
+    border-bottom: solid black 1px;
+  }
+  tr:hover{
+    background-color: #66C166;   
+  }
+  td{
+    padding:12px;
+    text-align: center;
+  }
+}
