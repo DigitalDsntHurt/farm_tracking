@@ -13,7 +13,7 @@
 
   <div class="field">
     <h2>
-      <%= form.label "#{crop.crop}, #{crop.crop_variety}" %>
+      <%= form.label "#{crop.crop}, #{crop.crop_variety}" %> (<%= crop.crop_type %>)
     </h2>
   </div>
 
@@ -22,6 +22,16 @@
   <div class="field">
     <%= form.label :crop %>
     <%= form.text_field :crop, id: :crop %>
+  </div>
+
+  <div class="field">
+    <%= form.label :crop_type %>
+    <% if crop.crop_type == nil %>
+      <% @selected = "micro" %>
+    <% else %>
+      <% @selected = crop.crop_type %>  
+    <% end %>
+    <%= form.select :crop_type, options_for_select(["micro","petite","shoot","leaf","top"], :selected => @selected) %>
   </div>  
 
   <div class="field">
@@ -52,11 +62,6 @@
   <div class="field">
     <%= form.label :ideal_system_days %>
     <%= form.number_field :ideal_system_days, step: :any %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ideal_total_dth %>
-    <%= form.number_field :ideal_total_dth, step: :any %>
   </div>
   
   <div class="field">

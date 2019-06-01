@@ -6,6 +6,9 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Harvest Preferences</th>
+      <th>Delivery Preferences</th>
+      <th>Notes</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,6 +17,9 @@
     <% @customers.each do |customer| %>
       <tr>
         <td><%= customer.name %></td>
+        <td align="center"><%= customer.harvest_preferences %></td>
+        <td align="center"><%= customer.delivery_preferences %></td>
+        <td align="center"><%= customer.notes %></td>
         <td><%= link_to 'Show', customer %></td>
         <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
         <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>

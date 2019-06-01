@@ -41,6 +41,12 @@ class OrdersController < ApplicationController
   def clone
     @order = Order.find(params[:order]).dup
     render new_order_path(@order)
+  end
+
+  def cancel
+    @order = Order.find(params[:order])
+    @order.update(cancelled_on: Date.today)
+    redirect_back(fallback_location: orders_path)
   end  
 
   # PATCH/PUT /orders/1
@@ -75,6 +81,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:customer, :day_of_week, :date, :qty_oz, :crop, :variety, :crop_id, :cancelled_on, :standing_order, :customer_id)
+      params.require(:order).permit(:customer, :day_of_week, :date, :qty_oz, :crop, :variety, :crop_id, :cancelled_on, :standing_order, :customer_id, :maturity_days, :harvest_preferences)
     end
 end

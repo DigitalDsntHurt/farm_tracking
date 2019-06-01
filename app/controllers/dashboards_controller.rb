@@ -405,6 +405,8 @@ class DashboardsController < ApplicationController
 
   def yield_per_seed_weight
     @harvested_flats = SeedFlat.where.not(harvest_weight_oz: nil).where.not(harvest_weight_oz: 0).group_by{|flat| flat.crop_id }.reject{|crop_group| crop_group == nil }.sort_by{|crop_group| Crop.where(id: crop_group[0])[0].crop }
+    #@past_three_week = @harvested_flats.select{|flat| ((Date.today-21)..Date.today).include? flat.harvested_on }
+    #@past_three_months = @harvested_flats.select{|flat| ((Date.today-60)..Date.today).include? flat.harvested_on }
   end
 
   def yield_per_dth

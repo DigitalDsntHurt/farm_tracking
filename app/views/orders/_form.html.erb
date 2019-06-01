@@ -42,6 +42,16 @@
   </div>
 
   <div class="field">
+    <%= form.label :maturity_days %>
+    <%= form.number_field :maturity_days, class: :text_field, step: :any %>
+  </div>
+
+  <div class="field">
+    <%= form.label :harvest_preferences %>
+    <%= form.text_area :harvest_preferences, id: :order_harvest_preferences %>
+  </div>
+
+  <div class="field">
     <%= form.label :cancelled_on %>
     
     <%= form.text_field :cancelled_on, include_blank: true, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }  %>

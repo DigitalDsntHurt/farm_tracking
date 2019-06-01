@@ -5,5 +5,20 @@
   <%= @customer.name %>
 </p>
 
+<p>
+  <strong>Harvest Preferences:</strong>
+  <%= @customer.harvest_preferences %>
+</p>
+
+<p>
+  <strong>Delivery Preferences:</strong>
+  <%= @customer.delivery_preferences %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @customer.notes %>
+</p>
+
 <%= link_to 'Edit', edit_customer_path(@customer) %> |
 <%= link_to 'Back', customers_path %>

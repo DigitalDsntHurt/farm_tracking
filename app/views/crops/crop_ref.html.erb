@@ -1,6 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Crops</h1>
+
+<div class="title-with-button">
+  <h1>Crops</h1>
+  <%= link_to "New Crop", new_crop_path, class: "btn btn-success" %>
+</div>
 
 <div class="anchor">
 
@@ -8,6 +12,7 @@
   <thead>
     <tr>
       <th>Crop</th>
+      <th>Crop Type</th>
       <th>Soak OZ per Flat</th>
       <th>Treatment Days</th>
       <th>Sew OZ per Flat</th>
@@ -15,6 +20,7 @@
       <th>System days</th>
       <th>Total DTH</th>
       <th>Yield per flat</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -22,6 +28,7 @@
     <% @crops.each do |crop| %>
       <tr>
         <td><%= link_to "#{crop.crop}, #{crop.crop_variety}", crop %></td>
+        <td><%= crop.crop_type %></td>
         <% if crop.ideal_soak_seed_oz_per_flat == 0.0 %>
           <td align="center"> -- </td>
         <% else %>
@@ -37,6 +44,7 @@
         <td align="center"><%= crop.ideal_system_days %></td>
         <td align="center"><%= crop.ideal_total_dth %></td>
         <td align="center"><%= crop.ideal_yield_per_flat_oz %> oz</td>
+        <td><%= link_to "clone", crops_clone_path(:controller => "crops", :action => "clone", :order => crop.id) %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,150 +1,151 @@
-<p id="notice"><%= notice %></p>
+<div class="small-margin">
+  <p id="notice"><%= notice %></p>
 
-<h2>
-  <%= @crop.crop %>, <%= @crop.crop_variety %>
-</h2>
+  <h2>
+    <%= @crop.crop %>, <%= @crop.crop_variety %> (<%= @crop.crop_type %>)
+  </h2><br>
+  <p>
+    <strong>Ideal soak seed oz per flat:</strong>
+    <%= @crop.ideal_soak_seed_oz_per_flat %>
+  </p>
+  <p>
+    <strong>Ideal treatment days:</strong>
+    <%= @crop.ideal_treatment_days %>
+  </p>
+  <p>
+    <strong>Ideal sew seed oz per flat:</strong>
+    <%= @crop.ideal_sew_seed_oz_per_flat %>
+  </p>
+  <p>
+    <strong>Ideal propagation days:</strong>
+    <%= @crop.ideal_propagation_days %>
+  </p>
+  <p>
+    <strong>Ideal system days:</strong>
+    <%= @crop.ideal_system_days %>
+  </p>
+  <p>
+    <strong>Ideal total dth:</strong>
+    <%= @crop.ideal_total_dth %>
+  </p>
+  <p>
+    <strong>Ideal yield per flat oz:</strong>
+    <%= @crop.ideal_yield_per_flat_oz %>
+  </p>
 
-<p>
-  <strong>Ideal soak seed oz per flat:</strong>
-  <%= @crop.ideal_soak_seed_oz_per_flat %>
-</p>
-<p>
-  <strong>Ideal treatment days:</strong>
-  <%= @crop.ideal_treatment_days %>
-</p>
-<p>
-  <strong>Ideal sew seed oz per flat:</strong>
-  <%= @crop.ideal_sew_seed_oz_per_flat %>
-</p>
-<p>
-  <strong>Ideal propagation days:</strong>
-  <%= @crop.ideal_propagation_days %>
-</p>
-<p>
-  <strong>Ideal system days:</strong>
-  <%= @crop.ideal_system_days %>
-</p>
-<p>
-  <strong>Ideal total dth:</strong>
-  <%= @crop.ideal_total_dth %>
-</p>
-<p>
-  <strong>Ideal yield per flat oz:</strong>
-  <%= @crop.ideal_yield_per_flat_oz %>
-</p>
+    <br><br>
+    <div>*** *** ***</div>
 
-  <br><br>
-  <div>*** *** ***</div>
+  <p>
+    <strong>Seed treatment:</strong>
+    <%= @crop.seed_treatment %>
+  </p>
 
-<p>
-  <strong>Seed treatment:</strong>
-  <%= @crop.seed_treatment %>
-</p>
+  <p>
+    <strong>Avg seed treatment duration days:</strong>
+    <%= @crop.avg_seed_treatment_duration_days %>
+  </p>
 
-<p>
-  <strong>Avg seed treatment duration days:</strong>
-  <%= @crop.avg_seed_treatment_duration_days %>
-</p>
+  <p>
+    <strong>Ideal seed treatment duration days:</strong>
+    <%= @crop.ideal_seed_treatment_duration_days %>
+  </p>
 
-<p>
-  <strong>Ideal seed treatment duration days:</strong>
-  <%= @crop.ideal_seed_treatment_duration_days %>
-</p>
+  <p>
+    <strong>Calculated seed oz to soak per desired flat:</strong>
+    <%= @crop.calculated_seed_oz_to_soak_per_desired_flat %>
+  </p>
 
-<p>
-  <strong>Calculated seed oz to soak per desired flat:</strong>
-  <%= @crop.calculated_seed_oz_to_soak_per_desired_flat %>
-</p>
+  <p>
+    <strong>Ideal seed oz to soak per desired flat:</strong>
+    <%= @crop.ideal_seed_oz_to_soak_per_desired_flat %>
+  </p>
 
-<p>
-  <strong>Ideal seed oz to soak per desired flat:</strong>
-  <%= @crop.ideal_seed_oz_to_soak_per_desired_flat %>
-</p>
+  <p>
+    <strong>Avg alltime seed oz per flat:</strong>
+    <%= @crop.avg_alltime_seed_oz_per_flat %>
+  </p>
 
-<p>
-  <strong>Avg alltime seed oz per flat:</strong>
-  <%= @crop.avg_alltime_seed_oz_per_flat %>
-</p>
+  <p>
+    <strong>Avg 6month seed oz per flat:</strong>
+    <%= @crop.avg_6month_seed_oz_per_flat %>
+  </p>
 
-<p>
-  <strong>Avg 6month seed oz per flat:</strong>
-  <%= @crop.avg_6month_seed_oz_per_flat %>
-</p>
+  <p>
+    <strong>Avg 6week seed oz per flat:</strong>
+    <%= @crop.avg_6week_seed_oz_per_flat %>
+  </p>
 
-<p>
-  <strong>Avg 6week seed oz per flat:</strong>
-  <%= @crop.avg_6week_seed_oz_per_flat %>
-</p>
+  <p>
+    <strong>Ideal seed oz per flat:</strong>
+    <%= @crop.ideal_seed_oz_per_flat %>
+  </p>
 
-<p>
-  <strong>Ideal seed oz per flat:</strong>
-  <%= @crop.ideal_seed_oz_per_flat %>
-</p>
+  <p>
+    <strong>Avg days to first transplant:</strong>
+    <%= @crop.avg_days_to_first_transplant %>
+  </p>
 
-<p>
-  <strong>Avg days to first transplant:</strong>
-  <%= @crop.avg_days_to_first_transplant %>
-</p>
+  <p>
+    <strong>Ideal days to first transplant:</strong>
+    <%= @crop.ideal_days_to_first_transplant %>
+  </p>
 
-<p>
-  <strong>Ideal days to first transplant:</strong>
-  <%= @crop.ideal_days_to_first_transplant %>
-</p>
+  <p>
+    <strong>Avg alltime days to harvest:</strong>
+    <%= @crop.avg_alltime_days_to_harvest %>
+  </p>
 
-<p>
-  <strong>Avg alltime days to harvest:</strong>
-  <%= @crop.avg_alltime_days_to_harvest %>
-</p>
+  <p>
+    <strong>Avg 6month days to harvest:</strong>
+    <%= @crop.avg_6month_days_to_harvest %>
+  </p>
 
-<p>
-  <strong>Avg 6month days to harvest:</strong>
-  <%= @crop.avg_6month_days_to_harvest %>
-</p>
+  <p>
+    <strong>Avg 6week days to harvest:</strong>
+    <%= @crop.avg_6week_days_to_harvest %>
+  </p>
 
-<p>
-  <strong>Avg 6week days to harvest:</strong>
-  <%= @crop.avg_6week_days_to_harvest %>
-</p>
+  <p>
+    <strong>Ideal days to harvest:</strong>
+    <%= @crop.ideal_days_to_harvest %>
+  </p>
 
-<p>
-  <strong>Ideal days to harvest:</strong>
-  <%= @crop.ideal_days_to_harvest %>
-</p>
+  <p>
+    <strong>Avg alltime yield per flat oz:</strong>
+    <%= @crop.avg_alltime_yield_per_flat_oz %>
+  </p>
 
-<p>
-  <strong>Avg alltime yield per flat oz:</strong>
-  <%= @crop.avg_alltime_yield_per_flat_oz %>
-</p>
+  <p>
+    <strong>Avg 6month yield per flat oz:</strong>
+    <%= @crop.avg_6month_yield_per_flat_oz %>
+  </p>
 
-<p>
-  <strong>Avg 6month yield per flat oz:</strong>
-  <%= @crop.avg_6month_yield_per_flat_oz %>
-</p>
+  <p>
+    <strong>Avg 6week yield per flat oz:</strong>
+    <%= @crop.avg_6week_yield_per_flat_oz %>
+  </p>
 
-<p>
-  <strong>Avg 6week yield per flat oz:</strong>
-  <%= @crop.avg_6week_yield_per_flat_oz %>
-</p>
+  <p>
+    <strong>Sale price per oz:</strong>
+    <%= @crop.sale_price_per_oz %>
+  </p>
 
-<p>
-  <strong>Sale price per oz:</strong>
-  <%= @crop.sale_price_per_oz %>
-</p>
+  <p>
+    <strong>Sale price per 8oz:</strong>
+    <%= @crop.sale_price_per_8oz %>
+  </p>
 
-<p>
-  <strong>Sale price per 8oz:</strong>
-  <%= @crop.sale_price_per_8oz %>
-</p>
+  <p>
+    <strong>Sale price per 16oz:</strong>
+    <%= @crop.sale_price_per_16oz %>
+  </p>
 
-<p>
-  <strong>Sale price per 16oz:</strong>
-  <%= @crop.sale_price_per_16oz %>
-</p>
+  <p>
+    <strong>Sale price per live flat:</strong>
+    <%= @crop.sale_price_per_live_flat %>
+  </p>
 
-<p>
-  <strong>Sale price per live flat:</strong>
-  <%= @crop.sale_price_per_live_flat %>
-</p>
-
-<%= link_to 'Back', crops_path, :class => "dropbtn btn btn-success" %>
-<%= link_to 'Edit', edit_crop_path(@crop), :class => "dropbtn btn btn-success" %>
+  <%= link_to 'Back', crops_path, :class => "dropbtn btn btn-success" %>
+  <%= link_to 'Edit', edit_crop_path(@crop), :class => "dropbtn btn btn-success" %>
+</div>

@@ -9,6 +9,7 @@
   <thead>
     <tr>
       <th>Crop</th>
+      <th style="white-space: nowrap; padding-right:12px;">Crop Type</th>
       <th>ideal_soak_seed_oz_per_flat</th>
       <th>ideal_treatment_days</th>
       <th>ideal_sew_seed_oz_per_flat</th>
@@ -46,6 +47,7 @@
     <% @crops.each do |crop| %>
       <tr>
         <td style="white-space: nowrap;"><%= link_to "#{crop.crop}, #{crop.crop_variety}", crop %></td>
+        <td><%= crop.crop_type %></td>
         <td style="padding-left:12px;"><%= crop.ideal_soak_seed_oz_per_flat %></td>
         <td><%= crop.ideal_treatment_days %></td>
         <td><%= crop.ideal_sew_seed_oz_per_flat %></td>

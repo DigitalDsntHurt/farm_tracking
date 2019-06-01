@@ -15,7 +15,10 @@
       <th>Standing Order?</th>
       <th>Qty oz</th>
       <th>Crop</th>
+      <th>Maturity Days</th>
+      <th>Harvest Preferences</th>
       <th>Cancelled On</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -33,7 +36,13 @@
         <td><%= order.standing_order %></td>
         <td><%= order.qty_oz %></td>
         <td><%= Crop.where(id: order.crop_id)[0].crop %>, <%= Crop.where(id: order.crop_id)[0].crop_variety %></td>
+        <td><%= order.maturity_days %></td>
+        <td><%= order.harvest_preferences %></td>
         <td><%= order.cancelled_on %></td>
+        <td>
+          <%= link_to "clone", orders_clone_path(:controller => "orders", :action => "clone", :order => order.id) %> &nbsp; | &nbsp; 
+          <%= link_to "cancel", orders_cancel_path(:controller => "orders", :action => "cancel", :order => order.id) %>
+        </td>
       </tr>
     <% end %>
   </tbody>

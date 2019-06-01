@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :scheduleds
   
   get 'orders/clone' => 'orders#clone'
+  get 'orders/cancel' => 'orders#cancel'
   resources :orders
   resources :nutrient_solutions
   resources :reservoirs
@@ -95,6 +96,7 @@ Rails.application.routes.draw do
 	resources :seed_treatments
 
 	get 'crops/crop_ref' => 'crops#crop_ref'
+	get 'crops/clone' => 'crops#clone'
 	resources :crops
 
 	get 'farm_ops_dos/mark_farm_ops_dos_done' => 'farm_ops_dos#mark_farm_ops_dos_done'

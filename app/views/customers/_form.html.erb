@@ -16,6 +16,21 @@
     <%= form.text_field :name, id: :customer_name %>
   </div>
 
+  <div class="field">
+    <%= form.label :harvest_preferences %><br>
+    <%= form.text_area :harvest_preferences, id: :customer_harvest_preferences %>
+  </div>
+
+  <div class="field">
+    <%= form.label :delivery_preferences %><br>
+    <%= form.text_area :delivery_preferences, id: :customer_delivery_preferences %>
+  </div>
+
+  <div class="field">
+    <%= form.label :notes %><br>
+    <%= form.text_area :notes, id: :customer_notes %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
