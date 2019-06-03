@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   get 'calendars/ops'
+  get 'calendars/harvest'
 
   resources :customers
   resources :scheduleds

@@ -8,6 +8,7 @@
     <% else %>
       <%= @seed_flat.flat_id %>
     <% end %>
+     -- <%= (Date.today - @seed_flat.started_date).to_i %> day <%= Crop.where(id: @seed_flat.crop_id)[0].crop_variety %>, <%= Crop.where(id: @seed_flat.crop_id)[0].crop.capitalize %>
   </h2>
   <h3>  
     <%= @seed_flat.seed_weight_oz %> oz <%= @seed_flat.crop_variety %> <%= @seed_flat.crop %>

@@ -6,8 +6,15 @@
 		<h1 align="center"><strong><u><%= room.name.upcase %></u></strong></h1>
 		<% room.systems.order(:system_name).each{|system| %>
 			<% next if system.retired == true %>
-			<br><h1 align="center"><strong>~<%= system.system_name %>~</strong></h1><br>
+			
 			<% @system_flats = SeedFlat.where(current_system_id: system.id).order(started_date: :desc, updated_at: :desc).reject{|tray| tray.harvest_weight_oz != nil } %>
+
+			<br><h1 align="center"><strong>
+				~<%= system.system_name %>~</strong>
+				<br>
+				<%= @system_flats.count %> flats in system
+			</h1><br>
+			
 			<% @system_flats.to_a.sort_by{|flat| ((Date.today-flat.started_date).to_i) - (Crop.where(id: flat.crop_id)[0].ideal_propagation_days) }.in_groups_of(4).each{ |shelf| %>
 				<div class="row" style="margin-left:5%;margin-right:5%;">
 					<% shelf.each{ |tray| %>
@@ -55,6 +62,7 @@
 											<% unless tray.sewn_for == nil or tray.sewn_for.length < 2 %>
 												Sewn for <strong><%= tray.sewn_for %></strong><br/>
 											<% end %>
+										currently in <%= System.where(id: tray.current_system_id)[0].system_name %>	<br>
 										
 										<%-# non emerged flats / in propagation -%>
 										<% if tray.first_emerge_date == nil %>

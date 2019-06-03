@@ -6,7 +6,7 @@ class CalendarsController < ApplicationController
   ## ##
   ##
 
-  helper_method :all_active_orders, :filter_orders_for_soak, :filter_orders_for_sew, :turn_soak_orders_into_instructions, :turn_sew_orders_into_instructions, :days_ref, :date_of_next, :reduce_date_to_ops_date, :get_soak_quantity, :group_instructions_by_date, :crop_aggregate_instructions, :get_action_day, :orders_to_soak_instructions, :reduce_wday_to_ops_day, :aggregate_crop_instructions, :orders_to_sew_instructions, :get_sew_quantity, :orders_to_harvest_instructions, :filter_orders_for_harvest
+  helper_method :all_active_orders, :filter_orders_for_soak, :filter_orders_for_sew, :turn_soak_orders_into_instructions, :turn_sew_orders_into_instructions, :days_ref, :date_of_next, :reduce_date_to_ops_date, :get_soak_quantity, :group_instructions_by_date, :crop_aggregate_instructions, :get_action_day, :orders_to_soak_instructions, :reduce_wday_to_ops_day, :aggregate_crop_instructions, :orders_to_sew_instructions, :get_sew_quantity, :orders_to_harvest_instructions, :filter_orders_for_harvest, :num_flats_to_harvest
 
 	def all_active_orders
 		Order.where(cancelled_on: nil)
@@ -155,6 +155,12 @@ class CalendarsController < ApplicationController
 		# returns an array of hashes where each hash is an instruction
 	end
 
+	def num_flats_to_harvest(order_id)
+		@order = Order.where(id: order_id)[0]
+		@crop = Crop.where(id: @order.crop_id)[0]
+		(@order.qty_oz / @crop.ideal_yield_per_flat_oz).round(2).ceil
+	end
+
 	def group_instructions_by_date(instructions)
 		# accepts an array of hashes where each hash is an instruction
 		instructions.group_by{|instruction| instruction[:date] }
@@ -234,6 +240,8 @@ class CalendarsController < ApplicationController
 	## ##
 	##
 
+
+
   def ops
   	#@all_orders = all_active_orders
 
@@ -259,6 +267,11 @@ class CalendarsController < ApplicationController
 	@harvest_orders = filter_orders_for_harvest(all_active_orders)
   	@harvest_instructions = orders_to_harvest_instructions(@harvest_orders).group_by{|inst| inst[:day] }
 
+  end
+
+  def harvest
+	@harvest_orders = filter_orders_for_harvest(all_active_orders)
+  	@harvest_instructions = orders_to_harvest_instructions(@harvest_orders).group_by{|inst| inst[:day] }  	
   end
 
 

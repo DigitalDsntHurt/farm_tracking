@@ -120,6 +120,20 @@
 			</div>			
 			<br/>
 			<br/>			
+		</div>	
+
+		<div class="col">
+			<br/>
+			<br/>
+			<div class="dropdown">
+			  <button class="dropbtn btn btn-success dropdown-toggle">Planning</button>
+			  <div class="dropdown-content">
+			    <%= link_to "ops cal", "/calendars/ops", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "harvest cal", "/calendars/harvest", :method => :get, :class => "navbar-dropdown" %>
+			  </div>
+			</div>			
+			<br/>
+			<br/>			
 		</div>		
 	</div>
 </div>

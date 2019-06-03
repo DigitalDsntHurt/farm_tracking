@@ -1,0 +1,33 @@
+<div class="small-margin">
+	<h1>HARVEST</h1>
+	<% days_ref.each{|wday| %>
+		<h1><%= wday %></h1>
+		<% @day_instructions = @harvest_instructions.select{|k,v| k == wday } %>
+		<ul style="list-style: none;">
+			<% @day_instructions.values.each{|array| %>
+				<% array.sort_by{|hsh| Customer.where(id: Order.where(id: hsh[:order_id])[0].customer_id)[0].name }.each{|hsh| %>
+					<li>
+						<%= hsh[:qty].to_i %> <%= hsh[:qty_units] %>
+						 <%= Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop_variety %> <%= Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop.capitalize %> 
+						<% if Order.where(id: hsh[:order_id])[0].harvest_preferences == nil %>
+							 
+						<% else %>
+							( <%= Order.where(id: hsh[:order_id])[0].harvest_preferences %> )
+						<% end %> 
+						 for <%= Customer.where(id: Order.where(id: hsh[:order_id])[0].customer_id)[0].name %>
+						 
+						 		<% @num_flats_to_harvest = num_flats_to_harvest(hsh[:order_id]) %>
+						 		<% @suggested_flats = [] %>
+						 		<% @crop_flats = SeedFlat.where(harvest_weight_oz: nil ).where(crop_id: Order.where(id: hsh[:order_id])[0].crop_id).order(:started_date).take(@num_flats_to_harvest).each{|flat| %>
+						 			<% @suggested_flats << flat %>
+						 		<% } %>
+						 		| suggested flats: <% @suggested_flats.each{|flat| %>
+						 			<%= link_to flat.flat_id, flat %>, 
+						 		<% } %>
+					</li>
+				<% } %>
+			<% } %>
+			
+		</ul>
+	<% } %>
+</div>
