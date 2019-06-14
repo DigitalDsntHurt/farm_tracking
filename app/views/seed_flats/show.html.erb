@@ -8,10 +8,10 @@
     <% else %>
       <%= @seed_flat.flat_id %>
     <% end %>
-     -- <%= (Date.today - @seed_flat.started_date).to_i %> day <%= Crop.where(id: @seed_flat.crop_id)[0].crop_variety %>, <%= Crop.where(id: @seed_flat.crop_id)[0].crop.capitalize %>
+     -- <%= (Date.today - @seed_flat.started_date).to_i %> day <%= Crop.where(id: @seed_flat.crop_id)[0].crop_variety %>, <%= Crop.where(id: @seed_flat.crop_id)[0].crop.capitalize %> @ <%= @seed_flat.seed_weight_oz %> oz
   </h2>
   <h3>  
-    <%= @seed_flat.seed_weight_oz %> oz <%= @seed_flat.crop_variety %> <%= @seed_flat.crop %>
+     for <%= Customer.where(id: @seed_flat.customer_id)[0].name.upcase %>
     <% if @seed_flat.seed_treatments_id != nil %>
       <% @treatment = SeedTreatment.where(id: @seed_flat.seed_treatments_id)[0] %>
       ( soaked in <%= @treatment.soak_solution %> for <%= @treatment.soak_duration_hrs %> hours before germinating in <%= @treatment.germination_vehicle %> for <%= (@treatment.date_of_first_flat_sew - @treatment.soak_start_datetime.to_date).to_i %> days )

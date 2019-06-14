@@ -2,7 +2,7 @@
 	<% @allocated_flats.each{|group| %>
 		<h3><%= Customer.where(id: group[0])[0].name %></h3>
 		<% group[1].sort_by{|flat| -(Date.today - flat.started_date).to_i }.each{|flat| %>
-			<strong><%= flat.flat_id %></strong> : <%= (Date.today - flat.started_date).to_i %> day <%= flat.crop_variety %> <%= flat.crop %><br>
+			<strong><%= link_to flat.flat_id, flat %></strong> : <%= (Date.today - flat.started_date).to_i %> day <%= Crop.where(id: flat.crop_id)[0].crop_variety %>, <%= Crop.where(id: flat.crop_id)[0].crop.capitalize %><br>
 		<% } %>
 		<br><hr><br>
 	<% } %>
