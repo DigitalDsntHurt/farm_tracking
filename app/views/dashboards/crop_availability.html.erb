@@ -10,14 +10,14 @@
 			
 				<%= System.where(id: key)[0].system_name %><br>
 				<% val.sort_by{|flat| (Date.today - flat.started_date).to_i }.each{|flat| %>
-					<% if flat.sewn_for == nil or flat.sewn_for.length < 2 %>
+					<% if flat.customer_id == nil or Customer.where(id: flat.customer_id)[0].name == "overgrow" %>
 						<div>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day", flat %>
 						</div>
 					<% else %>
 						<div>
 						<strong>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day, for #{flat.sewn_for}", flat %>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day, for #{Customer.where(id: flat.customer_id)[0].name}", flat %>
 						</strong>
 						</div>
 					<% end %>
