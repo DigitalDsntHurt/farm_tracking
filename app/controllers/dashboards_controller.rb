@@ -419,7 +419,7 @@ class DashboardsController < ApplicationController
   end
 
   def flat_allocation
-    @allocated_flats = SeedFlat.all.where(harvest_weight_oz: nil).where.not(sewn_for: nil).reject{|flat| flat.sewn_for.length < 2 }.group_by{|flat| flat.sewn_for}
+    @allocated_flats = SeedFlat.all.where(harvest_weight_oz: nil).reject{|flat| flat.customer_id == nil }.reject{|flat| Customer.where(id: flat.customer_id)[0].name == "overgrow" }.group_by{ |flat| flat.customer_id }
   end
 
   def crop_menu
