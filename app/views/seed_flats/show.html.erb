@@ -134,6 +134,10 @@
 
 <p>*** *** *** *** *** *** *** *** *** *** *** *** </p>
   <p>
+    <strong>Harvested for:</strong>
+    <%= Customer.where(id: @seed_flat.harvested_for)[0].name %>
+  </p>
+  <p>
     <strong>Harvested on:</strong>
     <%= @seed_flat.harvested_on %>
   </p>

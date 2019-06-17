@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190601190136) do
+ActiveRecord::Schema.define(version: 20190617000417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -212,6 +212,7 @@ ActiveRecord::Schema.define(version: 20190601190136) do
     t.string "sewn_for"
     t.integer "crop_id"
     t.integer "customer_id"
+    t.integer "harvested_for"
     t.index ["current_system_id"], name: "index_seed_flats_on_current_system_id"
     t.index ["room_id"], name: "index_seed_flats_on_room_id"
     t.index ["seed_treatments_id"], name: "index_seed_flats_on_seed_treatments_id"

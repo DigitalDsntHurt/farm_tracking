@@ -24,6 +24,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :harvested_for %>
+    <%= f.select :harvested_for, Customer.all.order(:name).collect{|customer| ["#{customer.name}", customer.id ]}, include_blank: true %>
+  </div>  
+
+  <div class="field">
     <%= f.label :harvest_weight_oz %>
     <%= f.text_field :harvest_weight_oz %>
   </div>
