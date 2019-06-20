@@ -1,7 +1,7 @@
 <% @week_start_dates.reverse.each{|date| %>
 
 	<h2 style="margin-left: 22px;">week of <%= date %></h2>
-	<h3 style="margin-left: 22px;">SeedFlat.where(:started_date => @week_start..@week_end).count flats sewns</h3>
+	<h3 style="margin-left: 22px;"><%= SeedFlat.where(:started_date => @week_start..@week_end).count %> flats sewns</h3>
 	<% @week_start = date %>
 	<% @week_end = date %>
 	<% until @week_end.sunday? %>
@@ -23,7 +23,7 @@
 				<td>
 					<%= Crop.where(id: group[0])[0].crop.capitalize %>, <%= Crop.where(id: group[0])[0].crop_variety %>
 				</td>
-				<td>
+				<td align="center">
 					<% seed_weights = group[1].map{|flat| flat.seed_weight_oz } %>
 					<%= (seed_weights.inject{|weight,sum| weight + sum }).round(2) %>
 				</td>
