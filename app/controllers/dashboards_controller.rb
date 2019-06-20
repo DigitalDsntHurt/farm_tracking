@@ -430,4 +430,30 @@ class DashboardsController < ApplicationController
     @crops = Crop.all
   end
 
+  def finance
+    @start_date = Date.new(2018,01,01)
+    @week_start_dates = [@start_date]
+    until Date.today - @start_date < 0
+      @week_start_dates << @start_date += 7
+    end
+  end
+
+  def flats_per_week
+    @start_date = Date.new(2018,01,01)
+    @week_start_dates = [@start_date]
+    until Date.today - @start_date < 0
+      @week_start_dates << @start_date += 7
+    end
+  end
+
+  def weekly_seed_use  
+    @start_date = Date.new(2018,01,01)
+    @week_start_dates = [@start_date]
+    until Date.today - @start_date < 0
+      @week_start_dates << @start_date += 7
+    end
+
+    
+  end
+
 end

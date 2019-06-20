@@ -1,0 +1,31 @@
+<table class="index-table">
+	<thead>
+		<th>
+			week of
+		</th>
+		<th>
+			flats sewn
+		</th>
+		<th>
+			flats harvested
+		</th>
+	</thead>
+	<% @week_start_dates.reverse.each{|date| %>
+		<tr>
+			<td>
+				<%= date %>	
+				<% @week_start = date %>
+				<% @week_end = date %>
+				<% until @week_end.sunday? %>
+					<% @week_end += 1 %>
+				<% end %>
+			</td>
+			<td>
+				<%= SeedFlat.where(:started_date => @week_start..@week_end).count %>
+			</td>
+			<td>
+				<%= SeedFlat.where(:harvested_on => @week_start..@week_end).count %>
+			</td>
+		</tr>
+	<% } %>
+</table>

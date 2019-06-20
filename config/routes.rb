@@ -40,6 +40,9 @@ Rails.application.routes.draw do
 	get 'dashboards/labels'
 	get 'dashboards/customers'
 	get 'dashboards/add_customer'
+	get 'dashboards/finance'
+	get 'dashboards/flats_per_week'
+	get 'dashboards/weekly_seed_use'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
 	get 'seed_flats/basic_index' => 'seed_flats#basic_index'

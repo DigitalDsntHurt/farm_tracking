@@ -1,0 +1,33 @@
+<% @week_start_dates.reverse.each{|date| %>
+
+	<h2 style="margin-left: 22px;">week of <%= date %></h2>
+	<% @week_start = date %>
+	<% @week_end = date %>
+	<% until @week_end.sunday? %>
+		<% @week_end += 1 %>
+	<% end %>
+
+	<table class="index-table">
+		<thead>
+			<th>
+				crop
+			</th>
+			<th>
+				total seed weight sewn
+			</th>
+		</thead>
+		<% SeedFlat.where(:started_date => @week_start..@week_end).group_by{|flat| flat.crop_id }.each{|group| %>
+			<% next if group[0] == nil %>
+			<tr>
+				<td>
+					<%= Crop.where(id: group[0])[0].crop.capitalize %>, <%= Crop.where(id: group[0])[0].crop_variety %>
+				</td>
+				<td>
+					<% seed_weights = group[1].map{|flat| flat.seed_weight_oz } %>
+					<%= (seed_weights.inject{|weight,sum| weight + sum }).round(2) %>
+				</td>
+			</tr>
+		<% } %>
+	</table>
+<br><br><hr><br><br>
+<% } %>
