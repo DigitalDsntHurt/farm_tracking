@@ -49,13 +49,13 @@ class CalendarsController < ApplicationController
 
 	def reduce_date_to_ops_date(date)
 		@return = date
-		if date.monday?
+		if date.tuesday?
 	    	@return - 1
-		elsif date.wednesday?
-			@return - 1
-		elsif date.friday?
+		elsif date.thursday?
 			@return - 1
 		elsif date.saturday?
+			@return - 1
+		elsif date.sunday?
 			@return - 2
 		else
 			@return
@@ -63,14 +63,14 @@ class CalendarsController < ApplicationController
 	end
 
 	def reduce_wday_to_ops_day(wday)
-		if wday == "Monday"
-	    	"Sunday"
-		elsif wday == "Wednesday"
-			"Tuesday"
-		elsif wday == "Friday"
-			"Thursday"
+		if wday == "Tuesday"
+	    	"Monday"
+		elsif wday == "Thursday"
+			"Wednesday"
 		elsif wday == "Saturday"
-			"Thursday"
+			"Friday"
+		elsif wday == "Sunday"
+			"Friday"
 		else
 			wday
 		end
