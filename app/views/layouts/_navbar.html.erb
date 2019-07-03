@@ -10,6 +10,12 @@
 			    <%= link_to "Pipeline", "/dashboards/pipeline", :method => :get, :class=>"dropbtn btn btn-success" %>		
 			<br/><br/><br/>
 		</div>
+		<div class="col">
+			<br/>
+			<br/>
+			    <%= link_to "Crop Availability", "/dashboards/crop_availability", :method => :get, :class=>"dropbtn btn btn-success" %>		
+			<br/><br/><br/>
+		</div>
 <% if false %>
 		<div class="col">
 			<br/>
@@ -72,13 +78,27 @@
 			    <%= link_to "Treatments", "/seed_treatments/fresh_index", :method => :get, :class => "navbar-dropdown" %>
 				<%= link_to "Flats", "/seed_flats/basic_index", :method => :get, :class => "navbar-dropdown" %>
 			    <div class="navbar-dropdown">***</div>
-			    <%= link_to "Orders", "/orders", :method => :get, :class => "navbar-dropdown" %>
 			    <%= link_to "Customers", "/customers", :method => :get, :class => "navbar-dropdown" %>			    
 			    <%= link_to "Rooms", "/rooms", :method => :get, :class => "navbar-dropdown" %>
 				<%= link_to "Systems", "/systems", :method => :get, :class => "navbar-dropdown" %>
 			    <%= link_to "Reservoirs", "/reservoirs", :method => :get, :class => "navbar-dropdown" %>
 			    <%= link_to "Nutrient Solutions", "/nutrient_solutions", :method => :get, :class => "navbar-dropdown" %>
 			    <%= link_to "ToDos", "/farm_ops_dos", :method => :get, :class => "navbar-dropdown" %>
+			  </div>
+			</div>			
+			<br/>
+			<br/>			
+		</div>
+
+		<div class="col">
+			<br/>
+			<br/>
+			<div class="dropdown">
+			  <button class="dropbtn btn btn-success dropdown-toggle">Orders</button>
+			  <div class="dropdown-content">
+			    <%= link_to "Active Orders", "/orders/current_index", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "Orders", "/orders", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "Orders Calendar", "/orders/orders_calendar", :method => :get, :class => "navbar-dropdown" %>
 			  </div>
 			</div>			
 			<br/>
