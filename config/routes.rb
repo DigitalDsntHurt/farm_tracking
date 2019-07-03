@@ -8,8 +8,12 @@ Rails.application.routes.draw do
   
   get 'orders/clone' => 'orders#clone'
   get 'orders/cancel' => 'orders#cancel'
+  get 'orders/current_index' => 'orders#current_index'
+  get 'orders/orders_calendar' => 'orders#orders_calendar'
   resources :orders
+
   resources :nutrient_solutions
+  
   resources :reservoirs
   
   resources :rooms

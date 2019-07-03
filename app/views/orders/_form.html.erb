@@ -1,3 +1,5 @@
+<div style="padding: 22px; max-width:600px; align-items: center;">
+
 <%= form_with(model: order, local: true) do |form| %>
   <% if order.errors.any? %>
     <div id="error_explanation">
@@ -17,21 +19,6 @@
   </div>
 
   <div class="field">
-    <%= form.label :day_of_week %>
-    <%= form.text_field :day_of_week, id: :order_day_of_week %>
-  </div>
-
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_select :date, id: :order_date, include_blank: true %>
-  </div>
-
-  <div class="field">
-    <%= form.label :standing_order %>
-    <%= form.check_box :standing_order %>
-  </div>
-
-  <div class="field">
     <%= form.label :qty_oz %>
     <%= form.number_field :qty_oz, class: :text_field, step: :any %>
   </div>
@@ -39,12 +26,29 @@
   <div class="field">
     <%= form.label :crop_id %>
     <%= form.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
+  </div>  
+
+  <h4></h4>
+  <h4 align="center">*** *** ***<br>STANDING ORDERS ONLY<br>check standing order box and set day of week (do not set date)</h4><br>
+
+  <div class="field">
+    <%= form.label :standing_order %>
+    <%= form.check_box :standing_order %>
   </div>
 
   <div class="field">
-    <%= form.label :maturity_days %>
-    <%= form.number_field :maturity_days, class: :text_field, step: :any %>
+    <%= form.label :day_of_week %>
+    <%= form.text_field :day_of_week, id: :order_day_of_week %>
   </div>
+
+  <h4 align="center">*** *** ***<br>AD-HOC ORDERS ONLY<br>set date (do not set day of week or check standing order box)</h4><br>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.text_field :date, include_blank: true, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }  %>
+  </div>
+
+  <h4 align="center">*** *** ***<br>order customization</h4><br>
 
   <div class="field">
     <%= form.label :harvest_preferences %>
@@ -52,12 +56,21 @@
   </div>
 
   <div class="field">
-    <%= form.label :cancelled_on %>
-    
+    <%= form.label :maturity_days %>
+    <%= form.number_field :maturity_days, class: :text_field, step: :any %>
+  </div>
+
+  <h4 align="center">*** *** ***<br>order cancellation</h4><br>
+
+  <div class="field">
+    <%= form.label :cancelled_on %><br>
     <%= form.text_field :cancelled_on, include_blank: true, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }  %>
   </div>  
 
-  <div class="actions">
-    <%= form.submit %>
+<br><br>
+  <div class="actions" align="center">
+    <%= form.submit "create or update", class: "btn btn-success" %>
   </div>
 <% end %>
+
+</div>

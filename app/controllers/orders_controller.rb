@@ -8,6 +8,30 @@ class OrdersController < ApplicationController
     @customer_orders = @orders.select{|order| order.cancelled_on == nil }.group_by{|order| order.customer_id }
   end
 
+  def current_index
+    @orders = Order.where(cancelled_on: nil).order(:customer_id, :day_of_week)
+    @customer_orders = @orders.select{|order| order.cancelled_on == nil }.group_by{|order| order.customer_id }
+  end
+
+  def orders_calendar
+    # setup calendar cells
+    @today = Date.today
+    if @today.strftime("%a") == "Mon"
+      @start_date = @today
+    else
+        @start_date = @today
+        until @start_date.strftime("%a") == "Mon"
+          @start_date -= 1
+        end
+    end
+    @end_date = @start_date+42
+    @date_range = (@start_date..@end_date)
+    @weeks = @date_range.to_a.in_groups_of(7)
+
+    @orders = Order.where(cancelled_on: nil).where.not(customer_id: 1).order(:customer_id, :day_of_week)
+    @ad_hoc_orders = Order.where(cancelled_on: nil).where(standing_order: false)
+  end
+
   # GET /orders/1
   # GET /orders/1.json
   def show
