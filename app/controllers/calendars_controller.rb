@@ -6,10 +6,10 @@ class CalendarsController < ApplicationController
   ## ##
   ##
 
-  helper_method :all_active_orders, :filter_orders_for_soak, :filter_orders_for_sew, :turn_soak_orders_into_instructions, :turn_sew_orders_into_instructions, :days_ref, :date_of_next, :reduce_date_to_ops_date, :get_soak_quantity, :group_instructions_by_date, :crop_aggregate_instructions, :get_action_day, :orders_to_soak_instructions, :reduce_wday_to_ops_day, :aggregate_crop_instructions, :orders_to_sew_instructions, :get_sew_quantity, :orders_to_harvest_instructions, :filter_orders_for_harvest, :num_flats_to_harvest
+  helper_method :all_active_standing_orders, :filter_orders_for_soak, :filter_orders_for_sew, :turn_soak_orders_into_instructions, :turn_sew_orders_into_instructions, :days_ref, :date_of_next, :reduce_date_to_ops_date, :get_soak_quantity, :group_instructions_by_date, :crop_aggregate_instructions, :get_action_day, :orders_to_soak_instructions, :reduce_wday_to_ops_day, :aggregate_crop_instructions, :orders_to_sew_instructions, :get_sew_quantity, :orders_to_harvest_instructions, :filter_orders_for_harvest, :num_flats_to_harvest
 
-	def all_active_orders
-		Order.where(cancelled_on: nil)
+	def all_active_standing_orders
+		Order.where(cancelled_on: nil).where(standing_order: true)
 	end
 
 	def filter_orders_for_soak(orders)
@@ -243,12 +243,11 @@ class CalendarsController < ApplicationController
 
 
   def ops
-  	#@all_orders = all_active_orders
 
   	#
   	## Create Soak Schedule
   	#
-  	@soak_orders = filter_orders_for_soak(all_active_orders)
+  	@soak_orders = filter_orders_for_soak(all_active_standing_orders)
   	@soak_instructions = orders_to_soak_instructions(@soak_orders)
   	@final_soak_instructions = aggregate_crop_instructions(@soak_instructions)
   	#@final_soak_instructions = crop_aggregate_instructions(group_instructions_by_date(turn_soak_orders_into_instructions(@soak_orders)))
@@ -256,7 +255,7 @@ class CalendarsController < ApplicationController
   	#
   	## Create Sew Schedule
   	#
-  	@sew_orders = filter_orders_for_sew(all_active_orders)
+  	@sew_orders = filter_orders_for_sew(all_active_standing_orders)
   	@sew_instructions = orders_to_sew_instructions(@sew_orders)
   	@final_sew_instructions = aggregate_crop_instructions(@sew_instructions)
   	#@sew_instructions = crop_aggregate_instructions(group_instructions_by_date(turn_sew_orders_into_instructions(@sew_orders)))
@@ -264,13 +263,13 @@ class CalendarsController < ApplicationController
   	#
   	## Create Harvest Schedule
   	#
-	@harvest_orders = filter_orders_for_harvest(all_active_orders)
+	@harvest_orders = filter_orders_for_harvest(all_active_standing_orders)
   	@harvest_instructions = orders_to_harvest_instructions(@harvest_orders).group_by{|inst| inst[:day] }
 
   end
 
   def harvest
-	@harvest_orders = filter_orders_for_harvest(all_active_orders)
+	@harvest_orders = filter_orders_for_harvest(all_active_standing_orders)
   	@harvest_instructions = orders_to_harvest_instructions(@harvest_orders).group_by{|inst| inst[:day] }  	
   end
 
