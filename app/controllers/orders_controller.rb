@@ -42,6 +42,14 @@ class OrdersController < ApplicationController
     @order = Order.new
   end
 
+  def new_standing_order_form
+    @order = Order.new
+  end
+
+  def new_ad_hoc_order_form
+    @order = Order.new
+  end
+
   # GET /orders/1/edit
   def edit
   end

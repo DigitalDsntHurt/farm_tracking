@@ -29,7 +29,7 @@
 								    	<% customer_group[1].each{|order| %>
 									    	<div class="card">
 												<div class="card-body">
-													<%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>, <%= Crop.where(id: order.crop_id)[0].crop_variety %>
+													<%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>, <%= Crop.where(id: order.crop_id)[0].crop_variety %><% unless order.harvest_preferences == nil or order.harvest_preferences.length < 2 %> (<%= order.harvest_preferences %>) <% end %>
 												</div>
 											</div>
 										<% } %>
@@ -48,7 +48,7 @@
 								    	<% customer_group[1].each{|order| %>
 									    	<div class="card">
 												<div class="card-body">
-													<%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>, <%= Crop.where(id: order.crop_id)[0].crop_variety %>
+													<%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>, <%= Crop.where(id: order.crop_id)[0].crop_variety %><% unless order.harvest_preferences == nil or order.harvest_preferences.length < 2 %> (<%= order.harvest_preferences %>) <% end %>
 												</div>
 											</div>
 										<% } %>

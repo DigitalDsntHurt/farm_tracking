@@ -2,14 +2,14 @@
 
 <h1 style="margin-left:333px;">
   Orders <br>
-  <%= link_to 'New Order', new_order_path, :class => "btn btn-success" %>
+  <%= link_to 'New Standing Order', orders_new_standing_order_form_path, :class => "btn btn-success" %>
+  <%= link_to 'New Ad-Hoc Order', orders_new_ad_hoc_order_form_path, :class => "btn btn-success" %>
   <%= link_to 'All Orders', orders_path, :class => "btn btn-success" %>
 </h1>
 
 <table class="index-table">
   <thead>
     <tr>
-      <th></th>
       <th>Customer</th>
       <th>Day of week</th>
       <th>Date</th>
@@ -25,32 +25,62 @@
 
   <tbody>
     <% @orders.each do |order| %>
-      <% if order.cancelled_on != nil %>
-        <tr class="border-bottom" style="background-color: #CD3333;">
-      <% else %>
-        <tr class="border-bottom">
-      <% end %>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= Customer.where(id: order.customer_id)[0].name unless order.customer_id == nil %></td>
-        <td><%= order.day_of_week %></td>
-        <td><%= order.date %></td>
-        <td><%= order.standing_order %></td>
-        <td>
-          <% if order.qty_oz < 16 %>
-            <%= order.qty_oz %> oz
+      <% if order.date != nil %>
+        <% next if order.date < Date.today %>
+          <% if order.cancelled_on != nil %>
+            <tr class="border-bottom" style="background-color: #CD3333;">
           <% else %>
-            <%= order.qty_oz / 16.0 %> lbs
+            <tr class="border-bottom">
           <% end %>
-        </td>
-        <td><%= Crop.where(id: order.crop_id)[0].crop %>, <%= Crop.where(id: order.crop_id)[0].crop_variety %></td>
-        <td><%= order.maturity_days %></td>
-        <td><%= order.harvest_preferences %></td>
-        <td><%= order.cancelled_on %></td>
-        <td>
-          <%= link_to "clone", orders_clone_path(:controller => "orders", :action => "clone", :order => order.id) %> &nbsp; | &nbsp; 
-          <%= link_to "cancel", orders_cancel_path(:controller => "orders", :action => "cancel", :order => order.id) %>
-        </td>
-      </tr>
+            <td><%= link_to Customer.where(id: order.customer_id)[0].name, order unless order.customer_id == nil %></td>
+            <td><%= order.day_of_week %></td>
+            <td><%= order.date %></td>
+            <td><%= order.standing_order %></td>
+            <td>
+              <% if order.qty_oz < 16 %>
+                <%= order.qty_oz %> oz
+              <% else %>
+                <%= order.qty_oz / 16.0 %> lbs
+              <% end %>
+            </td>
+            <td><%= Crop.where(id: order.crop_id)[0].crop %>, <%= Crop.where(id: order.crop_id)[0].crop_variety %></td>
+            <td><%= order.maturity_days %></td>
+            <td><%= order.harvest_preferences %></td>
+            <td><%= order.cancelled_on %></td>
+            <td>
+              <%= link_to "edit", edit_order_path(order) %> &nbsp; | &nbsp; 
+              <%= link_to "clone", orders_clone_path(:controller => "orders", :action => "clone", :order => order.id) %> &nbsp; | &nbsp; 
+              <%= link_to "cancel", orders_cancel_path(:controller => "orders", :action => "cancel", :order => order.id) %>
+            </td>
+          </tr>
+      <% else %>
+          <% if order.cancelled_on != nil %>
+            <tr class="border-bottom" style="background-color: #CD3333;">
+          <% else %>
+            <tr class="border-bottom">
+          <% end %>
+            <td><%= link_to Customer.where(id: order.customer_id)[0].name, order unless order.customer_id == nil %></td>
+            <td><%= order.day_of_week %></td>
+            <td><%= order.date %></td>
+            <td><%= order.standing_order %></td>
+            <td>
+              <% if order.qty_oz < 16 %>
+                <%= order.qty_oz %> oz
+              <% else %>
+                <%= order.qty_oz / 16.0 %> lbs
+              <% end %>
+            </td>
+            <td><%= Crop.where(id: order.crop_id)[0].crop %>, <%= Crop.where(id: order.crop_id)[0].crop_variety %></td>
+            <td><%= order.maturity_days %></td>
+            <td><%= order.harvest_preferences %></td>
+            <td><%= order.cancelled_on %></td>
+            <td>
+              <%= link_to "edit", edit_order_path(order) %> &nbsp; | &nbsp; 
+              <%= link_to "clone", orders_clone_path(:controller => "orders", :action => "clone", :order => order.id) %> &nbsp; | &nbsp; 
+              <%= link_to "cancel", orders_cancel_path(:controller => "orders", :action => "cancel", :order => order.id) %>
+            </td>
+          </tr>      
+      <% end %>    
     <% end %>
   </tbody>
 </table>

@@ -1,0 +1,63 @@
+<div style="padding: 22px; max-width:600px; align-items: center;">
+
+<%= form_with(model: @order, local: true) do |form| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <form class="form">
+
+    <div class="form-group">
+      <%= form.label :customer %><br>
+      <%= form.select :customer_id, Customer.all.collect{|customer| ["#{customer.name}", customer.id ]}, include_blank: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :qty_oz %>
+      <%= form.number_field :qty_oz, class: :text_field, step: :any, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :crop_id %><br>
+      <%= form.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
+    </div>
+
+    <div class="form-group">
+      <% @order.standing_order = true%>
+      <%= form.check_box :standing_order %> <strong>Standing Order?</strong>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :day_of_week %><br>
+      <%= form.select :day_of_week, ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], class: "form-control form-control-lg" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :harvest_preferences %>
+      <%= form.text_field :harvest_preferences, id: :order_harvest_preferences, class: "form-control" %>
+    </div>
+
+    <h4 align="center">*** *** ***<br>order cancellation</h4><br>
+
+    <div class="form-group">
+      <%= form.label :cancelled_on %><br>
+      <%= form.text_field :cancelled_on, include_blank: true, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }, class: "form-control"  %>
+    </div>  
+
+    <br><br>
+    <div class="actions" align="center">
+      <%= form.submit "create or update", class: "btn btn-primary" %>
+    </div>
+  </form>
+    
+  <% end %>
+
+</div>
