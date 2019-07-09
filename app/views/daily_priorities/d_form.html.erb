@@ -1,82 +1,90 @@
-<div style="padding: 22px; max-width:600px; align-items: center;">
-  <%= form_with(model: @daily_priority, local: true) do |form| %>
-    <% if @daily_priority.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@daily_priority.errors.count, "error") %> prohibited this daily_priority from being saved:</h2>
+<div class="form-container border">
+  <div class="form" style="padding: 22px; max-width:600px; align-items: center;">
+    <%= form_with(model: @daily_priority, local: true) do |form| %>
+      <% if @daily_priority.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@daily_priority.errors.count, "error") %> prohibited this daily_priority from being saved:</h2>
 
-        <ul>
-        <% @daily_priority.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
+          <ul>
+          <% @daily_priority.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+
+      <div class="form-group">
+        <%= form.label :date %>
+        <%= form.text_field :date, id: :daily_priority_date, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }, value: Date.today, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :initial %>
+        <%= form.text_field :initial, id: :daily_priority_initial, value: "d", class: "form-control" %>
+      </div>
+
+      <table>
+        <tr>
+          <td width="75%">
+            <div class="form-group">
+              <%= form.label "What was your #1 priority today?" %>
+              <% if Date.today.monday? %>
+                <%= form.text_field :one, id: :daily_priority_one, class: "form-control", value: "sales planning" %>  
+              <% elsif Date.today.tuesday? %>
+                <%= form.text_field :one, id: :daily_priority_one, class: "form-control", value: "sales" %>  
+              <% elsif Date.today.wednesday? %>
+                <%= form.text_field :one, id: :daily_priority_one, class: "form-control", value: "sales" %>  
+              <% elsif Date.today.thursday? %>
+                <%= form.text_field :one, id: :daily_priority_one, class: "form-control", value: "sales" %>  
+              <% elsif Date.today.friday? %>
+                <%= form.text_field :one, id: :daily_priority_one, class: "form-control", value: "sales dev" %>  
+              <% else %>
+                <%= form.text_field :one, id: :daily_priority_one, class: "form-control" %>
+              <% end %>
+            </div>
+          </td>
+          <td width="25%" style="padding-left:22px;">
+            <div class="form-group">
+              <%= form.label "Did you execute?" %>
+              <%= form.check_box :oneexecuted, id: :daily_priority_oneexecuted, class: "form-control" %>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <td width="75%">
+            <div class="form-group">
+              <%= form.label "What was your #2 priority today?" %>
+              <% if Date.today.monday? %>
+                <%= form.text_field :two, id: :daily_priority_two, class: "form-control", value: "-" %>  
+              <% elsif Date.today.tuesday? %>
+                <%= form.text_field :two, id: :daily_priority_two, class: "form-control", value: "-"  %>  
+              <% elsif Date.today.wednesday? %>
+                <%= form.text_field :two, id: :daily_priority_two, class: "form-control", value: "-"  %>  
+              <% elsif Date.today.thursday? %>
+                <%= form.text_field :two, id: :daily_priority_two, class: "form-control", value: "-"  %>  
+              <% elsif Date.today.friday? %>
+                <%= form.text_field :two, id: :daily_priority_two, class: "form-control", value: "finance" %>  
+              <% else %>
+                <%= form.text_field :two, id: :daily_priority_two, class: "form-control" %>
+              <% end %>            
+            </div>
+          </td>
+          <td width="25%" style="padding-left:22px;">
+                <div class="form-group">
+                  <%= form.label "Did you execute?" %>
+                  <%= form.check_box :twoexecuted, id: :daily_priority_twoexecuted, class: "form-control" %>
+                </div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="actions">
+        <%= form.submit "create", class: "btn btn-primary" %>
       </div>
     <% end %>
-
-    <div class="form-group">
-      <%= form.label :initial %>
-      <%= form.text_field :initial, id: :daily_priority_initial, value: "d", class: "form-control" %>
-    </div>
-
-    <table>
-      <tr>
-        <td width="75%">
-          <div class="form-group">
-            <%= form.label "What was your #1 priority today?" %>
-            <% if Date.today.monday? %>
-              <%= form.text_field :one, id: :daily_priority_one, class: "form-control", value: "sales planning" %>  
-            <% elsif Date.today.tuesday? %>
-              <%= form.text_field :one, id: :daily_priority_one, class: "form-control", value: "sales" %>  
-            <% elsif Date.today.wednesday? %>
-              <%= form.text_field :one, id: :daily_priority_one, class: "form-control", value: "sales" %>  
-            <% elsif Date.today.thursday? %>
-              <%= form.text_field :one, id: :daily_priority_one, class: "form-control", value: "sales" %>  
-            <% elsif Date.today.friday? %>
-              <%= form.text_field :one, id: :daily_priority_one, class: "form-control", value: "sales dev" %>  
-            <% else %>
-              <%= form.text_field :one, id: :daily_priority_one, class: "form-control" %>
-            <% end %>
-          </div>
-        </td>
-        <td width="25%" style="padding-left:22px;">
-          <div class="form-group">
-            <%= form.label "Did you execute?" %>
-            <%= form.check_box :oneexecuted, id: :daily_priority_oneexecuted, class: "form-control" %>
-          </div>
-        </td>
-      </tr>
-    </table>
-
-    <table>
-      <tr>
-        <td width="75%">
-          <div class="form-group">
-            <%= form.label "What was your #2 priority today?" %>
-            <% if Date.today.monday? %>
-              <%= form.text_field :two, id: :daily_priority_two, class: "form-control", value: "-" %>  
-            <% elsif Date.today.tuesday? %>
-              <%= form.text_field :two, id: :daily_priority_two, class: "form-control", value: "-"  %>  
-            <% elsif Date.today.wednesday? %>
-              <%= form.text_field :two, id: :daily_priority_two, class: "form-control", value: "-"  %>  
-            <% elsif Date.today.thursday? %>
-              <%= form.text_field :two, id: :daily_priority_two, class: "form-control", value: "-"  %>  
-            <% elsif Date.today.friday? %>
-              <%= form.text_field :two, id: :daily_priority_two, class: "form-control", value: "finance" %>  
-            <% else %>
-              <%= form.text_field :two, id: :daily_priority_two, class: "form-control" %>
-            <% end %>            
-          </div>
-        </td>
-        <td width="25%" style="padding-left:22px;">
-              <div class="form-group">
-                <%= form.label "Did you execute?" %>
-                <%= form.check_box :twoexecuted, id: :daily_priority_twoexecuted, class: "form-control" %>
-              </div>
-        </td>
-      </tr>
-    </table>
-
-    <div class="actions">
-      <%= form.submit "create", class: "btn btn-primary" %>
-    </div>
-  <% end %>
-</div>
+  </div>
+</div>  

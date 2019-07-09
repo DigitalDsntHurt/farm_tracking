@@ -69,6 +69,15 @@ class DailyPrioritiesController < ApplicationController
     end
   end
 
+  def weekly_dash
+    # get week start dates
+    @start_date = Date.new(2019,06,24)
+    @week_start_dates = [@start_date]
+    until Date.today - @start_date < 0
+      @week_start_dates << @start_date += 7
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_daily_priority
@@ -77,6 +86,6 @@ class DailyPrioritiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def daily_priority_params
-      params.require(:daily_priority).permit(:initial, :one, :oneexecuted, :two, :twoexecuted)
+      params.require(:daily_priority).permit(:initial, :one, :oneexecuted, :two, :twoexecuted, :date)
     end
 end

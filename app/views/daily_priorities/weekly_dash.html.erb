@@ -1,0 +1,42 @@
+<table class="index-table">
+	<thead>
+		<th>
+			week of
+		</th>
+		<th>
+			# priorities
+		</th>
+		<th>
+			# completed
+		</th>
+		<th>
+			% completed
+		</th>
+	</thead>
+	<% @week_start_dates.each{|monday| %>
+		<tr>
+			<td>
+				<%= monday %>
+			</td>
+			<td>
+				<% @all_weeks_prios = 0 %>
+				<% DailyPriority.where("date <= ? AND date >= ?", monday+6, monday).each{|record| %>
+					<% @all_weeks_prios += 1 unless record.one == "-" or record.one == nil %>
+					<% @all_weeks_prios += 1 unless record.two == "-" or record.two == nil %>
+				<% } %>
+				<%= @all_weeks_prios %>
+			</td>
+			<td>
+				<% @completed_weeks_prios = 0 %>
+				<% DailyPriority.where("date <= ? AND date >= ?", monday+6, monday).each{|record| %>
+					<% @completed_weeks_prios += 1 if record.one != "-" and record.one != nil and record.oneexecuted == true %>
+					<% @completed_weeks_prios += 1 if record.two != "-" and record.two != nil and record.twoexecuted == true %>
+				<% } %>
+				<%= @completed_weeks_prios %>
+			</td>
+			<td>
+				<%= (@completed_weeks_prios.to_f / @all_weeks_prios.to_f * 100).round(2) %> %
+			</td>
+		</tr>
+	<% } %>	
+</table>

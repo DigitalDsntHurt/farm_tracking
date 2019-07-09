@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   
   get 'daily_priorities/n_form' => 'daily_priorities#n_form'
   get 'daily_priorities/d_form' => 'daily_priorities#d_form'
+  get 'daily_priorities/weekly_dash' => 'daily_priorities#weekly_dash'
   resources :daily_priorities
 
   get 'calendars/ops'

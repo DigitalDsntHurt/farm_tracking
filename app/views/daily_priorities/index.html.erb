@@ -6,6 +6,7 @@
   <table class="index-table">
     <thead>
       <tr>
+        <th>Date</th>
         <th>Initial</th>
         <th>One</th>
         <th>Oneexecuted</th>
@@ -18,6 +19,7 @@
     <tbody>
       <% @daily_priorities.each do |daily_priority| %>
         <tr>
+          <td><%= daily_priority.date %></td>
           <td><%= daily_priority.initial %></td>
           <td><%= daily_priority.one %></td>
           <td><%= daily_priority.oneexecuted %></td>
