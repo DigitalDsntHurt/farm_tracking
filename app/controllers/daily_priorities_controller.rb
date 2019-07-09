@@ -4,7 +4,7 @@ class DailyPrioritiesController < ApplicationController
   # GET /daily_priorities
   # GET /daily_priorities.json
   def index
-    @daily_priorities = DailyPriority.all
+    @daily_priorities = DailyPriority.all.order(date: :desc)
   end
 
   # GET /daily_priorities/1
