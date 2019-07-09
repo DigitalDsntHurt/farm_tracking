@@ -1,0 +1,42 @@
+<%= form_with(model: daily_priority, local: true) do |form| %>
+  <% if daily_priority.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(daily_priority.errors.count, "error") %> prohibited this daily_priority from being saved:</h2>
+
+      <ul>
+      <% daily_priority.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :initial %>
+    <%= form.text_field :initial, id: :daily_priority_initial %>
+  </div>
+
+  <div class="field">
+    <%= form.label :one %>
+    <%= form.text_field :one, id: :daily_priority_one %>
+  </div>
+
+  <div class="field">
+    <%= form.label :oneexecuted %>
+    <%= form.check_box :oneexecuted, id: :daily_priority_oneexecuted %>
+  </div>
+
+  <div class="field">
+    <%= form.label :two %>
+    <%= form.text_field :two, id: :daily_priority_two %>
+  </div>
+
+  <div class="field">
+    <%= form.label :twoexecuted %>
+    <%= form.check_box :twoexecuted, id: :daily_priority_twoexecuted %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

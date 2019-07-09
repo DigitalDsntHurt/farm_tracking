@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  initial: MyString
+  one: MyString
+  oneexecuted: false
+  two: MyString
+  twoexecuted: false
+
+two:
+  initial: MyString
+  one: MyString
+  oneexecuted: false
+  two: MyString
+  twoexecuted: false

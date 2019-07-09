@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Initial:</strong>
+  <%= @daily_priority.initial %>
+</p>
+
+<p>
+  <strong>One:</strong>
+  <%= @daily_priority.one %>
+</p>
+
+<p>
+  <strong>Oneexecuted:</strong>
+  <%= @daily_priority.oneexecuted %>
+</p>
+
+<p>
+  <strong>Two:</strong>
+  <%= @daily_priority.two %>
+</p>
+
+<p>
+  <strong>Twoexecuted:</strong>
+  <%= @daily_priority.twoexecuted %>
+</p>
+
+<%= link_to 'Edit', edit_daily_priority_path(@daily_priority) %> |
+<%= link_to 'Back', daily_priorities_path %>

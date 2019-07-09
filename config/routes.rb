@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   
+  
+  get 'daily_priorities/n_form' => 'daily_priorities#n_form'
+  get 'daily_priorities/d_form' => 'daily_priorities#d_form'
+  resources :daily_priorities
+
   get 'calendars/ops'
   get 'calendars/harvest'
 
