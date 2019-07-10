@@ -50,7 +50,7 @@
               total labor hrs
             </th>
           </thead>
-          <% @week_start_dates.each{|monday| %>
+          <% @week_start_dates.reverse.each{|monday| %>
             <tr>
               <td>
                 <%= monday %>

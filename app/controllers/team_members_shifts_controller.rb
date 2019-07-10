@@ -4,7 +4,7 @@ class TeamMembersShiftsController < ApplicationController
   # GET /team_members_shifts
   # GET /team_members_shifts.json
   def index
-    @team_members_shifts = TeamMembersShift.all
+    @team_members_shifts = TeamMembersShift.all.order(shift_date: :desc)
 
     # get week start dates
     @start_date = Date.new(2019,07,01)
