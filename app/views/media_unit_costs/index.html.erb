@@ -48,7 +48,7 @@
         </thead>
         <% @week_start_dates.reverse.each{|monday| %>
           <tr>
-            <td>
+            <td align="center">
               <%= monday %>
               <% @week_start = monday %>
               <% @week_end = monday %>
@@ -56,15 +56,16 @@
                 <% @week_end += 1 %>
               <% end %>
             </td>
-            <td>
+            <td align="center">
               <% @cost = MediaUnitCost.where("date <= ? ", monday).order(date: :desc).first.unit_cost %>
               $ <%= @cost %>
             </td>
-            <td>
-              <%= SeedFlat.where(:started_date => @week_start..@week_end).count %>
+            <td align="center">
+              <% @weekly_flats_sewn = SeedFlat.where(:started_date => @week_start..@week_end).count %>
+              <%= @weekly_flats_sewn %>
             </td>
-            <td>
-              
+            <td align="center">
+              $ <%= @weekly_flats_sewn * @cost %>
             </td>
           </tr>
         <% } %>
