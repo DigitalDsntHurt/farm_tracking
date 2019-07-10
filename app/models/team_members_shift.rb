@@ -1,0 +1,2 @@
+class TeamMembersShift < ApplicationRecord
+end

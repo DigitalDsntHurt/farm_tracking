@@ -579,8 +579,16 @@ table.data-table{
 
 .form-container{
   padding: 66px !important;
-  margin: 66px !important;
+  margin: auto !important;
   max-width: 800px;
-
+  border : solid 1px rgba(0,0,0,0.2)
 }
 
+.master-container{
+  padding-left: 66px;
+  padding-right: 66px;
+}
+
+.select-drop-down{
+  width:100% !important;
+}

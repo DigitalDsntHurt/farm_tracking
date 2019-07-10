@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team_member_id: 1
+  shift_date: 2019-07-10
+  shift_hrs: 1.5
+  paid_date: 2019-07-10
+
+two:
+  team_member_id: 1
+  shift_date: 2019-07-10
+  shift_hrs: 1.5
+  paid_date: 2019-07-10

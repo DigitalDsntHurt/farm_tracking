@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190709054921) do
+ActiveRecord::Schema.define(version: 20190710153305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -276,6 +276,28 @@ ActiveRecord::Schema.define(version: 20190709054921) do
     t.string "pumps"
     t.string "pump_time"
     t.index ["room_id"], name: "index_systems_on_room_id"
+  end
+
+  create_table "team_members", force: :cascade do |t|
+    t.string "fname"
+    t.string "lname"
+    t.date "start_date"
+    t.date "birthday"
+    t.string "phone"
+    t.string "email"
+    t.string "address"
+    t.string "social_links"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "team_members_shifts", force: :cascade do |t|
+    t.integer "team_member_id"
+    t.date "shift_date"
+    t.float "shift_hrs"
+    t.date "paid_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "nutrient_solutions", "reservoirs"

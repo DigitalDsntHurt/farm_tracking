@@ -1,0 +1,57 @@
+<%= form_with(model: team_member, local: true) do |form| %>
+  <% if team_member.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(team_member.errors.count, "error") %> prohibited this team_member from being saved:</h2>
+
+      <ul>
+      <% team_member.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :fname %>
+    <%= form.text_field :fname, id: :team_member_fname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lname %>
+    <%= form.text_field :lname, id: :team_member_lname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.text_field :start_date, include_blank: true, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :birthday %>
+    <%= form.text_field :birthday, include_blank: true, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone %>
+    <%= form.text_field :phone, id: :team_member_phone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email, id: :team_member_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address, id: :team_member_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :social_links %>
+    <%= form.text_field :social_links, id: :team_member_social_links %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

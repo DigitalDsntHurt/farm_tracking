@@ -1,0 +1,43 @@
+<div class="master-container">
+  <p id="notice"><%= notice %></p>
+
+  <h1>Team Members</h1>
+
+  <table class="index-table">
+    <thead>
+      <tr>
+        <th>Fname</th>
+        <th>Lname</th>
+        <th>Start date</th>
+        <th>Birthday</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Social links</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @team_members.each do |team_member| %>
+        <tr>
+          <td><%= team_member.fname %></td>
+          <td><%= team_member.lname %></td>
+          <td><%= team_member.start_date %></td>
+          <td><%= team_member.birthday %></td>
+          <td><%= team_member.phone %></td>
+          <td><%= team_member.email %></td>
+          <td><%= team_member.address %></td>
+          <td><%= team_member.social_links %></td>
+          <td><%= link_to 'Show', team_member %></td>
+          <td><%= link_to 'Edit', edit_team_member_path(team_member) %></td>
+          <td><%= link_to 'Destroy', team_member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <%= link_to 'New Team Member', new_team_member_path, class: "btn btn-primary" %>
+</div>

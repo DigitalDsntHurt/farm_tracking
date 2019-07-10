@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Team member:</strong>
+  <%= @team_members_shift.team_member_id %>
+</p>
+
+<p>
+  <strong>Shift date:</strong>
+  <%= @team_members_shift.shift_date %>
+</p>
+
+<p>
+  <strong>Shift hrs:</strong>
+  <%= @team_members_shift.shift_hrs %>
+</p>
+
+<p>
+  <strong>Paid date:</strong>
+  <%= @team_members_shift.paid_date %>
+</p>
+
+<%= link_to 'Edit', edit_team_members_shift_path(@team_members_shift) %> |
+<%= link_to 'Back', team_members_shifts_path %>

@@ -158,6 +158,21 @@
 			</div>			
 			<br/>
 			<br/>			
+		</div>
+
+		<div class="col">
+			<br/>
+			<br/>
+			<div class="dropdown">
+			  <button class="dropbtn btn btn-success dropdown-toggle">All Tables</button>
+			  <div class="dropdown-content">
+			    <%= link_to "weekly priorities", "/daily_priorities/weekly_dash", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "team members", "/team_members", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "team member shifts", "/team_members_shifts", :method => :get, :class => "navbar-dropdown" %>
+			  </div>
+			</div>			
+			<br/>
+			<br/>			
 		</div>		
 	</div>
 </div>

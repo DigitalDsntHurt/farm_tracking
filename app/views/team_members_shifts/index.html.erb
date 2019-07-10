@@ -1,0 +1,73 @@
+<div class="master-container">
+
+  <table>
+    <tr>
+      <td width="40%">
+        <h1>Shifts</h1>
+
+        <table class="index-table">
+          <thead>
+            <tr>
+              <th>Team member</th>
+              <th>Shift date</th>
+              <th>Shift hrs</th>
+              <th>Paid date</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @team_members_shifts.each do |team_members_shift| %>
+              <tr>
+                <td><%= TeamMember.where(id: team_members_shift.team_member_id)[0].fname %> <%= TeamMember.where(id: team_members_shift.team_member_id)[0].lname %></td>
+                <td><%= team_members_shift.shift_date %></td>
+                <td><%= team_members_shift.shift_hrs %></td>
+                <td><%= team_members_shift.paid_date %></td>
+                <td><%= link_to 'Show', team_members_shift %></td>
+                <td><%= link_to 'Edit', edit_team_members_shift_path(team_members_shift) %></td>
+                <td><%= link_to 'Destroy', team_members_shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <br>
+
+        <%= link_to 'New Team Members Shift', new_team_members_shift_path, class:"btn btn-primary" %>        
+      </td>
+      <td width="10%">
+        
+      </td>
+      <td width="40%">
+        <h1>Weekly Totals</h1>
+
+        <table class="index-table">
+          <thead>
+            <th>
+              week of
+            </th>
+            <th>
+              total labor hrs
+            </th>
+          </thead>
+          <% @week_start_dates.each{|monday| %>
+            <tr>
+              <td>
+                <%= monday %>
+              </td>
+              <td>
+                <% @total_weekly_labor_hrs = 0 %>
+                <% TeamMembersShift.where("shift_date <= ? AND shift_date >= ?", monday+6, monday).each{|record| %>
+                  <% @total_weekly_labor_hrs += record.shift_hrs %>
+                <% } %>
+                <%= @total_weekly_labor_hrs %>                
+              </td>
+            </tr>
+          <% } %>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</div>

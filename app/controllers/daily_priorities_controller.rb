@@ -36,7 +36,7 @@ class DailyPrioritiesController < ApplicationController
 
     respond_to do |format|
       if @daily_priority.save
-        format.html { redirect_to @daily_priority, notice: 'Daily priority was successfully created.' }
+        format.html { redirect_to daily_priorities_path, notice: 'Daily priority was successfully created.' }
         format.json { render :show, status: :created, location: @daily_priority }
       else
         format.html { render :new }
