@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190710153305) do
+ActiveRecord::Schema.define(version: 20190710170111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,15 @@ ActiveRecord::Schema.define(version: 20190710153305) do
     t.integer "order_id"
     t.integer "treatment_id"
     t.string "order_ids", default: [], array: true
+  end
+
+  create_table "media_unit_costs", force: :cascade do |t|
+    t.date "date"
+    t.string "media"
+    t.float "unit_cost"
+    t.string "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "nutrient_solutions", force: :cascade do |t|

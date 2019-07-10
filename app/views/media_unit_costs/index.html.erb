@@ -1,0 +1,76 @@
+<div class="master-container">
+
+
+<table>
+  <tr>
+    <td>
+      <h1>Media Unit Costs</h1>
+
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Media</th>
+            <th>Unit cost</th>
+            <th>Notes</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @media_unit_costs.each do |media_unit_cost| %>
+            <tr>
+              <td><%= media_unit_cost.date %></td>
+              <td><%= media_unit_cost.media %></td>
+              <td>$ <%= media_unit_cost.unit_cost %></td>
+              <td><%= media_unit_cost.notes %></td>
+              <td><%= link_to 'Show', media_unit_cost %></td>
+              <td><%= link_to 'Edit', edit_media_unit_cost_path(media_unit_cost) %></td>
+              <td><%= link_to 'Destroy', media_unit_cost, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <br>
+      <%= link_to 'New Media Unit Cost', new_media_unit_cost_path, class: "btn btn-primary" %>      
+    </td>
+    <td>
+      <h1>Weekly Totals</h1>
+
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th>week of</th>
+            <th>cost / media flat</th>
+            <th># flats sewn</th>
+            <th>total weekly media spend</th>
+          </tr>
+        </thead>
+        <% @week_start_dates.reverse.each{|monday| %>
+          <tr>
+            <td>
+              <%= monday %>
+              <% @week_start = monday %>
+              <% @week_end = monday %>
+              <% until @week_end.sunday? %>
+                <% @week_end += 1 %>
+              <% end %>
+            </td>
+            <td>
+              <% @cost = MediaUnitCost.where("date <= ? ", monday).order(date: :desc).first.unit_cost %>
+              $ <%= @cost %>
+            </td>
+            <td>
+              <%= SeedFlat.where(:started_date => @week_start..@week_end).count %>
+            </td>
+            <td>
+              
+            </td>
+          </tr>
+        <% } %>
+    </td>
+  </tr>
+</table>
+
+
+</div>

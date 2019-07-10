@@ -1,0 +1,2 @@
+class MediaUnitCost < ApplicationRecord
+end

@@ -14,12 +14,12 @@
 
     <div class="form-group">
       <%= form.label :team_member_id %><br>
-      <%= form.select :team_member_id, TeamMember.all.collect{|team_member| ["#{team_member.fname} #{team_member.lname}", team_member.id ] }, :include_blank => true, class: "form-control"  %>
+      <%= form.select :team_member_id, TeamMember.all.collect{|team_member| ["#{team_member.fname} #{team_member.lname}", team_member.id ] }, :include_blank => true, class: "form-control" %>
     </div>
 
     <div class="form-group">
       <%= form.label :shift_date %>
-      <%= form.text_field :shift_date, include_blank: true, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }, class: "form-control"   %>
+      <%= form.text_field :shift_date, include_blank: true, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }, class: "form-control" %>
     </div>
 
     <div class="form-group">

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   
+  resources :media_unit_costs
   resources :team_members_shifts
   resources :team_members
   get 'daily_priorities/n_form' => 'daily_priorities#n_form'
