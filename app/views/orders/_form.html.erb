@@ -38,7 +38,7 @@
 
   <div class="field">
     <%= form.label :day_of_week %>
-    <%= form.text_field :day_of_week, id: :order_day_of_week %>
+    <%= form.select :day_of_week, ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], class: "form-control form-control-lg" %>
   </div>
 
   <h4 align="center">*** *** ***<br>AD-HOC ORDERS ONLY<br>set date (do not set day of week or check standing order box)</h4><br>

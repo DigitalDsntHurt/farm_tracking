@@ -47,6 +47,6 @@
 </p>
 
 <%= link_to 'Edit', edit_order_path(@order), class: "btn btn-success" %>
-<%= link_to 'Back', orders_path, class: "btn btn-success" %>
+<%= link_to 'Back', "/orders/current_index", class: "btn btn-success" %>
 <%= link_to 'Clone', orders_clone_path(:controller => "orders", :action => "clone", :order => @order.id), :class => "dropbtn btn btn-success" %>
 </div>
