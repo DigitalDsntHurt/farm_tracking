@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Week start date:</strong>
+  <%= @weekly_revenue.week_start_date %>
+</p>
+
+<p>
+  <strong>Revenue:</strong>
+  $<%= @weekly_revenue.revenue %>
+</p>
+
+<%= link_to 'Edit', edit_weekly_revenue_path(@weekly_revenue) %> |
+<%= link_to 'Back', weekly_revenues_path %>

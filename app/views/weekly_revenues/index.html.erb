@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Weekly Revenues</h1>
+
+<table class="index-table">
+  <thead>
+    <tr>
+      <th>Week start date</th>
+      <th>Revenue</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @weekly_revenues.each do |weekly_revenue| %>
+      <tr>
+        <td><%= weekly_revenue.week_start_date %></td>
+        <td>$<%= weekly_revenue.revenue %></td>
+        <td><%= link_to 'Show', weekly_revenue %></td>
+        <td><%= link_to 'Edit', edit_weekly_revenue_path(weekly_revenue) %></td>
+        <td><%= link_to 'Destroy', weekly_revenue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Weekly Revenue', new_weekly_revenue_path %>

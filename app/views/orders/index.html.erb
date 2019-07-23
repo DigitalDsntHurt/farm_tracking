@@ -18,6 +18,7 @@
       <th>Crop</th>
       <th>Maturity Days</th>
       <th>Harvest Preferences</th>
+      <th>Start Date</th>
       <th>Cancelled On</th>
       <th></th>
     </tr>
@@ -45,6 +46,7 @@
         <td><%= Crop.where(id: order.crop_id)[0].crop %>, <%= Crop.where(id: order.crop_id)[0].crop_variety %></td>
         <td><%= order.maturity_days %></td>
         <td><%= order.harvest_preferences %></td>
+        <td><%= order.start_date %></td>
         <td><%= order.cancelled_on %></td>
         <td>
           <%= link_to "clone", orders_clone_path(:controller => "orders", :action => "clone", :order => order.id) %> &nbsp; | &nbsp; 

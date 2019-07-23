@@ -1,5 +1,6 @@
 require 'rufus-scheduler'
 
+=begin
 scheduler = Rufus::Scheduler.new
 
 
@@ -93,3 +94,4 @@ scheduler.cron '0 1 * * 5' do
 end
 
 
+=end

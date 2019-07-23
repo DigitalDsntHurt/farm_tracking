@@ -1,0 +1,29 @@
+<div class="form form-container">
+  <%= form_with(model: weekly_revenue, local: true) do |form| %>
+    <% if weekly_revenue.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(weekly_revenue.errors.count, "error") %> prohibited this weekly_revenue from being saved:</h2>
+
+        <ul>
+        <% weekly_revenue.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :week_start_date %>
+      <%= form.text_field :week_start_date, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }, value: @most_recent_monday, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :revenue %>
+      <%= form.text_field :revenue, id: :weekly_revenue_revenue, class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "submit", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

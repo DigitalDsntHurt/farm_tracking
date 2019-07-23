@@ -227,6 +227,11 @@ class SeedFlatUpdatesController < ApplicationController
   def dummy_method
   end
 
+  
+  def harvest
+    @seed_flat = SeedFlat.find(params[:flat])
+  end
+
   # PATCH/PUT /seed_flat_updates/1
   # PATCH/PUT /seed_flat_updates/1.json
   def update

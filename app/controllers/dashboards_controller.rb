@@ -452,8 +452,21 @@ class DashboardsController < ApplicationController
     until Date.today - @start_date < 0
       @week_start_dates << @start_date += 7
     end
+  end
 
-    
+  def customer_harvest_history
+    @start_date = Date.today - 42
+    until @start_date.monday?
+      @start_date -= 1
+    end
+    @week_start_dates = [@start_date]
+    until Date.today - @start_date < 0
+      @week_start_dates << @start_date += 7
+    end
+
+
+    @customers = Customer.all
+    @flats = SeedFlat.where.not(harvested_on: nil).group_by{|flat| flat.harvested_for }
   end
 
 end

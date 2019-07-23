@@ -41,6 +41,11 @@
     <%= form.select :day_of_week, ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], class: "form-control form-control-lg" %>
   </div>
 
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.text_field :start_date, include_blank: true, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }  %>
+  </div>
+
   <h4 align="center">*** *** ***<br>AD-HOC ORDERS ONLY<br>set date (do not set day of week or check standing order box)</h4><br>
 
   <div class="field">

@@ -41,6 +41,11 @@
     </div>
 
     <div class="form-group">
+      <%= form.label :start_date %>
+      <%= form.text_field :start_date, include_blank: true, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }, class: "form-control form-control-lg" %>
+    </div>
+
+    <div class="form-group">
       <%= form.label :harvest_preferences %>
       <%= form.text_field :harvest_preferences, id: :order_harvest_preferences, class: "form-control" %>
     </div>

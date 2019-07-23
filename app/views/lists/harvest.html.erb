@@ -1,0 +1,74 @@
+<h1 align="center">
+	Harvest List<br><br>
+</h1>
+
+<div class="container-fluid">
+	<% @weeks.each{|week| %>
+		<div class="row">
+			<% week.each{|day| %>
+				<% if day == Date.today %>
+					<div class="col cal-day nopadding" style="background-color: #4cbb17;">
+				<% else %>
+					<div class="col cal-day nopadding">
+				<% end %>
+					<% unless day == nil %>
+						<br>
+						<h3 align="center"><%= day.strftime("%a, %b %d") %></h3><br>
+						
+						<% @cal_day_of_week = day.strftime("%A") %>
+						<% @days_orders = @orders.where(day_of_week: @cal_day_of_week) %>
+						<% @days_ad_hoc_orders = @ad_hoc_orders.where(date: day) %>
+						
+						<% @days_orders.group_by{|order| order.customer_id }.each{|customer_group| %>
+							<div class="card">
+								<div class="card-body">
+								    <h4 class="card-title" align="center">
+								    	<%= Customer.where(id: customer_group[0])[0].name.capitalize %>
+								    </h4>
+								    <p class="card-text">
+								    	<% customer_group[1].each{|order| %>
+									    	<% if order.start_date == nil %>
+										    	<div class="card">
+													<div class="card-body">
+														<%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>, <%= Crop.where(id: order.crop_id)[0].crop_variety %><% unless order.harvest_preferences == nil or order.harvest_preferences.length < 2 %> (<%= order.harvest_preferences %>) <% end %>
+													</div>
+												</div>
+											<% else %>
+												<% unless order.start_date > Date.today %>
+											    	<div class="card">
+														<div class="card-body">
+															<%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>, <%= Crop.where(id: order.crop_id)[0].crop_variety %><% unless order.harvest_preferences == nil or order.harvest_preferences.length < 2 %> (<%= order.harvest_preferences %>) <% end %>
+														</div>
+													</div>													
+												<% end %>
+											<% end %>
+										<% } %>
+								    </p>
+								</div>
+							</div>
+						<% } %>
+
+						<% @days_ad_hoc_orders.group_by{|order| order.customer_id }.each{|customer_group| %>
+							<div class="card">
+								<div class="card-body">
+								    <h4 class="card-title" align="center">
+								    	<%= Customer.where(id: customer_group[0])[0].name.capitalize %>
+								    </h4>
+								    <p class="card-text">
+								    	<% customer_group[1].each{|order| %>
+									    	<div class="card">
+												<div class="card-body">
+													<%= order.qty_oz %>oz <%= Crop.where(id: order.crop_id)[0].crop.capitalize %>, <%= Crop.where(id: order.crop_id)[0].crop_variety %><% unless order.harvest_preferences == nil or order.harvest_preferences.length < 2 %> (<%= order.harvest_preferences %>) <% end %>
+												</div>
+											</div>
+										<% } %>
+								    </p>
+								</div>
+							</div>
+						<% } %>
+					<% end %><br>
+				</div>
+			<% } %>
+		</div>
+	<% } %>
+</div>

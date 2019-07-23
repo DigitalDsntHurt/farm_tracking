@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   
   
+  get 'lists/harvest'
+
+  resources :weekly_revenues
   resources :media_unit_costs
   resources :team_members_shifts
   resources :team_members
@@ -58,6 +61,7 @@ Rails.application.routes.draw do
 	get 'dashboards/finance'
 	get 'dashboards/flats_per_week'
 	get 'dashboards/weekly_seed_use'
+	get 'dashboards/customer_harvest_history'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
 	get 'seed_flats/basic_index' => 'seed_flats#basic_index'

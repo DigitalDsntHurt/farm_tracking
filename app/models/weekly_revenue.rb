@@ -1,0 +1,2 @@
+class WeeklyRevenue < ApplicationRecord
+end
