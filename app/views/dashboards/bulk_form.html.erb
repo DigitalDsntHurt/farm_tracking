@@ -1,25 +1,58 @@
-<%= form_tag dashboards_bulk_form_path do %>
-  
-  <div class="form-group">
-  	<label for="stuff">crop</label>
-  	<%= text_field_tag :crop %>
-  </div>
-  
-  <div class="form-group">
-  	<label for="stuff">customer</label>
-  	<%= text_field_tag :crop %>
-  </div>
+<div class="form-container">
 
-  <div class="form-group">
-  	<label for="stuff">flat ids</label>
-  	<%= text_field_tag :flat_identifiers %>
-  </div>
+	<h1 align="center"><%= @info %></h1>
 
-  <div class="form-group">
-  	<label for="stuff">seed weight</label>
-  	<%= text_field_tag :seed_weight %>
-  </div>
-  
-  <%= submit_tag "Submit" %>
-<% end %>
+	<%= form_tag dashboards_bulk_form_path do %>
+	  
+		<div class="form-group">
+			<h3><label>flat ids (enter comma separated)</label></h3>
+			<%= text_field_tag :flat_ids %>
+		</div>
+
+		<br>
+		<p>****** ****** ****** ****** ****** ******</p>
+		<p>prepopulated data from sew calendar</p>
+		<p>****** ****** ****** ****** ****** ******</p>
+
+		<div class="form-group">
+			<h3><label>customer</label></h3>
+			<%= text_field_tag :customer_id, @customer_id %> ( <%= Customer.where(id: @customer_id)[0].name %> )
+		</div>
+
+		<div class="form-group">
+			<h3><label>crop</label></h3>
+			<%= text_field_tag :crop_id, @crop_id %> ( <%= Crop.where(id: @crop_id)[0].crop_variety %>, <%= Crop.where(id: @crop_id)[0].crop.capitalize %> )
+		</div>
+
+		<div class="form-group">
+	  		<h3><label>seed weight</label></h3>
+	  		<%= number_field_tag :seed_weight, Crop.where(id: @crop_id)[0].ideal_sew_seed_oz_per_flat, step: :any %>
+	  	</div>
+
+	  	<div class="form-group">
+			<h3><label>started date</label></h3>
+			<%= date_field_tag :started_date, Date.today %>
+		</div>
+
+		<div class="form-group">
+			<h3><label>current system id</label></h3>
+			<%= number_field_tag :current_system_id, 3 %> ( <%= System.where(id: 3)[0].system_name %> )
+		</div>
+
+		<div class="form-group">
+			<h3><label>medium</label></h3>
+			<%= text_field_tag :medium, "biostrate felt" %>
+		</div>
+
+		<div class="form-group">
+			<h3><label>format</label></h3>
+			<%= text_field_tag :format, "matt" %>
+		</div>
+	  
+	  <div align="center">
+	  	<%= submit_tag "bulk create flats", class: "btn btn-primary" %>
+	  </div>
+
+	<% end %>
+</div>	
 

@@ -39,6 +39,13 @@ class SeedFlatsController < ApplicationController
     @seed_flat = SeedFlat.new
   end
 
+  def new_prepopulated
+    @customer_id = params[:customer_id]
+    @crop_id = params[:crop_id]
+    @seed_weight = Crop.where(id: params[:crop_id])[0].ideal_sew_seed_oz_per_flat
+    @seed_flat = SeedFlat.new(crop_id: @crop_id, customer_id: @customer_id, seed_weight_oz: @seed_weight)
+  end
+
   # GET /seed_flats/1/edit
   def edit
   end

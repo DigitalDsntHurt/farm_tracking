@@ -455,11 +455,22 @@ class DashboardsController < ApplicationController
   end
 
   def bulk_form
-    #stuff = params[:crop, :flat_identifiers]
-    #puts "the answer is #{stuff}"
+    @info = params[:info]
+    @crop_id = params[:crop_id]
+    @customer_id = params[:customer_id]
+    
     params.each{|k,v|
       puts "#{k}: #{v}"
     }
+
+    puts params[:flat_ids]
+    puts params[:commit]
+
+    if params[:flat_ids] != nil
+      params[:flat_ids].gsub(", ",",").split(",").each{|id|
+        SeedFlat.new(started_date: Date.today, medium: params[:medium], format: params[:format], seed_weight_oz: params[:seed_weight], flat_id: id, current_system_id: params[:current_system_id], crop_id: params[:crop_id], customer_id: params[:customer_id]).save
+      }
+    end
   end
 
   def customer_harvest_history

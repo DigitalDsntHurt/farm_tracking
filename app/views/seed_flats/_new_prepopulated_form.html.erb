@@ -1,0 +1,76 @@
+<div class="form-container">
+
+  <%= form_for(seed_flat) do |f| %>
+    <% if seed_flat.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(seed_flat.errors.count, "error") %> prohibited this seed_flat from being saved:</h2>
+
+        <ul>
+        <% seed_flat.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <h4>
+      <h3>Flat ID</h3>
+      <%= f.text_field :flat_id, class: "form-control form-control-lg"  %>
+      </h4>
+    </div>
+
+  <br>
+  <p>****** ****** ****** ****** ****** ******</p>
+  <p>prepopulated data from sew calendar</p>
+  <p>****** ****** ****** ****** ****** ******</p>
+
+    <div class="form-group">
+      <h4>
+      <h3><%= f.label :sewn_for %></h3>
+      <%= f.select :customer_id, Customer.all.order(:name).collect{|customer| ["#{customer.name}", customer.id ]}, include_blank: true, class: "form-control form-control-lg"  %>
+      </h4>
+    </div>
+
+    <div class="form-group">
+      <h4>
+      <h3><%= f.label :crop %></h3>
+      <%= f.select :crop_id, Crop.all.order(:crop).collect{|crop| ["#{crop.crop} - #{crop.crop_variety} (#{crop.crop_type})", crop.id ]}, include_blank: true, class: "form-control form-control-lg"  %>
+      </h4>
+    </div>
+
+    <div class="form-group">
+      <h4>
+      <h3><%= f.label :seed_weight %></h3>
+      <%= f.text_field :seed_weight_oz, class: "form-control form-control-lg"  %>
+      </h4>
+    </div>
+  <p>****** ****** ****** ****** ****** ******</p>
+  <p>no data entry below</p>
+  <p>****** ****** ****** ****** ****** ******</p>
+    <div class="field">
+      <%= f.label :started_date %>
+      <%= f.date_select :started_date %>
+    </div>
+
+    <div class="field">
+      <%= f.label :current_system_id %>
+      <%= f.select :current_system_id, System.all.order(:system_name).collect{|system| ["#{system.system_name} - #{Room.where(id: system.room_id)[0].name}", system.id ]} %>
+    </div>
+
+    <div class="field">
+      <%= f.label :medium %>
+      <%= f.text_field :medium, value: "biostrate felt" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :format %>
+      <%= f.text_field :format, value: "matt" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+
+</div>
