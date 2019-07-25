@@ -273,5 +273,14 @@ class CalendarsController < ApplicationController
   	@harvest_instructions = orders_to_harvest_instructions(@harvest_orders).group_by{|inst| inst[:day] }  	
   end
 
+  def sew
+  	#
+  	## Create Sew Schedule
+  	#
+  	@sew_orders = filter_orders_for_sew(all_active_standing_orders)
+  	@sew_instructions = orders_to_sew_instructions(@sew_orders)
+  	#@final_sew_instructions = aggregate_crop_instructions(@sew_instructions)
+  end
+
 
 end

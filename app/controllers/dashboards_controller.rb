@@ -454,6 +454,14 @@ class DashboardsController < ApplicationController
     end
   end
 
+  def bulk_form
+    #stuff = params[:crop, :flat_identifiers]
+    #puts "the answer is #{stuff}"
+    params.each{|k,v|
+      puts "#{k}: #{v}"
+    }
+  end
+
   def customer_harvest_history
     @start_date = Date.today - 42
     until @start_date.monday?

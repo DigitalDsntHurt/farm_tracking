@@ -1,0 +1,25 @@
+<%= form_tag dashboards_bulk_form_path do %>
+  
+  <div class="form-group">
+  	<label for="stuff">crop</label>
+  	<%= text_field_tag :crop %>
+  </div>
+  
+  <div class="form-group">
+  	<label for="stuff">customer</label>
+  	<%= text_field_tag :crop %>
+  </div>
+
+  <div class="form-group">
+  	<label for="stuff">flat ids</label>
+  	<%= text_field_tag :flat_identifiers %>
+  </div>
+
+  <div class="form-group">
+  	<label for="stuff">seed weight</label>
+  	<%= text_field_tag :seed_weight %>
+  </div>
+  
+  <%= submit_tag "Submit" %>
+<% end %>
+

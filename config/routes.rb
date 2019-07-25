@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   get 'calendars/ops'
   get 'calendars/harvest'
+  get 'calendars/sew'
 
   resources :customers
   resources :scheduleds
@@ -62,6 +63,8 @@ Rails.application.routes.draw do
 	get 'dashboards/flats_per_week'
 	get 'dashboards/weekly_seed_use'
 	get 'dashboards/customer_harvest_history'
+	get 'dashboards/bulk_form' => 'dashboards#bulk_form'
+	post 'dashboards/bulk_form' => 'dashboards#bulk_form'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
 	get 'seed_flats/basic_index' => 'seed_flats#basic_index'
