@@ -4,6 +4,10 @@ class SeedFlatUpdatesController < ApplicationController
   # GET /seed_flat_updates
   # GET /seed_flat_updates.json
   def index
+    @seed_flat_updates = SeedFlatUpdate.all.order(updated_at: :desc).limit(50)
+  end
+
+  def full_index
     @seed_flat_updates = SeedFlatUpdate.all.order(updated_at: :desc)
   end
 
