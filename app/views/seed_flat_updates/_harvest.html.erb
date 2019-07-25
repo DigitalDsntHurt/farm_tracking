@@ -1,0 +1,74 @@
+
+<div class="form-container">
+
+<%= form_with(model: seed_flat_update, local: true) do |form| %>
+  <% if seed_flat_update.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(seed_flat_update.errors.count, "error") %> prohibited this seed_flat_update from being saved:</h2>
+
+      <ul>
+      <% seed_flat_update.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+      <h2 align="center">
+        <%= flat.flat_id %><br>
+        <%= (Date.today - flat.started_date).to_i %> day<br>
+        <%= Crop.where(id: flat.crop_id)[0].crop_variety %>, <%= Crop.where(id: flat.crop_id)[0].crop.capitalize %>
+      </h2>
+      <hr>
+
+    <div class="form-group">
+      <h3><%= form.label :harvested_for %></h3>
+      <%= form.select :customer_id, Customer.all.order(name: :asc).collect{|customer| ["#{customer.name}", customer.id ]}, include_blank: true, class: "form-control form-control-lg" %>
+    </div>
+
+    <table>
+      <tr>
+        <td width="83%">
+          <div class="form-group">
+            <h3><%= form.label :harvest_weight_oz %></h3>
+            <%= form.number_field :harvest_qty_oz, id: :harvest_qty_oz, step: :any, class: "form-control form-control-lg" %>
+          </div>        
+        </td>
+        <td>
+          <div class="form-group">
+            <h3><%= form.label :finished %>?</h3>
+            <%= form.check_box :finished, id: :finished, class: "form-control form-control-lg" %>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <div class="form-group">
+      <h3><%= form.label :harvest_notes %></h3>
+      <%= form.text_area :notes, id: :seed_flat_update_notes, class: "form-control form-control-lg" %>
+    </div>
+
+<br><br><br><h2 align="center">*** *** ***</h2>    
+
+    <div class="form-group">
+      <h3><%= form.label :flat_id %></h3>
+      <%= form.number_field :seed_flat_id, class: "form-control form-control-lg", :value => @seed_flat.id %> <%= SeedFlat.where(id: @seed_flat.id)[0].flat_id %>
+    </div>
+    <div class="form-group">
+      <h3><%= form.label :update_type %></h3>
+      <%= form.text_field :update_type, class: "form-control form-control-lg", value: "harvest"  %>
+    </div>
+
+    <div class="form-group">
+      <h3><%= form.label :harvested_on %></h3>
+      <%= form.datetime_select :update_datetime, id: :seed_flat_update_update_datetime, class: "form-control form-control-lg" %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  
+
+<% end %>
+
+</div>

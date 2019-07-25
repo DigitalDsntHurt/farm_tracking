@@ -25,10 +25,10 @@ class SeedFlatUpdatesController < ApplicationController
   # POST /seed_flat_updates.json
   def create
     @seed_flat_update = SeedFlatUpdate.new(seed_flat_update_params)
-
+    @seed_flat = SeedFlat.where(id: @seed_flat_update.seed_flat_id)[0]
     respond_to do |format|
       if @seed_flat_update.save
-        format.html { redirect_to controller: "dashboards", action: "pipeline", notice: 'Seed flat update was successfully created.' }
+        format.html { redirect_to @seed_flat, notice: 'Seed flat update was successfully created.' }
         format.json { render :show, status: :created, location: @seed_flat_update }
       else
         format.html { render :new }
@@ -36,6 +36,11 @@ class SeedFlatUpdatesController < ApplicationController
       end
     end
     #redirect_to controller: "dashboards", action: "pipeline"
+  end
+
+  def harvest
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
   end
 
   def transplant
@@ -227,11 +232,6 @@ class SeedFlatUpdatesController < ApplicationController
   def dummy_method
   end
 
-  
-  def harvest
-    @seed_flat = SeedFlat.find(params[:flat])
-  end
-
   # PATCH/PUT /seed_flat_updates/1
   # PATCH/PUT /seed_flat_updates/1.json
   def update
@@ -264,6 +264,6 @@ class SeedFlatUpdatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seed_flat_update_params
-      params.require(:seed_flat_update).permit(:seed_flat_id, :update_type, :update_datetime, :origin_system_id, :destination_system_id, :notes)
+      params.require(:seed_flat_update).permit(:seed_flat_id, :update_type, :update_datetime, :origin_system_id, :destination_system_id, :notes, :customer_id, :harvest_qty_oz, :finished)
     end
 end

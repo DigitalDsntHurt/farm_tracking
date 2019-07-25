@@ -24,7 +24,28 @@
 
 <p>
   <strong>Destination system:</strong>
-  <%= link_to "#{@seed_flat_update.destination_system_id} - #{System.where(id: @seed_flat_update.destination_system_id)[0].system_name}", System.where(id: @seed_flat_update.destination_system_id)[0]  %>
+  <% unless @seed_flat_update.destination_system_id == nil %>
+    <%= link_to "#{@seed_flat_update.destination_system_id} - #{System.where(id: @seed_flat_update.destination_system_id)[0].system_name}", System.where(id: @seed_flat_update.destination_system_id)[0]  %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Harvested for:</strong>
+  <% unless @seed_flat_update.customer_id == nil %>
+    <%= Customer.where(id: @seed_flat_update.customer_id)[0].name %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Harvest weight:</strong>
+  <% unless @seed_flat_update.harvest_qty_oz == nil %>
+    <%= @seed_flat_update.harvest_qty_oz %> oz
+  <% end %>
+</p>
+
+<p>
+  <strong>Harvest finished?</strong>
+    <%= @seed_flat_update.finished %>
 </p>
 
 <p>

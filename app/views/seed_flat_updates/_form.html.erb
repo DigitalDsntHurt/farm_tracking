@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :update_type %>
-    <%= form.select :update_type, options_for_select(["transplant","other"])  %>
+    <%= form.select :update_type, options_for_select(["transplant","harvest","other"]), include_blank: true  %>
   </div>
 
   <div class="field">
@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= form.label :origin_system_id %>
-    <%= form.select :origin_system_id, System.all.collect{|system| ["#{system.system_name} @ #{system.room.name}", system.id] } %>
+    <%= form.select :origin_system_id, System.all.collect{|system| ["#{system.system_name} @ #{system.room.name}", system.id] }, include_blank: true %>
   </div>
 
   <div class="field">
@@ -40,6 +40,25 @@
     <%= form.label :notes %>
     <%= form.text_area :notes, id: :seed_flat_update_notes %>
   </div>
+
+  <h1>vv***Harvest***vv</h1>
+
+  <div class="field">
+    <%= form.label :customer %>
+    <%= form.select :customer_id, Customer.all.order(:name).collect{|customer| ["#{customer.name}", customer.id ]}, include_blank: true %>
+  </div>    
+
+  <div class="field">
+    <%= form.label :harvest_quantity %>
+    <%= form.number_field :harvest_qty_oz, id: :harvest_qty_oz, step: :any %>
+  </div>
+
+  <div class="field">
+    <%= form.label :finished %>?
+    <%= form.check_box :finished, id: :finished %>
+  </div>
+
+
 
   <div class="actions">
     <%= form.submit %>

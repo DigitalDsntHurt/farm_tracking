@@ -2,40 +2,70 @@
   <br/><br/>
   <p id="notice"><%= notice %></p>
 
-  <h2>
+  <h2 align="center">
     <% if @seed_flat.flat_id == nil or @seed_flat.flat_id.length == 0 %>
       <%= @seed_flat.former_flat_id %>
     <% else %>
       <%= @seed_flat.flat_id %>
     <% end %>
-     -- <%= (Date.today - @seed_flat.started_date).to_i %> day <%= Crop.where(id: @seed_flat.crop_id)[0].crop_variety %>, <%= Crop.where(id: @seed_flat.crop_id)[0].crop.capitalize %> @ <%= @seed_flat.seed_weight_oz %> oz
-  </h2>
-  <h3>  
-     for <%= Customer.where(id: @seed_flat.customer_id)[0].name.upcase %>
+    <br><%= (Date.today - @seed_flat.started_date).to_i %> day <br><%= Crop.where(id: @seed_flat.crop_id)[0].crop_variety %>, <%= Crop.where(id: @seed_flat.crop_id)[0].crop.capitalize %>
     <% if @seed_flat.seed_treatments_id != nil %>
       <% @treatment = SeedTreatment.where(id: @seed_flat.seed_treatments_id)[0] %>
       ( soaked in <%= @treatment.soak_solution %> for <%= @treatment.soak_duration_hrs %> hours before germinating in <%= @treatment.germination_vehicle %> for <%= (@treatment.date_of_first_flat_sew - @treatment.soak_start_datetime.to_date).to_i %> days )
     <% end %>
-  </h3>
-  <ul>
-    <li>
-      <h3>sewn on <%= @seed_flat.started_date %></h3>
-    </li>
+  </h2>
 
-    <% if @seed_flat.seed_flat_updates.count != 0 %>
-      <% @seed_flat.seed_flat_updates.order(:update_datetime).each{|update| %>
-      <li>
-        <h3><%= update.update_type %>ed from <%= System.where(id: update.origin_system_id)[0].system_name.upcase %> to <%= System.where(id: update.destination_system_id)[0].system_name.upcase %> on <%= update.update_datetime.to_date %></h3>
-      </li>
-      <% } %>
-    <% end %>
+  <table style="border: solid 1px black" align="center">
+    <thead>
+      <th align="center" style="border: solid 1px black; text-align: center;">
+        <h2>Flat History</h2>
+      </th>
+      <th align="center" style="border: solid 1px black; text-align: center;">
+        <h2>Harvest History</h2>
+      </th>
+    </tr>
+    <tr style="border: solid 1px black">
+      <td style="border: solid 1px black; padding: 22px;">
+        <ul>
+          <li>
+            <h3>sewn on <%= @seed_flat.started_date %> @ <%= @seed_flat.seed_weight_oz %> oz for <u><%= Customer.where(id: @seed_flat.customer_id)[0].name.upcase %></u></h3>
+          </li>
+          <% if @seed_flat.seed_flat_updates.count != 0 %>
+            <% @seed_flat.seed_flat_updates.where(update_type: "transplant").order(:update_datetime).each{|update| %>
+            <li>
+              <% if update.update_type == "transplant" %>
+                <h3><%= update.update_type %>ed from <%= System.where(id: update.origin_system_id)[0].system_name.upcase %> to <%= System.where(id: update.destination_system_id)[0].system_name.upcase %> on <%= update.update_datetime.to_date %></h3>
+              <% else %>  
+              <% end %>
+            </li>
+            <% } %>
+          <% end %>
 
-    <% if @seed_flat.harvest_weight_oz != nil %>
-      <li>
-        <h3>harvested for <%= @seed_flat.harvest_weight_oz %> oz on <%= @seed_flat.harvested_on %></h3>
-      </li>
-    <% end %>
-  </ul>
+          <% if @seed_flat.harvest_weight_oz != nil %>
+            <li>
+              <h3>harvested for <%= @seed_flat.harvest_weight_oz %> oz on <%= @seed_flat.harvested_on %></h3>
+            </li>
+          <% end %>
+        </ul>
+      </td>
+      <td style="border: solid 1px black; padding: 22px;">
+        <ul>
+          <% if @seed_flat.seed_flat_updates.count != 0 %>
+              <% @seed_flat.seed_flat_updates.where(update_type: "harvest").reverse.each{|update| %>
+              <li>
+                <% if update.update_type == "harvest" and update.finished == false %>
+                  <h3><%= update.update_type %>ed <%= update.harvest_qty_oz %> oz for <%= Customer.where(id: update.customer_id)[0].name %> on <%= update.update_datetime.to_date %></h3>
+                <% elsif update.update_type == "harvest" and update.finished == true %>
+                  <h3><u>final harvest:</u> <%= update.harvest_qty_oz %> oz for <%= Customer.where(id: update.customer_id)[0].name %> on <%= update.update_datetime.to_date %></h3>  
+                <% else %>  
+                <% end %>
+              </li>
+              <% } %>
+            <% end %>
+          </ul>  
+      </td>
+    </tr>
+  </table>
 
 
   <% if false %>
@@ -188,7 +218,7 @@
         <% end %>        
       </div>
       <div class="col-xs" style="margin-right:6px;">
-        <%= link_to 'Harvest', seed_flats_harvest_path(:controller => "seed_flats", :action => "harvest", :flat => @seed_flat.id), :class => "dropbtn btn btn-success" %>
+        <%= link_to 'Harvest', seed_flat_updates_harvest_path(:controller => "seed_flat_updates", :action => "harvest", :flat => @seed_flat.id), :class => "dropbtn btn btn-success" %>
       </div>
       <div class="col-xs" style="margin-right:6px;">
         <%= link_to 'Destroy', @seed_flat, method: :delete, data: { confirm: 'Are you sure?' }, :class => "dropbtn btn btn-success" %>
