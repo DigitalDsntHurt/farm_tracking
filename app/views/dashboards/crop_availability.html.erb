@@ -1,4 +1,33 @@
-	
+
+<div class="master-container" style="max-width: 1200px;margin:auto;">
+	<% @crops_loop = @crops_from_crops_table.sort_by{|c| c.crop } %>
+	<% @crops_loop.each_with_index{ |c,i| %>
+		
+		<div style="border: solid 1px black;padding:22px;">
+			<% @in_pipeline = SeedFlat.where(harvest_weight_oz: nil).where(crop_id: c) %>
+			<h1><strong><%= c.crop %></strong>, <%= c.crop_variety %> -- <%= @in_pipeline.count %> flats in pipeline</h1>
+			<% @in_pipeline.sort_by{|flat| (Date.today - flat.started_date).to_i }.reverse.each{|flat| %>
+					
+				<% if flat.customer_id == nil or Customer.where(id: flat.customer_id)[0].name == "overgrow" %>
+					<div>
+						<h4><%= link_to "Harvest", seed_flat_updates_harvest_path(flat: flat), class: "btn btn-primary btn-xs" %> &nbsp; <%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day", flat %> ( <%= System.where(id: flat.current_system_id)[0].system_name %> ) </h4>
+					</div>
+				<% else %>
+					<div>
+					<strong>
+						<h4><%= link_to "Harvest", seed_flat_updates_harvest_path(flat: flat), class: "btn btn-primary btn-xs" %> &nbsp; <%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day, for #{Customer.where(id: flat.customer_id)[0].name}", flat %> ( <%= System.where(id: flat.current_system_id)[0].system_name %> ) </h4>
+					</strong>
+					</div>
+				<% end %>
+				
+			<% } %>
+			
+		</div>
+	<% } %>
+</div>
+<br><br>
+<hr>
+<br><br>	
 
 <% @crops_loop = @crops_from_crops_table.sort_by{|c| c.crop } %>
 <% @crops_loop.each_with_index{ |c,i| %>
@@ -8,11 +37,47 @@
 		<h3><strong><%= c.crop %></strong>, <%= c.crop_variety %> -- <%= @in_pipeline.count %> flats in pipeline</h3>
 		<% @in_pipeline.group_by{|flat| flat.current_system_id }.each{|key,val| %>
 			
-				<%= System.where(id: key)[0].system_name %><br>
+				<h2><%= System.where(id: key)[0].system_name %></h2>
 				<% val.sort_by{|flat| (Date.today - flat.started_date).to_i }.each{|flat| %>
 					<% if flat.customer_id == nil or Customer.where(id: flat.customer_id)[0].name == "overgrow" %>
 						<div>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day", flat %>
+							<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day", flat %> -- <%= link_to "Harvest", seed_flat_updates_harvest_path(flat: flat), class: "btn btn-primary btn-xs" %></h3>
+						</div>
+					<% else %>
+						<div>
+						<strong>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day, for #{Customer.where(id: flat.customer_id)[0].name}", flat %>
+						</strong>
+						</div>
+					<% end %>
+			
+			<% } %>
+		<% } %>
+		<% next if @crops_loop[i+1] == nil %>
+		<div id=<%= @crops_loop[i+1].crop.gsub(" ","-") %>><br><br><br><br><br><br></div>
+	</div>
+<% } %>
+
+<br><br>
+<hr>
+<br><br>
+
+
+	
+
+<% @crops_loop = @crops_from_crops_table.sort_by{|c| c.crop } %>
+<% @crops_loop.each_with_index{ |c,i| %>
+	
+	<div style="border: solid 1px black;padding:22px;">
+		<% @in_pipeline = SeedFlat.where(harvest_weight_oz: nil).where(crop_id: c) %>
+		<h1><strong><%= c.crop %></strong>, <%= c.crop_variety %> -- <%= @in_pipeline.count %> flats in pipeline</h1>
+		<% @in_pipeline.group_by{|flat| flat.current_system_id }.each{|key,val| %>
+			
+				<h2><%= System.where(id: key)[0].system_name %></h2>
+				<% val.sort_by{|flat| (Date.today - flat.started_date).to_i }.each{|flat| %>
+					<% if flat.customer_id == nil or Customer.where(id: flat.customer_id)[0].name == "overgrow" %>
+						<div>
+							<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day", flat %> -- <%= link_to "Harvest", seed_flat_updates_harvest_path(flat: flat), class: "btn btn-primary btn-xs" %></h3>
 						</div>
 					<% else %>
 						<div>

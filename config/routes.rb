@@ -65,6 +65,7 @@ Rails.application.routes.draw do
 	get 'dashboards/customer_harvest_history'
 	get 'dashboards/bulk_form' => 'dashboards#bulk_form'
 	post 'dashboards/bulk_form' => 'dashboards#bulk_form'
+	get 'dashboards/bulk_form_conf' => 'dashboards#bulk_form_conf'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
 	get 'seed_flats/basic_index' => 'seed_flats#basic_index'

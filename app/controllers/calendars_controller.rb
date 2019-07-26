@@ -6,7 +6,7 @@ class CalendarsController < ApplicationController
   ## ##
   ##
 
-  helper_method :all_active_standing_orders, :filter_orders_for_soak, :filter_orders_for_sew, :turn_soak_orders_into_instructions, :turn_sew_orders_into_instructions, :days_ref, :date_of_next, :reduce_date_to_ops_date, :get_soak_quantity, :group_instructions_by_date, :crop_aggregate_instructions, :get_action_day, :orders_to_soak_instructions, :reduce_wday_to_ops_day, :aggregate_crop_instructions, :orders_to_sew_instructions, :get_sew_quantity, :orders_to_harvest_instructions, :filter_orders_for_harvest, :num_flats_to_harvest
+  helper_method :all_active_standing_orders, :filter_orders_for_soak, :filter_orders_for_sew, :turn_soak_orders_into_instructions, :turn_sew_orders_into_instructions, :days_ref, :date_of_next, :date_of_last, :reduce_date_to_ops_date, :get_soak_quantity, :group_instructions_by_date, :crop_aggregate_instructions, :get_action_day, :orders_to_soak_instructions, :reduce_wday_to_ops_day, :aggregate_crop_instructions, :orders_to_sew_instructions, :get_sew_quantity, :orders_to_harvest_instructions, :filter_orders_for_harvest, :num_flats_to_harvest
 
 	def all_active_standing_orders
 		Order.where(cancelled_on: nil).where(standing_order: true)
@@ -44,6 +44,12 @@ class CalendarsController < ApplicationController
 	def date_of_next(day_of_week_string)
 		date  = Date.parse(day_of_week_string)
 		delta = date > Date.today ? 0 : 7
+	 	date + delta
+	end	
+
+	def date_of_last(day_of_week_string)
+		date  = Date.parse(day_of_week_string)
+		delta = date < Date.today ? 0 : 7
 	 	date + delta
 	end	
 
@@ -274,6 +280,24 @@ class CalendarsController < ApplicationController
   end
 
   def sew
+  	#
+  	## Setup Dates
+  	#
+  	@todays_date = Date.today
+  	@monday = @todays_date
+	@this_week_dates = (@todays_date.at_beginning_of_week...@todays_date.at_end_of_week)
+	unless @todays_date.monday?
+		until @monday.monday?
+			@monday -= 1
+		end
+	end
+
+	@this_week_hsh = {}
+	days_ref.each{|day|
+		@this_week_hsh["#{day}"] = @monday
+		@monday += 1
+	}
+
   	#
   	## Create Sew Schedule
   	#

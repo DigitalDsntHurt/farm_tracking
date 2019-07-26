@@ -458,19 +458,21 @@ class DashboardsController < ApplicationController
     @info = params[:info]
     @crop_id = params[:crop_id]
     @customer_id = params[:customer_id]
-    
-    params.each{|k,v|
-      puts "#{k}: #{v}"
-    }
 
-    puts params[:flat_ids]
-    puts params[:commit]
+    @new_flats = []
 
     if params[:flat_ids] != nil
       params[:flat_ids].gsub(", ",",").split(",").each{|id|
-        SeedFlat.new(started_date: Date.today, medium: params[:medium], format: params[:format], seed_weight_oz: params[:seed_weight], flat_id: id, current_system_id: params[:current_system_id], crop_id: params[:crop_id], customer_id: params[:customer_id]).save
+        @flat = SeedFlat.new(started_date: Date.today, medium: params[:medium], format: params[:format], seed_weight_oz: params[:seed_weight], flat_id: id, current_system_id: params[:current_system_id], crop_id: params[:crop_id], customer_id: params[:customer_id])
+        @flat.save
+        @new_flats << @flat
       }
+      redirect_to dashboards_bulk_form_conf_path(new_flats: @new_flats)
     end
+  end
+
+  def bulk_form_conf
+    @created_flats = params[:new_flats]
   end
 
   def customer_harvest_history
