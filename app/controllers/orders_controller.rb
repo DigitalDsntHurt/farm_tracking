@@ -43,11 +43,20 @@ class OrdersController < ApplicationController
   end
 
   def new_standing_order_form
-    @order = Order.new
+    
+    if params[:pass_customer_id] == nil
+      @order = Order.new
+    else
+      @order = Order.new(customer_id: params[:pass_customer_id])
+    end
   end
 
   def new_ad_hoc_order_form
-    @order = Order.new
+    if params[:pass_customer_id] == nil
+      @order = Order.new
+    else
+      @order = Order.new(customer_id: params[:pass_customer_id])
+    end
   end
 
   # GET /orders/1/edit

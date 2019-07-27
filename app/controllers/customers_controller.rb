@@ -10,6 +10,20 @@ class CustomersController < ApplicationController
   # GET /customers/1
   # GET /customers/1.json
   def show
+    @todays_date = Date.today
+    @monday = @todays_date
+    @this_week_dates = (@todays_date.at_beginning_of_week...@todays_date.at_end_of_week)
+    unless @todays_date.monday?
+      until @monday.monday?
+        @monday -= 1
+      end
+    end
+    @days_ref = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+    @this_week_hsh = {}
+    @days_ref.each{|day|
+      @this_week_hsh["#{day}"] = @monday
+      @monday += 1
+    } 
   end
 
   # GET /customers/new
