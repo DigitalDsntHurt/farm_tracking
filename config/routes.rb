@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   
+  resources :over_grow_recipients
   get 'lists/harvest'
 
   resources :weekly_revenues

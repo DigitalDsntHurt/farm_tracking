@@ -111,10 +111,19 @@ Customer.create(seed_arr)
 }
 =end
 
-
+##
+## ## one-time seed everyone on OverGrow List to OverGrowRecipients table
+##
+emails = "Chris.Bean@ritzcarlton.com,Ctalosi@centralkitchensf.com,Ian@leftcoastcatering.com,Preethi@theriddlersf.com,Procookfarley@gmail.com,Sam@salthousesf.com,Seve@salthousesf.com,adam@anchorandhopesf.com,aelkindiy@gmail.com,afailla32@gmail.com,alex@palette-sf.com,alexkimchef@gmail.com,amaryll.schwertner@gmail.com,annalouie116@gmail.com,bill@puclub.org,brian@thesnugsf.com,bushuevandrei@yahoo.com,carl.foronda@gmail.com,cbissell@trestlesf.com,charlie@anchorandhopesf.com,chef@sessionssf.com,chefbetoj@gmail.com,chris@sevenhillssf.com,chrisburns8530@gmail.com,clarence@pokitime.com,coryobenour@yahoo.com,darwincafe212@gmail.com,david@vejy.club,dgyorke@franciscaclub.com,dustin@lwlcatering.com,ebikahi@gmail.com,edward@sevenhillssf.com,emilylim@alxsanfrancisco.com,evan@chefico.com,evan@salthousesf.com,executivechef@lecolonialsf.com,fordrobert26@gmail.com,frab40@alice.it,freddy@maven-sf.com,gavin.w.t.honda@gmail.com,howard.ko@loewshotels.com,info@eatatplow.com,info@mixiotesf.com,info@sonsanddaughterssf.com,jackfelton920@yahoo.com,jcussato@lamarcebicheria.com,jessielugo@alxgastropub.com,jingchenghuang@foxmail.com,jorgecanche.jc@gmail.com,ken@kusakabe-sf.com,laurine@leftcoastcatering.com,loslopezcuisine@gmail.com,mark@namusf.com,mikebuhagiar@aol.com,mlmanji@gmail.com,nick@sonsaddition.com,nicole@umacasarestaurant.com,orders@eatasquoted.com,orders@sorrelrestaurant.com,raulvenegas@alexanderssteakhouse.com,rdixit@michaelminasf.com,rg8605@gmail.com,rmeehan@bc-owl.org,robert.vallejos23@gmail.com,ryan.nguyen@tartinebakery.com,scotdavidson0@gmail.com,sean.schoeben@heritagerestaurantbar.com,shannavatsaloo@alexanderssteakhouse.com,shea.gallag@gmail.com,shin.aoki@hashirisf.com,sramirez@barvalesf.com,swapanolive03@gmail.com,sylvan@izakayarintaro.com,tony@sevenhillssf.com"
+emails.split(",").each{|email|
+	OverGrowRecipient.new(email: email).save
+	puts "email address #{email} created in OverGrowRecipients table"
+}
+puts emails.split(",").count
+puts OverGrowRecipient.all.count
 
 =begin
-=end
+
 ##
 ## ## one-time seed to initiate FarmOpsDos
 ##
@@ -172,7 +181,7 @@ FarmOpsDo.create(@sunday_soak)
 FarmOpsDo.create(@tuesday_soak)
 FarmOpsDo.create(@thursday_soak)
 
-
+=end
 
 
 =begin
