@@ -37,7 +37,8 @@
 					<h1><%= day %> (<%= date %>)</h1>
 					<% @orders.where(day_of_week: day).each{|order| %>
 						<div class="card" style="padding:6px;">
-							<%= link_to "#{order.qty_oz} oz #{Crop.where(id: order.crop_id)[0].crop_variety}, #{Crop.where(id: order.crop_id)[0].crop.capitalize}", edit_order_path(order) %> <%= link_to "clone", orders_clone_path(order: order) %>
+							<%= link_to "#{order.qty_oz} oz #{Crop.where(id: order.crop_id)[0].crop_variety}, #{Crop.where(id: order.crop_id)[0].crop.capitalize}", edit_order_path(order) %>
+							<span style="white-space: nowrap ;"> ><%= link_to "clone", orders_clone_path(order: order) %> ><%= link_to "cancel", orders_cancel_path(:controller => "orders", :action => "cancel", :order => order.id) %></span>
 						</div>
 					<% } %>	
 				</td>
