@@ -10,10 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190728012306) do
+ActiveRecord::Schema.define(version: 20190729173024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "crop_mixes", force: :cascade do |t|
+    t.string "name"
+    t.integer "crop_one_id"
+    t.float "crop_one_parts"
+    t.integer "crop_two_id"
+    t.float "crop_two_parts"
+    t.integer "crop_three_id"
+    t.float "crop_three_parts"
+    t.integer "crop_four_id"
+    t.float "crop_four_parts"
+    t.integer "crop_five_id"
+    t.float "crop_five_parts"
+    t.integer "crop_six_id"
+    t.float "crop_six_parts"
+    t.integer "crop_seven_id"
+    t.float "crop_seven_parts"
+    t.integer "crop_eight_id"
+    t.float "crop_eight_parts"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "crops", force: :cascade do |t|
     t.string "crop"

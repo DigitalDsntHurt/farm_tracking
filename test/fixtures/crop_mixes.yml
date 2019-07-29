@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  crop_one_id: 1
+  crop_one_parts: 1.5
+  crop_two_id: 1
+  crop_two_parts: 1.5
+  crop_three_id: 1
+  crop_three_parts: 1.5
+  crop_four_id: 1
+  crop_four_parts: 1.5
+  crop_five_id: 1
+  crop_five_parts: 1.5
+  crop_six_id: 1
+  crop_six_parts: 1.5
+  crop_seven_id: 1
+  crop_seven_parts: 1.5
+  crop_eight_id: 1
+  crop_eight_parts: 1.5
+
+two:
+  name: MyString
+  crop_one_id: 1
+  crop_one_parts: 1.5
+  crop_two_id: 1
+  crop_two_parts: 1.5
+  crop_three_id: 1
+  crop_three_parts: 1.5
+  crop_four_id: 1
+  crop_four_parts: 1.5
+  crop_five_id: 1
+  crop_five_parts: 1.5
+  crop_six_id: 1
+  crop_six_parts: 1.5
+  crop_seven_id: 1
+  crop_seven_parts: 1.5
+  crop_eight_id: 1
+  crop_eight_parts: 1.5

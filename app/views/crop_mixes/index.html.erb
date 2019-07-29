@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Crop Mixes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Crop one</th>
+      <th>Crop one parts</th>
+      <th>Crop two</th>
+      <th>Crop two parts</th>
+      <th>Crop three</th>
+      <th>Crop three parts</th>
+      <th>Crop four</th>
+      <th>Crop four parts</th>
+      <th>Crop five</th>
+      <th>Crop five parts</th>
+      <th>Crop six</th>
+      <th>Crop six parts</th>
+      <th>Crop seven</th>
+      <th>Crop seven parts</th>
+      <th>Crop eight</th>
+      <th>Crop eight parts</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @crop_mixes.each do |crop_mix| %>
+      <tr>
+        <td><%= crop_mix.name %></td>
+        <td><%= crop_mix.crop_one_id %></td>
+        <td><%= crop_mix.crop_one_parts %></td>
+        <td><%= crop_mix.crop_two_id %></td>
+        <td><%= crop_mix.crop_two_parts %></td>
+        <td><%= crop_mix.crop_three_id %></td>
+        <td><%= crop_mix.crop_three_parts %></td>
+        <td><%= crop_mix.crop_four_id %></td>
+        <td><%= crop_mix.crop_four_parts %></td>
+        <td><%= crop_mix.crop_five_id %></td>
+        <td><%= crop_mix.crop_five_parts %></td>
+        <td><%= crop_mix.crop_six_id %></td>
+        <td><%= crop_mix.crop_six_parts %></td>
+        <td><%= crop_mix.crop_seven_id %></td>
+        <td><%= crop_mix.crop_seven_parts %></td>
+        <td><%= crop_mix.crop_eight_id %></td>
+        <td><%= crop_mix.crop_eight_parts %></td>
+        <td><%= link_to 'Show', crop_mix %></td>
+        <td><%= link_to 'Edit', edit_crop_mix_path(crop_mix) %></td>
+        <td><%= link_to 'Destroy', crop_mix, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Crop Mix', new_crop_mix_path %>

@@ -1,0 +1,2 @@
+class CropMix < ApplicationRecord
+end
