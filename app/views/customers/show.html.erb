@@ -45,4 +45,45 @@
 			<% } %>
 		</tr>
 	</table>
+
+
+
+<br><br><hr><br><br>
+
+<% @allocated_flats = SeedFlat.where(customer_id: @customer.id).where(harvested_on: nil) %>
+<% @week_start = @monday %>
+<% @week_end = @monday + 7 %>
+<%= @week_end %>
+
+<h1>
+<%= @this_week_hsh["Monday"] %><br>
+<%= @this_week_hsh["Sunday"] %><br>
+<%= @allocated_flats.count %><br>
+<%= @allocated_flats.select{|flat| flat.anticipated_ready_date >= @this_week_hsh["Monday"] }.count %><br>
+<% ready_this_week = @allocated_flats.select{|flat| flat.anticipated_ready_date <= @this_week_hsh["Sunday"] } %><br>
+<%= ready_this_week.count %>
+</h1>
+
+<% ready_this_week.each{|flat| %>
+	<%= flat %>	
+<% } %>
+		
+<table>
+	<tr>
+		<% @this_week_hsh.each{|day,date| %>
+			<td style="padding: 22px;" valign="top">
+				<h1><%= day %> (<%= date %>)</h1>
+				<ul>
+					<% @allocated_flats.where("anticipated_ready_date <= ?", date).each{|flat| %>
+					<li>
+						<%= flat.flat_id %>: <%= Crop.where(id: flat.crop_id)[0].crop_variety %>, <%= Crop.where(id: flat.crop_id)[0].crop %>
+					</li>
+					<% } %>
+				</ul>
+			</td>
+		<% } %>
+	</tr>	
+</table>
+
+
 </div>

@@ -3,9 +3,10 @@ class SeedFlat < ApplicationRecord
 	has_one :system, foreign_key: 'current_system_id'
 
 	
-	before_create :calculate_harvest_week, :convert_oz_to_lbs, :set_customer_id_if_blank 
-	after_create :set_date_of_first_flat_sew_on_seed_treatment, :set_date_of_last_flat_sew_on_seed_treatment, :set_destination_flat_ids_on_seed_treatment, :create_seed_flat_update
-	before_update  :move_flat_id_to_former_flat_id_on_harvest_or_kill, :kill_flat_id_on_harvest, :remove_current_system_id_on_harvest, :update_harvest_date_on_harvest, :calculate_harvest_week, :convert_oz_to_lbs, :set_days_to_harvest_from_sew, :set_days_to_harvest_from_soak
+	before_create :calculate_harvest_week, :convert_oz_to_lbs, :set_customer_id_if_blank, :set_anticipated_ready_date
+	after_create :set_date_of_first_flat_sew_on_seed_treatment, :set_date_of_last_flat_sew_on_seed_treatment, :set_destination_flat_ids_on_seed_treatment, :create_seed_flat_update, :set_anticipated_ready_date
+	before_update  :move_flat_id_to_former_flat_id_on_harvest_or_kill, :kill_flat_id_on_harvest, :remove_current_system_id_on_harvest, :update_harvest_date_on_harvest, :calculate_harvest_week, :convert_oz_to_lbs, :set_days_to_harvest_from_sew, :set_days_to_harvest_from_soak, :set_anticipated_ready_date
+	after_update :set_anticipated_ready_date
 	before_validation :upcase_and_remove_whitespace_from_flat_id
 	validates_uniqueness_of :flat_id
 	before_destroy :delete_seed_flat_updates
@@ -121,6 +122,15 @@ class SeedFlat < ApplicationRecord
 			@soak_start_date = SeedTreatment.where(id: self.seed_treatments_id)[0].soak_start_datetime.to_date
 			self.days_to_harvest_from_soak = (self.harvested_on - @soak_start_date).to_i
 		end
+	end
+
+	def set_anticipated_ready_date
+		started = self.started_date
+		propagation_days = Crop.where(id: self.crop_id)[0].ideal_propagation_days
+		system_days = Crop.where(id: self.crop_id)[0].ideal_system_days
+		dth_from_sew = propagation_days + system_days
+		ready_date = started + dth_from_sew
+		self.anticipated_ready_date = ready_date
 	end
 
 	#def downcase_sewn_for

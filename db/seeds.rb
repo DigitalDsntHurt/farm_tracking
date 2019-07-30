@@ -2,7 +2,22 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
+##
+## ## Seed all active SeedFlats w/ anticipated_ready_date field value
+##
+SeedFlat.where(harvested_on: nil).each{|flat|
+	started = flat.started_date
+	propagation_days = Crop.where(id: flat.crop_id)[0].ideal_propagation_days
+	system_days = Crop.where(id: flat.crop_id)[0].ideal_system_days
+	dth_from_sew = propagation_days + system_days
+	ready_date = started + dth_from_sew
+	flat.update(anticipated_ready_date: ready_date)
+}
+
 =begin
+
+
+
 
 
 #=begin
@@ -111,6 +126,7 @@ Customer.create(seed_arr)
 }
 =end
 
+=begin
 ##
 ## ## one-time seed everyone on OverGrow List to OverGrowRecipients table
 ##
@@ -121,6 +137,7 @@ emails.split(",").each{|email|
 }
 puts emails.split(",").count
 puts OverGrowRecipient.all.count
+=end
 
 =begin
 

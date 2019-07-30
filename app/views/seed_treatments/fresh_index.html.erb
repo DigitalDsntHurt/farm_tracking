@@ -85,13 +85,12 @@
             <tr align="center">
               <td>
                 <%= link_to 'End Soak', seed_treatments_end_soak_path(:controller => "seed_treatments", :action => "end_soak", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
-                <%= link_to 'First Emerge', seed_treatments_first_emerge_path(:controller => "seed_treatments", :action => "first_emerge", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
-                <%= link_to 'Full Emerge', seed_treatments_full_emerge_path(:controller => "seed_treatments", :action => "full_emerge", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
+                
               </td>
             </tr>
             <tr align="center">
               <td>
-                <%= link_to 'C Full Emerge', seed_treatments_cascade_full_emerge_path(:controller => "seed_treatments", :action => "cascade_full_emerge", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
+                
                 <%= link_to 'Sew Flat', seed_flats_new_treated_seed_flat_path(:controller => "seed_flats", :action => "new_treated_seed_flat", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
                 <%= link_to 'Finish', seed_treatments_finish_path(:controller => "seed_flats", :action => "finish", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
               </td>
