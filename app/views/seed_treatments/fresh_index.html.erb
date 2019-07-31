@@ -82,17 +82,34 @@
       <% end %>
         <td style="border-right: black 1px solid">
           <table class='seed-flats-index-actions'>
-            <tr align="center">
-              <td>
-                <%= link_to 'End Soak', seed_treatments_end_soak_path(:controller => "seed_treatments", :action => "end_soak", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
-                
+            <tr align="right">
+              <td style="padding: 8px 2px 8px 2px;">
+                <%= link_to 'End Soak', seed_treatments_end_soak_path(:controller => "seed_treatments", :action => "end_soak", :seed_treatment => seed_treatment), :class => "btn btn-primary btn-lg" %>
+                <%= link_to 'Sew Flat', seed_flats_new_treated_seed_flat_path(:controller => "seed_flats", :action => "new_treated_seed_flat", :seed_treatment => seed_treatment), :class => "btn btn-primary btn-lg" %>
+                <%= link_to 'Finish', seed_treatments_finish_path(:controller => "seed_flats", :action => "finish", :seed_treatment => seed_treatment), :class => "btn btn-primary btn-lg" %>
+              </td>
+            </tr>
+            <tr align="right">
+              <td style="padding: 8px 2px 8px 2px;">
+                <% unless seed_treatment.orders == nil %>
+                  <% seed_treatment.orders.split(",").each{|order_id| %>
+                      <% customer = Customer.where(id: Order.where(id: order_id)[0].customer_id)[0].name %>
+                      <% customer_id = Customer.where(id: Order.where(id: order_id)[0].customer_id)[0].id %>
+                      <% crop_id = seed_treatment.crop_id %>
+                      <% crop = Crop.where(id: crop_id)[0] %>
+                      <% order = Order.where(id: order_id)[0] %>
+                      <% num_flats_to_sew = (order.qty_oz / crop.ideal_yield_per_flat_oz).ceil %>
+                      <% info = "Sewing #{num_flats_to_sew} flats of #{Crop.where(id: crop_id)[0].crop_variety}, #{Crop.where(id: crop_id)[0].crop.capitalize} for #{customer}" %>
+                      
+                      <%= link_to "Sew #{num_flats_to_sew} for #{customer[0..6]}", dashboards_bulk_form_path(info: info, crop_id: crop_id, customer_id: customer_id, treatment_id: seed_treatment.id), :class => "btn btn-primary btn-lg" %> &nbsp; 
+                  <% } %>
+                  <% %>
+                <% end %>
               </td>
             </tr>
             <tr align="center">
               <td>
                 
-                <%= link_to 'Sew Flat', seed_flats_new_treated_seed_flat_path(:controller => "seed_flats", :action => "new_treated_seed_flat", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
-                <%= link_to 'Finish', seed_treatments_finish_path(:controller => "seed_flats", :action => "finish", :seed_treatment => seed_treatment), :class => "btn btn-outline-info sf-index-actions" %>
               </td>
             </tr>
           </table>

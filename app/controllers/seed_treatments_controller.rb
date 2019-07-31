@@ -128,6 +128,30 @@ class SeedTreatmentsController < ApplicationController
     #@seed_treatment.update(:order_ids => @order_ids )
   end
 
+  def bulk_soak_form
+    @info = params[:info]
+    @crop_id = params[:crop_id]
+    @soak_qty = params[:soak_qty]
+    @order_ids = params[:order_ids]
+    @orders = params[:orders]
+
+    @new_soak = []
+
+    @seed_treatment = SeedTreatment.new(crop_id: @crop_id, seed_quantity_oz: @soak_qty, order_ids: @order_ids, orders: @orders)
+
+
+    
+    #if params[:flat_ids] != nil
+    #  params[:flat_ids].gsub(", ",",").split(",").each{|id|
+    #    @flat = SeedFlat.new(started_date: Date.today, medium: params[:medium], format: params[:format], seed_weight_oz: params[:seed_weight], flat_id: id, current_system_id: params[:current_system_id], crop_id: params[:crop_id], customer_id: params[:customer_id])
+    #    @flat.save
+    #    @new_flats << @flat
+    #  }
+    #  redirect_to dashboards_bulk_form_conf_path(new_flats: @new_flats)
+    #end
+    
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_seed_treatment
@@ -136,6 +160,6 @@ class SeedTreatmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seed_treatment_params
-      params.require(:seed_treatment).permit(:soak_start_datetime, :seed_crop, :seed_variety, :seed_brand, :seed_quantity_oz, :soak_solution, :soak_duration_hrs, :post_soak_treatment, :soak_notes, :germination_start_date, :germination_vehicle, :first_emerge_date, :full_emerge_date, :days_to_full_emergence, :emergence_notes, :killed_on, :planned_date_of_first_flat_sew, :date_of_first_flat_sew, :date_of_last_flat_sew, :destination_flat_ids, :finished, :crop_id, :order_ids, :order_dummies)
+      params.require(:seed_treatment).permit(:soak_start_datetime, :seed_crop, :seed_variety, :seed_brand, :seed_quantity_oz, :soak_solution, :soak_duration_hrs, :post_soak_treatment, :soak_notes, :germination_start_date, :germination_vehicle, :first_emerge_date, :full_emerge_date, :days_to_full_emergence, :emergence_notes, :killed_on, :planned_date_of_first_flat_sew, :date_of_first_flat_sew, :date_of_last_flat_sew, :destination_flat_ids, :finished, :crop_id, :order_ids, :order_dummies, :orders)
     end
 end

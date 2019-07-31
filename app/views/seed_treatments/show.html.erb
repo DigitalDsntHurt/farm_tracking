@@ -97,6 +97,13 @@
   <% } %>
 </p>
 
+<p>
+  <strong>Orders:</strong><br>
+  <% @seed_treatment.orders.split(",").each{|id| %>
+    <%= link_to "#{id} : #{Order.where(id: id)[0].qty_oz} oz #{Crop.where(id: Order.where(id: id)[0].crop_id)[0].crop} for #{Customer.where(id: Order.where(id: id)[0].customer_id)[0].name} (#{Order.where(id: id)[0].day_of_week})", Order.where(id: id)[0] %><br>
+  <% } %>
+</p>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs" style="margin-right:6px;">

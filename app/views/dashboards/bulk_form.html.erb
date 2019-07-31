@@ -48,6 +48,11 @@
 			<h3><label>format</label></h3>
 			<%= text_field_tag :format, "matt" %>
 		</div>
+		
+		<div class="form-group">
+			<h3><label>seed treatment id</label></h3>
+			<%= number_field_tag :seed_treatments_id, @treatment_id %>
+		</div>
 	  
 	  <div align="center">
 	  	<%= submit_tag "bulk create flats", class: "btn btn-primary" %>

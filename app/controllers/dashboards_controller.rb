@@ -458,12 +458,13 @@ class DashboardsController < ApplicationController
     @info = params[:info]
     @crop_id = params[:crop_id]
     @customer_id = params[:customer_id]
+    @treatment_id = params[:treatment_id]
 
     @new_flats = []
 
     if params[:flat_ids] != nil
       params[:flat_ids].gsub(", ",",").split(",").each{|id|
-        @flat = SeedFlat.new(started_date: Date.today, medium: params[:medium], format: params[:format], seed_weight_oz: params[:seed_weight], flat_id: id, current_system_id: params[:current_system_id], crop_id: params[:crop_id], customer_id: params[:customer_id])
+        @flat = SeedFlat.new(started_date: Date.today, medium: params[:medium], format: params[:format], seed_weight_oz: params[:seed_weight], flat_id: id, current_system_id: params[:current_system_id], crop_id: params[:crop_id], customer_id: params[:customer_id], seed_treatments_id: params[:treatment_id])
         @flat.save
         @new_flats << @flat
       }
