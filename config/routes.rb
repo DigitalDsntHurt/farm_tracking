@@ -69,6 +69,7 @@ Rails.application.routes.draw do
 	get 'dashboards/bulk_form' => 'dashboards#bulk_form'
 	post 'dashboards/bulk_form' => 'dashboards#bulk_form'
 	get 'dashboards/bulk_form_conf' => 'dashboards#bulk_form_conf'
+	get 'dashboards/crop_alphabetization' => 'dashboards#crop_alphabetization'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
 	get 'seed_flats/basic_index' => 'seed_flats#basic_index'

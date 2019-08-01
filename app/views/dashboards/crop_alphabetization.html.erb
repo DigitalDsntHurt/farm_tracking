@@ -1,0 +1,12 @@
+<div class="master-container">
+
+
+<% @payload.each{|a| %>
+	<%= a %><br><br>
+<% } %>
+<br>
+
+<div id='chart'></div>
+<%= render_chart(@chart, 'chart') %>
+
+</div>

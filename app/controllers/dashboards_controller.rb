@@ -1,3 +1,4 @@
+
 class DashboardsController < ApplicationController
 
 ##
@@ -486,9 +487,31 @@ class DashboardsController < ApplicationController
       @week_start_dates << @start_date += 7
     end
 
-
     @customers = Customer.all
     @flats = SeedFlat.where.not(harvested_on: nil).group_by{|flat| flat.harvested_for }
+  end
+
+  def crop_alphabetization
+    @crops = Crop.all.map{|crop| crop.crop }
+    @letters = ("a".."z")
+
+    @payload = []
+    @letters.each{|letter|
+      @payload << [letter,@crops.select{|crop| crop.start_with?(letter) }.count]
+    }
+
+    data_table = GoogleVisualr::DataTable.new
+    # Add Column Headers
+    data_table.new_column('string', 'Letter' )
+    data_table.new_column('number', 'Crops')
+
+    # Add Rows and Values
+    data_table.add_rows( @payload )
+
+    option = { width: 3000, height: 900, title: 'Crops by First Letter' }
+    @chart = GoogleVisualr::Interactive::ColumnChart.new(data_table, option)
+
+
   end
 
 end

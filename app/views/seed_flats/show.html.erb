@@ -2,6 +2,12 @@
   <br/><br/>
   <p id="notice"><%= notice %></p>
 
+
+<div class="master-container" align="center" style="border:1px solid black; margin: 0px 222px 66px 222px; padding: 22px 22px 22px 22px;">
+  <%= link_to 'sew list', calendars_sew_path, :class => "btn btn-primary btn-lg" %>
+</div>
+
+
   <h2 align="center">
     <% if @seed_flat.flat_id == nil or @seed_flat.flat_id.length == 0 %>
       <%= @seed_flat.former_flat_id %>
@@ -67,34 +73,22 @@
     </tr>
   </table>
 
-
-  <% if false %>
-
-  <p>
-    <strong>Room:</strong>
-    <% unless @seed_flat.room_id == nil %>
-      <%= link_to "#{Room.where(id: @seed_flat.room_id)[0].name} @ #{Room.where(id: @seed_flat.room_id)[0].location}", Room.where(id: @seed_flat.room_id)[0] %>
-    <% end %>
-  </p>
-
-  <p>
-    <strong>Current system:</strong>
-    <% @current_system_id = SeedFlatUpdate.where(seed_flat_id: @seed_flat.id).last.destination_system_id %>
-    <%= System.where(id: @current_system_id)[0].system_name %>
-  </p>
-
-  <% end %>
-
-
   <p>*** *** *** *** *** *** *** *** *** *** *** *** </p>
 
+  <p>
+    <strong>Flat ID:</strong>
+    <%= @seed_flat.flat_id %>
+  </p>
   <p>
     <strong>Current_system:</strong>
     <% unless @seed_flat.current_system_id == nil %>
       <%= link_to "#{System.where(id: @seed_flat.current_system_id)[0].system_name} @ #{System.where(id: @seed_flat.current_system_id)[0].room.name}", System.where(id: @seed_flat.current_system_id)[0] %>
     <% end %>
   </p>
-
+  <p>
+    <strong>Crop ID:</strong>
+    <%= link_to("#{Crop.where(id: @seed_flat.crop_id)[0].crop} - #{Crop.where(id: @seed_flat.crop_id)[0].crop_variety}", Crop.where(id: @seed_flat.crop_id)[0]) %>
+  </p>
   <p>
     <strong>Started date:</strong>
     <%= @seed_flat.started_date %>
@@ -103,16 +97,6 @@
   <p>
     <strong>Sewn For:</strong>
     <%= Customer.where(id: @seed_flat.customer_id)[0].name unless @seed_flat.customer_id == nil %>
-  </p>    
-
-  <p>
-    <strong>Flat ID:</strong>
-    <%= @seed_flat.flat_id %>
-  </p>  
-
-  <p>
-    <strong>Crop ID:</strong>
-    <%= link_to("#{Crop.where(id: @seed_flat.crop_id)[0].crop} - #{Crop.where(id: @seed_flat.crop_id)[0].crop_variety}", Crop.where(id: @seed_flat.crop_id)[0]) %>
   </p>
 
   <p>
@@ -140,28 +124,7 @@
     <% end %>
   </p>
 
-  <p>
-    <strong>First emerge date:</strong>
-    <%= @seed_flat.first_emerge_date %>
-  </p>
-
-  <p>
-    <strong>Full emerge date:</strong>
-    <%= @seed_flat.full_emerge_date %>
-  </p>
-
   
-<p>*** *** *** *** *** *** *** *** *** *** *** *** </p>
-  <p>
-    <strong>Exclude from FreshList?</strong>
-    <%= @seed_flat.exclude_from_freshlist %>
-  </p>
-
-  <p>
-    <strong>Force onto FreshList?</strong>
-    <%= @seed_flat.force_onto_freshlist %>
-  </p>
-
 <p>*** *** *** *** *** *** *** *** *** *** *** *** </p>
   <p>
     <strong>Harvested for:</strong>
