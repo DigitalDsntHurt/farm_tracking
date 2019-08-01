@@ -4,7 +4,11 @@
 
 
 <div class="master-container" align="center" style="border:1px solid black; margin: 0px 222px 66px 222px; padding: 22px 22px 22px 22px;">
-  <%= link_to 'sew list', calendars_sew_path, :class => "btn btn-primary btn-lg" %>
+  <%= link_to 'back to sew list', calendars_sew_path, :class => "btn btn-primary btn-lg" %>
+  <h3>transplant to...</h3>
+  <% System.where(room_id: 2).where(retired: false).where.not(system_name: "1. propagation").where.not(system_name: "propagation").order(:system_name).each{|system| %>
+    <%= link_to "#{system.system_name}", seed_flat_updates_transplant_flat_path(flat: @seed_flat, destination_system_id: System.where(system_name: system.system_name)[0].id), class: "btn btn-primary btn-lg" %>  
+  <% } %>
 </div>
 
 

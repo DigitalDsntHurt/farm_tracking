@@ -226,7 +226,11 @@ class SeedFlatUpdatesController < ApplicationController
   def transplant_flat
     @seed_flat = SeedFlat.find(params[:flat])
     @origin_system_id = @seed_flat.current_system_id
-    @destination_system_id = System.where(system_name: params[:destination_system])[0].id#.where(room_id: @seed_flat.room_id)[0].id
+    if params[:destination_system] != nil
+      @destination_system_id = System.where(system_name: params[:destination_system])[0].id#.where(room_id: @seed_flat.room_id)[0].id
+    else
+      @destination_system_id = params[:destination_system_id]
+    end
     @seed_flat_update = SeedFlatUpdate.new
     @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
     #@seed_flat.update(current_system_id: @destination_system_id)
