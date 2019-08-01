@@ -55,7 +55,12 @@
 
   <div class="field">
     <%= f.label :medium %>
-    <%= f.text_field :medium, value: "biostrate felt" %>
+    <% if seed_flat.medium == nil  %>
+      <%= f.text_field :medium, value: "biostrate felt" %>
+    <% else %>  
+      <%= f.text_field :medium %>
+    <% end %>
+    
   </div>
 
   <div class="field">
