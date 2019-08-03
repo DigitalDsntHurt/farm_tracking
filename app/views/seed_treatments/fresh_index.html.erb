@@ -95,13 +95,14 @@
                   <% seed_treatment.orders.split(",").each{|order_id| %>
                       <% customer = Customer.where(id: Order.where(id: order_id)[0].customer_id)[0].name %>
                       <% customer_id = Customer.where(id: Order.where(id: order_id)[0].customer_id)[0].id %>
+                      <% treatment = seed_treatment %>
                       <% crop_id = seed_treatment.crop_id %>
                       <% crop = Crop.where(id: crop_id)[0] %>
                       <% order = Order.where(id: order_id)[0] %>
                       <% num_flats_to_sew = (order.qty_oz / crop.ideal_yield_per_flat_oz).ceil %>
                       <% info = "Sewing #{num_flats_to_sew} flats of #{Crop.where(id: crop_id)[0].crop_variety}, #{Crop.where(id: crop_id)[0].crop.capitalize} for #{customer}" %>
                       
-                      <%= link_to "Sew #{num_flats_to_sew} for #{customer[0..6]}", dashboards_bulk_form_path(info: info, crop_id: crop_id, customer_id: customer_id, treatment_id: seed_treatment.id), :class => "btn btn-primary btn-lg" %> &nbsp; 
+                      <%= link_to "Sew #{num_flats_to_sew} for #{customer[0..6]}", dashboards_bulk_form_path(info: info, crop_id: crop_id, customer_id: customer_id, treatment: treatment), :class => "btn btn-primary btn-lg" %> &nbsp; 
                   <% } %>
                   <% %>
                 <% end %>

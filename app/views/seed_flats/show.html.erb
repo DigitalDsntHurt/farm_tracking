@@ -4,6 +4,7 @@
 
 
 <div class="master-container" align="center" style="border:1px solid black; margin: 0px 222px 66px 222px; padding: 22px 22px 22px 22px;">
+  <%= link_to 'back to crop availability', dashboards_crop_availability_path, :class => "btn btn-primary btn-lg" %>
   <%= link_to 'back to sew list', calendars_sew_path, :class => "btn btn-primary btn-lg" %>
   <h3>transplant to...</h3>
   <% System.where(room_id: 2).where(retired: false).where.not(system_name: "1. propagation").where.not(system_name: "propagation").order(:system_name).each{|system| %>
