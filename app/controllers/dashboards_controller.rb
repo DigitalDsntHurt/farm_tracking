@@ -514,4 +514,35 @@ class DashboardsController < ApplicationController
 
   end
 
+  def pull_todays_flats_for_harvest
+    @today = Date.today
+    @todays_day_of_week = @today.strftime("%A")
+    @orders = Order.where(cancelled_on: nil).where(standing_order: true).where.not(customer_id: 1).where.not(customer_id: 16).order(:customer_id, :day_of_week).where(day_of_week: @todays_day_of_week)
+    @ad_hoc_orders = Order.where(cancelled_on: nil).where(standing_order: false).where(date: @today)
+    
+    @num_flats_to_pull_per_crop = Hash.new(0)
+    
+    @orders.each{|order|
+      @num_flats_needed = (order.qty_oz / Crop.where(id: order.crop_id)[0].ideal_yield_per_flat_oz).ceil
+      @num_flats_to_pull_per_crop["#{order.crop_id}"] += @num_flats_needed
+    }
+
+    @ad_hoc_orders.each{|order|
+      @num_flats_needed = (order.qty_oz / Crop.where(id: order.crop_id)[0].ideal_yield_per_flat_oz).ceil
+      @num_flats_to_pull_per_crop["#{order.crop_id}"] += @num_flats_needed
+    }
+
+    @flats_to_pull = []
+
+    @num_flats_to_pull_per_crop.each{|k,v|
+      SeedFlat.where(crop_id: k.to_i).where(harvest_weight_oz: nil).where.not(flat_id: nil).where.not(current_system_id: 3).where.not(current_system_id: 18).where.not(current_system_id: 64).order(started_date: :asc)[0..(v+1)].each{|flat|
+        @flats_to_pull << flat
+      }
+    }
+
+    @payload = @flats_to_pull.group_by{|flat| flat.current_system_id}
+
+    @system_order = ["KLAY","PIP","REZHA","NAGA","BOP","RAY","GAR","DOH","DIL","FUM","MIA","FOE","BAM","FIE","LIP","FEE","JEZ"]
+  end
+
 end

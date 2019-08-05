@@ -1,8 +1,10 @@
 class SeedFlatUpdate < ApplicationRecord
   belongs_to :seed_flat
 
-  after_create :set_seed_flat_current_system_id, :update_seed_flat_harvest
-  after_update :set_seed_flat_current_system_id, :update_seed_flat_harvest
+  #validates :customer_id, presence: true, if: -> {update_type == "harvest" }#, render :seed_flat_updates_harvest_path
+
+  after_create :set_seed_flat_current_system_id, :update_seed_flat_harvest#, :ensure_customer_id
+  after_update :set_seed_flat_current_system_id, :update_seed_flat_harvest#, :ensure_customer_id
 
   private
 
@@ -21,5 +23,11 @@ class SeedFlatUpdate < ApplicationRecord
       SeedFlat.where(id: self.seed_flat_id).update(harvest_weight_oz: @total_harvest_weight )
     end
   end
+
+  #def ensure_customer_id
+  #  if self.customer_id == nil
+  #    self.customer_id = 1
+  #  end
+  #end
 
 end

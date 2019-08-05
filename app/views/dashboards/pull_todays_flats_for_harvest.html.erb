@@ -1,0 +1,29 @@
+<div class="master-container">
+
+	<table>
+		<tr style="vertical-align: top;">
+			<% @system_order.each{|system_name| %>
+				
+					<% @system_id = System.where(system_name: system_name)[0].id %>
+					<% @payload.select{|a,b| a == @system_id }.each{|system_group| %>
+						
+						<td style="padding:0px 12px 0px 12px;border-right: solid 1px black; min-width: 246px;">
+							<h2 style="margin: 22px;" align="center"><%= System.where(id: system_group[0])[0].system_name %></h2>
+							<% system_group[1].group_by{|flat| flat.crop_id }.each{|crop_group| %>
+								<h3 align="center"><%= Crop.where(id: crop_group[0])[0].crop %></h3>
+								<ul>
+									<% crop_group[1].each{|flat| %>
+										<li>
+											<%= flat.flat_id %> (<%= (Date.today - flat.started_date).to_i %> day)
+										</li>
+									<% } %>
+								</ul>
+							<% } %>
+						</td>
+					<% } %>
+				
+			<% } %>
+		</tr>
+	</table>
+
+</div>
