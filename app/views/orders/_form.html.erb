@@ -25,7 +25,7 @@
 
   <div class="field">
     <%= form.label :crop_id %>
-    <%= form.select :crop_id, Crop.all.collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
+    <%= form.select :crop_id, Crop.all.order(crop: :asc).collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
   </div>  
 
   <h4></h4>

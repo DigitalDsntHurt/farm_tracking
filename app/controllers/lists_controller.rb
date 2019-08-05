@@ -2,7 +2,7 @@ class ListsController < ApplicationController
   def harvest
   	# setup calendar cells
     @start_date = Date.today
-    @end_date = @start_date+4
+    @end_date = @start_date+5
     @date_range = (@start_date..@end_date)
     @weeks = @date_range.to_a.in_groups_of(2)
 
