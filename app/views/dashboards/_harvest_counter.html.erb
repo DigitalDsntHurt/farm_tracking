@@ -1,0 +1,13 @@
+<div class="harvest-counter-container">
+	<h2 align="center">Recent Harvests</h2>
+	<% @recent_harvests = SeedFlatUpdate.where(update_type: "harvest").order(updated_at: :desc).take(10) %>
+	<% @recent_harvest_customers = @recent_harvests.map{|update| update.customer_id } %>
+	<% @recent_harvest_customers.uniq.each{|customer| %>
+		<% next if customer == nil %>
+		<h3 align="center"><%= Customer.where(id: customer)[0].name %></h3>
+		<% @recent_harvests.select{|update| update.customer_id == customer }.group_by{|update| SeedFlat.where(id: update.seed_flat_id)[0].crop_id }.each{|group| %>
+			<%= group[1].count %> flats <%= Crop.where(id: group[0])[0].crop_variety %>, <%= Crop.where(id: group[0])[0].crop.capitalize %> for <%= group[1].map{|update| update.harvest_qty_oz }.inject{|oz,sum| oz + sum } %> oz <br>
+		<% } %>
+
+	<% } %>
+</div>
