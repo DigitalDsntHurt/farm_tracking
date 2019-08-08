@@ -6,67 +6,10 @@
 		<% next if @days_soak.count == 0 %>
 		<h1 align="center"><%= day_of_week %> (<%= date %>)</h1>
 		<% @days_soak.values[0].sort_by{|hsh| Order.where(id: hsh[:order_ids][0])[0].crop_id }.each{|hsh| %>
-			<h3>
-				<%= link_to "#{hsh[:qty]} #{hsh[:qty_units]} #{Crop.where(id: Order.where(id: hsh[:order_ids][0])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: hsh[:order_ids][0])[0].crop_id)[0].crop.capitalize}", seed_treatments_bulk_soak_form_path( info: "Soaking #{hsh[:qty]} #{hsh[:qty_units]} #{Crop.where(id: Order.where(id: hsh[:order_ids][0])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: hsh[:order_ids][0])[0].crop_id)[0].crop.capitalize}", crop_id: Order.where(id: hsh[:order_ids][0])[0].crop_id, soak_qty: hsh[:qty], order_ids: hsh[:order_ids], orders: hsh[:order_ids].join(",") ) %>
-			</h3>
+			<div class="card" style="padding: 1px 11px 4px 11px;" >
+				<h3>
+					<%= link_to "#{hsh[:qty]} #{hsh[:qty_units]} #{Crop.where(id: Order.where(id: hsh[:order_ids][0])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: hsh[:order_ids][0])[0].crop_id)[0].crop.capitalize}", seed_treatments_bulk_soak_form_path( info: "Soaking #{hsh[:qty]} #{hsh[:qty_units]} #{Crop.where(id: Order.where(id: hsh[:order_ids][0])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: hsh[:order_ids][0])[0].crop_id)[0].crop.capitalize}", crop_id: Order.where(id: hsh[:order_ids][0])[0].crop_id, soak_qty: hsh[:qty], order_ids: hsh[:order_ids], orders: hsh[:order_ids].join(",") ) %>
+				</h3>
+			</div>	
 		<% } %>
-		
 <% } %>	
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<h1>*************</h1>
-<% @this_week_hsh.each{|day_of_week,date| %>
-		<% @days_soak = @soak_instructions.select{|hsh| hsh[:day] == day_of_week } %>
-		<% next if @days_soak.count == 0 %>
-
-		<h1 align="center"><%= day_of_week %> (<%= date %>)</h1>
-		<% @days_soak.sort_by{|hsh| Order.where(id: hsh[:order_id])[0].crop_id }.each{|hsh| %>
-			<h3>
-				<%= link_to "#{hsh[:qty]} #{hsh[:qty_units]} #{Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop.capitalize} for #{Customer.where(id: Order.where(id: hsh[:order_id])[0].customer_id)[0].name}", seed_treatments_bulk_soak_form_path(info: "Soaking #{hsh[:qty]} #{hsh[:qty_units]} #{Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop.capitalize}", crop_id: Order.where(id: hsh[:order_id])[0].crop_id, soak_qty: hsh[:qty], order_ids: hsh[:order_id] ) %>
-			</h3>
-		<% } %>
-<% } %>		
-<% if false %>
-
-	<% @this_week_hsh.each{|day_of_week,date| %>
-		<% @days_sew = @sew_instructions.select{|hsh| hsh[:day] == day_of_week } %>
-		<% next if @days_sew.count == 0 %>
-
-		<h1 align="center"><%= day_of_week %> (<%= date %>)</h1>
-		<% @days_sew.sort_by{|hsh| Order.where(id: hsh[:order_id])[0].crop_id }.each{|hsh| %>
-			<% @completed = false %>
-			<% @customer_id = Order.where(id: hsh[:order_id])[0].customer_id %>
-			<% @crop_id = Order.where(id: hsh[:order_id])[0].crop_id %>
-			<% @from_date = date - 1 %>
-			<% @to_date = date + 1 %>
-			<% @sew_query = SeedFlat.where(customer_id: @customer_id).where(crop_id: @crop_id).where(started_date: date) %>
-
-
-			<% if @sew_query.count >= hsh[:qty] %>
-				<% @completed = true %>
-			<% else %>
-				<% @completed = false %>
-			<% end %>
-
-			<% if @completed == false %>
-				<div class="card" style="padding: 1px 11px 4px 11px;" >
-			<% else %>
-				<div class="card" style="padding: 1px 11px 4px 11px;background-color: #66C166;" >
-			<% end %>					
-			
-
-				<% if hsh[:qty] > 1 %>
-					<h3 align="left">
-						<%= link_to "#{hsh[:qty]} #{hsh[:qty_units]}s #{Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop.capitalize} for #{Customer.where(id: Order.where(id: hsh[:order_id])[0].customer_id)[0].name}", dashboards_bulk_form_path(crop_id: Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].id, customer_id: Order.where(id: hsh[:order_id])[0].customer_id, info: "Sewing #{hsh[:qty]} #{hsh[:qty_units]} #{Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop.capitalize} for #{Customer.where(id: Order.where(id: hsh[:order_id])[0].customer_id)[0].name}") %>
-					</h3>
-				<% else %>
-					<h3>
-						<%= link_to "#{hsh[:qty]} #{hsh[:qty_units]} #{Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop.capitalize} for #{Customer.where(id: Order.where(id: hsh[:order_id])[0].customer_id)[0].name}", seed_flats_new_prepopulated_path(crop_id: Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].id, customer_id: Order.where(id: hsh[:order_id])[0].customer_id ) %>
-					</h3>
-				<% end %>
-				</div>
-		<% } %>
-	<% } %>
-
-<% end %>	
-
-</div>	

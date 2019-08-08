@@ -37,7 +37,10 @@
         <table style="border: solid 1px black" align="center">
           <thead>
             <th align="center" style="border: solid 1px black; text-align: center; padding: 12px;">
-              soak time
+              flat id
+            </th>
+            <th align="center" style="border: solid 1px black; text-align: center; padding: 12px;">
+              soak time (hrs)
             </th>
             <th align="center" style="border: solid 1px black; text-align: center; padding: 12px;">
               treatment days
@@ -79,10 +82,18 @@
       <% if false %> ### end setup ### <% end %>
 
             <td align="center" style="border: solid 1px black; text-align: center; padding: 12px;">
+               <% if @seed_flat.flat_id == nil %>
+                <%= @seed_flat.former_flat_id %> 
+              <% else %>
+                <%= @seed_flat.flat_id %> 
+              <% end %>
+              
+            </td>
+            <td align="center" style="border: solid 1px black; text-align: center; padding: 12px;">
               <% if @seed_flat.seed_treatments_id == nil %>
                 -
               <% else %>
-                <%= SeedTreatment.where(id: @seed_flat.seed_treatments_id)[0].soak_duration_hrs %> hrs
+                <%= SeedTreatment.where(id: @seed_flat.seed_treatments_id)[0].soak_duration_hrs %>
               <% end %>  
             </td>
             <td align="center" style="border: solid 1px black; text-align: center; padding: 12px;">
@@ -90,7 +101,7 @@
                 -
               <% else %>
                 <% @sew_date = @seed_flat.started_date %> 
-                <%= (@sew_date - @treatment_start_date).to_i %> days
+                <%= (@sew_date - @treatment_start_date).to_i %>
               <% end %> 
             </td>
             <td align="center" style="border: solid 1px black; text-align: center; padding: 12px;">
@@ -133,12 +144,7 @@
               <% end %>
             </td>
             <td align="center" style="border: solid 1px black; text-align: center; padding: 12px;">
-              <% @total_yield = @harvest_updates.map{|update| update.harvest_qty_oz }.inject{|oz,sum| oz + sum } %>
-              <% if @total_yield == nil %>
-                0
-              <% else %>
-                <%= @total_yield %>
-              <% end %>
+              <%= @seed_flat.harvest_weight_oz %>
             </td>
           </tr>
         </table>

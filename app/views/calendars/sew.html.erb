@@ -13,10 +13,6 @@
 			<% @to_date = date + 1 %>
 			<% @sew_query = SeedFlat.where(customer_id: @customer_id).where(crop_id: @crop_id).where(started_date: date) %>
 
-			<% if false %>
-			.where('started_date >= ? AND started_date <= ?', @from_date, @to_date) %>
-			<% end %>
-
 			<% if @sew_query.count >= hsh[:qty] %>
 				<% @completed = true %>
 			<% else %>

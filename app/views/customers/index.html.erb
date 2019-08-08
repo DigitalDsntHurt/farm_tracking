@@ -1,6 +1,11 @@
+<div class="form-container" style="min-width: 50%;">
+
 <p id="notice"><%= notice %></p>
 
-<h1>Customers</h1>
+<div class="master-container" align="center">
+  <h1>Customers</h1>
+  <%= link_to 'New Customer', new_customer_path, class: "bt btn-primary btn-lg" %><br><br>
+</div>
 
 <table class="index-table">
   <thead>
@@ -16,18 +21,16 @@
   <tbody>
     <% @customers.each do |customer| %>
       <tr>
-        <td><%= customer.name %></td>
+        <td><h3><%= link_to customer.name, customer %></h3></td>
         <td align="center"><%= customer.harvest_preferences %></td>
         <td align="center"><%= customer.delivery_preferences %></td>
         <td align="center"><%= customer.notes %></td>
-        <td><%= link_to 'Show', customer %></td>
-        <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
-        <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_customer_path(customer), class: "btn btn-primary btn-md" %></td>
+        <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary btn-md" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Customer', new_customer_path %>
+</div>
