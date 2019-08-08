@@ -169,7 +169,7 @@ class SeedFlatsController < ApplicationController
   def kill
     @seed_flat = SeedFlat.find(params[:flat])
     @seed_flat.update(:harvest_weight_oz => 0.0)
-    redirect_to action: "index"
+    redirect_back(fallback_location: :index)
   end
 
   def new_treated_seed_flat
