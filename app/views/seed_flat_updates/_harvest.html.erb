@@ -50,7 +50,7 @@
       <%= form.text_area :notes, id: :seed_flat_update_notes, class: "form-control form-control-lg" %>
     </div>
 
-<br><br><br><h2 align="center">*** *** ***</h2>    
+<br><h2 align="center">*** *** ***</h2>    
 
     <div class="form-group">
       <h3><%= form.label :flat_id %></h3>
@@ -66,8 +66,8 @@
       <%= form.datetime_select :update_datetime, id: :seed_flat_update_update_datetime, class: "form-control form-control-lg" %>
     </div>
 
-    <div class="actions">
-      <%= form.submit %>
+    <div class="actions" align="center">
+      <%= form.submit "harvest", class: "btn btn-primary btn-lg" %>
     </div>
   
 

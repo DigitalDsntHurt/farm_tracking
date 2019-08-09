@@ -31,9 +31,13 @@ class SeedFlatUpdatesController < ApplicationController
     @seed_flat_update = SeedFlatUpdate.new(seed_flat_update_params)
     @seed_flat = SeedFlat.where(id: @seed_flat_update.seed_flat_id)[0]
     respond_to do |format|
+      #if @seed_flat_update.save == false and params[:commit] == "harvest"
+      #  format.html { redirect_to seed_flat_updates_harvest_path }
       if @seed_flat_update.save
         format.html { redirect_to @seed_flat, notice: 'Seed flat update was successfully created.' }
         format.json { render :show, status: :created, location: @seed_flat_update }
+      elsif params[:customer_id] == nil and params[:commit] == "harvest"
+        format.html { render seed_flat_updates_harvest_path }
       else
         format.html { render :new }
         format.json { render json: @seed_flat_update.errors, status: :unprocessable_entity }
