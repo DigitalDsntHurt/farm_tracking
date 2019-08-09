@@ -1,61 +1,64 @@
-<%= form_with(model: seed_treatment, local: true) do |form| %>
-  <% if seed_treatment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(seed_treatment.errors.count, "error") %> prohibited this seed_treatment from being saved:</h2>
 
-      <ul>
-      <% seed_treatment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+    <%= form_with(model: seed_treatment, local: true) do |form| %>
+      <% if seed_treatment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(seed_treatment.errors.count, "error") %> prohibited this seed_treatment from being saved:</h2>
+
+          <ul>
+          <% seed_treatment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <% @hrs = ((Time.now - seed_treatment.soak_start_datetime)/60/60).round(2) %>
+      <% @hrs = ((Time.now - seed_treatment.soak_start_datetime)/60/60).round(2) %>
 
-  <h4>
-    <%= seed_treatment.seed_quantity_oz %> of <%= Crop.where(id: seed_treatment.crop_id)[0].crop %>, <%= Crop.where(id: seed_treatment.crop_id)[0].crop_variety %> 
-    <% if seed_treatment.order_ids.length == 0 %>
-    for OverGrow
-    <% else %>
-      for 
-      <% seed_treatment.order_ids.each_with_index{|order_id,i| %>
-        <% if i+1 == seed_treatment.order_ids.count %>
-          <%= Customer.where(id: Order.where(id: order_id)[0].customer_id)[0].name %>
+      <h3 align="center">
+        <%= seed_treatment.seed_quantity_oz %> of <%= Crop.where(id: seed_treatment.crop_id)[0].crop %>, <%= Crop.where(id: seed_treatment.crop_id)[0].crop_variety %>
+      </h3>
+      <h4 align="center"> 
+        <% if seed_treatment.order_ids.length == 0 %>
+        for OverGrow
         <% else %>
-          <%= Customer.where(id: Order.where(id: order_id)[0].customer_id)[0].name %>, 
+          for 
+          <% seed_treatment.order_ids.each_with_index{|order_id,i| %>
+            <% if i+1 == seed_treatment.order_ids.count %>
+              <%= Customer.where(id: Order.where(id: order_id)[0].customer_id)[0].name %>
+            <% else %>
+              <%= Customer.where(id: Order.where(id: order_id)[0].customer_id)[0].name %>, 
+            <% end %>
+          <% } %>
         <% end %>
-      <% } %>
+          <br>soaked in <%= seed_treatment.soak_solution %> for <%= @hrs %> hrs on <%= seed_treatment.soak_start_datetime.strftime("%A, %d %b %Y at %l:%M %p") %>
+      </h4><br>
+
+      <div class="field">
+        <%= form.label :soak_duration_hrs %>
+        <%= form.text_field :soak_duration_hrs, id: :seed_treatment_soak_duration_hrs, :value => @hrs %>
+      </div>
+
+      <div class="field">
+        <%= form.label :post_soak_treatment %>
+        <%= form.text_field :post_soak_treatment, id: :seed_treatment_post_soak_treatment, :value => "tap water rinse" %>
+      </div>
+
+      <div class="field">
+        <%= form.label :germination_start_date %>
+        <%= form.date_select :germination_start_date, id: :seed_treatment_germination_start_date %>
+      </div>
+
+      <div class="field">
+        <%= form.label :germination_vehicle %>
+        <%= form.text_field :germination_vehicle, id: :seed_treatment_germination_vehicle, :value => "tupperware in dark" %>
+      </div> 
+
+      <div class="field">
+        <%= form.label :soak_notes %>
+        <%= form.text_area :soak_notes, id: :seed_treatment_soak_notes %>
+      </div>  
+
+      <div class="actions" align="center">
+        <%= form.submit "end soak", class: "btn btn-primary btn-lg" %>
+      </div>
     <% end %>
-      <br>soaked in <%= seed_treatment.soak_solution %> for <%= @hrs %> hrs on <%= seed_treatment.soak_start_datetime.strftime("%A, %d %b %Y at %l:%M %p") %>
-  </h4><br><br>
-
-  <div class="field">
-    <%= form.label :soak_duration_hrs %>
-    <%= form.text_field :soak_duration_hrs, id: :seed_treatment_soak_duration_hrs, :value => @hrs %>
-  </div>
-
-  <div class="field">
-    <%= form.label :post_soak_treatment %>
-    <%= form.text_field :post_soak_treatment, id: :seed_treatment_post_soak_treatment, :value => "tap water rinse" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :germination_start_date %>
-    <%= form.date_select :germination_start_date, id: :seed_treatment_germination_start_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :germination_vehicle %>
-    <%= form.text_field :germination_vehicle, id: :seed_treatment_germination_vehicle, :value => "tupperware in dark" %>
-  </div> 
-
-  <div class="field">
-    <%= form.label :soak_notes %>
-    <%= form.text_area :soak_notes, id: :seed_treatment_soak_notes %>
-  </div>  
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>

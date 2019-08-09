@@ -52,7 +52,10 @@ class SeedTreatmentsController < ApplicationController
   # PATCH/PUT /seed_treatments/1.json
   def update
     respond_to do |format|
-      if @seed_treatment.update(seed_treatment_params)
+      if @seed_treatment.update(seed_treatment_params) and params[:commit] == "end soak"
+        format.html { redirect_to seed_treatments_fresh_index_path, notice: 'Soak was successfully ended.' }
+        format.json { render :show, status: :ok, location: @seed_treatment }
+      elsif @seed_treatment.update(seed_treatment_params)
         format.html { redirect_to @seed_treatment, notice: 'Seed treatment was successfully updated.' }
         format.json { render :show, status: :ok, location: @seed_treatment }
       else
@@ -69,6 +72,17 @@ class SeedTreatmentsController < ApplicationController
 
   def end_soak
     @seed_treatment = SeedTreatment.find(params[:seed_treatment])
+    puts "======"
+    puts "======"
+    puts "======"
+    puts @seed_treatment.save
+    puts params[:commit]
+    puts "======"
+    puts "======"
+    puts "======"
+    #if @seed_treatment params[:commit] == "end soak"
+    #  redirect_to seed_treatments_fresh_index_path
+    #end
   end
 
   def first_emerge
