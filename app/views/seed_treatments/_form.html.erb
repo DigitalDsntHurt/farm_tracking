@@ -1,3 +1,5 @@
+
+
 <%= form_with(model: seed_treatment, local: true) do |form| %>
   <% if seed_treatment.errors.any? %>
     <div id="error_explanation">
@@ -11,24 +13,24 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :soak_start_datetime %>
-    <%= form.datetime_select :soak_start_datetime, id: :seed_treatment_soak_start_datetime %>
+    <%= form.datetime_select :soak_start_datetime, id: :seed_treatment_soak_start_datetime, class: "form-control form-control-lg" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :crop_id %>
-    <%= form.select :crop_id, Crop.all.order(:crop).collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true %>
+    <%= form.select :crop_id, Crop.all.order(:crop).collect{|crop| ["#{crop.crop} - #{crop.crop_variety}", crop.id ]}, include_blank: true,class: "form-control form-control-lg" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :seed_quantity_oz %>
-    <%= form.text_field :seed_quantity_oz, id: :seed_treatment_seed_quantity_oz %>
+    <%= form.text_field :seed_quantity_oz, id: :seed_treatment_seed_quantity_oz, class: "form-control form-control-lg" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :soak_solution %>
-    <%= form.text_field :soak_solution, id: :seed_treatment_soak_solution, :value => "germ nutsol" %>
+    <%= form.text_field :soak_solution, id: :seed_treatment_soak_solution, :value => "germ nutsol", class: "form-control form-control-lg" %>
   </div>
 
   <p>****** ****** ****** ****** ****** ******</p>
@@ -106,6 +108,6 @@
   </div>  
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "create seed treatment", class: "btn btn-primary btn success" %>
   </div>
 <% end %>

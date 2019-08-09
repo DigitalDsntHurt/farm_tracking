@@ -72,17 +72,6 @@ class SeedTreatmentsController < ApplicationController
 
   def end_soak
     @seed_treatment = SeedTreatment.find(params[:seed_treatment])
-    puts "======"
-    puts "======"
-    puts "======"
-    puts @seed_treatment.save
-    puts params[:commit]
-    puts "======"
-    puts "======"
-    puts "======"
-    #if @seed_treatment params[:commit] == "end soak"
-    #  redirect_to seed_treatments_fresh_index_path
-    #end
   end
 
   def first_emerge
