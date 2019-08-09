@@ -1,7 +1,8 @@
 class SeedFlatUpdate < ApplicationRecord
   belongs_to :seed_flat
 
-  validates :customer_id, presence: true, if: -> {update_type == "harvest" }#, render :seed_flat_updates_harvest_path
+  validates :customer_id, presence: true, if: -> {update_type == "harvest" }
+  validates :customer_id, presence: true, if: -> {update_type == "delivered as live flat" }
 
   after_create :set_seed_flat_current_system_id, :update_seed_flat_harvest#, :ensure_customer_id
   after_update :set_seed_flat_current_system_id, :update_seed_flat_harvest#, :ensure_customer_id
