@@ -51,6 +51,13 @@ class SeedFlatUpdatesController < ApplicationController
     @seed_flat = SeedFlat.find(params[:flat])
   end
 
+  def deliver_as_live_flat
+    @seed_flat_update = SeedFlatUpdate.new
+    @seed_flat = SeedFlat.find(params[:flat])
+    @yield_data = SeedFlat.where(crop_id: @seed_flat.crop_id).where.not(harvest_weight_oz: nil).map{|flat| flat.harvest_weight_oz }
+    @yield_val = @yield_data.count == 0 ? 2 : (@yield_data.inject{|oz,sum| oz + sum } / @yield_data.count).round(2)
+  end
+
   def transplant
     @seed_flat_update = SeedFlatUpdate.new
     @seed_flat = SeedFlat.find(params[:flat])

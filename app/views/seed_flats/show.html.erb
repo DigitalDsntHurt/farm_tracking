@@ -171,6 +171,7 @@
       </div>
       <div align="center">
         <%= link_to 'Harvest', seed_flat_updates_harvest_path(:controller => "seed_flat_updates", :action => "harvest", :flat => @seed_flat.id), :class => "dropbtn btn btn-success btn-lg" %>
+        <%= link_to 'Deliver As Live Flat', seed_flat_updates_deliver_as_live_flat_path(:controller => "seed_flat_updates", :action => "deliver_as_live_flat", :flat => @seed_flat.id), :class => "dropbtn btn btn-success btn-lg" %>
         <% if @seed_flat.seed_treatments_id == nil %>
           <%= link_to 'Clone', seed_flats_copy_path(:controller => "seed_flats", :action => "copy", :old_seed_flat => @seed_flat.id), :class => "dropbtn btn btn-info btn-lg" %>
         <% else %>

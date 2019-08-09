@@ -19,8 +19,13 @@ class SeedFlatUpdate < ApplicationRecord
     if self.finished == true
       #@seed_flat = SeedFlat.where(id: self.seed_flat_id)
       @all_harvests = SeedFlatUpdate.where(seed_flat_id: self.seed_flat_id).where(update_type: "harvest")
-      @total_harvest_weight = @all_harvests.map{|harvest| harvest.harvest_qty_oz}.inject{|sum,weight| sum + weight }
-      SeedFlat.where(id: self.seed_flat_id).update(harvest_weight_oz: @total_harvest_weight )
+      if @all_harvests.count > 0
+        @total_harvest_weight = @all_harvests.map{|harvest| harvest.harvest_qty_oz}.inject{|sum,weight| sum + weight }
+        SeedFlat.where(id: self.seed_flat_id).update(harvest_weight_oz: @total_harvest_weight )
+      else
+        @total_harvest_weight = self.harvest_qty_oz
+        SeedFlat.where(id: self.seed_flat_id).update(harvest_weight_oz: @total_harvest_weight )
+      end
     end
   end
 

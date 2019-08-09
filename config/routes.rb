@@ -117,6 +117,7 @@ Rails.application.routes.draw do
 	get 'seed_flat_updates/transplant_flat' => 'seed_flat_updates#transplant_flat'
 	get 'seed_flat_updates/harvest' => 'seed_flat_updates#harvest'
 	get 'seed_flat_updates/full_index' => 'seed_flat_updates#full_index'
+	get 'seed_flat_updates/deliver_as_live_flat' => 'seed_flat_updates#deliver_as_live_flat'
 	resources :seed_flat_updates
 	
 	get 'seed_treatments/fresh_index'
