@@ -1,28 +1,104 @@
 
-<div class="master-container" style="max-width: 1200px;margin:auto;">
-	<% @crops_loop = @crops_from_crops_table.sort_by{|c| c.crop } %>
-	<% @crops_loop.each_with_index{ |c,i| %>
-		
-		<div style="border: solid 1px black;padding:22px;">
-			<% @in_pipeline = SeedFlat.where(harvest_weight_oz: nil).where(crop_id: c) %>
-			<h1><strong><%= c.crop %></strong>, <%= c.crop_variety %> -- <%= @in_pipeline.count %> flats in pipeline</h1>
-			<% @in_pipeline.sort_by{|flat| (Date.today - flat.started_date).to_i }.reverse.each{|flat| %>
-					
-				<% if flat.customer_id == nil or Customer.where(id: flat.customer_id)[0].name == "overgrow" %>
-					<div>
-						<h4><%= link_to "Harvest", seed_flat_updates_harvest_path(flat: flat), class: "btn btn-primary btn-xs" %> &nbsp; <%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day", flat %> ( <%= System.where(id: flat.current_system_id)[0].system_name %> ) </h4>
-					</div>
-				<% else %>
-					<div>
-					<strong>
-						<h4><%= link_to "Harvest", seed_flat_updates_harvest_path(flat: flat), class: "btn btn-primary btn-xs" %> &nbsp; <%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day, for #{Customer.where(id: flat.customer_id)[0].name}", flat %> ( <%= System.where(id: flat.current_system_id)[0].system_name %> ) </h4>
-					</strong>
-					</div>
-				<% end %>
-				
-			<% } %>
+<%= form_tag bulk_actions_seed_flats_path, method: :put do %>
+
+<table class="pipeline-table">
+	<thead>
+		<tr>
+			<th>
+				<table>
+					<thead>
+						<tr>
+							<th style="padding:12px;">
+								<div align="center">
+									<h4 align="center" style="border-bottom: solid black 1px;">
+										<h3>bulk <%= submit_tag "Kill", class: "navbar-dropdown btn btn-warning btn-sm", style: "margin:6px; width:222px;" %> or transplant to...</h3>
+										<% System.where(room_id: 2).where(retired: false).where.not(system_name: "1. Propagation").where.not(system_name: "propagation").order(:system_name).each{|system| %>
+											<%= submit_tag "~>#{system.system_name}", class: "navbar-dropdown btn btn-primary btn-lg", style: "margin:6px; width:222px;" %>	
+										<% } %>
+									</h4>
+								</div>
+							</th>
+						</tr>
+					</thead>
+				</table>			
+			</th>
+		</tr>
+	</thead>
+	<tr>
+		<td style="padding-top:44px;">
 			
-		</div>
-	<% } %>
-</div>
+			<div class="container-fluid" style="padding-bottom: 44px;margin-bottom: 44px;">
+			  <div class="row">
+			    <div class="col-3 col-md-2" style="border: solid 1px black; padding:22px;">
+			      <div align="center" style="padding-bottom: 12px;border-bottom:solid 1px black">
+			        <%= link_to 'back to crop availability', dashboards_crop_availability_path, :class => "btn btn-success btn-lg" %><br><br>
+			        <%= link_to 'back to sew list', calendars_sew_path, :class => "btn btn-success btn-lg" %>
+			        <%= link_to 'back to soak list', calendars_soak_path, :class => "btn btn-success btn-lg" %>
+			      </div>
+			      <%= render partial: "dashboards/harvest_counter" %>
+			    </div>
+			    <div class="col-15 col-md-10" style="border: solid 1px black; padding:22px;">
+					<div style="max-width: 1200px;margin:auto;">
+						<% @crops_loop = @crops_from_crops_table.sort_by{|c| c.crop } %>
+						<% @crops_loop.each_with_index{ |c,i| %>
+							
+							<div style="border-bottom: solid 1px black;padding:22px;">
+								<% @in_pipeline = SeedFlat.where(harvest_weight_oz: nil).where(crop_id: c) %>
+								<h1><strong><%= c.crop %></strong>, <%= c.crop_variety %> -- <%= @in_pipeline.count %> flats in pipeline</h1>
+								<table>
+									<% @in_pipeline.sort_by{|flat| (Date.today - flat.started_date).to_i }.reverse.each{|flat| %>
+										
+									<% if flat.customer_id == nil or Customer.where(id: flat.customer_id)[0].name == "overgrow" %>
+										<tr>
+											<td style="padding:12px 12px 0px 0px;">
+												<%= check_box_tag("flat_ids[]", flat.id, false, :class => "checkbox-inline-avail")  %>
+											</td>
+											<td>
+												<h3>
+													<%= link_to "Harvest", seed_flat_updates_harvest_path(flat: flat), class: "btn btn-primary btn-lg" %> &nbsp; <%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day", flat %> ( <%= System.where(id: flat.current_system_id)[0].system_name %> ) 
+												</h3>	
+											</td>
+											<td></td>
+										</tr>
+										<% else %>
+											<tr>
+												<td style="padding:12px 12px 0px 0px;">
+													<%= check_box_tag("flat_ids[]", flat.id, false, :class => "checkbox-inline-avail")  %>
+												</td>
+												<td>
+													<strong>
+														<h3>
+															<%= link_to "Harvest", seed_flat_updates_harvest_path(flat: flat), class: "btn btn-primary btn-lg" %> &nbsp; <%= link_to "#{flat.flat_id}: #{(Date.today - flat.started_date).to_i} day, for #{Customer.where(id: flat.customer_id)[0].name}", flat %> ( <%= System.where(id: flat.current_system_id)[0].system_name %> )
+														</h3>
+													</strong>
+												</td>
+											</tr>
+										<% end %>
+										
+									<% } %>
+								</table>
+							</div>
+						<% } %>
+					</div>			    	
+			    </div>
+			  </div>
+			</div>
+
+
+
+
+
+			
+
+
+
+
+
+		</td>
+	</tr>
+</table>
+
+
+<% end %>
+
 <br><br><br><br><br>

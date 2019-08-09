@@ -114,7 +114,7 @@
             <td align="center" style="border: solid 1px black; text-align: center; padding: 12px;">
               <% if @transplant_updates.count == 0 %>
                 -
-              <% elsif @harvest_updates.count == 0 %>
+              <% elsif @harvest_updates.count == 0 or @seed_flat.harvested_on == nil %>
                 <%= (Date.today - @first_transplant_date).to_i %>
               <% else %>  
                 <%= (@seed_flat.harvested_on - @first_transplant_date).to_i %>
