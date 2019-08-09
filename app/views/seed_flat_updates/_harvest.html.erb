@@ -1,4 +1,6 @@
 
+
+
 <div class="form-container">
 
 <%= form_with(model: seed_flat_update, local: true) do |form| %>
@@ -23,7 +25,7 @@
 
     <div class="form-group">
       <h3><%= form.label :harvested_for %></h3>
-      <%= form.select :customer_id, Customer.all.order(name: :asc).collect{|customer| ["#{customer.name}", customer.id ]}, include_blank: true, class: "form-control form-control-lg" %>
+      <%= form.select :customer_id, Customer.all.order(name: :asc).collect{|customer| ["#{customer.name}", customer.id ]}, include_blank: true, class: "form-control form-control-lg", required: true %>
     </div>
 
     <table>
