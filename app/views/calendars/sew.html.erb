@@ -4,7 +4,7 @@
 		<% @days_sew = @sew_instructions.select{|hsh| hsh[:day] == day_of_week } %>
 		<% next if @days_sew.count == 0 %>
 
-		<%= @sewn_count = SeedFlat.where(started_date: Date.today).count %>
+		<% @sewn_count = SeedFlat.where(started_date: Date.today).count %>
 
 		<h1 align="center"><%= day_of_week %> (<%= date %>)</h1>
 		<h2 align="center"><%= @days_sew.map{|hsh| hsh[:qty] }.inject{|qty,sum| qty + sum } %> flats to sew ( <%= @sewn_count %> flats sewn )</h2>
