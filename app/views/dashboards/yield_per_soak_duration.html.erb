@@ -1,0 +1,49 @@
+<div class="master-container">
+	<div class="form-container">
+
+		<% @harvested_flats.each{|crop_group| %>
+			<h2 align="center">
+				<%= Crop.where(id: crop_group[0])[0].crop.capitalize %>, <%= Crop.where(id: crop_group[0])[0].crop_variety %>
+			</h2>
+
+			<table class="data-table" style="margin:auto;">
+				<thead>
+					<th>
+						soak duration (hrs)
+					</th>
+					<th>
+						flats harvested
+					</th>
+					<th>
+						avg yield
+					</th>
+				</thead>
+				<% @max_duration = crop_group[1].map{|flat| SeedTreatment.where(id: flat.seed_treatments_id)[0].soak_duration_hrs }.max.round(0) %>
+				<% @min_duration = crop_group[1].map{|flat| SeedTreatment.where(id: flat.seed_treatments_id)[0].soak_duration_hrs }.min.round(0) %>
+				<% @duration_ranges = [] %>
+				<% until @min_duration > @max_duration %>
+					<% @duration_ranges << (@min_duration..(@min_duration+1)) %>
+					<% @min_duration += 2 %>
+				<% end %>
+				<% @duration_ranges.each{|range| %>
+					<% @flats = crop_group[1].select{|flat| range === SeedTreatment.where(id: flat.seed_treatments_id)[0].soak_duration_hrs } %>
+					<% @flat_yields = @flats.map{|flat| flat.harvest_weight_oz } %>	
+					<% next if @flats.count < 1 %>
+					<tr>
+						<td>
+							<%= range.first %> - <%= range.last %>
+						</td>
+						<td>
+							<%= @flats.count %>
+						</td>
+						<td>
+							<%= (@flat_yields.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+						</td>
+					</tr>
+				<% } %>
+			</table><br>
+		<% } %>
+
+
+	</div>	
+</div>

@@ -71,6 +71,10 @@ Rails.application.routes.draw do
 	get 'dashboards/bulk_form_conf' => 'dashboards#bulk_form_conf'
 	get 'dashboards/crop_alphabetization' => 'dashboards#crop_alphabetization'
 	get 'dashboards/pull_todays_flats_for_harvest' => 'dashboards#pull_todays_flats_for_harvest'
+	get 'dashboards/yield_per_soak_duration' => 'dashboards#yield_per_soak_duration'
+	get 'dashboards/yield_per_treatment_days' => 'dashboards#yield_per_treatment_days'
+	get 'dashboards/yield_per_propagation_days' => 'dashboards#yield_per_propagation_days'
+	get 'dashboards/yield_per_system_days' => 'dashboards#yield_per_system_days'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
 	get 'seed_flats/basic_index' => 'seed_flats#basic_index'
