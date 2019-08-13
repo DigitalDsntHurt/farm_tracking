@@ -4,6 +4,7 @@ require 'csv'
 
 
 =begin
+=end
 ##
 ## ## Seed all active SeedFlats w/ anticipated_ready_date field value
 ##
@@ -15,7 +16,7 @@ SeedFlat.where(harvested_on: nil).each{|flat|
 	ready_date = started + dth_from_sew
 	flat.update(anticipated_ready_date: ready_date)
 }
-=end
+
 
 =begin
 

@@ -1,3 +1,75 @@
+<div class="master-container">
+	
+
+	<h1 class="fancy-title">Anticipated Harvest Dates</h1>
+
+
+	<table class="calendar-table">
+		<% @date_range.to_a.in_groups_of(3).each{|threedays| %>
+			<tr>
+				<% threedays.each{|day| %>
+					<% next if day == nil %>
+					<td>
+						<h1 class="calendar-date"><%= day.strftime("%A, %B %d ") %></h1>
+						<hr class="calendar-hr">
+						<% @active_flats.where(anticipated_ready_date: day).group_by{|flat| flat.customer_id }.each{|group| %>
+							<h2><u><%= Customer.where(id: group[0])[0].name %></u></h2>
+							<% group[1].group_by{|flat| flat.crop_id }.each{|crop_group| %>
+								<div data-toggle="collapse" data-target="#<%= Crop.where(id: crop_group[0])[0].crop_variety.gsub(" ","-") %>-<%= Crop.where(id: crop_group[0])[0].crop.gsub(" ","-") %>-for-<%= Customer.where(id: group[0])[0].name.gsub(" ","-").gsub("'","") %>-on-<%= day %>">
+									<h3>
+										<%= Crop.where(id: crop_group[0])[0].crop_variety %>, <%= Crop.where(id: crop_group[0])[0].crop.capitalize %>
+										<br>
+										<%= crop_group[1].count %> flats for <%= Crop.where(id: crop_group[0])[0].ideal_yield_per_flat_oz * crop_group[1].count %> oz estimated harvest
+									</h3>
+									<div id="<%= Crop.where(id: crop_group[0])[0].crop_variety.gsub(" ","-") %>-<%= Crop.where(id: crop_group[0])[0].crop.gsub(" ","-") %>-for-<%= Customer.where(id: group[0])[0].name.gsub(" ","-").gsub("'","") %>-on-<%= day %>" class="collapse">
+										<ul>
+											<% crop_group[1].each{|flat| %>
+												<li>
+													<%= link_to "#{flat.flat_id} : #{(Date.today - flat.started_date).to_i} day in #{System.where(id: flat.current_system_id)[0].system_name}", flat %>
+												</li>	
+											<% } %>
+										</ul>
+									</div>
+								</div>	
+
+								<br>
+							<% } %>
+						<% } %>
+					</td>
+				<% } %>
+			</tr>
+		<% } %>
+		
+	
+	</table>
+</div>
+
+<div class="master-container">
+	<table class="calendar-table">
+		<% @date_range.to_a.in_groups_of(3).each{|threedays| %>
+			<tr>
+				<% threedays.each{|day| %>
+					<td>
+						<h1><%= day %></h1>
+						<hr class="calendar-hr">
+						<% @active_flats.where(anticipated_ready_date: day).group_by{|flat| flat.customer_id }.each{|group| %>
+							<h2><u><%= Customer.where(id: group[0])[0].name %></u></h2>
+							<% group[1].sort_by{|flat| flat.crop_id }.each{|flat| %>
+								<%= flat.flat_id %> : <%= Crop.where(id: flat.crop_id)[0].crop_variety %>, <%= Crop.where(id: flat.crop_id)[0].crop.capitalize %><br>
+							<% } %>
+						<% } %>
+					</td>
+				<% } %>
+			</tr>
+		<% } %>
+		
+	
+	</table>
+</div>
+
+
+<% if false %>
+
 <% @flats_for_allocation = @active_flats.to_a %>
 
 <div class="padded-container">
@@ -40,3 +112,6 @@
 		<% } %>
 	<% } %>
 </div>
+
+
+<% end %>

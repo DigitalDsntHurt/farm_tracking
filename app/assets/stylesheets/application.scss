@@ -615,3 +615,36 @@ table.data-table{
   border:solid 1px black;
   padding:22px;
 }
+
+.calendar-table{
+  border:solid 1px black;
+  margin:auto;
+  
+  td{
+    border:solid 1px black;
+    padding:22px;
+    vertical-align: top;
+
+    h1,h2,h3,h4{
+      text-align: center;
+    }
+
+    hr.calendar-hr{
+      border: 1px solid black;
+    }
+  }
+}
+
+.fancy-title{
+  font-size: 9em;
+  text-align: center;
+  margin-top: -88px;
+  margin-bottom: 44px;
+  font-family: 'Permanent Marker', cursive;
+}
+
+.calendar-date{
+  font-size: 3em;
+  text-align: center;
+  font-family: 'Permanent Marker', cursive;
+}

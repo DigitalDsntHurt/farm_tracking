@@ -3,7 +3,7 @@
 
 	<div class="row">
 		<div class="col" style="padding-left: 44px;">
-			<%= link_to "Pipeline", "/dashboards/pipeline", :method => :get, :class=>"nav-btn btn btn-success" %>
+			
 		</div>
 		<div class="col">
 			<%= link_to "Crop Availability", "/dashboards/crop_availability", :method => :get, :class=>"nav-btn btn btn-success" %>
@@ -44,6 +44,10 @@
 		</div>
 
 		<div class="col">
+			<%= link_to "Anticipated Harvest Dates", "/dashboards/harvest_calendar", :method => :get, :class => "nav-btn btn btn-primary" %>
+		</div>
+
+		<div class="col">
 			<%= link_to 'OverGrow', over_grow_recipients_path, :class => "nav-btn btn btn-primary" %>
 		</div>
 
@@ -51,6 +55,7 @@
 			<div class="dropdown">
 			  <button class="nav-btn btn btn-dark dropdown-toggle">Pipeline</button>
 			  <div class="dropdown-content">
+			    <%= link_to "Pipeline View", "/dashboards/pipeline", :method => :get, :class=>"navbar-dropdown" %>
 			    <%= link_to "Rooms", "/rooms", :method => :get, :class => "navbar-dropdown" %>
 				<%= link_to "Systems", "/systems", :method => :get, :class => "navbar-dropdown" %>
 			    <%= link_to "Reservoirs", "/reservoirs", :method => :get, :class => "navbar-dropdown" %>
