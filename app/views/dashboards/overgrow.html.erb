@@ -2,7 +2,7 @@
 
 <div class="master-container form-container">
 
-	<% @nonalocated_active_flats.sort_by{|group| group[0]}.each{|group| %>
+	<% @nonalocated_active_flats.sort_by{|group| Crop.where(id: group[0])[0].crop}.each{|group| %>
 		<% @flats = group[1].reject{|flat| flat.anticipated_ready_date == nil}.select{|flat| flat.anticipated_ready_date <= Date.today} %>
 		
 		<% next if @flats.count < 1 %>
