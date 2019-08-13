@@ -562,4 +562,8 @@ class DashboardsController < ApplicationController
     @system_order = ["KLAY","PIP","REZHA","NAGA","BOP","RAY","GAR","DOH","DIL","FUM","MIA","FOE","BAM","FIE","LIP","FEE","JEZ"]
   end
 
+  def overgrow
+    @nonalocated_active_flats = SeedFlat.where(harvest_weight_oz: nil).where.not(current_system_id: nil).where.not(flat_id: "").select{|flat| Customer.where(id: flat.customer_id)[0].name == "overgrow" or flat.customer_id == nil }.group_by{|flat| flat.crop_id }
+  end
+
 end
