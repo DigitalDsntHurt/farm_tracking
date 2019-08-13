@@ -1,4 +1,7 @@
+<h1 class="fancy-title">OverGrow Avail</h1>
+
 <div class="master-container form-container">
+
 	<% @nonalocated_active_flats.sort_by{|group| group[0]}.each{|group| %>
 		<% @flats = group[1].reject{|flat| flat.anticipated_ready_date == nil}.select{|flat| flat.anticipated_ready_date <= Date.today} %>
 		
