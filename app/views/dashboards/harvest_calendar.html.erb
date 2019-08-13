@@ -25,7 +25,10 @@
 										<ul>
 											<% crop_group[1].each{|flat| %>
 												<li>
-													<%= link_to "#{flat.flat_id} : #{(Date.today - flat.started_date).to_i} day in #{System.where(id: flat.current_system_id)[0].system_name}", flat %>
+													<% @current_flat_age = (Date.today - flat.started_date).to_i %>
+													<% @days_until_calendar_date = (day - Date.today).to_i %>
+													<% @age_at_anticipated_harvest_date = @current_flat_age + @days_until_calendar_date %>
+													<%= link_to "#{flat.flat_id} : #{@age_at_anticipated_harvest_date} day in #{System.where(id: flat.current_system_id)[0].system_name}", flat %>
 												</li>	
 											<% } %>
 										</ul>
