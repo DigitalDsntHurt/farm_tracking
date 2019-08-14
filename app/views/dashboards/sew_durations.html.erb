@@ -16,7 +16,7 @@
 						<% @secs = (@last_flat_sewn.created_at - @first_flat_sewn.created_at).round(2) %>
 						<% @mins = ((@last_flat_sewn.created_at - @first_flat_sewn.created_at)/60).round(2) %>
 						<% @hrs = ((@last_flat_sewn.created_at - @first_flat_sewn.created_at)/60/60).round(2) %>
-						<h2><%= @mins / @days_flats.count %> mins / flat</h2>
+						<h2><%= (@mins / @days_flats.count).round(2) %> mins / flat</h2>
 						<h3><%= @days_flats.count %> flats sewn in <%= @mins %> minutes</h3>
 						
 						first @ <%= @first_flat_sewn.created_at %><br>
