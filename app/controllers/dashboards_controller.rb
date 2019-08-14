@@ -566,4 +566,27 @@ class DashboardsController < ApplicationController
     @nonalocated_active_flats = SeedFlat.where(harvest_weight_oz: nil).where.not(current_system_id: nil).where.not(flat_id: "").select{|flat| Customer.where(id: flat.customer_id)[0].name == "overgrow" or flat.customer_id == nil }.group_by{|flat| flat.crop_id }
   end
 
+  def sew_durations
+    @flats_sewn_per_day = []
+    @today = Date.today
+    90.times do
+      @flats_sewn_per_day << [@today, SeedFlat.where(started_date: @today).where(seed_treatments_id: nil)]
+      @today -= 1
+    end
+
+    @ninety_temp = []
+    @flats_sewn_per_day.each{|arr|
+      next if arr[1].count == 0
+      @flats = arr[1].order(:created_at)
+      @count = @flats.count
+      @first = @flats.first
+      @last = @flats.last
+      @duration_in_secs = (@last.created_at - first.created_at).round(2)
+      @duration_in_mins = (@duration_in_secs / 60).round(2)
+
+    }
+    @ninty_day_avg_rate = @flats_sewn_per_day.map{|arr| arr[1] }
+    @thirty_day_avg_rate = ""
+    @seven_day_avg_rate = ""
+  end
 end

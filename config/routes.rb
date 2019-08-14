@@ -76,6 +76,7 @@ Rails.application.routes.draw do
 	get 'dashboards/yield_per_propagation_days' => 'dashboards#yield_per_propagation_days'
 	get 'dashboards/yield_per_system_days' => 'dashboards#yield_per_system_days'
 	get 'dashboards/overgrow' => 'dashboards#overgrow'
+	get 'dashboards/sew_durations' => 'dashboards#sew_durations'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
 	get 'seed_flats/basic_index' => 'seed_flats#basic_index'

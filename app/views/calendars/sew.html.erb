@@ -1,4 +1,4 @@
-<div class="master-container" style="max-width: 1200px;margin:auto;">
+<div class="master-container" style="max-width: 1200px;margin:auto;padding-bottom: 88px">
 
 	<% @this_week_hsh.each{|day_of_week,date| %>
 		<% @days_sew = @sew_instructions.select{|hsh| hsh[:day] == day_of_week } %>
@@ -25,7 +25,9 @@
 			<% if @completed == false %>
 				<div class="card" style="padding: 1px 11px 4px 11px;" >
 			<% else %>
+				<% if false %>
 				<div class="card" style="padding: 1px 11px 4px 11px;background-color: #66C166;" >
+				<% end %>	
 			<% end %>					
 			
 

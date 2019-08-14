@@ -1,0 +1,30 @@
+<div class="master-container">
+	<h1>90 day avg: </h1>
+	<h1>30 day avg: </h1>
+	<h1>7 day avg: </h1>
+	<table>
+		<% @flats_sewn_per_day.each{|day_group| %>
+			<tr>
+				<td align="center" style="border-bottom: solid black 1px;padding:22px;">
+					<h2><%= day_group[0] %></h2>
+					<% @days_flats = day_group[1].order(:created_at) %>
+					<% @first_flat_sewn = @days_flats.first %>
+					<% @last_flat_sewn =  @days_flats.last %>
+					<% if @days_flats.count == 0 %>
+						0 flats sewn
+					<% else %>
+						<% @secs = (@last_flat_sewn.created_at - @first_flat_sewn.created_at).round(2) %>
+						<% @mins = ((@last_flat_sewn.created_at - @first_flat_sewn.created_at)/60).round(2) %>
+						<% @hrs = ((@last_flat_sewn.created_at - @first_flat_sewn.created_at)/60/60).round(2) %>
+						<h2><%= @mins / @days_flats.count %> mins / flat</h2>
+						<h3><%= @days_flats.count %> flats sewn in <%= @mins %> minutes</h3>
+						
+						first @ <%= @first_flat_sewn.created_at %><br>
+						last @ <%= @last_flat_sewn.created_at %><br>
+						<%= @secs %> seconds = <%= @mins %> minutes = <%= @hrs %> hours
+					<% end %>	
+				</td>
+			</tr>
+		<% } %>
+	</table>
+</div>
