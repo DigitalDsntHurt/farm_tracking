@@ -1,7 +1,7 @@
 <div class="master-container">
-	<h1>90 day avg: </h1>
-	<h1>30 day avg: </h1>
-	<h1>7 day avg: </h1>
+	<h1>90 day avg: <%= @ninty_day_avg_rate %> mins / flat</h1>
+	<h1>30 day avg: <%= @thirty_day_avg_rate %> mins / flat</h1>
+	<h1>7 day avg: <%= @seven_day_avg_rate %> mins / flat</h1>
 	<table>
 		<% @flats_sewn_per_day.each{|day_group| %>
 			<tr>
