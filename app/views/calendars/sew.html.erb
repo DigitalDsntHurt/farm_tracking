@@ -21,14 +21,8 @@
 			<% else %>
 				<% @completed = false %>
 			<% end %>
-
-			<% if @completed == false %>
-				<div class="card" style="padding: 1px 11px 4px 11px;" >
-			<% else %>
-				<% if false %>
-				<div class="card" style="padding: 1px 11px 4px 11px;background-color: #66C166;" >
-				<% end %>	
-			<% end %>					
+			
+				<div class="card" style="padding: 1px 11px 4px 11px;" >				
 			
 
 				<% if hsh[:qty] > 1 %>
