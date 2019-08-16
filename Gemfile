@@ -38,8 +38,12 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'javascript_util_asset_pack'
+gem 'rails_utils'
+
 gem 'bootstrap', '>= 4.1.2'
 gem 'bootstrap-datepicker-rails'
+gem 'font-awesome-sass', '~> 5.9.0'
 
 gem "simple_calendar", "~> 2.0"
 gem 'jquery-ui-rails', '5.0.5'
@@ -51,6 +55,7 @@ gem "google_visualr", ">= 2.5"
 gem 'rufus-scheduler'
 
 gem 'clipboard-rails'
+gem 'toastr-rails'
 
 
 group :development, :test do

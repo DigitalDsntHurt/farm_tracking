@@ -1,7 +1,7 @@
 <!-- Navigation -->
 <div class="container-fluid nav">
 
-	<div class="row">
+	<div class="row justify-content-around">
 		<div class="col" style="padding-left: 44px;">
 			
 		</div>
@@ -120,6 +120,22 @@
 			  </div>
 			</div>		
 		</div>
+
+		<% @now = Time.now %>
+		<% @drains_needed = SeedTreatment.where(soak_duration_hrs: nil).where(killed_on: nil).where(destination_flat_ids: []).select{|treatment| (@now - treatment.soak_start_datetime)/60/60 >= 6 } %>
+
+		<% if @drains_needed.count > 0 %>
+			<div class="col" style="min-width:393px;">	
+			</div>
+			<div class="col">
+				<div class="dropdown">
+				  <button class="dropbtn nav-btn btn btn-danger btn-lg"><span class="blinking"><i class="fas fa-exclamation-circle"></i> &nbsp; <strong>ALERTS</strong></span></button>
+				  <div class="dropdown-content dropdown-menu-right" style="padding:11px;min-width: 222px;border:1px solid rgba(0, 0, 0, .5);">
+					<%= render '/shared/end_soak_alerts'%>
+				  </div>
+				</div>		
+			</div>
+		<% end %>		
 	</div>
 </div>
 <div class="spacer">

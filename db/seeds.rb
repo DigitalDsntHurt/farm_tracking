@@ -3,6 +3,14 @@
 require 'csv'
 
 
+##
+## ## Seed all Crops with ideal soak duration
+##
+
+Crop.all.where(ideal_treatment_days: 0).update_all(ideal_soak_duration_hrs: 0.0)
+Crop.all.where.not(ideal_treatment_days: 0).update_all(ideal_soak_duration_hrs: 6.0)
+
+
 =begin
 
 ##

@@ -39,7 +39,7 @@ class SeedTreatmentsController < ApplicationController
 
     respond_to do |format|
       if @seed_treatment.save
-        format.html { redirect_to @seed_treatment, notice: 'Seed treatment was successfully created.' }
+        format.html { redirect_to @seed_treatment, notice: 'Seed treatment successfully created.' }
         format.json { render :show, status: :created, location: @seed_treatment }
       else
         format.html { render :new }

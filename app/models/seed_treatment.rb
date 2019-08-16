@@ -2,9 +2,9 @@ class SeedTreatment < ApplicationRecord
 	has_many :seed_flats
 	
 	before_create :calculate_planned_date_of_first_flat_sew, :convert_order_dummies_to_order_ids
-	after_create :create_rinse_farm_ops_do
+	#after_create :create_rinse_farm_ops_do
 	before_save :calculate_days_to_full_emergence, :set_soak_start_date
-	after_save :create_sew_farm_ops_do
+	#after_save :create_sew_farm_ops_do
 
 
 	private
@@ -38,6 +38,7 @@ class SeedTreatment < ApplicationRecord
 		self.soak_start_date = self.soak_start_datetime.to_date
 	end
 
+=begin
 	def create_rinse_farm_ops_do
 		@rinse_do = {}
 		@rinse_do[:date] = (self.soak_start_datetime.to_time + 8.hours).to_datetime.to_date
@@ -70,5 +71,5 @@ class SeedTreatment < ApplicationRecord
 			end
 		end
 	end
-
+=end
 end
