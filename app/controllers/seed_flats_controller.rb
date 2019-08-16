@@ -4,11 +4,11 @@ class SeedFlatsController < ApplicationController
   # GET /seed_flats
   # GET /seed_flats.json
   def index
-    @seed_flats = SeedFlat.all.order(updated_at: :desc)
+    @seed_flats = SeedFlat.all.order(updated_at: :desc).take(750)
   end
 
   def basic_index
-    @seed_flats = SeedFlat.all.order(updated_at: :desc)
+    @seed_flats = SeedFlat.all.where.not(crop_id: nil).order(updated_at: :desc)
   end
 
   def live_index
@@ -16,7 +16,7 @@ class SeedFlatsController < ApplicationController
   end
 
   def harvested_index
-    @seed_flats = SeedFlat.all.where.not(harvest_weight_oz: nil).where.not(harvest_weight_oz: 0).order(updated_at: :desc)
+    @seed_flats = SeedFlat.all.where.not(harvest_weight_oz: nil).where.not(harvest_weight_oz: 0).where.not(crop_id: nil).order(updated_at: :desc)
   end
 
   def killed_index

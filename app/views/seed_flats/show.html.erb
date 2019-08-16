@@ -232,9 +232,10 @@
             <tr>
               <% group.each{|col_name| %>
                 <td align="center" style="padding:12px;border:1px black dashed">
-                  <h3><%= col_name %></h3>
-                  <h4><%= @seed_flat.send(col_name).nil? ? "nil" : @seed_flat.send(col_name) %></h4>
-
+                  <% unless col_name == nil %>
+                    <h3><%= col_name %></h3>
+                    <h4><%= @seed_flat.send(col_name).nil? ? "nil" : @seed_flat.send(col_name) %></h4>
+                  <% end %>
                 </td>
               <% } %>
             </tr>

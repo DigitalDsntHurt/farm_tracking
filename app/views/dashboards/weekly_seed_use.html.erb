@@ -1,34 +1,41 @@
-<% @week_start_dates.reverse.each{|date| %>
+<div class="master-container form-container">
+	<% @week_start_dates.reverse.each{|date| %>
 
-	<h2 style="margin-left: 22px;">week of <%= date %></h2>
-	<h3 style="margin-left: 22px;"><%= SeedFlat.where(:started_date => @week_start..@week_end).count %> flats sewns</h3>
-	<% @week_start = date %>
-	<% @week_end = date %>
-	<% until @week_end.sunday? %>
-		<% @week_end += 1 %>
-	<% end %>
+		<% @week_start = date %>
+		<% @week_end = date %>
+		<% until @week_end.sunday? %>
+			<% @week_end += 1 %>
+		<% end %>
+		<% @flats_sewn = SeedFlat.where(:started_date => @week_start..@week_end).count %>
+		<h2 style="margin-left: 22px;">week of <%= date %></h2>
+		<h3 style="margin-left: 22px;"><%= @flats_sewn %> flats sewn</h3>
+		<% unless @flats_sewn < 1 %>
 
-	<table class="index-table">
-		<thead>
-			<th>
-				crop
-			</th>
-			<th>
-				total seed weight sewn
-			</th>
-		</thead>
-		<% SeedFlat.where(:started_date => @week_start..@week_end).group_by{|flat| flat.crop_id }.each{|group| %>
-			<% next if group[0] == nil %>
-			<tr>
-				<td>
-					<%= Crop.where(id: group[0])[0].crop.capitalize %>, <%= Crop.where(id: group[0])[0].crop_variety %>
-				</td>
-				<td align="center">
-					<% seed_weights = group[1].map{|flat| flat.seed_weight_oz } %>
-					<%= (seed_weights.inject{|weight,sum| weight + sum }).round(2) %>
-				</td>
-			</tr>
-		<% } %>
-	</table>
-<br><br><hr><br><br>
-<% } %>
+			<table class="index-table">
+				<thead>
+					<th>
+						crop
+					</th>
+					<th>
+						total seed weight sewn
+					</th>
+				</thead>
+				<% SeedFlat.where(:started_date => @week_start..@week_end).group_by{|flat| flat.crop_id }.each{|group| %>
+					<% next if group[0] == nil %>
+					<tr>
+						<td>
+							<%= Crop.where(id: group[0])[0].crop.capitalize %>, <%= Crop.where(id: group[0])[0].crop_variety %>
+						</td>
+						<td align="center">
+							<% seed_weights = group[1].map{|flat| flat.seed_weight_oz } %>
+							<% unless seed_weights[0] == nil %>
+								<%= (seed_weights.inject{|weight,sum| weight + sum }).round(2) %>
+							<% end %>
+						</td>
+					</tr>
+				<% } %>
+			</table>
+		<% end %>	
+		<br><hr class="show"><br>
+	<% } %>
+</div>

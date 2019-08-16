@@ -432,7 +432,7 @@ class DashboardsController < ApplicationController
 
 
   def crop_availability
-    @crops = SeedFlat.all.pluck(:crop).uniq
+    #@crops = SeedFlat.all.pluck(:crop).uniq
     @crops_from_crops_table = Crop.all#.to_a
   end
 

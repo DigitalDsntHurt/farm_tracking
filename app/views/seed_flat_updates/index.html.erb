@@ -4,11 +4,11 @@
   <h1>Seed Flat Updates</h1>
   <%= link_to "full index", "/seed_flat_updates/full_index", class: "btn btn-success" %>
 
-  <table>
+  <table class="index-table">
     <thead>
       <tr>
-        <th>Seed flat</th>
         <th>Update type</th>
+        <th>Seed flat</th>
         <th>Update datetime</th>
         <th>Origin system</th>
         <th>Destination system</th>
@@ -20,15 +20,15 @@
     <tbody>
       <% @seed_flat_updates.each do |seed_flat_update| %>
         <tr>
+          <td><%= seed_flat_update.update_type %></td>
           <td>
             <% if seed_flat_update.seed_flat.flat_id == nil %>
-              <%= link_to "#{seed_flat_update.seed_flat.former_flat_id}: #{seed_flat_update.seed_flat.seed_weight_oz}oz #{seed_flat_update.seed_flat.crop}", seed_flat_update.seed_flat %>
+              <%= link_to "#{seed_flat_update.seed_flat.former_flat_id}: #{Crop.where(id: seed_flat_update.seed_flat.crop_id)[0].crop_variety}, #{Crop.where(id: seed_flat_update.seed_flat.crop_id)[0].crop.capitalize}", seed_flat_update.seed_flat %>
             <% else %>
-              <%= link_to "#{seed_flat_update.seed_flat.flat_id}: #{seed_flat_update.seed_flat.seed_weight_oz}oz #{seed_flat_update.seed_flat.crop}", seed_flat_update.seed_flat %>
+              <%= link_to "#{seed_flat_update.seed_flat.flat_id}: #{Crop.where(id: seed_flat_update.seed_flat.crop_id)[0].crop_variety}, #{Crop.where(id: seed_flat_update.seed_flat.crop_id)[0].crop.capitalize}", seed_flat_update.seed_flat %>
             <% end %>
 
             </td>
-          <td><%= seed_flat_update.update_type %></td>
           <td><%= seed_flat_update.update_datetime %></td>
           <td><%= seed_flat_update.origin_system_id %></td>
           <td><%= seed_flat_update.destination_system_id %></td>

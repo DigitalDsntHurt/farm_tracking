@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190815165523) do
+ActiveRecord::Schema.define(version: 20190816203344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,18 +233,12 @@ ActiveRecord::Schema.define(version: 20190815165523) do
 
   create_table "seed_flats", id: :serial, force: :cascade do |t|
     t.date "started_date"
-    t.string "crop"
-    t.string "crop_variety"
-    t.string "seed_brand"
     t.string "medium"
     t.string "format"
     t.float "seed_weight_oz"
     t.string "seed_media_treatment_notes"
     t.date "first_emerge_date"
     t.date "full_emerge_date"
-    t.string "emergence_notes"
-    t.date "date_of_first_transplant"
-    t.date "date_of_second_transplant"
     t.date "harvested_on"
     t.float "harvest_weight_oz"
     t.float "hrvst_wt_lbs"
@@ -253,7 +247,6 @@ ActiveRecord::Schema.define(version: 20190815165523) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "flat_id"
-    t.date "date_of_third_transplant"
     t.string "former_flat_id"
     t.bigint "seed_treatments_id"
     t.integer "days_to_harvest_from_sew"
@@ -262,10 +255,8 @@ ActiveRecord::Schema.define(version: 20190815165523) do
     t.integer "current_system_id"
     t.boolean "exclude_from_freshlist"
     t.boolean "force_onto_freshlist"
-    t.string "sewn_for"
     t.integer "crop_id"
     t.integer "customer_id"
-    t.integer "harvested_for"
     t.date "anticipated_ready_date"
     t.index ["current_system_id"], name: "index_seed_flats_on_current_system_id"
     t.index ["room_id"], name: "index_seed_flats_on_room_id"

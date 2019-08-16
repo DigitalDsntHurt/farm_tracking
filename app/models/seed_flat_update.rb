@@ -1,5 +1,6 @@
 class SeedFlatUpdate < ApplicationRecord
   belongs_to :seed_flat
+  
 
   validates :customer_id, presence: true, if: -> {update_type == "harvest" }
   validates :customer_id, presence: true, if: -> {update_type == "delivered as live flat" }

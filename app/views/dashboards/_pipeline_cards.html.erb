@@ -59,9 +59,7 @@
 										
 										<%= (Date.today-tray.started_date).to_i %>-day <strong><%= Crop.where(id: tray.crop_id)[0].crop_variety %> <%= Crop.where(id: tray.crop_id)[0].crop.capitalize %></strong><br/>
 										<%= tray.seed_weight_oz %> oz seed sewn on <%= tray.started_date %><br/>
-											<% unless tray.sewn_for == nil or tray.sewn_for.length < 2 %>
-												Sewn for <strong><%= tray.sewn_for %></strong><br/>
-											<% end %>
+
 										currently in <%= System.where(id: tray.current_system_id)[0].system_name %>	<br>
 										
 										<%-# non emerged flats / in propagation -%>

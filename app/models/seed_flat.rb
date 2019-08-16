@@ -4,25 +4,15 @@ class SeedFlat < ApplicationRecord
 
 	
 	before_create :calculate_harvest_week, :convert_oz_to_lbs, :set_customer_id_if_blank, :set_anticipated_ready_date
-	after_create :set_date_of_first_flat_sew_on_seed_treatment, :set_date_of_last_flat_sew_on_seed_treatment, :set_destination_flat_ids_on_seed_treatment, :create_seed_flat_update, :set_anticipated_ready_date
+	after_create :set_date_of_first_flat_sew_on_seed_treatment, :set_date_of_last_flat_sew_on_seed_treatment, :set_destination_flat_ids_on_seed_treatment, :set_anticipated_ready_date
 	before_update  :move_flat_id_to_former_flat_id_on_harvest_or_kill, :kill_flat_id_on_harvest, :remove_current_system_id_on_harvest, :update_harvest_date_on_harvest, :calculate_harvest_week, :convert_oz_to_lbs, :set_days_to_harvest_from_sew, :set_days_to_harvest_from_soak, :set_anticipated_ready_date
 	after_update :set_anticipated_ready_date
 	before_validation :upcase_and_remove_whitespace_from_flat_id
-	validates_uniqueness_of :flat_id
 	before_destroy :delete_seed_flat_updates
 
-	#:set_current_system_id_to_propagation, :downcase_sewn_for,
-	#after_update :move_flat_id_to_harvest_notes_on_harvest
-	#before_save :downcase_sewn_for #:remove_white_spaces_from_crop_names,
-	#, :downcase_sewn_for
-	#, :remove_white_space_from_flat_id
+	validates_uniqueness_of :flat_id
 
 	private
-
-#	def set_current_system_id_to_propagation
-#		current_system = Room.where(id: self.room_id)[0].systems.where(system_name: "propagation")
-#		self.current_system_id = current_system[0].id
-#	end
 
 	def remove_current_system_id_on_harvest
 		unless harvest_weight_oz == nil
@@ -34,11 +24,6 @@ class SeedFlat < ApplicationRecord
 		unless self.flat_id == nil
 			self.flat_id = self.flat_id.gsub(" ","").upcase
 		end
-	end
-
-	def create_seed_flat_update
-		#@propagation_rack = Room.where(id: self.room_id)[0].systems.where(system_name: "propagation")[0].id
-		#SeedFlatUpdate.create(seed_flat_id: self.id, update_type: "sew", update_datetime: Time.now, destination_system_id: @propagation_rack)
 	end
 
 	def set_customer_id_if_blank
@@ -61,15 +46,9 @@ class SeedFlat < ApplicationRecord
 
 	def move_flat_id_to_former_flat_id_on_harvest_or_kill
 		if self.harvest_weight_oz == nil
-			#
-		#elsif self.harvest_weight_oz == 0.0  
-			#
 		else 
 			self.former_flat_id = self.flat_id
 		end
-		#unless self.harvest_weight_oz == nil #or self.harvest_weight_oz == 0.0
-		#	self.harvest_notes = self.harvest_notes.prepend("formerly flat # #{self.flat_id} | ")
-		#end
 	end
 
 	def kill_flat_id_on_harvest
@@ -133,17 +112,7 @@ class SeedFlat < ApplicationRecord
 		self.anticipated_ready_date = ready_date
 	end
 
-	#def downcase_sewn_for
-	#	unless self.sewn_for == nil
-	#		self.sewn_for = self.sewn_for.downcase
-	#	end
-	#end
-
 	def delete_seed_flat_updates
 		SeedFlatUpdate.where(seed_flat_id: self.id).delete_all
 	end
-
-#	def remove_white_spaces_from_crop_names
-#		self.crop = self.crop.gsub! /(\A\s*|\s*\z)/, ''
-#	end
 end

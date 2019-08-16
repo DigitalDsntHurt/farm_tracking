@@ -1,42 +1,44 @@
-<% @harvested_flats.each{|crop_group| %>
-	<h2>
-		<%= Crop.where(id: crop_group[0])[0].crop.capitalize %>, <%= Crop.where(id: crop_group[0])[0].crop_variety %>
-	</h2>
+<div class="master-container form-container">
+	<% @harvested_flats.each{|crop_group| %>
+		<h2 align="center">
+			<%= Crop.where(id: crop_group[0])[0].crop.capitalize %>, <%= Crop.where(id: crop_group[0])[0].crop_variety %>
+		</h2>
 
-	<table class="data-table">
-		<thead>
-			<th>
-				seed weight
-			</th>
-			<th>
-				flats harvested
-			</th>
-			<th>
-				avg yield
-			</th>
-		</thead>
-		<% @max_seed_weight = crop_group[1].map{|flat| flat.seed_weight_oz }.max %>
-		<% @min_seed_weight = crop_group[1].map{|flat| flat.seed_weight_oz }.min %>
-		<% @seed_weight_ranges = [] %>
-		<% until @min_seed_weight > @max_seed_weight %>
-			<% @seed_weight_ranges << (@min_seed_weight.round(2)..(@min_seed_weight+0.05).round(2)) %>
-			<% @min_seed_weight += 0.06 %>
-		<% end %>
-		<% @seed_weight_ranges.each{|range| %>
-			<% @flats = crop_group[1].select{|flat| range === flat.seed_weight_oz } %>
-			<% @flat_yields = @flats.map{|flat| flat.harvest_weight_oz } %>	
-			<% next if @flats.count < 1 %>
-			<tr>
-				<td>
-				<%= range.first %> - <%= range.last %>
-				</td>
-				<td>
-					<%= @flats.count %>
-				</td>
-				<td>
-					<%= (@flat_yields.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
-				</td>
-			</tr>
-		<% } %>
-	</table>
-<% } %>	
+		<table class="data-table" style="margin:auto;">
+			<thead>
+				<th>
+					seed weight
+				</th>
+				<th>
+					flats harvested
+				</th>
+				<th>
+					avg yield
+				</th>
+			</thead>
+			<% @max_seed_weight = crop_group[1].map{|flat| flat.seed_weight_oz }.max %>
+			<% @min_seed_weight = crop_group[1].map{|flat| flat.seed_weight_oz }.min %>
+			<% @seed_weight_ranges = [] %>
+			<% until @min_seed_weight > @max_seed_weight %>
+				<% @seed_weight_ranges << (@min_seed_weight.round(2)..(@min_seed_weight+0.05).round(2)) %>
+				<% @min_seed_weight += 0.06 %>
+			<% end %>
+			<% @seed_weight_ranges.each{|range| %>
+				<% @flats = crop_group[1].select{|flat| range === flat.seed_weight_oz } %>
+				<% @flat_yields = @flats.map{|flat| flat.harvest_weight_oz } %>	
+				<% next if @flats.count < 1 %>
+				<tr>
+					<td>
+					<%= range.first %> - <%= range.last %>
+					</td>
+					<td>
+						<%= @flats.count %>
+					</td>
+					<td>
+						<%= (@flat_yields.inject{ |sum, el| sum + el }.to_f / @flats.size).round(2) %>
+					</td>
+				</tr>
+			<% } %>
+		</table>
+	<% } %>	
+</div>

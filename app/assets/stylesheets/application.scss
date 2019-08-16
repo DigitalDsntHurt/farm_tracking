@@ -695,3 +695,12 @@ table.data-table{
     99%{    color: transparent;  }
     100%{   color: transparent; }
 }
+
+hr.show{
+  border: 0;
+  clear:both;
+  display:block;
+  width: 96%;               
+  background-color:grey;
+  height: 1px;
+}

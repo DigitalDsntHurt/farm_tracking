@@ -60,10 +60,15 @@
 			  <button class="nav-btn btn btn-dark dropdown-toggle">Pipeline</button>
 			  <div class="dropdown-content">
 			    <%= link_to "Pipeline View", "/dashboards/pipeline", :method => :get, :class=>"navbar-dropdown" %>
+			    <br>
 			    <%= link_to "Rooms", "/rooms", :method => :get, :class => "navbar-dropdown" %>
 				<%= link_to "Systems", "/systems", :method => :get, :class => "navbar-dropdown" %>
 			    <%= link_to "Reservoirs", "/reservoirs", :method => :get, :class => "navbar-dropdown" %>
 			    <%= link_to "Nutrient Solutions", "/nutrient_solutions", :method => :get, :class => "navbar-dropdown" %>
+			    <br>
+			    <%= link_to "Live Flats", "/seed_flats/live_index", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "Harvested Flats", "/seed_flats/harvested_index", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "All Flats", "/seed_flats/basic_index", :method => :get, :class => "navbar-dropdown" %>
 			  </div>
 			</div>		
 		</div>
@@ -109,11 +114,6 @@
 			    <%= link_to "harvest cal", "/calendars/harvest", :method => :get, :class => "navbar-dropdown" %>
 			    <br>
 			    <%= link_to "seed flat updates", "/seed_flat_updates", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "seed flats", "/seed_flats/basic_index", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "live flats", "/seed_flats/live_index", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "harvested flats", "/seed_flats/harvested_index", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "killed flats", "/seed_flats/killed_index", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "harvested + killed flats", "/seed_flats/harvested_killed", :method => :get, :class => "navbar-dropdown" %>
 			    <%= link_to "all flats", "/seed_flats", :method => :get, :class => "navbar-dropdown" %>
 			    <%= link_to "live treatments", "/seed_treatments/fresh_index", :method => :get, :class => "navbar-dropdown" %>
 			    <%= link_to "all treatments", "/seed_treatments/", :method => :get, :class => "navbar-dropdown" %>
