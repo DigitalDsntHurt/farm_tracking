@@ -1,4 +1,14 @@
-
-
-
-
+<% if @drains_needed.count > 0 %>
+	<% @drains_needed.each{|treatment| %>
+		<ul class="noast-list">
+			<li class="noast">
+				<div class="noast-header">
+					End Soak
+				</div>
+				<div class="noast-body">
+					<%= link_to "#{treatment.seed_quantity_oz} oz #{Crop.where(id: treatment.crop_id)[0].crop.capitalize}", treatment %>
+				</div>
+			</li>
+		</ul>
+	<% } %>
+<% end %>
