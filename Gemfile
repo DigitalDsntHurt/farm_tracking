@@ -55,7 +55,7 @@ gem "google_visualr", ">= 2.5"
 gem 'rufus-scheduler'
 
 gem 'clipboard-rails'
-gem 'toastr-rails'
+gem 'mousetrap-rails'
 
 
 group :development, :test do

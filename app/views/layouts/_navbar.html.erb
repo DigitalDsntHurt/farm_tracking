@@ -6,7 +6,7 @@
 			
 		</div>
 		<div class="col">
-			<%= link_to "Crop Availability", "/dashboards/crop_availability", :method => :get, :class=>"nav-btn btn btn-success" %>
+			<%= link_to "Crop Availability", dashboards_crop_availability_path, data: { keybinding: '?' }, :class=>"nav-btn btn btn-success" %>
 		</div>
 
 		<div class="col">
@@ -14,7 +14,7 @@
 		</div>	
 
 		<div class="col">
-			<%= link_to "Treatments", seed_treatments_fresh_index_path, :class=>"nav-btn btn btn-success" %>
+			<%= link_to "Treatments", seed_treatments_fresh_index_path, data: { keybinding: 't' }, :class=>"nav-btn btn btn-success" %>
 		</div>
 
 		<div class="col">
@@ -36,7 +36,7 @@
 		</div>
 		
 		<div class="col">
-			<%= link_to "Customers", "/customers", :method => :get, :class => "nav-btn btn btn-primary" %>
+			<%= link_to "Customers", "/customers", :method => :get, data: { keybinding: 'c' }, :class => "nav-btn btn btn-primary" %>
 		</div>
 
 		<div class="col">
