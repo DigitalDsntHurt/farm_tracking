@@ -61,6 +61,11 @@ class SystemsController < ApplicationController
     end
   end
 
+  def copy
+    @system = System.find(params[:old_system]).dup
+    render new_system_path(@system)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_system

@@ -2,7 +2,10 @@
 
 <p id="notice"><%= notice %></p>
 
+<div align="center">
 <h1>Systems</h1>
+<%= link_to 'New System', new_system_path, :class => "btn btn-primary" %>
+</div>
 
 <table class="index-table">
   <thead>
@@ -19,13 +22,14 @@
       <th>Pump Time</th>
       <th>Retired On</th>
       <th>Notes</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @systems.each do |system| %>
       <tr>
-        <td><%= link_to system.system_name, system %></td>
+        <td><h3><%= link_to system.system_name, system %></h3></td>
         <td><%= link_to "#{system.room.name} - #{system.room.location}", system.room %></td>
         <td><%= system.build_date %></td>
         <td><%= system.system_type %></td>
@@ -37,6 +41,7 @@
         <td><%= system.pump_time %></td>
         <td><%= system.retired_on %></td>
         <td><%= system.notes %></td>
+        <td><%= link_to "clone", systems_copy_path(old_system: system), class: "btn btn-primary", style: "margin:8px;" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -44,4 +49,3 @@
 
 <br>
 
-<%= link_to 'New System', new_system_path, :class => "btn btn-success" %>

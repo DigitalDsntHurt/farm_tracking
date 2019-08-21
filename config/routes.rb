@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   resources :reservoirs
   
   resources :rooms
+
+  get 'systems/copy' => 'systems#copy'
   resources :systems
 
 	get 'dashboards/crop_availability'
