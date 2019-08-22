@@ -1,0 +1,14 @@
+<div class="master-container" align="center" style="background-color: red;">
+
+
+
+	<h2 style="padding-top:200px;">There's trouble in paradise.</h2>
+	<h1>NO FLATS HAVE BEEN CREATED</h1>
+	<h2>These flats already exist:</h2>
+	<% @problems.each{|flat| %>	
+		<h1><%= link_to flat, SeedFlat.where(flat_id: flat)[0], target: :_blank %></h1>
+	<% } %>
+
+	<h2>Click the links above to work out the issue, then</h2>
+	<h2 style="padding-bottom: 600px;">Smash the back button in your browser to return to the bulk create SeedFlat form and try again.</h2>
+</div>

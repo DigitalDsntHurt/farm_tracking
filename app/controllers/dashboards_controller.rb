@@ -479,19 +479,44 @@ class DashboardsController < ApplicationController
     @treatment = params[:treatment]
 
     @new_flats = []
-
+    @problem_flats = []
+    ## After form is submitted
     if params[:flat_ids] != nil
-      params[:flat_ids].gsub(", ",",").split(",").each{|id|
-        @flat = SeedFlat.new(started_date: Date.today, medium: params[:medium], format: params[:format], seed_weight_oz: params[:seed_weight], flat_id: id, current_system_id: params[:current_system_id], crop_id: params[:crop_id], customer_id: params[:customer_id], seed_treatments_id: @treatment)
-        @flat.save
-        @new_flats << @flat
+      ## Check for problems
+      @problems = []
+      @flats = params[:flat_ids].gsub(" ","").gsub(", ",",").split(",").each{|flat_id| 
+        @flat_identifier = flat_id.upcase
+        @test_flat = SeedFlat.where(flat_id: @flat_identifier)
+        if @test_flat.exists?
+          @problems << @flat_identifier
+        end
       }
-      redirect_to dashboards_bulk_form_conf_path(new_flats: @new_flats)
+
+      # If a problem exists
+      if @problems.count > 0
+        redirect_to dashboards_bulk_form_error_path(problems: @problems)
+      # If all is well
+      else
+        params[:flat_ids].gsub(", ",",").split(",").each{|id|  
+          if SeedFlat.where(flat_id: id).count != 0
+            @problem_flats << id
+          else
+            @flat = SeedFlat.new(started_date: Date.today, medium: params[:medium], format: params[:format], seed_weight_oz: params[:seed_weight], flat_id: id, current_system_id: params[:current_system_id], crop_id: params[:crop_id], customer_id: params[:customer_id], seed_treatments_id: @treatment)
+            @flat.save
+            @new_flats << @flat
+          end
+        }     
+        redirect_to dashboards_bulk_form_conf_path(new_flats: @new_flats)        
+      end
     end
   end
 
   def bulk_form_conf
     @created_flats = params[:new_flats]
+  end
+
+  def bulk_form_error
+    @problems = params[:problems]
   end
 
   def customer_harvest_history

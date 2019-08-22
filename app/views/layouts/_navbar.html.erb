@@ -21,8 +21,8 @@
 			<div class="dropdown">
 			  <button class="nav-btn btn btn-success dropdown-toggle">Lists</button>
 			  <div class="dropdown-content">
-			    <%= link_to "soak list", "/calendars/soak", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "sew list", "/calendars/sew", :method => :get, :class => "navbar-dropdown" %>
+			    <%= link_to "soak list", "/calendars/soak", :method => :get, data: { keybinding: 's k' }, :class => "navbar-dropdown" %>
+			    <%= link_to "sew list", "/calendars/sew", :method => :get, data: { keybinding: 's w' }, :class => "navbar-dropdown" %>
 			    <%= link_to "harvest list", "/lists/harvest", :method => :get, :class => "navbar-dropdown" %>
 			  </div>
 			</div>
@@ -59,7 +59,7 @@
 			<div class="dropdown">
 			  <button class="nav-btn btn btn-dark dropdown-toggle">Pipeline</button>
 			  <div class="dropdown-content">
-			    <%= link_to "Pipeline View", "/dashboards/pipeline", :method => :get, :class=>"navbar-dropdown" %>
+			    <%= link_to "Pipeline View", "/dashboards/pipeline", :method => :get, data: { keybinding: 'p' }, :class=>"navbar-dropdown" %>
 			    <br>
 			    <%= link_to "Rooms", "/rooms", :method => :get, :class => "navbar-dropdown" %>
 				<%= link_to "Systems", "/systems", :method => :get, :class => "navbar-dropdown" %>

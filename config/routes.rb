@@ -71,6 +71,7 @@ Rails.application.routes.draw do
 	get 'dashboards/bulk_form' => 'dashboards#bulk_form'
 	post 'dashboards/bulk_form' => 'dashboards#bulk_form'
 	get 'dashboards/bulk_form_conf' => 'dashboards#bulk_form_conf'
+	get 'dashboards/bulk_form_error' => 'dashboards#bulk_form_error'
 	get 'dashboards/crop_alphabetization' => 'dashboards#crop_alphabetization'
 	get 'dashboards/pull_todays_flats_for_harvest' => 'dashboards#pull_todays_flats_for_harvest'
 	get 'dashboards/yield_per_soak_duration' => 'dashboards#yield_per_soak_duration'
