@@ -1,27 +1,27 @@
-<h1 class="fancy-title">Sew Durations</h1>
+<h1 class="fancy-title">Harvest Durations</h1>
 <div class="master-container form-container">
 	<h1 align="center">90 day avg: <%= @ninty_day_avg_rate %> mins / flat</h1>
 	<h1 align="center">30 day avg: <%= @thirty_day_avg_rate %> mins / flat</h1>
 	<h1 align="center">7 day avg: <%= @seven_day_avg_rate %> mins / flat</h1>
 	<table style="margin:auto;">
-		<% @flats_sewn_per_day.each{|day_group| %>
+		<% @flats_harvested_per_day.each{|day_group| %>
 			<tr>
 				<td align="center" style="border-bottom: solid black 1px;padding:22px;">
 					<h2><%= day_group[0] %></h2>
 					<% @days_flats = day_group[1].order(:created_at) %>
-					<% @first_flat_sewn = @days_flats.first %>
-					<% @last_flat_sewn =  @days_flats.last %>
+					<% @first_flat_harvested = @days_flats.first %>
+					<% @last_flat_harvested =  @days_flats.last %>
 					<% if @days_flats.count == 0 %>
 						0 flats sewn
 					<% else %>
-						<% @secs = (@last_flat_sewn.created_at - @first_flat_sewn.created_at).round(2) %>
-						<% @mins = ((@last_flat_sewn.created_at - @first_flat_sewn.created_at)/60).round(2) %>
-						<% @hrs = ((@last_flat_sewn.created_at - @first_flat_sewn.created_at)/60/60).round(2) %>
+						<% @secs = (@last_flat_harvested.created_at - @first_flat_harvested.created_at).round(2) %>
+						<% @mins = ((@last_flat_harvested.created_at - @first_flat_harvested.created_at)/60).round(2) %>
+						<% @hrs = ((@last_flat_harvested.created_at - @first_flat_harvested.created_at)/60/60).round(2) %>
 						<h2><%= (@mins / @days_flats.count).round(2) %> mins / flat</h2>
 						<h3><%= @days_flats.count %> flats sewn in <%= @mins %> minutes</h3>
 						
-						first @ <%= @first_flat_sewn.created_at %><br>
-						last @ <%= @last_flat_sewn.created_at %><br>
+						first @ <%= @first_flat_harvested.created_at %><br>
+						last @ <%= @last_flat_harvested.created_at %><br>
 						<%= @secs %> seconds = <%= @mins %> minutes = <%= @hrs %> hours
 					<% end %>	
 				</td>

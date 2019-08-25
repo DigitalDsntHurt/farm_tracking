@@ -2,6 +2,22 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
+
+=begin
+=end
+
+## 
+## ## set update_date on all SeedFlatUpdates
+##
+
+SeedFlatUpdate.all.each{|update|
+	update.update(update_date: update.updated_at.to_date)
+}
+
+SeedFlatUpdate.where(update_date: nil).each{|update|
+	update.update(update_date: update.updated_at.to_date)	
+}
+
 =begin
 ##
 ## ## Seed all Crops with ideal soak duration

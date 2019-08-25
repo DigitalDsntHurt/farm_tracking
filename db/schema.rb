@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190816203344) do
+ActiveRecord::Schema.define(version: 20190825220806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,6 +226,7 @@ ActiveRecord::Schema.define(version: 20190816203344) do
     t.integer "customer_id"
     t.float "harvest_qty_oz"
     t.boolean "finished"
+    t.date "update_date"
     t.index ["destination_system_id"], name: "index_seed_flat_updates_on_destination_system_id"
     t.index ["origin_system_id"], name: "index_seed_flat_updates_on_origin_system_id"
     t.index ["seed_flat_id"], name: "index_seed_flat_updates_on_seed_flat_id"

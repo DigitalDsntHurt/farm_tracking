@@ -641,4 +641,56 @@ class DashboardsController < ApplicationController
     }
     @seven_day_avg_rate = (@seven_temp.inject{|rate,sum| rate + sum } / @seven_temp.count).round(2)
   end
+
+  def harvest_durations
+    @flats_harvested_per_day = []
+    @today = Date.today
+    90.times do
+      @flats_harvested_per_day << [@today, SeedFlatUpdate.where(update_type: "harvest").where(update_date: @today)]
+      @today -= 1
+    end
+
+    @ninety_temp = []
+    @flats_harvested_per_day.each{|arr|
+      next if arr[1].count == 0
+      @flats = arr[1].order(:created_at)
+      @count = @flats.count
+      @first = @flats.first
+      @last = @flats.last
+      @duration_in_secs = (@last.created_at - @first.created_at).round(2)
+      @duration_in_mins = (@duration_in_secs / 60).round(2)
+      @harvest_rate = (@duration_in_mins / @count).round(2)
+      @ninety_temp << @harvest_rate
+    }
+    @ninty_day_avg_rate = (@ninety_temp.inject{|rate,sum| rate + sum } / @ninety_temp.count).round(2)
+    
+    @thirty_temp = []
+    @flats_harvested_per_day.select{|arr| arr[0] >= Date.today-30 }.each{|arr|
+      next if arr[1].count == 0
+      @flats = arr[1].order(:created_at)
+      @count = @flats.count
+      @first = @flats.first
+      @last = @flats.last
+      @duration_in_secs = (@last.created_at - @first.created_at).round(2)
+      @duration_in_mins = (@duration_in_secs / 60).round(2)
+      @harvest_rate = (@duration_in_mins / @count).round(2)
+      @thirty_temp << @harvest_rate
+    }
+    @thirty_day_avg_rate = (@thirty_temp.inject{|rate,sum| rate + sum } / @thirty_temp.count).round(2)
+    
+    @seven_temp = []
+    @flats_harvested_per_day.select{|arr| arr[0] >= Date.today-7 }.each{|arr|
+      next if arr[1].count == 0
+      @flats = arr[1].order(:created_at)
+      @count = @flats.count
+      @first = @flats.first
+      @last = @flats.last
+      @duration_in_secs = (@last.created_at - @first.created_at).round(2)
+      @duration_in_mins = (@duration_in_secs / 60).round(2)
+      @harvest_rate = (@duration_in_mins / @count).round(2)
+      @seven_temp << @harvest_rate
+    }
+    @seven_day_avg_rate = (@seven_temp.inject{|rate,sum| rate + sum } / @seven_temp.count).round(2)
+  end
+
 end
