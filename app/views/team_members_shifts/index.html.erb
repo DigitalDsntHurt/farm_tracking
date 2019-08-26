@@ -7,7 +7,7 @@
       <td width="40%">
         <h1 align="center">
           Shifts<br>
-          <%= link_to 'New Shift', new_team_members_shift_path, class: "btn btn-primary btn-lg transplant-button" %><br>
+          <%= link_to 'New Shift', new_team_members_shift_path, class: "btn btn-primary btn-lg transplant-button" %><br><br>
           Bulk Actions<br>
           <%= submit_tag "Log With Pay", class: "btn btn-primary btn-lg transplant-button" %><%= submit_tag "Log Without Pay", class: "btn btn-primary btn-lg transplant-button" %><%= submit_tag "Log Pay Only", class: "btn btn-primary btn-lg transplant-button" %><br>
         </h1>
@@ -29,7 +29,13 @@
 
           <tbody>
             <% @team_members_shifts.each do |team_members_shift| %>
-              <tr>
+              <% if team_members_shift.actual_shift_date != nil and team_members_shift.actual_shift_hrs != nil and team_members_shift.paid == true %>
+                <tr style="background-color: green;">
+              <% elsif team_members_shift.actual_shift_date != nil and team_members_shift.actual_shift_hrs != nil and team_members_shift.paid == false %>
+                <tr style="background-color: yellow;">
+              <% else %>
+                <tr>
+              <% end %>    
                 <td>
                   <table cellpadding="0" cellspacing="0" border="0">
                     <tr>
@@ -68,12 +74,37 @@
       <td width="40%" align="center" style="vertical-align: top;padding-top:200px;">
         <h2>Planned shifts this week</h2>
         <h3><%= @shifts_this_week.count %></h3>
+        
         <h2>Planned hours this week</h2>
         <h3><%= @hours_this_week %></h3>
+        
         <h2>Anticipated cash needs this week</h2>
         <h3>$ <%= @hours_this_week * 15 %></h3>
+        
         <h2>Cash paid this week so far</h2>
         <h3>$ <%= @paid_hrs_this_week %></h3>
+        
+        <br>
+        <hr>
+        <br>
+
+        <h2>Labor Hrs Log</h2>
+        <table class="index-table">
+          <thead>
+            <tr>
+              <th>week of</th>
+              <th>total labor hrs</th>
+              <th>total cost</th>
+            </tr>
+          </thead>
+          <% @history.each{|wk| %>
+            <tr>
+              <td align="center"><%= wk[0] %></td>
+              <td align="center"><%= wk[1] %></td>
+              <td align="center">$<%= wk[1] * 15 %></td>
+            </tr>
+          <% } %>
+        </table>
       </td>
     </tr>
   </table>

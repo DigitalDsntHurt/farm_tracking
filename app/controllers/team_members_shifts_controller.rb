@@ -21,6 +21,16 @@ class TeamMembersShiftsController < ApplicationController
     else  
       @paid_hrs_this_week = @shifts_this_week.where(paid: true).map{|shift| shift.actual_shift_hrs }.inject{|hrs,sum| hrs + sum } * 15
     end
+
+    @history = []
+    30.times do 
+      @weekly_hrs = TeamMembersShift.where('actual_shift_date >= ? AND actual_shift_date <= ?', @monday, @sunday).map{|shift| shift.planned_shift_hrs }.inject{|hrs,sum| hrs + sum }
+      @history << [@monday,@weekly_hrs]
+      @monday -= 7
+      @sunday -= 7
+    end
+    @history.reject!{|wk| wk[1] == nil }
+
   end
 
   # GET /team_members_shifts/1
