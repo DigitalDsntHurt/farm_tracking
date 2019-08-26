@@ -68,6 +68,11 @@ class TeamMembersShiftsController < ApplicationController
     end
   end
 
+  def clone
+    @team_members_shift = TeamMembersShift.find(params[:shift]).dup
+    render new_team_members_shift_path(@team_members_shift)
+  end
+
   def log
     @team_members_shift = TeamMembersShift.find(params[:team_members_shift])
     #@seed_flat = SeedFlat.find(params[:flat])]
