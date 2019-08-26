@@ -19,7 +19,7 @@ class TeamMembersShiftsController < ApplicationController
     if @shifts_this_week.where(paid: true).count == 0
      @paid_hrs_this_week = 0
     else  
-      @paid_hrs_this_week = @shifts_this_week.where(paid: true).map{|shift| shift.actual_shift_hrs }.inject{|hrs,sum| hrs + sum } * 15
+      @paid_hrs_this_week = @shifts_this_week.where(paid: true).map{|shift| shift.planned_shift_hrs }.inject{|hrs,sum| hrs + sum } * 15
     end
 
     @history = []
