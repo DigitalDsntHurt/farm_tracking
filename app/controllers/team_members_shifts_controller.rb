@@ -4,7 +4,7 @@ class TeamMembersShiftsController < ApplicationController
   # GET /team_members_shifts
   # GET /team_members_shifts.json
   def index
-    @team_members_shifts = TeamMembersShift.all.order(shift_date: :desc)
+    @team_members_shifts = TeamMembersShift.all.order(planned_shift_date: :desc)
 
     # get week start dates
     @start_date = Date.new(2019,07,01)
@@ -36,7 +36,7 @@ class TeamMembersShiftsController < ApplicationController
     respond_to do |format|
       if @team_members_shift.save
         format.html { redirect_to team_members_shifts_path, notice: 'Team members shift was successfully created.' }
-        format.json { render :show, status: :created, location: @team_members_shift }
+        format.json { render :index, status: :created, location: @team_members_shift }
       else
         format.html { render :new }
         format.json { render json: @team_members_shift.errors, status: :unprocessable_entity }
@@ -49,8 +49,8 @@ class TeamMembersShiftsController < ApplicationController
   def update
     respond_to do |format|
       if @team_members_shift.update(team_members_shift_params)
-        format.html { redirect_to @team_members_shift, notice: 'Team members shift was successfully updated.' }
-        format.json { render :show, status: :ok, location: @team_members_shift }
+        format.html { redirect_to team_members_shifts_path, notice: 'Team members shift was successfully updated.' }
+        format.json { render :index, status: :ok, location: @team_members_shift }
       else
         format.html { render :edit }
         format.json { render json: @team_members_shift.errors, status: :unprocessable_entity }
@@ -68,6 +68,35 @@ class TeamMembersShiftsController < ApplicationController
     end
   end
 
+  def log
+    @team_members_shift = TeamMembersShift.find(params[:team_members_shift])
+    #@seed_flat = SeedFlat.find(params[:flat])]
+  end
+
+  def bulk_actions
+    #unless params[:shift_ids] == nil
+      if params[:commit] == "Log With Pay"
+        params[:shift_ids].each{|id|
+          @shift = TeamMembersShift.where(id: id)[0]
+          @shift.update(actual_shift_hrs: @shift.planned_shift_hrs, actual_shift_date: @shift.planned_shift_date, paid: true )
+        }
+        redirect_to team_members_shifts_path
+      elsif params[:commit] == "Log Without Pay"
+        params[:shift_ids].each{|id|
+          @shift = TeamMembersShift.where(id: id)[0]
+          @shift.update(actual_shift_hrs: @shift.planned_shift_hrs, actual_shift_date: @shift.planned_shift_date, paid: false )
+        }
+        redirect_to team_members_shifts_path
+      elsif params[:commit] == "Log Pay Only"
+        params[:shift_ids].each{|id|
+          @shift = TeamMembersShift.where(id: id)[0]
+          @shift.update( paid: true )
+        }
+        redirect_to team_members_shifts_path
+      end
+    #end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_team_members_shift
@@ -76,6 +105,6 @@ class TeamMembersShiftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_members_shift_params
-      params.require(:team_members_shift).permit(:team_member_id, :shift_date, :shift_hrs, :paid_date)
+      params.require(:team_members_shift).permit(:team_member_id, :planned_shift_date, :planned_shift_hrs, :paid_date, :actual_shift_hrs, :actual_shift_date, :paid)
     end
 end

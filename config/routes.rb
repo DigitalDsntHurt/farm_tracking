@@ -9,7 +9,16 @@ Rails.application.routes.draw do
 
   resources :weekly_revenues
   resources :media_unit_costs
-  resources :team_members_shifts
+  
+  get 'team_members_shifts/log' => 'team_members_shifts#log'
+  get 'team_members_shifts/bulk_actions' => 'team_members_shifts#bulk_actions'
+	resources :team_members_shifts do 
+		collection do
+			put :bulk_actions
+		end
+	end  
+
+
   resources :team_members
   get 'daily_priorities/n_form' => 'daily_priorities#n_form'
   get 'daily_priorities/d_form' => 'daily_priorities#d_form'

@@ -6,18 +6,28 @@
 </p>
 
 <p>
-  <strong>Shift date:</strong>
-  <%= @team_members_shift.shift_date %>
+  <strong>Planned Shift date:</strong>
+  <%= @team_members_shift.planned_shift_date %>
 </p>
 
 <p>
-  <strong>Shift hrs:</strong>
-  <%= @team_members_shift.shift_hrs %>
+  <strong>Planned Shift hrs:</strong>
+  <%= @team_members_shift.planned_shift_hrs %>
 </p>
 
 <p>
-  <strong>Paid date:</strong>
-  <%= @team_members_shift.paid_date %>
+  <strong>Actual Shift date:</strong>
+  <%= @team_members_shift.planned_shift_date %>
+</p>
+
+<p>
+  <strong>Actual Shift hrs:</strong>
+  <%= @team_members_shift.planned_shift_hrs %>
+</p>
+
+<p>
+  <strong>Paid?:</strong>
+  <%= @team_members_shift.paid %>
 </p>
 
 <%= link_to 'Edit', edit_team_members_shift_path(@team_members_shift) %> |

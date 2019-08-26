@@ -1,17 +1,28 @@
 <div class="master-container">
 
+<%= form_tag team_members_shifts_bulk_actions_path, method: :put do %>
+
   <table>
     <tr>
       <td width="40%">
-        <h1>Shifts</h1>
+        <h1 align="center">
+          Shifts<br>
+          <%= link_to 'New Shift', new_team_members_shift_path, class: "btn btn-primary btn-lg transplant-button" %><br>
+          Bulk Actions<br>
+          <%= submit_tag "Log With Pay", class: "btn btn-primary btn-lg transplant-button" %><%= submit_tag "Log Without Pay", class: "btn btn-primary btn-lg transplant-button" %><%= submit_tag "Log Pay Only", class: "btn btn-primary btn-lg transplant-button" %><br>
+        </h1>
 
         <table class="index-table">
           <thead>
             <tr>
-              <th>Team member</th>
-              <th>Shift date</th>
-              <th>Shift hrs</th>
-              <th>Paid date</th>
+              <th align="center" style="padding:8px;" ></th>
+              <th align="center" style="padding:8px;">Team member</th>
+              <th align="center" style="padding:8px;">Planned Shift date</th>
+              <th align="center" style="padding:8px;">Planned Shift hrs</th>
+              <th align="center" style="padding:8px;">Planned Shift pay</th>
+              <th align="center" style="border-left:solid 1px black; padding:8px;">Actual Shift date</th>
+              <th align="center" style="padding:8px;">Actual Shift hrs</th>
+              <th align="center" style="padding:8px;">Paid?</th>
               <th colspan="3"></th>
             </tr>
           </thead>
@@ -19,13 +30,28 @@
           <tbody>
             <% @team_members_shifts.each do |team_members_shift| %>
               <tr>
-                <td><%= TeamMember.where(id: team_members_shift.team_member_id)[0].fname %> <%= TeamMember.where(id: team_members_shift.team_member_id)[0].lname %></td>
-                <td><%= team_members_shift.shift_date %></td>
-                <td><%= team_members_shift.shift_hrs %></td>
-                <td><%= team_members_shift.paid_date %></td>
-                <td><%= link_to 'Show', team_members_shift %></td>
-                <td><%= link_to 'Edit', edit_team_members_shift_path(team_members_shift) %></td>
-                <td><%= link_to 'Destroy', team_members_shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <td>
+                  <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td>
+                        <%= check_box_tag("shift_ids[]", team_members_shift.id, false, :class => "checkbox-inline-shifts") %>
+                      </td>
+                      <td>
+                        <%= link_to 'Log', team_members_shifts_log_path(team_members_shift: team_members_shift), class: "btn btn-primary btn-md" %>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td align="center"><%= team_members_shift.team_member.fname %> <%= team_members_shift.team_member.lname %></td>
+                <td align="center"><%= team_members_shift.planned_shift_date %></td>
+                <td align="center"><%= team_members_shift.planned_shift_hrs %></td>
+                <td align="center">$<%= team_members_shift.planned_shift_hrs * 15 %></td>
+                <td align="center" style="border-left:solid 1px black;"><%= team_members_shift.actual_shift_hrs %></td>
+                <td align="center"><%= team_members_shift.actual_shift_date %></td>
+                <td align="center"><%= team_members_shift.paid %></td>
+                <td align="center"><%= link_to 'Show', team_members_shift %></td>
+                <td align="center"><%= link_to 'Edit', edit_team_members_shift_path(team_members_shift) %></td>
+                <td align="center"><%= link_to 'Destroy', team_members_shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
               </tr>
             <% end %>
           </tbody>
@@ -33,41 +59,17 @@
 
         <br>
 
-        <%= link_to 'New Team Members Shift', new_team_members_shift_path, class:"btn btn-primary" %>        
+        
       </td>
       <td width="10%">
         
       </td>
       <td width="40%">
-        <h1>Weekly Totals</h1>
-
-        <table class="index-table">
-          <thead>
-            <th>
-              week of
-            </th>
-            <th>
-              total labor hrs
-            </th>
-          </thead>
-          <% @week_start_dates.reverse.each{|monday| %>
-            <tr>
-              <td>
-                <%= monday %>
-              </td>
-              <td>
-                <% @total_weekly_labor_hrs = 0 %>
-                <% TeamMembersShift.where("shift_date <= ? AND shift_date >= ?", monday+6, monday).each{|record| %>
-                  <% @total_weekly_labor_hrs += record.shift_hrs %>
-                <% } %>
-                <%= @total_weekly_labor_hrs %>                
-              </td>
-            </tr>
-          <% } %>
-        </table>
 
       </td>
     </tr>
   </table>
+
+<% end %>
 
 </div>

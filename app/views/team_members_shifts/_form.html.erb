@@ -18,18 +18,13 @@
     </div>
 
     <div class="form-group">
-      <%= form.label :shift_date %>
-      <%= form.text_field :shift_date, include_blank: true, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }, class: "form-control" %>
+      <%= form.label :planned_shift_date %>
+      <%= form.text_field :planned_shift_date, include_blank: true, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }, class: "form-control" %>
     </div>
 
     <div class="form-group">
-      <%= form.label :shift_hrs %>
-      <%= form.text_field :shift_hrs, id: :team_members_shift_shift_hrs, class: "form-control", value: 5  %>
-    </div>
-
-    <div class="form-group">
-      <%= form.label :paid_date %>
-      <%= form.text_field :paid_date, include_blank: true, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }, class: "form-control"   %>
+      <%= form.label :planned_shift_hrs %>
+      <%= form.text_field :planned_shift_hrs, id: :team_members_shift_shift_hrs, class: "form-control"  %>
     </div>
 
     <div class="actions">

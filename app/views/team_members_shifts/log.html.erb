@@ -1,0 +1,56 @@
+<div class="form form-container">
+  <%= form_with(model: @team_members_shift, local: true) do |form| %>
+    <% if @team_members_shift.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@team_members_shift.errors.count, "error") %> prohibited this team_members_shift from being saved:</h2>
+
+        <ul>
+        <% @team_members_shift.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group" align="center">
+      <%= form.label :team_member_id %><br>
+      <%= @team_members_shift.team_member.fname %> <%= @team_members_shift.team_member.lname %>
+    </div>
+
+    <table align="center">
+      <tr>
+        <td style="padding:8px" align="center">
+          <%= form.label :planned_shift_date %><br>
+          <%= @team_members_shift.planned_shift_date %>
+        </td>
+        <td style="padding:8px" align="center">
+          <%= form.label :planned_shift_hrs %><br>
+          <%= @team_members_shift.planned_shift_hrs %>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:8px" align="center">
+          <div class="form-group">
+            <%= form.label :actual_shift_date %>
+            <%= form.text_field :actual_shift_date, data:{ provide: "datepicker", 'date-format': 'yyyy-mm-dd', "date-today-highlight": true }, class: "form-control", value: Date.today  %>
+          </div>          
+        </td>
+        <td style="padding:8px" align="center">
+          <div class="form-group">
+            <%= form.label :actual_shift_hrs %>
+            <%= form.number_field :actual_shift_hrs, class: "form-control", value: @team_members_shift.planned_shift_hrs, step: :any %>
+          </div>          
+        </td>
+      </tr>
+    </table>
+
+    <div class="form-group" align="center">
+      <%= form.label :paid %>?<br>
+      <%= form.check_box :paid, class: "form-control", style: "border: 0px;" %>
+    </div>
+
+    <div class="actions" align="center">
+      <%= form.submit "submit", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
