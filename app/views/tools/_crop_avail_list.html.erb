@@ -1,0 +1,27 @@
+<% @active_flats.each{|crop_group| %>
+	<table class="crop-avail-list-table">
+		<thead>
+			<tr>
+				<th colspan="4">
+					<h1><%= crop_group[0] %> ( <%= crop_group[1].count %> flats )</h1>
+				</th>
+			</tr>
+		</thead>
+		<% crop_group[1].each{|flat| %>
+			<tr>
+				<td><%= check_box_tag("flat_ids[]", flat[0].id, false, :class => "checkbox-inline-avail") %></td>
+				<td><%= link_to "Harvest", seed_flat_updates_harvest_path(flat: flat[0]), class: "btn btn-primary btn-lg" %></td>
+				<% if flat[-1] > 0 %>
+					<td>
+						<h3><%= link_to "#{flat[1]} : #{flat[4]} day for #{flat[2]} (#{flat[3]}) *", flat[0] %></h3>
+					</td>
+				<% else %>
+					<td>
+						<h3><%= link_to "#{flat[1]} : #{flat[4]} day for #{flat[2]} (#{flat[3]})", flat[0] %></h3>
+					</td>
+				<% end %>
+				
+			</tr>				
+		<% } %>
+	</table>
+<% } %>

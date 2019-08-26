@@ -3,6 +3,16 @@ class ApplicationController < ActionController::Base
 
   http_basic_authenticate_with :name => ENV["NAME"], :password => ENV["PASSWORD"]
 
+  before_action :set_start_time, :active_systems
+
+  def set_start_time
+    @start_time = Time.now.to_f
+  end
+
+  def active_systems
+    @active_systems = System.where(room_id: 2).where(retired: false).where.not(system_name: "1. Propagation").where.not(system_name: "propagation").order(:system_name)
+  end
+
 =begin
   before_action :verify_ip_address
 

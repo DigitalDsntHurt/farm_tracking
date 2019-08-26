@@ -703,3 +703,27 @@ hr.show{
   background-color:grey;
   height: 1px;
 }
+
+.transplant-button{
+  margin:6px; 
+  width:222px;
+}
+
+.crop-avail-container{
+  max-width: 1200px;
+  margin: auto;
+}
+
+table.crop-avail-list-table{
+  thead tr:nth-child(1) th{
+    position: sticky;
+    top: 384px;
+    z-index: 0;
+  }
+  th{
+    background-color: white;
+  }
+  td{
+    padding: 0px 8px 0px 8px;
+  }
+}

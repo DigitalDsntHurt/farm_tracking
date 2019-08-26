@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
   
+  get 'tools/crop_availability'
+
   resources :crop_mixes
   resources :over_grow_recipients
   get 'lists/harvest'
