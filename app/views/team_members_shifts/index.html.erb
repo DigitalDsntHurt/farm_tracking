@@ -49,7 +49,7 @@
                   </table>
                 </td>
                 <td align="center"><%= team_members_shift.team_member.fname %> <%= team_members_shift.team_member.lname %></td>
-                <td align="center"><%= team_members_shift.planned_shift_date %></td>
+                <td align="center"><%= team_members_shift.planned_shift_date.strftime("%a %d %b") %></td>
                 <td align="center"><%= team_members_shift.planned_shift_hrs %></td>
                 <td align="center">$<%= team_members_shift.planned_shift_hrs * 15 %></td>
                 <td align="center" style="border-left:solid 1px black;"><%= team_members_shift.actual_shift_hrs %></td>
