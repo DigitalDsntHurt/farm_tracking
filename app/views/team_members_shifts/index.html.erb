@@ -65,8 +65,15 @@
       <td width="10%">
         
       </td>
-      <td width="40%">
-
+      <td width="40%" align="center" style="vertical-align: top;padding-top:200px;">
+        <h2>Planned shifts this week</h2>
+        <h3><%= @shifts_this_week.count %></h3>
+        <h2>Planned hours this week</h2>
+        <h3><%= @hours_this_week %></h3>
+        <h2>Anticipated cash needs this week</h2>
+        <h3>$ <%= @hours_this_week * 15 %></h3>
+        <h2>Cash paid this week so far</h2>
+        <h3>$ <%= @paid_hrs_this_week %></h3>
       </td>
     </tr>
   </table>

@@ -6,11 +6,20 @@ class TeamMembersShiftsController < ApplicationController
   def index
     @team_members_shifts = TeamMembersShift.all.order(planned_shift_date: :desc)
 
-    # get week start dates
-    @start_date = Date.new(2019,07,01)
-    @week_start_dates = [@start_date]
-    until Date.today - @start_date < 0
-      @week_start_dates << @start_date += 7
+    @monday = Date.today
+    unless @monday.monday?
+      until @monday.monday?
+        @monday -= 1
+      end
+    end
+    @sunday = @monday + 6
+
+    @shifts_this_week = TeamMembersShift.where('planned_shift_date >= ? AND planned_shift_date <= ?', @monday, @sunday)
+    @hours_this_week = @shifts_this_week.map{|shift| shift.planned_shift_hrs }.inject{|hrs,sum| hrs + sum }
+    if @shifts_this_week.where(paid: true).count == 0
+     @paid_hrs_this_week = 0
+    else  
+      @paid_hrs_this_week = @shifts_this_week.where(paid: true).map{|shift| shift.actual_shift_hrs }.inject{|hrs,sum| hrs + sum } * 15
     end
   end
 
