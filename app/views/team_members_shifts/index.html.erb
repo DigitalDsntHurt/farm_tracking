@@ -49,7 +49,7 @@
                 <td align="center" style="border-left:solid 1px black;"><%= team_members_shift.actual_shift_hrs %></td>
                 <td align="center"><%= team_members_shift.actual_shift_date %></td>
                 <td align="center"><%= team_members_shift.paid %></td>
-                <td align="center"><%= link_to 'Clone', team_members_shifts_clone_path(shift: team_members_shift) %></td>
+                <td align="center"><%= link_to 'Clone', team_members_shifts_clone_path(shift: team_members_shift), class: "btn btn-primary btn-md" %></td>
                 <td align="center"><%= link_to 'Show', team_members_shift %></td>
                 <td align="center"><%= link_to 'Edit', edit_team_members_shift_path(team_members_shift) %></td>
                 <td align="center"><%= link_to 'Destroy', team_members_shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
