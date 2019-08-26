@@ -29,8 +29,15 @@ class TeamMembersShiftsController < ApplicationController
 
     @history = []
     30.times do 
-      @weekly_hrs = TeamMembersShift.where('actual_shift_date >= ? AND actual_shift_date <= ?', @monday, @sunday).map{|shift| shift.planned_shift_hrs }.inject{|hrs,sum| hrs + sum }
-      @history << [@monday,@weekly_hrs]
+      @shifts = TeamMembersShift.where('actual_shift_date >= ? AND actual_shift_date <= ?', @monday, @sunday)
+      @weekly_hrs = @shifts.map{|shift| shift.planned_shift_hrs }.inject{|hrs,sum| hrs + sum }
+      @planned_shifts_this_week = TeamMembersShift.where('planned_shift_date >= ? AND planned_shift_date <= ?', @monday, @sunday)
+      @actual_shifts_this_week = TeamMembersShift.where('actual_shift_date >= ? AND actual_shift_date <= ?', @monday, @sunday)
+      if @actual_shifts_this_week.count != 0
+        @paid_hrs_this_week = @actual_shifts_this_week.where(paid: true).where.not(actual_shift_hrs: nil).map{|shift| shift.actual_shift_hrs }.inject{|hrs,sum| hrs + sum }
+        @paid_hrs_this_week += @planned_shifts_this_week.where(paid: true).where(actual_shift_hrs: nil).map{|shift| shift.planned_shift_hrs }.inject{|hrs,sum| hrs + sum } #* 15
+      end
+      @history << [@monday,@weekly_hrs,@paid_hrs_this_week]
       @monday -= 7
       @sunday -= 7
     end

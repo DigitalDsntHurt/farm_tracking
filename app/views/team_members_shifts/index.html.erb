@@ -95,6 +95,7 @@
               <th>week of</th>
               <th>total labor hrs</th>
               <th>total cost</th>
+              <th>total paid</th>
             </tr>
           </thead>
           <% @history.each{|wk| %>
@@ -102,6 +103,7 @@
               <td align="center"><%= wk[0] %></td>
               <td align="center"><%= wk[1] %></td>
               <td align="center">$<%= wk[1] * 15 %></td>
+              <td align="center">$<%= wk[-1] * 15 %></td>
             </tr>
           <% } %>
         </table>
