@@ -3,6 +3,7 @@ class SeedFlatUpdate < ApplicationRecord
   
 
   validates :customer_id, presence: true, if: -> {update_type == "harvest" }
+  validates :harvest_qty_oz, presence: true, if: -> {update_type == "harvest" }
   validates :customer_id, presence: true, if: -> {update_type == "delivered as live flat" }
 
   after_create :set_seed_flat_current_system_id, :update_seed_flat_harvest, :set_update_date

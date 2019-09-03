@@ -38,6 +38,8 @@ class SeedFlatUpdatesController < ApplicationController
         format.json { render :show, status: :created, location: @seed_flat_update }
       elsif params[:customer_id] == nil and params[:commit] == "harvest"
         format.html { render seed_flat_updates_harvest_path }
+      elsif params[:harvest_qty_oz] == nil and params[:commit] == "harvest"
+        format.html { render seed_flat_updates_harvest_path }  
       elsif params[:customer_id] == nil and params[:commit] == "deliver as live flat"
         format.html { render seed_flat_updates_deliver_as_live_flat_path }
       else
