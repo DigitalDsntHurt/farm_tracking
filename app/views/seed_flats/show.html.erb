@@ -53,6 +53,9 @@
           <% end %>
           <br>
 
+          Sewn for <%= Customer.where(id: @seed_flat.customer_id)[0].name unless @seed_flat.customer_id == nil %>
+          <br>
+          <br>
           <% if @seed_flat.harvest_weight_oz == nil and @harvest_updates.count == 0 %>
             <i>not yet harvested</i>
           <% elsif @seed_flat.harvest_weight_oz == nil and @harvest_updates.count != 0 %>
