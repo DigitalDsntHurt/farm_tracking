@@ -14,6 +14,11 @@ class TeamMembersShiftsController < ApplicationController
     @sunday = @monday + 6
 
     @planned_shifts_this_week = TeamMembersShift.where('planned_shift_date >= ? AND planned_shift_date <= ?', @monday, @sunday).count
+    if @planned_shifts_this_week > 0
+      @planned_hours_this_week = @planned_shifts_this_week.map{|shift| shift.planned_shift_hrs }.inject{|hrs,sum| hrs + sum }
+    else
+      @planned_hours_this_week = 0
+    end
   end
 
   def summary

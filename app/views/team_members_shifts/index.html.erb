@@ -73,9 +73,11 @@
       </td>
       <td width="40%" align="center" style="vertical-align: top;padding-top:200px;">
         <div class="form-container">
-          <h2>David Box</h2>
-          <h3>Anticipated cash needed this week</h3>
-          <h4>$<%= @planned_shifts_this_week * 15 %></h4>
+          <h1>David Box</h1>
+          <h2>Anticipated hrs this week</h2>
+          <h3><%= @planned_hours_this_week %></h3>
+          <h2>Anticipated cash needed this week</h2>
+          <h3>$<%= @planned_hours_this_week * 15 %></h3>
         </div>
       </td>
     </tr>
