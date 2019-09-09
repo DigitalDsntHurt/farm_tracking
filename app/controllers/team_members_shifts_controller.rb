@@ -5,7 +5,18 @@ class TeamMembersShiftsController < ApplicationController
   # GET /team_members_shifts.json
   def index
     @team_members_shifts = TeamMembersShift.all.order(planned_shift_date: :desc)
+    @monday = Date.today
+    unless @monday.monday?
+      until @monday.monday?
+        @monday -= 1
+      end
+    end
+    @sunday = @monday + 6
 
+    @planned_shifts_this_week = TeamMembersShift.where('planned_shift_date >= ? AND planned_shift_date <= ?', @monday, @sunday).count
+  end
+
+  def summary
     @monday = Date.today
     unless @monday.monday?
       until @monday.monday?
@@ -42,7 +53,6 @@ class TeamMembersShiftsController < ApplicationController
       @sunday -= 7
     end
     @history.reject!{|wk| wk[1] == nil }
-
   end
 
   # GET /team_members_shifts/1

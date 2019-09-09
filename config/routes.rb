@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'team_members_shifts/log' => 'team_members_shifts#log'
   get 'team_members_shifts/bulk_actions' => 'team_members_shifts#bulk_actions'
   get 'team_members_shifts/clone' => 'team_members_shifts#clone'
+  get 'team_members_shifts/summary' => 'team_members_shifts#summary' 
 	resources :team_members_shifts do 
 		collection do
 			put :bulk_actions
