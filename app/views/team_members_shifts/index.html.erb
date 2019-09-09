@@ -1,17 +1,36 @@
 <div class="master-container">
 
+<h1 align="center">
+  Shifts<br>
+  <%= link_to 'New Shift', new_team_members_shift_path, class: "btn btn-primary btn-lg transplant-button" %><br><br>
+</h1>
+<h1 align="center">This Week</h1>
+<table style="margin:auto;">
+  <tr style="text-align: top;">
+    <% (@monday..@sunday).each do |day| %>
+      <td class="calendar-table" style="padding:16px;" valign="top">
+        <h2 align="center"><%= day.strftime("%a, %b %d ") %></h2>
+          <% @days_shifts = @planned_shifts_this_week.where(planned_shift_date: day) %>
+          <% @days_shifts.each{|shift| %>
+              <h4>
+                <strong>
+                  <%= link_to "#{shift.planned_shift_hrs} hrs #{TeamMember.where(id: shift.team_member_id)[0].fname}", edit_team_members_shift_path(shift) %></strong> --<u><%= link_to "clone", team_members_shifts_clone_path(shift: shift) %></u><br>
+              </h4>
+          <% } %>
+      </td>
+    <% end %>
+  </tr>
+</table>
+        
 <%= form_tag team_members_shifts_bulk_actions_path, method: :put do %>
-
   <table>
     <tr>
-      <td width="40%">
+      <td width="68%">
+        <hr>
         <h1 align="center">
-          Shifts<br>
-          <%= link_to 'New Shift', new_team_members_shift_path, class: "btn btn-primary btn-lg transplant-button" %><br><br>
           Bulk Actions<br>
           <%= submit_tag "Log With Pay", class: "btn btn-primary btn-lg transplant-button" %><%= submit_tag "Log Without Pay", class: "btn btn-primary btn-lg transplant-button" %><%= submit_tag "Log Pay Only", class: "btn btn-primary btn-lg transplant-button" %><br>
         </h1>
-
         <table class="index-table">
           <thead>
             <tr>
@@ -68,10 +87,11 @@
 
         
       </td>
-      <td width="10%">
-        
+
+      <td width="2%">
       </td>
-      <td width="40%" align="center" style="vertical-align: top;padding-top:200px;">
+
+      <td width="30%" align="center" style="vertical-align: top;padding-top:200px;">
         <div class="form-container">
           <h1>David Box</h1>
           <h2>Anticipated hrs this week</h2>
