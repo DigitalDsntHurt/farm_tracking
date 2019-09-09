@@ -20,6 +20,7 @@
       <th>Lights</th>
       <th>Pumps</th>
       <th>Pump Time</th>
+      <th>NutSol</th>
       <th>Retired On</th>
       <th>Notes</th>
       <th></th>
@@ -39,6 +40,7 @@
         <td><%= system.lights %></td>
         <td><%= system.pumps %></td>
         <td><%= system.pump_time %></td>
+        <td><%= system.current_nutrient_solution %></td>
         <td><%= system.retired_on %></td>
         <td><%= system.notes %></td>
         <td><%= link_to "clone", systems_copy_path(old_system: system), class: "btn btn-primary", style: "margin:8px;" %></td>

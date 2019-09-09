@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190826171236) do
+ActiveRecord::Schema.define(version: 20190909163327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -311,6 +311,7 @@ ActiveRecord::Schema.define(version: 20190826171236) do
     t.date "retired_on"
     t.string "pumps"
     t.string "pump_time"
+    t.string "current_nutrient_solution"
     t.index ["room_id"], name: "index_systems_on_room_id"
   end
 
