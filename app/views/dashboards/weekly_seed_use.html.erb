@@ -29,7 +29,7 @@
 						<td align="center">
 							<% seed_weights = group[1].map{|flat| flat.seed_weight_oz } %>
 							<% unless seed_weights[0] == nil %>
-								<%= (seed_weights.inject{|weight,sum| weight + sum }).round(2) %>
+								<%= (seed_weights.reject{|weight| weight == nil }.inject{|weight,sum| weight + sum }).round(2) %>
 							<% end %>
 						</td>
 					</tr>
