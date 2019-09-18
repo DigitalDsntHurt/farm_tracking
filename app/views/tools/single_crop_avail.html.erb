@@ -1,0 +1,69 @@
+<%= form_tag bulk_actions_seed_flats_path, method: :put do %>
+
+	<table class="pipeline-table">
+		<thead>
+			<tr>
+				<th>
+					<table>
+						<thead>
+							<tr>
+								<th style="padding:12px;">
+									<%= render '/layouts/flat_actions_header' %>
+								</th>
+							</tr>
+						</thead>
+					</table>			
+				</th>
+			</tr>
+		</thead>
+		<tr>
+			<td style="padding-top:44px;">
+				<div class="container-fluid" style="padding-bottom: 44px;margin-bottom: 44px;">
+				  <div class="row">
+				    <div class="col-3 col-md-2" style="border: solid 1px black; padding:22px;">
+				      <%= render partial: "dashboards/harvest_counter" %>
+				    </div>
+				    <div class="col-15 col-md-10" style="border: solid 1px black; padding:22px;">
+						<div class="crop-avail-container">
+							<table class="crop-avail-list-table">
+									
+									<thead>
+										<tr>
+											<th colspan="4">
+												<h1 align="center"><%= Crop.where(id: @crop_id)[0].crop.capitalize %>, <%= Crop.where(id: @crop_id)[0].crop_variety %></h1>
+												<h2 align="center"><%= @active_flats.count %> flats</h2>
+											</th>
+										</tr>
+									</thead>
+
+									<% @active_flats.each{|flat| %>
+										<tr>
+											<td><%= check_box_tag("flat_ids[]", flat.id, false, :class => "checkbox-inline-avail") %></td>
+											<td><%= link_to "Harvest", seed_flat_updates_harvest_path(flat: flat[0]), class: "btn btn-primary btn-lg" %></td>
+												<td>
+													<% if SeedFlatUpdate.where(seed_flat_id: flat.id).where(update_type: "harvest").count == 0 %>
+														<h3><%= link_to "#{flat.flat_id} : #{(Date.today - flat.started_date).to_i} day for #{Customer.where(id: flat.customer_id)[0].name} (#{System.where(id: flat.current_system_id)[0].system_name})", flat %></h3>
+													<% else %>
+														<h3><u><strong><%= link_to "#{flat.flat_id} : #{(Date.today - flat.started_date).to_i} day for #{Customer.where(id: flat.customer_id)[0].name} (#{System.where(id: flat.current_system_id)[0].system_name}) * ", flat %></strong></u></h3>
+													<% end %>	
+												</td>
+												<% if false %>
+												<td>
+													<h3><%= link_to "#{flat[1]} : #{flat[4]} day for #{flat[2]} (#{flat[3]})", flat[0] %></h3>
+												</td>
+												<% end %>
+										</tr>
+									<% } %>	
+								</table>		
+						</div>			    	
+				    </div>
+				  </div>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+
+<% end %>
+
+<br><br><br><br><br>

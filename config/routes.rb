@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   
   
   get 'tools/crop_availability'
+  get 'tools/new_crop_avail'
+  get 'tools/single_crop_avail'
 
   resources :crop_mixes
   resources :over_grow_recipients

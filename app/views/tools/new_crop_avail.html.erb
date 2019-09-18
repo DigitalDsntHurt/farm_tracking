@@ -1,0 +1,41 @@
+
+<%= form_tag bulk_actions_seed_flats_path, method: :put do %>
+
+	<table class="pipeline-table">
+		<thead>
+			<tr>
+				<th>
+					<table>
+						<thead>
+							<tr>
+								<th style="padding:12px;">
+									<%= render '/layouts/flat_actions_header' %>
+								</th>
+							</tr>
+						</thead>
+					</table>			
+				</th>
+			</tr>
+		</thead>
+		<tr>
+			<td style="padding-top:44px;">
+				<div class="container-fluid" style="padding-bottom: 44px;margin-bottom: 44px;">
+				  <div class="row">
+				    <div class="col-3 col-md-2" style="border: solid 1px black; padding:22px;">
+				      <%= render partial: "dashboards/harvest_counter" %>
+				    </div>
+				    <div class="col-15 col-md-10" style="border: solid 1px black; padding:22px;">
+						<div class="crop-avail-container">
+							<%= render '/tools/crop_avail_counts_list' %>
+						</div>			    	
+				    </div>
+				  </div>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+
+<% end %>
+
+<br><br><br><br><br>

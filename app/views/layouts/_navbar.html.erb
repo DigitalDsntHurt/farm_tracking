@@ -6,7 +6,7 @@
 			
 		</div>
 		<div class="col">
-			<%= link_to "Crop Availability", tools_crop_availability_path, data: { keybinding: '?' }, :class=>"nav-btn btn btn-success" %>
+			<%= link_to "Crop Availability", tools_new_crop_avail_path, data: { keybinding: '/' }, :class=>"nav-btn btn btn-success" %>
 		</div>
 
 		<div class="col">
@@ -59,6 +59,7 @@
 			<div class="dropdown">
 			  <button class="nav-btn btn btn-dark dropdown-toggle">Pipeline</button>
 			  <div class="dropdown-content">
+			    <%= link_to "Old Crop Avail", tools_crop_availability_path, data: { keybinding: '?' }, :class=>"navbar-dropdown" %>
 			    <%= link_to "Pipeline View", "/dashboards/pipeline", :method => :get, data: { keybinding: 'p' }, :class=>"navbar-dropdown" %>
 			    <br>
 			    <%= link_to "Rooms", "/rooms", :method => :get, :class => "navbar-dropdown" %>

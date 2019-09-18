@@ -1,0 +1,14 @@
+
+
+
+<% @counts.each{|crop_group| %>
+	<table class="crop-avail-list-table">
+		<thead>
+			<tr>
+				<th colspan="4">
+					<h1><%= link_to "#{crop_group[1]} (#{crop_group[2]} flats)", tools_single_crop_avail_path(crop_id: crop_group[0]) %></h1>
+				</th>
+			</tr>
+		</thead>
+	</table>
+<% } %>
