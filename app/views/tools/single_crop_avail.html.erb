@@ -39,7 +39,7 @@
 									<% @active_flats.each{|flat| %>
 										<tr>
 											<td><%= check_box_tag("flat_ids[]", flat.id, false, :class => "checkbox-inline-avail") %></td>
-											<td><%= link_to "Harvest", seed_flat_updates_harvest_path(flat: flat[0]), class: "btn btn-primary btn-lg" %></td>
+											<td><%= link_to "Harvest", seed_flat_updates_harvest_path(flat: flat), class: "btn btn-primary btn-lg" %></td>
 												<td>
 													<% if SeedFlatUpdate.where(seed_flat_id: flat.id).where(update_type: "harvest").count == 0 %>
 														<h3><%= link_to "#{flat.flat_id} : #{(Date.today - flat.started_date).to_i} day for #{Customer.where(id: flat.customer_id)[0].name} (#{System.where(id: flat.current_system_id)[0].system_name})", flat %></h3>
