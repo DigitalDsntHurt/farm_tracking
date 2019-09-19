@@ -6,7 +6,11 @@
         <%= link_to 'back to sew list', calendars_sew_path, :class => "btn btn-success btn-lg" %>
         <%= link_to 'back to soak list', calendars_soak_path, :class => "btn btn-success btn-lg" %>
       </div>
+      
       <%= render partial: "dashboards/harvest_counter" %>
+      <div align="center">
+        <%= link_to "Back To This Crop's Avail", tools_single_crop_avail_path(crop_id: @seed_flat.crop_id), data: { keybinding: 'b' }, :class=>"nav-btn btn btn-success" %>
+      </div>
     </div>
     <div class="col-15 col-md-10" style="border: solid 1px black; padding:22px;">
       <div align="center">
