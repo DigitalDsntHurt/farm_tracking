@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190909163327) do
+ActiveRecord::Schema.define(version: 20190920131609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,19 @@ ActiveRecord::Schema.define(version: 20190909163327) do
     t.integer "order_id"
     t.integer "treatment_id"
     t.string "order_ids", default: [], array: true
+  end
+
+  create_table "harvests", force: :cascade do |t|
+    t.integer "customer_id"
+    t.integer "crop_id"
+    t.integer "order_id"
+    t.float "qty_oz"
+    t.string "instructions"
+    t.date "date"
+    t.datetime "time"
+    t.boolean "completed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "media_unit_costs", force: :cascade do |t|

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   
+  resources :harvests
   get 'tools/crop_availability'
   get 'tools/new_crop_avail'
   get 'tools/single_crop_avail'
@@ -170,5 +171,5 @@ Rails.application.routes.draw do
 	end
 	
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-	root 'dashboards#crop_availability'
+	root 'tools#new_crop_avail'
 end

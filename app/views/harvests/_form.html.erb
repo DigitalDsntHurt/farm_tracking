@@ -1,0 +1,57 @@
+<%= form_with(model: harvest, local: true) do |form| %>
+  <% if harvest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(harvest.errors.count, "error") %> prohibited this harvest from being saved:</h2>
+
+      <ul>
+      <% harvest.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :customer_id %>
+    <%= form.number_field :customer_id, id: :harvest_customer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :crop_id %>
+    <%= form.number_field :crop_id, id: :harvest_crop_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :order_id %>
+    <%= form.number_field :order_id, id: :harvest_order_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :qty_oz %>
+    <%= form.text_field :qty_oz, id: :harvest_qty_oz %>
+  </div>
+
+  <div class="field">
+    <%= form.label :instructions %>
+    <%= form.text_field :instructions, id: :harvest_instructions %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date, id: :harvest_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :time %>
+    <%= form.datetime_select :time, id: :harvest_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :completed %>
+    <%= form.check_box :completed, id: :harvest_completed %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

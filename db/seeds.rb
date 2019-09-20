@@ -2,6 +2,26 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
+=begin
+=end
+## 
+## ## one-time seed for today's harvests
+##
+def add(x,y)
+	x + y
+end
+
+@today = Date.today
+@wday = @today.strftime("%A")
+@wday_orders = Order.where(day_of_week: @wday)
+
+puts @wday_orders.count
+
+## 
+## ## one-time seed for tomorrow's harvests
+##
+
+
 
 =begin
 ## 

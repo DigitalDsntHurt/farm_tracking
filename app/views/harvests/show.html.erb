@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @harvest.customer_id %>
+</p>
+
+<p>
+  <strong>Crop:</strong>
+  <%= @harvest.crop_id %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @harvest.order_id %>
+</p>
+
+<p>
+  <strong>Qty oz:</strong>
+  <%= @harvest.qty_oz %>
+</p>
+
+<p>
+  <strong>Instructions:</strong>
+  <%= @harvest.instructions %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @harvest.date %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @harvest.time %>
+</p>
+
+<p>
+  <strong>Completed:</strong>
+  <%= @harvest.completed %>
+</p>
+
+<%= link_to 'Edit', edit_harvest_path(@harvest) %> |
+<%= link_to 'Back', harvests_path %>
