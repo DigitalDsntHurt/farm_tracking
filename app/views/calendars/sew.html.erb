@@ -8,7 +8,7 @@
 
 		<h1 align="center"><%= day_of_week %> (<%= date %>)</h1>
 		<h2 align="center"><%= @days_sew.map{|hsh| hsh[:qty] }.inject{|qty,sum| qty + sum } %> flats to sew ( <%= @sewn_count %> flats sewn )</h2>
-		<% @days_sew.sort_by{|hsh| Order.where(id: hsh[:order_id])[0].crop_id }.each{|hsh| %>
+		<% @days_sew.sort_by{|hsh| Crop.where(id: Order.where(id: hsh[:order_id])[0].crop_id)[0].crop }.each{|hsh| %>
 			<% @completed = false %>
 			<% @customer_id = Order.where(id: hsh[:order_id])[0].customer_id %>
 			<% @crop_id = Order.where(id: hsh[:order_id])[0].crop_id %>
