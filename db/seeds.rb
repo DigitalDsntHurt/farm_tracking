@@ -2,6 +2,16 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
+##
+## ## set crop name and crop variety capitalization standards
+##
+
+Crop.all.each{|crop_record|
+	#puts crop_record.crop.capitalize
+	#puts crop_record.crop_variety.downcase
+	#puts "========"
+	crop_record.update(crop: crop_record.crop.capitalize, crop_variety: crop_record.crop_variety.downcase)
+}
 
 =begin
 ## 
