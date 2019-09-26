@@ -6,8 +6,10 @@ class SeedFlatUpdate < ApplicationRecord
   validates :harvest_qty_oz, presence: true, if: -> {update_type == "harvest" }
   validates :customer_id, presence: true, if: -> {update_type == "delivered as live flat" }
 
-  after_create :set_seed_flat_current_system_id, :update_seed_flat_harvest, :set_update_date
-  after_update :set_seed_flat_current_system_id, :update_seed_flat_harvest, :set_update_date
+  after_create :set_seed_flat_current_system_id, :update_seed_flat_harvest#, :set_update_date
+  after_update :set_seed_flat_current_system_id, :update_seed_flat_harvest#, :set_update_date
+  #before_save :set_update_date
+  #after_save :set_update_date
 
   private
 
@@ -33,7 +35,7 @@ class SeedFlatUpdate < ApplicationRecord
   end
 
   def set_update_date
-    self.update_date = updated_at.to_date
+    self.update_date = self.updated_at.to_date
   end
   
   #def ensure_customer_id

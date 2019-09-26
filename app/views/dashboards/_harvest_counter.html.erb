@@ -1,6 +1,6 @@
 <div>
 	<h2 align="center">Recent Harvests</h2>
-	<% @recent_harvests = SeedFlatUpdate.where(update_type: "harvest").where(update_date: Date.today).order(updated_at: :desc) %>
+	<% @recent_harvests = SeedFlatUpdate.where(update_type: "harvest").where(updated_at: Date.today.all_day).order(updated_at: :desc) %>
 	<% @recent_harvest_customers = @recent_harvests.map{|update| update.customer_id } %>
 	<% @recent_harvest_customers.uniq.each{|customer| %>
 		<% next if customer == nil %>
