@@ -2,6 +2,58 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
+petite_crop_ids = []
+Crop.where(crop_type: "petite").each{|crop| petite_crop_ids << crop.id }
+
+#puts petite_crop_ids
+
+micro_crop_ids = []
+
+petite_crop_ids.each{|id|
+	crop = Crop.where(id: id)[0]
+	crop_name = crop.crop
+	crop_variety = crop.crop_variety
+
+	micro_crop = Crop.where(crop: crop_name).where(crop_variety: crop_variety)
+	micro_crop_ids << micro_crop[0].id
+}
+
+#puts micro_crop_ids
+
+petite_crop_ids.zip(micro_crop_ids).each{|pair|
+	petite_crop = pair[0]
+	micro_crop = pair[1]
+
+	puts "Working on #{Crop.where(id: petite_crop)[0].crop}, #{Crop.where(id: petite_crop)[0].crop_variety}, #{Crop.where(id: petite_crop)[0].crop_type}"
+	puts "Working on #{Crop.where(id: micro_crop)[0].crop}, #{Crop.where(id: micro_crop)[0].crop_variety}, #{Crop.where(id: micro_crop)[0].crop_type}"
+
+	# Replace order crop_ids with micro version
+	Order.where(crop_id: petite_crop).update_all(crop_id: micro_crop)
+
+	# Replace seedflat crop_ids with micro version
+	SeedFlat.where(crop_id: petite_crop).update_all(crop_id: micro_crop)
+
+	# Destroy petite version
+	Crop.where(id: petite_crop).destroy_all
+
+	
+	puts "=== === === "
+}
+
+=begin
+puts Order.where(crop_id: 93).count
+puts SeedFlat.where(crop_id: 93).count
+puts Order.where(crop_id: 91).count
+puts SeedFlat.where(crop_id: 91).count
+puts Order.where(crop_id: 92).count
+puts SeedFlat.where(crop_id: 92).count
+puts Crop.where(id: 93).count
+puts Crop.where(id: 91).count
+puts Crop.where(id: 92).count
+=end
+
+
+
 =begin
 ##
 ## ## set crop name and crop variety capitalization standards
