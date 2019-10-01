@@ -1,34 +1,10 @@
 <div class="master-container" style="max-width: 1200px;margin:auto;padding-bottom: 88px">
 
-
-
-	<h1>Date</h1>
-	<h2>## flats to sew (# flats sewn)</h2>
-
-	<div class="card" style="padding: 1px 11px 4px 11px;" >
-		<h3 align="left">
-			<% params_hsh = {crop_id: 66, customer_id: 44, customer_flats: [[44,1],[33,1]], new_info: "sewing 2 flats shiso" } %>
-			<%= link_to "X flats y, Z", tools_bulk_flat_form_path(params_hsh) %>
-		</h3>
-	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 	<% @this_week_hsh.each{|day_of_week,date| %>
 		<% @days_sew = @sew_instructions.select{|hsh| hsh[:day] == day_of_week } %>
 		<% next if @days_sew.count == 0 %>
 
-		<% @sewn_count = SeedFlat.where(started_date: date).count %>
+		<% @sewn_count = SeedFlat.where(started_date: Date.today).count %>
 
 		<h1 align="center"><%= day_of_week %> (<%= date %>)</h1>
 		<h2 align="center"><%= @days_sew.map{|hsh| hsh[:qty] }.inject{|qty,sum| qty + sum } %> flats to sew ( <%= @sewn_count %> flats sewn )</h2>

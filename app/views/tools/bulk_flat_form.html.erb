@@ -1,0 +1,70 @@
+<div class="bulk-form-container">
+
+	<h1 align="center"><%= @new_info %></h1>
+
+	<%= form_tag dashboards_bulk_form_path do %>
+
+	  	<table width="100%">
+		  		<tr>
+		  			<td style="margin:12px; vertical-align: center;">
+		  				<h3><label><%=  %> flats for <%=  %></label></h3>
+		  			</td>
+		  			<td style="margin:12px; vertical-align: top;">
+		  				<div class="form-group">
+							<h3><label>enter flat ids</label></h3>
+							<%= text_field_tag :flat_ids, nil, placeholder: "enter comma separated" %>
+						</div>
+		  			</td>
+
+		  			
+		  		</tr>
+	  	</table>
+		
+
+		<br>
+		<p>****** ****** ****** ****** ****** ******</p>
+		<p>prepopulated data from sew calendar</p>
+		<p>****** ****** ****** ****** ****** ******</p>
+
+		<div class="form-group">
+			<h3><label>crop</label></h3>
+			<%= text_field_tag :crop_id, @crop_id %> ( <%= Crop.where(id: @crop_id)[0].crop_variety %>, <%= Crop.where(id: @crop_id)[0].crop.capitalize %> )
+		</div>
+
+		<div class="form-group">
+	  		<h3><label>seed weight</label></h3>
+	  		<%= number_field_tag :seed_weight, Crop.where(id: @crop_id)[0].ideal_sew_seed_oz_per_flat, step: :any %>
+	  	</div>
+
+	  	<div class="form-group">
+			<h3><label>started date</label></h3>
+			<%= date_field_tag :started_date, Date.today %>
+		</div>
+
+		<div class="form-group">
+			<h3><label>current system id</label></h3>
+			<%= number_field_tag :current_system_id, 3 %> ( <%= System.where(id: 3)[0].system_name %> )
+		</div>
+
+		<div class="form-group">
+			<h3><label>medium</label></h3>
+			<%= text_field_tag :medium, "biostrate felt" %>
+		</div>
+
+		<div class="form-group">
+			<h3><label>format</label></h3>
+			<%= text_field_tag :format, "matt" %>
+		</div>
+		
+		<div class="form-group">
+			<h3><label>seed treatment id</label></h3>
+			<%= number_field_tag :seed_treatments_id, @treatment %> (<%= @treatment %>)
+		</div>
+	  
+	  <div align="center">
+	  	<%= submit_tag "bulk create flats", class: "btn btn-primary" %>
+	  </div>
+
+	<% end %>
+</div>	
+

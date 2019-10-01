@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'tools/crop_availability'
   get 'tools/new_crop_avail'
   get 'tools/single_crop_avail'
+  get 'tools/bulk_flat_form' => 'tools#bulk_flat_form'
 
   resources :crop_mixes
   resources :over_grow_recipients
@@ -32,6 +33,8 @@ Rails.application.routes.draw do
   get 'calendars/ops'
   get 'calendars/harvest'
   get 'calendars/sew'
+  get 'calendars/old_sew'
+  get 'calendars/check_sew_list'
   get 'calendars/soak'
 
   resources :customers

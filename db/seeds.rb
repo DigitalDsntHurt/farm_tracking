@@ -2,6 +2,101 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
+
+=begin
+=end
+##
+## ## consolidate sew list by unique crop
+##
+
+def all_active_standing_orders
+	Order.where(cancelled_on: nil).where(standing_order: true)
+end
+
+def filter_orders_for_sew(orders)
+	orders.select{|order| Crop.where(id: order.crop_id)[0].ideal_treatment_days == 0 }
+end
+
+def days_ref
+	["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+end
+
+def get_sew_quantity(order)
+	# this calculates a number of FLATS
+	@crop = Crop.where(id: order.crop_id)[0]
+	(order.qty_oz / @crop.ideal_yield_per_flat_oz).ceil
+end
+
+def get_action_day(order)
+	wday = ""
+	@crop = Crop.where(id: order.crop_id)[0]
+	@total_dth = @crop.ideal_treatment_days + @crop.ideal_propagation_days + @crop.ideal_system_days
+	if @total_dth % 7 == 0
+    	wday += "#{order.day_of_week}"
+    else
+    	@days_ref_index = days_ref.index(order.day_of_week) - (@total_dth % 7)
+        wday += days_ref[@days_ref_index]
+    end
+    wday
+end
+
+def reduce_wday_to_ops_day(wday)
+	if wday == "Tuesday"
+    	"Monday"
+	elsif wday == "Thursday"
+		"Wednesday"
+	elsif wday == "Saturday"
+		"Friday"
+	elsif wday == "Sunday"
+		"Friday"
+	else
+		wday
+	end
+end	
+
+def orders_to_sew_instructions(orders)
+	# accepts an array of Orders
+	@instructions = []
+	orders.each{|order|
+		@hsh = {}
+		@hsh[:verb] = "sew"
+		@hsh[:day] = reduce_wday_to_ops_day(get_action_day(order))
+		@hsh[:qty] = get_sew_quantity(order)
+		@hsh[:qty_units] = "flat"
+		@hsh[:order_id] = order.id
+		@instructions << @hsh
+	}
+	@instructions
+	# returns an array of hashes where each hash is an instruction
+end	
+
+
+@sew_orders = filter_orders_for_sew(all_active_standing_orders)
+@sew_instructions = orders_to_sew_instructions(@sew_orders)
+@sew_instructions.group_by{|hsh| hsh[:day] }.each{|day_group|
+	p day_group[1].group_by{|hsh| Order.where(id: hsh[:order_id])[0].crop_id }
+	puts ""
+	puts ""
+	puts ""
+	puts ""
+
+}
+
+
+
+
+
+
+
+
+
+
+
+=begin
+##
+## ## eradicate petite crops from crops table, orders table, seed flats table
+##
+
 petite_crop_ids = []
 Crop.where(crop_type: "petite").each{|crop| petite_crop_ids << crop.id }
 
@@ -39,17 +134,6 @@ petite_crop_ids.zip(micro_crop_ids).each{|pair|
 	
 	puts "=== === === "
 }
-
-=begin
-puts Order.where(crop_id: 93).count
-puts SeedFlat.where(crop_id: 93).count
-puts Order.where(crop_id: 91).count
-puts SeedFlat.where(crop_id: 91).count
-puts Order.where(crop_id: 92).count
-puts SeedFlat.where(crop_id: 92).count
-puts Crop.where(id: 93).count
-puts Crop.where(id: 91).count
-puts Crop.where(id: 92).count
 =end
 
 

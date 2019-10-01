@@ -305,6 +305,35 @@ class CalendarsController < ApplicationController
   	@sew_instructions = orders_to_sew_instructions(@sew_orders)
   end
 
+  def old_sew
+  	#
+  	## Setup Dates
+  	#
+  	@todays_date = Date.today
+  	@monday = @todays_date
+	@this_week_dates = (@todays_date.at_beginning_of_week...@todays_date.at_end_of_week)
+	unless @todays_date.monday?
+		until @monday.monday?
+			@monday -= 1
+		end
+	end
+
+	@this_week_hsh = {}
+	days_ref.each{|day|
+		@this_week_hsh["#{day}"] = @monday
+		@monday += 1
+	}
+
+  	#
+  	## Create Sew Schedule
+  	#
+  	@sew_orders = filter_orders_for_sew(all_active_standing_orders)
+  	@sew_instructions = orders_to_sew_instructions(@sew_orders)
+  end
+
+  def check_sew_list
+  end
+
   def soak
   	#
   	## Setup Dates

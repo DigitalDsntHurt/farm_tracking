@@ -22,7 +22,9 @@
 			  <button class="nav-btn btn btn-success dropdown-toggle">Lists</button>
 			  <div class="dropdown-content">
 			    <%= link_to "soak list", "/calendars/soak", :method => :get, data: { keybinding: 's k' }, :class => "navbar-dropdown" %>
-			    <%= link_to "sew list", "/calendars/sew", :method => :get, data: { keybinding: 's w' }, :class => "navbar-dropdown" %>
+			    <%= link_to "new sew list", "/calendars/sew", :method => :get, data: { keybinding: 's w' }, :class => "navbar-dropdown" %>
+			    <%= link_to "old sew list", "/calendars/old_sew", :method => :get, data: { keybinding: 's w' }, :class => "navbar-dropdown" %>
+			    <%= link_to "check sew list", "/calendars/check_sew_list", :method => :get, data: { keybinding: 's w' }, :class => "navbar-dropdown" %>
 			    <%= link_to "harvest list", "/lists/harvest", :method => :get, :class => "navbar-dropdown" %>
 			  </div>
 			</div>
