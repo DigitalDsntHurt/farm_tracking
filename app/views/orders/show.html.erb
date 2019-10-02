@@ -23,7 +23,11 @@
 
 <p>
   <strong>Calculated start date (set by db on create):</strong>
-  <%= @order.calculated_first_delivery_date %> (<%= @order.calculated_first_delivery_date.strftime("%a") %>)
+  <%= @order.calculated_first_delivery_date %> 
+  <% if @order.calculated_first_delivery_date != nil %>
+    (<%= @order.calculated_first_delivery_date.strftime("%a") %>)
+  <% else %>
+  <% end %>
 </p>
 
 <p>
