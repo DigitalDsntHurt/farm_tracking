@@ -17,8 +17,13 @@
 </p>
 
 <p>
-  <strong>Start date:</strong>
+  <strong>Start date (set manually):</strong>
   <%= @order.start_date %>
+</p>
+
+<p>
+  <strong>Calculated start date (set by db on create):</strong>
+  <%= @order.calculated_first_delivery_date %> (<%= @order.calculated_first_delivery_date.strftime("%a") %>)
 </p>
 
 <p>

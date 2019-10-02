@@ -2,6 +2,15 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
+
+
+
+=begin
+
+##
+## ## obliterate petite crops in crops table, orders table, seed flats table
+##
+
 petite_crop_ids = []
 Crop.where(crop_type: "petite").each{|crop| petite_crop_ids << crop.id }
 
@@ -40,7 +49,6 @@ petite_crop_ids.zip(micro_crop_ids).each{|pair|
 	puts "=== === === "
 }
 
-=begin
 puts Order.where(crop_id: 93).count
 puts SeedFlat.where(crop_id: 93).count
 puts Order.where(crop_id: 91).count

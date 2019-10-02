@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190909163327) do
+ActiveRecord::Schema.define(version: 20191002164147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(version: 20190909163327) do
     t.integer "maturity_days"
     t.text "harvest_preferences"
     t.date "start_date"
+    t.date "calculated_first_delivery_date"
   end
 
   create_table "over_grow_recipients", force: :cascade do |t|
