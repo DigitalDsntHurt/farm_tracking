@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :crop_mixes
   resources :over_grow_recipients
   get 'lists/harvest'
+  get 'lists/soak'
 
   resources :weekly_revenues
   resources :media_unit_costs

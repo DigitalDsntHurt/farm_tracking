@@ -1,4 +1,9 @@
 class ListsController < ApplicationController
+  def soak
+
+  end
+
+
   def harvest
   	# setup calendar cells
     @start_date = Date.today
@@ -9,4 +14,6 @@ class ListsController < ApplicationController
     @orders = Order.where(cancelled_on: nil).where.not(customer_id: 1).order(:customer_id, :day_of_week)
     @ad_hoc_orders = Order.where(cancelled_on: nil).where(standing_order: false)
   end
+
+
 end
