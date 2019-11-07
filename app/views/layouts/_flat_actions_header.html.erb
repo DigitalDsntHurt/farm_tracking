@@ -1,5 +1,5 @@
 <div align="center">
-	<h4 align="center" style="border-bottom: solid black 1px;">
+	<h4 align="center">
 		<h3>bulk <%= submit_tag "Kill", class: "navbar-dropdown btn btn-warning btn-sm", style: "margin:6px; width:222px;" %> or transplant to...</h3>
 		<% @active_systems.each{|system| %>
 			<%= submit_tag "~>#{system.system_name}", class: "btn btn-primary btn-lg transplant-button" %>

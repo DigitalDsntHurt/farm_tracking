@@ -19,5 +19,7 @@
 //= require mousetrap/plugins
 //= require bootstrap
 //= require bootstrap-datepicker
+//= require popper
+//= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .

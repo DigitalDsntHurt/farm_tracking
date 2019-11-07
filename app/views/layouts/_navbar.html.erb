@@ -1,148 +1,115 @@
-<!-- Navigation -->
-<!-- Navigation -->
-<div class="container-fluid nav navbar-dark bg-dark">
+<div class="master-nav-container">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        
+        <%= image_tag("sprout.png", style:"width:66px;padding-right:44px;")%>
+        <a class="btn btn-success non-drop-button" type="button" href="/tools/crop_availability">Crop Avail</a>
+        <%= link_to "Ops Ref", crops_crop_ref_path, data: { keybinding: 'c' }, class: "btn btn-success non-drop-button" %>
+        
+        <!-- Action -->
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Action
+          </button>
+          <div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuButton">
+            <%= link_to "Soak", calendars_soak_path, data: { keybinding: 's k' }, class: "dropdown-item" %>
+            <%= link_to "Sew", calendars_sew_path, data: { keybinding: 's w' }, class: "dropdown-item" %>
+            <a class="dropdown-item" href="/lists/harvest">Harvest</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item btn btn-info" href="/seed_treatments/new">+ treatment</a>
+            <a class="dropdown-item btn btn-info" href="/seed_flats/new">+ seed flat</a>
+          </div>
+        </div>
 
+        <!-- Pipeline -->
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Pipeline
+          </button>
+          <div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuButton">
+            <%= link_to "Treatments", seed_treatments_fresh_index_path, data: { keybinding: 't' }, class: "dropdown-item" %>
+            <div class="dropdown-divider"></div>
+            <%= link_to "Full Crop Avail", tools_crop_availability_path, data: { keybinding: '?' }, class: "dropdown-item" %>
+            <%= link_to "Fast Crop Avail", tools_new_crop_avail_path, data: { keybinding: '/' }, class: "dropdown-item" %>
+            <a class="dropdown-item" href="/dashboards/pipeline">Pipeline Cards</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/crops">Crops</a>
+            <a class="dropdown-item" href="/crop_mixes">Crop Mixes</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/rooms">Rooms</a>
+            <a class="dropdown-item" href="/systems">Systems</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/seed_flat_updates">Seed Flat Updates</a>
+            <a class="dropdown-item" href="/seed_flats/live_index">Live Flats</a>
+            <a class="dropdown-item" href="/seed_flats/harvested_index">Harvested Flats</a>
+            <a class="dropdown-item" href="/seed_flats/basic_index">All Flats</a>
+          </div>
+        </div>
 
-	<div class="row justify-content-around">
+        <!-- Fulfillment -->
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Fulfillment
+          </button>
+          <div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuButton">
+            <%= link_to "Customers", customers_path, data: { keybinding: 'c u' }, class: "dropdown-item" %>
+            <%= link_to "Active Orders", orders_current_index_path, data: { keybinding: 'o' }, class: "dropdown-item" %>
+            <a class="dropdown-item" href="/over_grow_recipients">OverGrow</a>
+            <a class="dropdown-item" href="/dashboards/harvest_calendar">Anticipated Harvest Dates</a>
+            <a class="dropdown-item" href="/dashboards/overgrow">Nonallocated Flats</a>
+            <a class="dropdown-item" href="/dashboards/flat_allocation">Flat Allocation</a>
+          </div>
+        </div>
 
-		<div class="col" style="padding-left: 44px;">
-			
-		</div>
-		<div class="col">
-			<%= link_to "Crop Availability", tools_new_crop_avail_path, data: { keybinding: '/' }, :class=>"nav-btn btn btn-success" %>
-		</div>
+        <!-- Data -->
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Data
+          </button>
+          <div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/dashboards/aggregates">Aggregates</a>
+            <%= link_to "Averages", dashboards_averages_path, data: { keybinding: 'a v g' }, class: "dropdown-item" %>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/dashboards/yield_per_soak_duration">yield / soak duration</a>
+            <a class="dropdown-item" href="/dashboards/yield_per_seed_weight">yield / seed weight</a>
+            <a class="dropdown-item" href="/dashboards/yield_per_dth">yield / dth</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/dashboards/sew_durations">sew durations</a>
+            <a class="dropdown-item" href="/dashboards/harvest_durations">harvest durations</a>
+            <a class="dropdown-item" href="/dashboards/flats_per_week">flats / wk</a>
+            <a class="dropdown-item" href="/dashboards/weekly_seed_use">weekly seed use</a>
+            <a class="dropdown-item" href="/media_unit_costs">media unit costs</a>            
+          </div>
+        </div>  
 
-		<div class="col">
-			<%= link_to "Ops Ref", crops_crop_ref_path, :class=>"nav-btn btn btn-success" %>
-		</div>	
+        <!-- Stuff -->
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Stuff
+          </button>
+          <div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuButton">
+            
+            <h6 class="dropdown-header">Executive Admin</h6>
+            <a class="dropdown-item" href="/daily_priorities/weekly_dash">daily priorities</a>
+            <a class="dropdown-item" href="/dashboards/finance">finance</a>
+            <a class="dropdown-item" href="/weekly_revenues">weekly revenues</a>
 
-		<div class="col">
-			<%= link_to "Treatments", seed_treatments_fresh_index_path, data: { keybinding: 't' }, :class=>"nav-btn btn btn-success" %>
-		</div>
+            <h6 class="dropdown-header">Depreciated (ops)</h6>
+            <a class="dropdown-item" href="/reservoirs">Reservoirs</a>
+            <a class="dropdown-item" href="/nutrient_solutions">Nutrient Solutions</a>
 
-		<div class="col">
-			<div class="dropdown">
-			  <button class="nav-btn btn btn-success dropdown-toggle">Lists</button>
-			  <div class="dropdown-content">
-			    <%= link_to "soak list", "/calendars/soak", :method => :get, data: { keybinding: 's k' }, :class => "navbar-dropdown" %>
-			    <%= link_to "sew list", "/calendars/sew", :method => :get, data: { keybinding: 's w' }, :class => "navbar-dropdown" %>
-			    <%= link_to "harvest list", "/lists/harvest", :method => :get, :class => "navbar-dropdown" %>
-			  </div>
-			</div>
-		</div>
+            <h6 class="dropdown-header">Depreciated (other)</h6>
+            <a class="dropdown-item" href="/team_members">team members</a>
+            <a class="dropdown-item" href="/team_members_shifts">team member shifts</a>
+          </div>
+        </div>      
 
-		<div class="col">
-			<%= link_to '+ Seed Treatment', new_seed_treatment_path, :class => "nav-btn btn btn-info" %>
-		</div>			
-		<div class="col">
-			<%= link_to '+ Seed Flat', new_seed_flat_path, :class => "nav-btn btn btn-info" %>
-		</div>
-		
-		<div class="col">
-			<%= link_to "Customers", "/customers", :method => :get, data: { keybinding: 'c' }, :class => "nav-btn btn btn-primary" %>
-		</div>
+      </div>
+    </div>
 
-		<div class="col">
-			<%= link_to "Active Orders", "/orders/current_index", :method => :get, :class => "nav-btn btn btn-primary" %>
-		</div>
+    <%= link_to image_tag("trello.png", style:"width:44px;"), "https://trello.com/xstreetfarms/home", target: "_blank" %>
+  </nav>
 
-		<div class="col">
-			<%= link_to "Anticipated Harvest Dates", "/dashboards/harvest_calendar", :method => :get, :class => "nav-btn btn btn-primary" %>
-		</div>
-
-		<div class="col">
-			<%= link_to 'Nonallocated Flats', dashboards_overgrow_path, :class => "nav-btn btn btn-primary" %>
-		</div>
-
-		<div class="col">
-			<%= link_to 'OverGrow', over_grow_recipients_path, :class => "nav-btn btn btn-primary" %>
-		</div>
-
-		<div class="col">
-			<div class="dropdown">
-			  <button class="nav-btn btn btn-dark dropdown-toggle">Pipeline</button>
-			  <div class="dropdown-content">
-			    <%= link_to "Old Crop Avail", tools_crop_availability_path, data: { keybinding: '?' }, :class=>"navbar-dropdown" %>
-			    <%= link_to "Pipeline View", "/dashboards/pipeline", :method => :get, data: { keybinding: 'p' }, :class=>"navbar-dropdown" %>
-			    <br>
-			    <%= link_to "Rooms", "/rooms", :method => :get, :class => "navbar-dropdown" %>
-				<%= link_to "Systems", "/systems", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Reservoirs", "/reservoirs", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Nutrient Solutions", "/nutrient_solutions", :method => :get, :class => "navbar-dropdown" %>
-			    <br>
-			    <%= link_to "Live Flats", "/seed_flats/live_index", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Harvested Flats", "/seed_flats/harvested_index", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "All Flats", "/seed_flats/basic_index", :method => :get, :class => "navbar-dropdown" %>
-			  </div>
-			</div>		
-		</div>
-
-		<div class="col">
-			<div class="dropdown">
-			  <button class="nav-btn btn btn-dark dropdown-toggle">Data</button>
-			  <div class="dropdown-content">
-			    <%= link_to "Aggregates", "/dashboards/aggregates", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Averages", "/dashboards/averages", :method => :get, :class => "navbar-dropdown" %>
-			    <br>
-			    <%= link_to "Yield / Soak Duration", "/dashboards/yield_per_soak_duration", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Yield / Seed Weight", "/dashboards/yield_per_seed_weight", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Yield / DTH", "/dashboards/yield_per_dth", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Sew Rates", "/dashboards/sew_durations", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Harvest Rates", "/dashboards/harvest_durations", :method => :get, :class => "navbar-dropdown" %>
-			    <br>
-			    <%= link_to "Finance", "/dashboards/finance", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Flats / Week", "/dashboards/flats_per_week", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Seed Use / Week", "/dashboards/weekly_seed_use", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "Weekly priorities", "/daily_priorities/weekly_dash", :method => :get, :class => "navbar-dropdown" %>
-			  </div>
-			</div>		
-		</div>
-
-		<div class="col">
-			<div class="dropdown">
-			  <button class="nav-btn btn btn-link dropdown-toggle"><strong>STUFFF</strong></button>
-			  <div class="dropdown-content">
-			    <%= link_to "weekly priorities", "/daily_priorities/weekly_dash", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "team members", "/team_members", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "team members shifts", "/team_members_shifts", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "media unit costs", "/media_unit_costs", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "weekly revenue", "/weekly_revenues", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "crop mixes", "/crop_mixes", :method => :get, :class => "navbar-dropdown" %>
-			    <br>
-			    <%= link_to "Crop Availability", "/dashboards/crop_availability", :method => :get, :class => "navbar-dropdown"  %>
-				<%= link_to "Flat Allocation", "/dashboards/flat_allocation", :method => :get, :class => "navbar-dropdown"  %>
-				<%= link_to "Transplant Calendar", "/dashboards/transplant_calendar", :method => :get, :class => "navbar-dropdown"  %>
-			    <%= link_to "Harvest Calendar", "/dashboards/harvest_calendar", :method => :get, :class => "navbar-dropdown"  %>
-			    <%= link_to "Soak & Sew Cal", "/dashboards/soak_sew_cal", :method => :get, :class => "navbar-dropdown"  %>
-			    <br>
-			    <%= link_to "ops cal", "/calendars/ops", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "harvest cal", "/calendars/harvest", :method => :get, :class => "navbar-dropdown" %>
-			    <br>
-			    <%= link_to "seed flat updates", "/seed_flat_updates", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "all flats", "/seed_flats", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "live treatments", "/seed_treatments/fresh_index", :method => :get, :class => "navbar-dropdown" %>
-			    <%= link_to "all treatments", "/seed_treatments/", :method => :get, :class => "navbar-dropdown" %>
-			  </div>
-			</div>		
-		</div>
-
-		<% @now = Time.now %>
-		<% @drains_needed = SeedTreatment.where(soak_duration_hrs: nil).where(killed_on: nil).where(destination_flat_ids: []).select{|treatment| (@now - treatment.soak_start_datetime)/60/60 >= 6 } %>
-
-		<% if @drains_needed.count > 0 %>
-			<div class="col" style="min-width:393px;">	
-			</div>
-			<div class="col">
-				<div class="dropdown">
-				  <button class="dropbtn nav-btn btn btn-danger btn-lg"><span class="blinking"><i class="fas fa-exclamation-circle"></i> &nbsp; <strong>ALERTS</strong></span></button>
-				  <div class="dropdown-content dropdown-menu-right" style="padding:11px;min-width: 222px;border:1px solid rgba(0, 0, 0, .5);">
-					<%= render '/shared/end_soak_alerts'%>
-				  </div>
-				</div>		
-			</div>
-		<% end %>		
-	</div>
-</div>
-<div class="spacer">
-	&nbsp;
 </div>
