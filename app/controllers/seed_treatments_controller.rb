@@ -155,6 +155,22 @@ class SeedTreatmentsController < ApplicationController
     
   end
 
+  def complete_all_days_soaks
+    params[:soak_dos].split(",").each{|soak_do_id|
+      @soak_do = FarmOpsDo.where(id: soak_do_id)
+      
+      # create seed treatments
+      @hsh = {soak_start_datetime: Time.now, crop_id: @soak_do[0].crop_id, seed_quantity_oz: @soak_do[0].qty, order_ids: @soak_do[0].order_ids, orders: @soak_do[0].order_ids.join(","), soak_solution: "tap water", finished: false, killed_on: nil}
+      SeedTreatment.create(@hsh)
+      
+      # mark soak do as done
+      @soak_do.update(completed_on: Date.today)
+    }
+
+    redirect_back(fallback_location: root_path)
+    #params[:treatment_instructions]
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_seed_treatment

@@ -6,30 +6,35 @@
 	    <div class="card-header" id="headingOne" align="center" style="padding-bottom: 45px;">
 	      <h2 class="mb-0">
 	        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-	          <h2>Monday</h2>
+	          <h2>Monday, <%= ThisWeekDates.monday.strftime("%b %d") %></h2>
+	          <h3><%= @monday_done_count %> / <%= @monday.count %> completed</h3>
 	        </button>
 	      </h2>
 	    </div>
 
-	    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+	    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
 	      <div class="card-body">
-	        
-	        <div class="card" style="padding: 1px 11px 4px 11px;" >
-	        	<h3>
-	        		instruction
-	        	</h3>
-	        </div>
-	        <div class="card" style="padding: 1px 11px 4px 11px;" >
-	        	<h3>
-	        		instruction
-	        	</h3>
-	        </div>
-	        <div class="card" style="padding: 1px 11px 4px 11px;" >
-	        	<h3>
-	        		instruction
-	        	</h3>
-	        </div>
-
+	      	<div align="center">
+	      		<% @soak_dos = @monday.map{|obj| obj.id}.join(",") %>
+	      		<% @treatment_instructions = %>
+	      		<%= link_to "complete all", seed_treatments_complete_all_days_soaks_path(soak_dos: @soak_dos), class: "btn btn-primary", style: "margin-bottom:22px; align: center;" %>	
+	      	</div>
+	      	<% @monday_soaks.each{|soak_do| %>
+	      		<div class="card" style="padding: 1px 11px 4px 11px;" >
+		        	<h3>
+		        		<% if soak_do[2].completed_on == nil %>
+		        			<%= link_to farm_ops_dos_mark_farm_ops_dos_done_path(do: soak_do[2]) do %>
+		        				<i class="far fa-square" style="color:red;"></i>
+		        			<% end %>
+		        		<% else %>
+		        			<%= link_to farm_ops_dos_mark_farm_ops_dos_undone_path(do: soak_do[2]) do %>
+		        				<i class="far fa-check-square" style="color:green;"></i> 
+		        			<% end %>	
+		        		<% end %>	
+		        		<%= link_to soak_do[0], seed_treatments_bulk_soak_form_path(soak_do[1])  %>
+		        	</h3>
+	        	</div>
+	      	<% } %>
 	      </div>
 	    </div>
 	  </div>
@@ -37,29 +42,29 @@
 	    <div class="card-header" id="headingTwo" align="center" style="padding-bottom: 45px;">
 	      <h2 class="mb-0">
 	        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-	          <h2>Wednesday</h2>
+	          <h2>Wednesday, <%= ThisWeekDates.wednesday.strftime("%b %d") %></h2>
+	          <h3><%= @wednesday_done_count %> / <%= @wednesday.count %> completed</h3>
 	        </button>
 	      </h2>
 	    </div>
-	    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+	    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
 	      <div class="card-body">
-	        
-	        <div class="card" style="padding: 1px 11px 4px 11px;" >
-	        	<h3>
-	        		instruction
-	        	</h3>
-	        </div>
-	        <div class="card" style="padding: 1px 11px 4px 11px;" >
-	        	<h3>
-	        		instruction
-	        	</h3>
-	        </div>
-	        <div class="card" style="padding: 1px 11px 4px 11px;" >
-	        	<h3>
-	        		instruction
-	        	</h3>
-	        </div>
-
+	      	<% @wednesday_soaks.each{|soak_do| %>
+	      		<div class="card" style="padding: 1px 11px 4px 11px;" >
+		        	<h3>
+		        		<% if soak_do[2].completed_on == nil %>
+		        			<%= link_to farm_ops_dos_mark_farm_ops_dos_done_path(do: soak_do[2]) do %>
+		        				<i class="far fa-square" style="color:red;"></i>
+		        			<% end %>
+		        		<% else %>
+		        			<%= link_to farm_ops_dos_mark_farm_ops_dos_undone_path(do: soak_do[2]) do %>
+		        				<i class="far fa-check-square" style="color:green;"></i> 
+		        			<% end %>	
+		        		<% end %>	
+		        		<%= link_to soak_do[0], seed_treatments_bulk_soak_form_path(soak_do[1])  %>
+		        	</h3>
+	        	</div>
+	      	<% } %>
 	      </div>
 	    </div>
 	  </div>
@@ -67,32 +72,33 @@
 	    <div class="card-header" id="headingThree" align="center" style="padding-bottom: 45px;">
 	      <h2 class="mb-0">
 	        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-	          <h2>Friday</h2>
+	          <h2>Friday, <%= ThisWeekDates.friday.strftime("%b %d") %></h2>
+	          <h3><%= @friday_done_count %> / <%= @friday.count %> completed</h3>
 	        </button>
 	      </h2>
 	    </div>
-	    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+	    <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
 	      <div class="card-body">
-	        
-	        <div class="card" style="padding: 1px 11px 4px 11px;" >
-	        	<h3>
-	        		instruction
-	        	</h3>
-	        </div>
-	        <div class="card" style="padding: 1px 11px 4px 11px;" >
-	        	<h3>
-	        		instruction
-	        	</h3>
-	        </div>
-	        <div class="card" style="padding: 1px 11px 4px 11px;" >
-	        	<h3>
-	        		instruction
-	        	</h3>
-	        </div>
-
+	      	<% @friday_soaks.each{|soak_do| %>
+	      		<div class="card" style="padding: 1px 11px 4px 11px;" >
+		        	<h3>
+		        		<% if soak_do[2].completed_on == nil %>
+		        			<%= link_to farm_ops_dos_mark_farm_ops_dos_done_path(do: soak_do[2]) do %>
+		        				<i class="far fa-square" style="color:red;"></i>
+		        			<% end %>
+		        		<% else %>
+		        			<%= link_to farm_ops_dos_mark_farm_ops_dos_undone_path(do: soak_do[2]) do %>
+		        				<i class="far fa-check-square" style="color:green;"></i> 
+		        			<% end %>	
+		        		<% end %>	
+		        		<%= link_to soak_do[0], seed_treatments_bulk_soak_form_path(soak_do[1])  %>
+		        	</h3>
+	        	</div>
+	      	<% } %>
 	      </div>
 	    </div>
 	  </div>
 	</div>
 
 </div> <!-- master container -->
+<br><br>
