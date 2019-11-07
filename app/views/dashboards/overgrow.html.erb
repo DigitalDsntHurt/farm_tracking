@@ -1,30 +1,33 @@
-<h1 class="fancy-title">OverGrow Avail</h1>
+<div class="master-container" style="margin-top: 88px;">
+	
+	<h1 class="fancy-title">OverGrow Avail</h1>
 
-<div class="master-container form-container">
+	<div class="form-container">
 
-	<% @nonalocated_active_flats.sort_by{|group| Crop.where(id: group[0])[0].crop}.each{|group| %>
-		<% @flats = group[1].reject{|flat| flat.anticipated_ready_date == nil}.select{|flat| flat.anticipated_ready_date <= Date.today} %>
-		
-		<% next if @flats.count < 1 %>
-		
-		<h2 align="center">
-			<% @qty_avail = (Crop.where(id: group[0])[0].ideal_yield_per_flat_oz * group[1].count) %>
-			<%= Crop.where(id: group[0])[0].crop_variety %>, <%= Crop.where(id: group[0])[0].crop.capitalize %><br>
-			<%= @flats.count %> flats available -- 
-			<% if @qty_avail >= 16 %>
-				<%=  (@qty_avail/16).round(2) %> lbs estimated harvest
-			<% else %>
-				<%= @qty_avail %> oz estimated harvest
-			<% end %>
-		</h2>	
-		<ul>
-			<% @flats.sort_by{|flat| flat.started_date}.each{|flat| %>
-				<li>
-					<h3>
-						<%= link_to "#{flat.flat_id} : #{(Date.today - flat.started_date).to_i} day in #{System.where(id: flat.current_system_id)[0].system_name}", flat %>
-					</h3>
-				</li>
-			<% } %>
-		</ul>
-	<% } %>
+		<% @nonalocated_active_flats.sort_by{|group| Crop.where(id: group[0])[0].crop}.each{|group| %>
+			<% @flats = group[1].reject{|flat| flat.anticipated_ready_date == nil}.select{|flat| flat.anticipated_ready_date <= Date.today} %>
+			
+			<% next if @flats.count < 1 %>
+			
+			<h2 align="center">
+				<% @qty_avail = (Crop.where(id: group[0])[0].ideal_yield_per_flat_oz * group[1].count) %>
+				<%= Crop.where(id: group[0])[0].crop_variety %>, <%= Crop.where(id: group[0])[0].crop.capitalize %><br>
+				<%= @flats.count %> flats available -- 
+				<% if @qty_avail >= 16 %>
+					<%=  (@qty_avail/16).round(2) %> lbs estimated harvest
+				<% else %>
+					<%= @qty_avail %> oz estimated harvest
+				<% end %>
+			</h2>	
+			<ul>
+				<% @flats.sort_by{|flat| flat.started_date}.each{|flat| %>
+					<li>
+						<h3>
+							<%= link_to "#{flat.flat_id} : #{(Date.today - flat.started_date).to_i} day in #{System.where(id: flat.current_system_id)[0].system_name}", flat %>
+						</h3>
+					</li>
+				<% } %>
+			</ul>
+		<% } %>
+	</div>
 </div>
