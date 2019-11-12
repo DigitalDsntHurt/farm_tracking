@@ -1,7 +1,27 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Rooms</h1>
+<h1 align="center">Rooms</h1>
 
+<h2 align="center">Fitz</h2>
+<h3 align="center">
+  <%= @fitz_propagation[0].system_name.gsub("1. ","") %> : <%= SeedFlat.where(current_system_id: @fitz_propagation[0].id).count %> flats
+</h3>
+<h3 align="center">
+  <% @flat_slots = @fitz_systems.reject{|system| system.system_name == "1. Propagation" or system.system_name == "LOST" or system.system_name == "live storage" }.map{|system| system.flat_slots }.inject{|slots,sum| slots + sum } %>
+  <% @live_flats = 0 %>
+  <% @fitz_systems.each{|system| %>
+    <% @live_flats += SeedFlat.where(current_system_id: system.id).count %>
+  <% } %>
+  Pipeline: <%= @live_flats %> live flats of <%= @flat_slots %> total flat slots
+</h3>
+<% @fitz_systems.each{|system| %>
+  <% next if system.system_name == "1. Propagation" or system.system_name == "LOST" or system.system_name == "live storage"  %>
+  <h3 align="center">
+    <% @flat_slots = system.flat_slots %>
+    <% @filled_slots = SeedFlat.where(current_system_id: system.id).count %>
+    <%= system.system_name %> : <%= @flat_slots - @filled_slots %> flat slots available (<%= @filled_slots %> of <%= @flat_slots %> filled)
+  </h3>  
+<% } %>
 
 
 
@@ -23,7 +43,7 @@
           <h4 align="center">
             <%= second_room.name %><br><%= @flat_slots_in_room %> flat slots in room
           </h4>
-          <% second_room.systems.each{|system| %>
+          <% second_room.systems.where(retired_on: nil).each{|system| %>
             <p>
               <%= link_to "#{system.system_name}", system %> (<%= SeedFlat.where(current_system_id: system.id).count %> occupied of <%= system.flat_slots %> flat slots in system)<br>
             </p>
