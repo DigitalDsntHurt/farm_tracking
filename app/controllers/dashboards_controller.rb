@@ -695,4 +695,38 @@ class DashboardsController < ApplicationController
     @seven_day_avg_rate = (@seven_temp.inject{|rate,sum| rate + sum } / @seven_temp.count).round(2)
   end
 
+
+  def pipeline_scale
+    @data = []
+
+    @start = Date.parse("2019-03-01")
+    @end = @start.next_month - 1
+
+    until @start > Date.today
+      @flats_harvested = SeedFlat.where('harvested_on >= ? AND harvested_on <= ?', @start, @end).count
+      @oz_harvested = SeedFlat.where('harvested_on >= ? AND harvested_on <= ?', @start, @end).pluck(:harvest_weight_oz).inject{|oz,sum| oz + sum }.round(2)
+      
+      
+      @count_systems = []
+      @retired_systems = System.where.not(retired_on: nil)
+      @active_systems = System.where(retired_on: nil)
+      
+      @retired_systems.each{|system|
+        if system.build_date < @start and system.retired_on > @start
+          @count_systems << system
+        end
+      }
+
+      @active_systems.each{|system|
+        if system.build_date < @start
+          @count_systems << system
+        end
+      }
+
+      @flat_slots = @count_systems.uniq.map{|system| system.flat_slots }.inject{|slots,sum| slots + sum }
+      @data << [@start.strftime("%b, %Y"),"",@flat_slots,@flats_harvested,@oz_harvested,"",""]
+      @start = @start.next_month
+      @end = @start.next_month - 1
+    end
+  end
 end

@@ -1,0 +1,37 @@
+<div class="master-container">
+	<h1 align="center">Pipeline Scale</h1>
+	<table class="index-table" style="margin: auto;">
+		<thead>
+			<th>
+				month
+			</th>
+			<th>
+				revenue
+			</th>
+			<th>
+				# flat slots in pipeline
+			</th>
+			<th>
+				flats harvested
+			</th>
+			<th>
+				oz harvested
+			</th>
+			<th>
+				revenue per flat slot
+			</th>
+			<th>
+				revenue per oz harvested
+			</th>
+		</thead>
+		<% @data.reverse.each{|row| %>
+			<tr>
+				<% row.each{|val| %>
+					<td>
+						<%= val %>
+					</td>
+				<% } %>	
+			</tr>
+		<% } %>	
+	</table>
+</div>

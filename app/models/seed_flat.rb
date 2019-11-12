@@ -6,7 +6,7 @@ class SeedFlat < ApplicationRecord
 	has_one :system, foreign_key: 'current_system_id'
 
 	#
-	## Queries
+	## Data / Queries
 	#
 	def self.monthly_flats_sews_and_harvested
 		@data = []

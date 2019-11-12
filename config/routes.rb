@@ -96,6 +96,7 @@ Rails.application.routes.draw do
 	get 'dashboards/overgrow' => 'dashboards#overgrow'
 	get 'dashboards/sew_durations' => 'dashboards#sew_durations'
 	get 'dashboards/harvest_durations' => 'dashboards#harvest_durations'
+	get 'dashboards/pipeline_scale' => 'dashboards#pipeline_scale'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
 	get 'seed_flats/basic_index' => 'seed_flats#basic_index'
