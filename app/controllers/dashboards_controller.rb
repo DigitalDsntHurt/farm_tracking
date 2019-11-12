@@ -462,6 +462,8 @@ class DashboardsController < ApplicationController
     until Date.today - @start_date < 0
       @week_start_dates << @start_date += 7
     end
+
+    
   end
 
   def weekly_seed_use  
