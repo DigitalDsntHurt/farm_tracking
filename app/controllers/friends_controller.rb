@@ -28,7 +28,7 @@ class FriendsController < ApplicationController
 
     respond_to do |format|
       if @friend.save
-        format.html { redirect_to dashboards_landingpage_path, notice: 'Friend was successfully created.' }
+        format.html { redirect_to friends_epicurean_trader_path, notice: 'Welcome to the localest farm in the world!' }
         format.json { render :show, status: :created, location: @friend }
       else
         format.html { render :new }
