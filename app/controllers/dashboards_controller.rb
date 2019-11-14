@@ -729,4 +729,10 @@ class DashboardsController < ApplicationController
       @end = @start.next_month - 1
     end
   end
+
+
+  def landingpage
+    @disable_nav = true
+    @friend = Friend.new    
+  end
 end

@@ -31,9 +31,19 @@
 
 </head>
 
-  <body>  
-    <%= render '/layouts/navbar' unless @disable_nav %>
-    <%= yield %>
-  </body>
+  
+    <% if @disable_nav %>
+      <body class="img-bg">
+        <%= yield %>
+      </body>
+    <% else %>
+      <body>
+        <%= render '/layouts/navbar' %>
+        <%= yield %>
+      </body>  
+    <% end %>  
+    
+    
+  
 </html>
 
