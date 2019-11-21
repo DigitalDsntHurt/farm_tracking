@@ -1,4 +1,4 @@
-module SoakSchedule
+class SoakSchedule
 	
 	##
 	## ## methods that work on dates and times

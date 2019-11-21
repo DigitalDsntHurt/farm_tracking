@@ -5,6 +5,6 @@ require 'rufus-scheduler'
 ##
 scheduler = Rufus::Scheduler.new
 
-scheduler.cron '0 1 * * 3' do
+scheduler.cron '0 1 * * 6' do
 	SoakSchedule.instantiate_weekly_soak_schedule_db_dos
 end
