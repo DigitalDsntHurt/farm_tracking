@@ -240,6 +240,7 @@ DEPENDENCIES
   rails_utils
   rufus-scheduler
   sass-rails (~> 5.0)
+  sassc
   simple_calendar (~> 2.0)
   spring
   spring-watcher-listen (~> 2.0.0)
@@ -249,7 +250,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 RUBY VERSION
-   ruby 2.4.0p0
+   ruby 2.6.5p114
 
 BUNDLED WITH
-   1.16.2
+   1.17.3
