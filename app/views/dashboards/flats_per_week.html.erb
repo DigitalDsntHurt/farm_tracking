@@ -1,31 +1,68 @@
-<table class="index-table">
-	<thead>
-		<th>
-			week of
-		</th>
-		<th>
-			flats sewn
-		</th>
-		<th>
-			flats harvested
-		</th>
-	</thead>
-	<% @week_start_dates.reverse.each{|date| %>
-		<tr>
-			<td>
-				<%= date %>	
-				<% @week_start = date %>
-				<% @week_end = date %>
-				<% until @week_end.sunday? %>
-					<% @week_end += 1 %>
-				<% end %>
-			</td>
-			<td>
-				<%= SeedFlat.where(:started_date => @week_start..@week_end).count %>
-			</td>
-			<td>
-				<%= SeedFlat.where(:harvested_on => @week_start..@week_end).count %>
-			</td>
-		</tr>
-	<% } %>
+<h1 align="center">Flats Sewn & Harvested</h1>
+<table style="margin:auto;">
+	<tr>
+		<td style="border-right: 1px dotted black;"  width="50%" valign="top">
+			<h2 align="center">Weekly</h2>
+				<table class="index-table">
+					<thead>
+						<th>
+							week of
+						</th>
+						<th>
+							flats sewn
+						</th>
+						<th>
+							flats harvested
+						</th>
+					</thead>
+					<% @week_start_dates.reverse.each{|date| %>
+						<tr>
+							<td>
+								<%= date %>	
+								<% @week_start = date %>
+								<% @week_end = date %>
+								<% until @week_end.sunday? %>
+									<% @week_end += 1 %>
+								<% end %>
+							</td>
+							<td>
+								<%= SeedFlat.where(:started_date => @week_start..@week_end).count %>
+							</td>
+							<td>
+								<%= SeedFlat.where(:harvested_on => @week_start..@week_end).count %>
+							</td>
+						</tr>
+					<% } %>
+				</table>			
+		</td>
+		<td width="50%" valign="top">
+			<h2 align="center">Monthly</h2>
+			<table class="index-table">
+				<thead>
+					<th>
+						month
+					</th>
+					<th>
+						flats sewn
+					</th>
+					<th>
+						flats harvested
+					</th>
+				</thead>
+				<% SeedFlat.monthly_flats_sews_and_harvested.reverse.each{|month_arr| %>
+					<tr>
+						<td>
+							<%= month_arr[0] %>
+						</td>
+						<td>
+							<%= month_arr[1] %>
+						</td>
+						<td>
+							<%= month_arr[2] %>
+						</td>
+					</tr>
+				<% } %>
+		</td>
+	</tr>
 </table>
+

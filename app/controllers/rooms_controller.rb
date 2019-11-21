@@ -5,6 +5,8 @@ class RoomsController < ApplicationController
   # GET /rooms.json
   def index
     @rooms = Room.all
+    @fitz_propagation = System.where(system_name: "1. Propagation")
+    @fitz_systems = System.where(room_id: 2).where(retired_on: nil).order(:flat_slots)
   end
 
   # GET /rooms/1

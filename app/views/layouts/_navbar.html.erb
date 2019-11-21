@@ -4,7 +4,10 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         
-        <%= image_tag("sprout.png", style:"width:66px;padding-right:44px;")%>
+        <!--
+          <%= image_tag("sprout.png", style:"width:66px;height:33px;padding-right:44px;")%>
+        -->
+
         <a class="btn btn-success non-drop-button" type="button" href="/tools/crop_availability">Crop Avail</a>
         <%= link_to "Ops Ref", crops_crop_ref_path, data: { keybinding: 'c' }, class: "btn btn-success non-drop-button" %>
         
@@ -34,6 +37,7 @@
             <%= link_to "Full Crop Avail", tools_crop_availability_path, data: { keybinding: '?' }, class: "dropdown-item" %>
             <%= link_to "Fast Crop Avail", tools_new_crop_avail_path, data: { keybinding: '/' }, class: "dropdown-item" %>
             <a class="dropdown-item" href="/dashboards/pipeline">Pipeline Cards</a>
+            <a class="dropdown-item" href="/dashboards/pipeline_verification">Pipeline Verification</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/crops">Crops</a>
             <a class="dropdown-item" href="/crop_mixes">Crop Mixes</a>
@@ -76,10 +80,11 @@
             <a class="dropdown-item" href="/dashboards/yield_per_seed_weight">yield / seed weight</a>
             <a class="dropdown-item" href="/dashboards/yield_per_dth">yield / dth</a>
             <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/dashboards/pipeline_scale">pipeline scale</a>
+            <a class="dropdown-item" href="/dashboards/flats_per_week">flats / wk & mo</a>
+            <a class="dropdown-item" href="/dashboards/weekly_seed_use">weekly seed use</a>
             <a class="dropdown-item" href="/dashboards/sew_durations">sew durations</a>
             <a class="dropdown-item" href="/dashboards/harvest_durations">harvest durations</a>
-            <a class="dropdown-item" href="/dashboards/flats_per_week">flats / wk</a>
-            <a class="dropdown-item" href="/dashboards/weekly_seed_use">weekly seed use</a>
             <a class="dropdown-item" href="/media_unit_costs">media unit costs</a>            
           </div>
         </div>  
@@ -109,7 +114,7 @@
       </div>
     </div>
 
-    <%= link_to image_tag("trello.png", style:"width:44px;"), "https://trello.com/xstreetfarms/home", target: "_blank" %>
+    <%= link_to image_tag("trello.png", style:"width:44px;height:44px;"), "https://trello.com/xstreetfarms/home", target: "_blank" %>
   </nav>
 
 </div>

@@ -1,8 +1,34 @@
 class SeedFlat < ApplicationRecord
+	#
+	## Associations
+	#
 	has_many :seed_flat_updates
 	has_one :system, foreign_key: 'current_system_id'
+	belongs_to :crop
 
-	
+	#
+	## Data / Queries
+	#
+	def self.monthly_flats_sews_and_harvested
+		@data = []
+
+		@start = Date.parse("2018-11-01")
+		@end = @start.next_month - 1
+
+		until @start > Date.today
+			@sewn = SeedFlat.where('started_date >= ? AND started_date <= ?', @start, @end).count
+			@harvested = SeedFlat.where('harvested_on >= ? AND harvested_on <= ?', @start, @end).count
+			@data << [@start.strftime("%b, %Y"),@sewn,@harvested]
+			@start = @start.next_month
+			@end = @start.next_month - 1
+		end
+
+		return @data
+	end
+
+	#
+	## Callbacks
+	#
 	before_create :calculate_harvest_week, :convert_oz_to_lbs, :set_customer_id_if_blank, :set_anticipated_ready_date
 	after_create :set_date_of_first_flat_sew_on_seed_treatment, :set_date_of_last_flat_sew_on_seed_treatment, :set_destination_flat_ids_on_seed_treatment, :set_anticipated_ready_date
 	before_update  :move_flat_id_to_former_flat_id_on_harvest_or_kill, :kill_flat_id_on_harvest, :remove_current_system_id_on_harvest, :update_harvest_date_on_harvest, :calculate_harvest_week, :convert_oz_to_lbs, :set_days_to_harvest_from_sew, :set_days_to_harvest_from_soak, :set_anticipated_ready_date

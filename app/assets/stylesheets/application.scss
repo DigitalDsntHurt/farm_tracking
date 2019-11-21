@@ -635,6 +635,12 @@ table.data-table{
   padding-right: 66px;
 }
 
+.centered-container{
+  margin:auto;
+  padding-left: 66px;
+  padding-right: 66px;
+}
+
 .select-drop-down{
   width:100% !important;
 }
@@ -756,7 +762,7 @@ hr.show{
 table.crop-avail-list-table{
   thead tr:nth-child(1) th{
     position: sticky;
-    /* top: 384px; */
+    top: 340px;
     z-index: 0;
   }
   th{
@@ -772,9 +778,42 @@ table.crop-avail-list-table{
 
 
 
+body.img-bg{
+  padding-top: -122px;  
+  background-image: url('/img/cover.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #464646;
+
+}
+
+.land-form-container{
+  background-color: rgba(245,245,245,0.8);
+  min-width: 30%;
+  max-width: 60%;
+  margin:5% auto;
+  padding:5% 33px;
+  text-align: center
+}
 
 
 
+table.pipeline-verification-table{
+  margin: auto;
+  width:100%;
+  th{
+    text-align: center;
+  }
+  thead tr:nth-child(1) th{
+    padding-bottom:16px;
+    background: #939393;
+    position: sticky;
+    top: 142px;
+    z-index: 1;
+  }
+}
 
 
 

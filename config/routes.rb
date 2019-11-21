@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   
   
+  get 'friends/epicurean_trader' => 'friends#epicurean_trader'
+  resources :friends
+
   get 'tools/crop_availability'
   get 'tools/new_crop_avail'
   get 'tools/single_crop_avail'
@@ -97,6 +100,9 @@ Rails.application.routes.draw do
 	get 'dashboards/overgrow' => 'dashboards#overgrow'
 	get 'dashboards/sew_durations' => 'dashboards#sew_durations'
 	get 'dashboards/harvest_durations' => 'dashboards#harvest_durations'
+	get 'dashboards/pipeline_scale' => 'dashboards#pipeline_scale'
+	get 'dashboards/landingpage' => 'dashboards#landingpage'
+	get 'dashboards/pipeline_verification' => 'dashboards#pipeline_verification'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
 	get 'seed_flats/basic_index' => 'seed_flats#basic_index'
