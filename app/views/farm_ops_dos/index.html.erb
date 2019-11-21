@@ -17,8 +17,8 @@
       <th>qty</th>
       <th>units</th>
       <th>Crop</th>
-      <th>Customer</th>
-      <th>Order</th>
+      <th>Customer(s)</th>
+      <th>Order(s)</th>
       <th colspan="4"></th>
     </tr>
   </thead>
@@ -46,14 +46,21 @@
             <%= Crop.where(id: farm_ops_do.crop_id)[0].crop %>, <%= Crop.where(id: farm_ops_do.crop_id)[0].crop_variety %>
           <% end %>
         </td>
-        <td><%= farm_ops_do.customer %></td>
         <td>
-          <% if farm_ops_do.order_id == nil %>
-            <%= farm_ops_do.order_id %>
-          <% else %>
-            <%= link_to "#{Order.where(id: farm_ops_do.order_id)[0].day_of_week} for #{Order.where(id: farm_ops_do.order_id)[0].customer}: #{Order.where(id: farm_ops_do.order_id)[0].qty_oz}oz #{Crop.where(id: Order.where(id: farm_ops_do.order_id)[0].crop_id)[0].crop} ", Order.where(id: farm_ops_do.order_id)[0] %>
-          <% end %>
-          
+          <% farm_ops_do.order_ids.each{|order_id| %>
+            <%= link_to Customer.where(id: Order.where(id: order_id)[0].customer_id)[0].name, Customer.where(id: Order.where(id: order_id)[0].customer_id)[0] %>
+            <% unless farm_ops_do.order_ids[-1] == order_id %> 
+              | 
+              <% end %>
+          <% } %>
+        </td>
+        <td>
+            <% farm_ops_do.order_ids.each{|order_id| %>
+              <%= link_to "#{Order.where(id: order_id)[0].day_of_week} for #{Customer.where(id: Order.where(id: order_id)[0].customer_id)[0].name}", Order.where(id: order_id)[0] %>
+              <% unless farm_ops_do.order_ids[-1] == order_id %> 
+              | 
+              <% end %>
+            <% } %>
         </td>
         <td><%= link_to 'Show', farm_ops_do %></td>
         <td><%= link_to 'Edit', edit_farm_ops_do_path(farm_ops_do) %></td>

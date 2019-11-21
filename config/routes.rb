@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :crop_mixes
   resources :over_grow_recipients
   get 'lists/harvest'
+  get 'lists/soak'
 
   resources :weekly_revenues
   resources :media_unit_costs
@@ -161,6 +162,7 @@ Rails.application.routes.draw do
 	get 'seed_treatments/new_assigned_seed_treatment' => 'seed_treatments#new_assigned_seed_treatment'
 	get 'seed_treatments/cascade_full_emerge' => 'seed_treatments#cascade_full_emerge'
 	get 'seed_treatments/bulk_soak_form' => 'seed_treatments#bulk_soak_form'
+	get 'seed_treatments/complete_all_days_soaks' => 'seed_treatments#complete_all_days_soaks'
 	resources :seed_treatments
 
 	get 'crops/crop_ref' => 'crops#crop_ref'
