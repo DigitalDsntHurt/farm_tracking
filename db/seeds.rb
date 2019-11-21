@@ -3,6 +3,11 @@
 require 'csv'
 
 
+##
+## ## obliterate current_system_ids on harvested seed flats
+##
+@problem_flats = SeedFlat.where.not(harvested_on: nil).where.not(current_system_id: nil)
+@problem_flats.update_all(current_system_id: nil)
 
 
 =begin

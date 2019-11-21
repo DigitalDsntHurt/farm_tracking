@@ -19,7 +19,7 @@ class System < ApplicationRecord
 		self.fitz_active_systems.each{|system|
 			@hsh = {}
 			@hsh[:system] = system
-			@hsh[:flats] = SeedFlat.where(current_system_id: system.id).where(harvested_on: nil)
+			@hsh[:flats] = SeedFlat.where(current_system_id: system.id)
 			@target << @hsh
 		}
 		@target
