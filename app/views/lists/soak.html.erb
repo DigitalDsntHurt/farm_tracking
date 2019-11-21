@@ -49,6 +49,11 @@
 	    </div>
 	    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
 	      <div class="card-body">
+	      	<div align="center">
+	      		<% @soak_dos = @wednesday.map{|obj| obj.id}.join(",") %>
+	      		<% @treatment_instructions = %>
+	      		<%= link_to "complete all", seed_treatments_complete_all_days_soaks_path(soak_dos: @soak_dos), class: "btn btn-primary", style: "margin-bottom:22px; align: center;" %>	
+	      	</div>
 	      	<% @wednesday_soaks.each{|soak_do| %>
 	      		<div class="card" style="padding: 1px 11px 4px 11px;" >
 		        	<h3>
@@ -79,6 +84,11 @@
 	    </div>
 	    <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
 	      <div class="card-body">
+	      	<div align="center">
+	      		<% @soak_dos = @friday.map{|obj| obj.id}.join(",") %>
+	      		<% @treatment_instructions = %>
+	      		<%= link_to "complete all", seed_treatments_complete_all_days_soaks_path(soak_dos: @soak_dos), class: "btn btn-primary", style: "margin-bottom:22px; align: center;" %>	
+	      	</div>	      	
 	      	<% @friday_soaks.each{|soak_do| %>
 	      		<div class="card" style="padding: 1px 11px 4px 11px;" >
 		        	<h3>
