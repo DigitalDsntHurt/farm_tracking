@@ -18,7 +18,7 @@
   <% next if system.system_name == "1. Propagation" or system.system_name == "LOST" or system.system_name == "live storage"  %>
   <h3 align="center">
     <% @flat_slots = system.flat_slots %>
-    <% @filled_slots = SeedFlat.where(current_system_id: system.id).count %>
+    <% @filled_slots = SeedFlat.where(current_system_id: system.id).where(harvest_weight_oz: nil).where(harvested_on: nil).count %>
     <%= system.system_name %> : <%= @flat_slots - @filled_slots %> flat slots available (<%= @filled_slots %> of <%= @flat_slots %> filled)
   </h3>  
 <% } %>

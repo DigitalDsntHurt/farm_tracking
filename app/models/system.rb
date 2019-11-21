@@ -19,7 +19,7 @@ class System < ApplicationRecord
 		self.fitz_active_systems.each{|system|
 			@hsh = {}
 			@hsh[:system] = system
-			@hsh[:flats] = SeedFlat.where(current_system_id: system.id)
+			@hsh[:flats] = SeedFlat.where(current_system_id: system.id).where(harvest_weight_oz: nil).where(harvested_on: nil).sort_by{|flat| flat.flat_id }
 			@target << @hsh
 		}
 		@target
