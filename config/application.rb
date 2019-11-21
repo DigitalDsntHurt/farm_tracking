@@ -1,5 +1,4 @@
 require_relative 'boot'
-
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -19,10 +18,7 @@ module V1
         end if File.exists?(env_file)
     end
 
-    
     # set time zone to US Pacific Time
-    #config.time_zone = "Pacific Time (US & Canada)"
     config.time_zone = 'America/Los_Angeles'
-    #config.autoload_paths += %W(#{config.root}/lib)
   end
 end
