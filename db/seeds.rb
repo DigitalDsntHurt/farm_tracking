@@ -2,13 +2,13 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
-
+=begin
 ##
 ## ## obliterate current_system_ids on harvested seed flats
 ##
 @problem_flats = SeedFlat.where.not(harvested_on: nil).where.not(current_system_id: nil)
 @problem_flats.update_all(current_system_id: nil)
-
+=end
 
 =begin
 
