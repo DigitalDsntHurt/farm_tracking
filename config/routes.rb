@@ -101,6 +101,7 @@ Rails.application.routes.draw do
 	get 'dashboards/harvest_durations' => 'dashboards#harvest_durations'
 	get 'dashboards/pipeline_scale' => 'dashboards#pipeline_scale'
 	get 'dashboards/landingpage' => 'dashboards#landingpage'
+	get 'dashboards/pipeline_verification' => 'dashboards#pipeline_verification'
 
 	get 'seed_flats/live_index' => 'seed_flats#live_index'
 	get 'seed_flats/basic_index' => 'seed_flats#basic_index'

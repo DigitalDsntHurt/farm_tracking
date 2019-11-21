@@ -735,4 +735,8 @@ class DashboardsController < ApplicationController
     @disable_nav = true
     @friend = Friend.new    
   end
+
+  def pipeline_verification
+    #@systems = System.where
+  end
 end

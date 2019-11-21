@@ -1,0 +1,40 @@
+<div class="form-container">
+
+	<h1 align="center">Pipeline Verification Tool</h1>
+	
+	<% System.fitz_flats_in_systems.each{|hsh| %>
+			<table class="pipeline-verification-table">
+				<thead>
+					<th>
+						<h2>
+							<u><%= hsh[:system].system_name %></u>
+						</h2>
+					</th>
+				</thead>
+				<% hsh[:flats].each{|flat| %>
+					<tr>
+						<td>
+							<table>
+								<tr>
+									<td style="padding:0px 6px 0px 6px;">
+										<%= check_box_tag("flat_ids[]", flat.id, false, :class => "checkbox-inline-avail")  %>
+										</td>
+									<td style="padding:0px 6px 0px 6px;">
+										<h3>
+											<%= link_to "#{flat.flat_id} : #{(Date.today - flat.started_date).to_i} day #{flat.crop.crop}", flat, target: "_blank" %>
+										</h3>	
+									</td>
+								</tr>
+							</table>
+							
+						</td>
+					</tr>
+				<% } %>
+			</table>
+	<% } %>
+</div>	
+
+
+<% if false %>
+	
+<% end %>

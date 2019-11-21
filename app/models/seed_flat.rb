@@ -4,6 +4,7 @@ class SeedFlat < ApplicationRecord
 	#
 	has_many :seed_flat_updates
 	has_one :system, foreign_key: 'current_system_id'
+	belongs_to :crop
 
 	#
 	## Data / Queries

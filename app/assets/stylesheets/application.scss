@@ -635,6 +635,12 @@ table.data-table{
   padding-right: 66px;
 }
 
+.centered-container{
+  margin:auto;
+  padding-left: 66px;
+  padding-right: 66px;
+}
+
 .select-drop-down{
   width:100% !important;
 }
@@ -794,7 +800,20 @@ body.img-bg{
 
 
 
-
+table.pipeline-verification-table{
+  margin: auto;
+  width:100%;
+  th{
+    text-align: center;
+  }
+  thead tr:nth-child(1) th{
+    padding-bottom:16px;
+    background: #939393;
+    position: sticky;
+    top: 142px;
+    z-index: 1;
+  }
+}
 
 
 
