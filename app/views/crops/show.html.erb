@@ -149,3 +149,31 @@
   <%= link_to 'Back', crops_crop_ref_path, :class => "dropbtn btn btn-success" %>
   <%= link_to 'Edit', edit_crop_path(@crop), :class => "dropbtn btn btn-success" %>
 </div>
+
+
+<div class="container">
+  <% @flats = SeedFlat.where(crop_id: @crop.id).where.not(current_system_id: nil).where(harvested_on: nil).group_by{|flat| flat.current_system_id }.sort_by{|system_pair| system_pair[1].count }.reverse %>
+  <table>
+  <% @flats.each{|system_pair| %>
+    <tr>
+        <td>
+          <h2 align="center"><%= System.where(id: system_pair[0])[0].system_name %> - <%= system_pair[1].count %> flats</h2>
+          <br>
+          
+            <table>
+              <% system_pair[1].in_groups_of(4).each{|flat_group| %>
+                <tr>
+                  <% flat_group.each{|flat| %>
+                    <td style="padding:12px;">
+                        <% next if flat.class == NilClass %>
+                        <%= link_to "#{flat.flat_id} (#{(Date.today - flat.started_date).to_i} day)", flat %>
+                    </td>
+                  <% } %>  
+                </tr>
+              <% } %>  
+          </table>
+        </td>
+    </tr>
+  <% } %>
+  </table>
+</div>
