@@ -26,19 +26,34 @@ class SeedFlat < ApplicationRecord
 		return @data
 	end
 
+	def self.calculate_total_dth(flat)
+		@sewn = flat.started_date
+		@harvested = flat.harvested_on
+
+		(@harvested - @sewn).to_i
+	end
+
 	#
 	## Callbacks
 	#
 	before_create :calculate_harvest_week, :convert_oz_to_lbs, :set_customer_id_if_blank, :set_anticipated_ready_date
 	after_create :set_date_of_first_flat_sew_on_seed_treatment, :set_date_of_last_flat_sew_on_seed_treatment, :set_destination_flat_ids_on_seed_treatment, :set_anticipated_ready_date
-	before_update  :move_flat_id_to_former_flat_id_on_harvest_or_kill, :kill_flat_id_on_harvest, :remove_current_system_id_on_harvest, :update_harvest_date_on_harvest, :calculate_harvest_week, :convert_oz_to_lbs, :set_days_to_harvest_from_sew, :set_days_to_harvest_from_soak, :set_anticipated_ready_date
+	before_update  :move_flat_id_to_former_flat_id_on_harvest_or_kill, :kill_flat_id_on_harvest, :remove_current_system_id_on_harvest, :update_harvest_date_on_harvest, :calculate_harvest_week, :convert_oz_to_lbs, :set_days_to_harvest_from_sew, :set_days_to_harvest_from_soak, :set_anticipated_ready_date, :set_total_dth
 	after_update :set_anticipated_ready_date
 	before_validation :upcase_and_remove_whitespace_from_flat_id
 	before_destroy :delete_seed_flat_updates
 
-	validates_uniqueness_of :flat_id
+	#after_save :set_total_dth
+
+	validates_uniqueness_of :flat_id, if: -> { flat_id.present? }
 
 	private
+
+	def set_total_dth
+		if self.harvested_on != nil
+			self.total_dth = (self.harvested_on - self.started_date).to_i
+		end
+	end
 
 	def remove_current_system_id_on_harvest
 		unless harvest_weight_oz == nil

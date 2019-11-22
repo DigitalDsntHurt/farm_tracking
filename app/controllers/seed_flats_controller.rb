@@ -282,6 +282,6 @@ class SeedFlatsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seed_flat_params
-      params.require(:seed_flat).permit(:started_date, :flat_id, :crop, :crop_variety, :seed_brand, :medium, :format, :seed_weight_oz, :seed_media_treatment_notes, :first_emerge_date, :full_emerge_date, :emergence_notes, :date_of_first_transplant, :date_of_second_transplant, :date_of_third_transplant, :harvested_on, :harvest_weight_oz, :hrvst_wt_lbs, :harvest_week, :harvest_notes, :former_flat_id, :seed_treatments_id, :room_id, :current_system_id, :exclude_from_freshlist, :force_onto_freshlist, :sewn_for, :crop_id, :customer_id, :harvested_for)
+      params.require(:seed_flat).permit(:started_date, :flat_id, :crop, :crop_variety, :seed_brand, :medium, :format, :seed_weight_oz, :seed_media_treatment_notes, :first_emerge_date, :full_emerge_date, :emergence_notes, :date_of_first_transplant, :date_of_second_transplant, :date_of_third_transplant, :harvested_on, :harvest_weight_oz, :hrvst_wt_lbs, :harvest_week, :harvest_notes, :former_flat_id, :seed_treatments_id, :room_id, :current_system_id, :exclude_from_freshlist, :force_onto_freshlist, :sewn_for, :crop_id, :customer_id, :harvested_for, :total_dth)
     end
 end

@@ -2,6 +2,10 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'csv'
 
+##
+## ## one-time calculate total_dth values for all SeedFlats harvested in past 3-months
+##
+
 
 =begin
 ##

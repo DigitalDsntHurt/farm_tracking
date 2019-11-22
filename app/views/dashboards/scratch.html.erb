@@ -1,7 +1,11 @@
 <h1 align="center">Scratch Dash</h1>
 <div class="form-container">
 	
-<%= SoakSchedule.add(1,2) %><br>
-<%= SoakSchedule.get_orders_count %> orders
+<% @today = Date.today %>
+<% @three_months_ago = Date.today.last_month %>
+
+<% @flat = SeedFlat.where.not(harvested_on: nil).where.not(harvest_weight_oz: 0).where("harvested_on <= ? and harvested_on >= ?", @today, @three_months_ago ).sample %>
+<%= @flat.crop.crop %>
+<%= SeedFlat.calculate_total_dth(@flat) %>
 
 </div>

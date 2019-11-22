@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
   
+  get 'data/three_month'
+
   get 'friends/epicurean_trader' => 'friends#epicurean_trader'
   resources :friends
 

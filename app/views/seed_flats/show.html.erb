@@ -43,14 +43,14 @@
           <% if @seed_flat.harvested_on == nil %>
             <%= (Date.today - @seed_flat.started_date).to_i %>
           <% else %>   
-            <%= (@seed_flat.harvested_on - @seed_flat.started_date).to_i %>
+            <%= SeedFlat.calculate_total_dth(@seed_flat) %>
           <% end %> day 
           
           <% if @seed_flat.current_system_id == nil %>
             <% if @seed_flat.harvest_weight_oz == 0 %>
               - killed on <%= @seed_flat.harvested_on %>
             <% else %>
-              - harvested <%= @seed_flat.harvest_weight_oz %> on <%= @seed_flat.harvested_on %>
+              - harvested <%= @seed_flat.harvest_weight_oz %> oz on <%= @seed_flat.harvested_on %>
             <% end %>
           <% else %>
             ( in <%= System.where(id: @seed_flat.current_system_id)[0].system_name %> )
