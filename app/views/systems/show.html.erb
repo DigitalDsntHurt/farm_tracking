@@ -80,9 +80,9 @@
 <% SeedFlat.where(current_system_id: @system.id).in_groups_of(9).each{|group| %>
   <tr>
     <% group.each{|flat| %>
-      <td style="padding-right:12px;">
+      <td style="padding:22px;">
         <% unless flat == nil %>
-          <%= link_to "#{flat.flat_id}", flat %>
+          <%= link_to "#{flat.flat_id}", flat %> (<%= flat.crop.crop %>)
         <% end %>
       </td>
     <% } %>
