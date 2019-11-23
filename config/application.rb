@@ -8,6 +8,7 @@ module V1
   class Application < Rails::Application
     config.autoload_paths += %W(#{config.root}/app/ops_scheduling)
     config.autoload_paths += %W(#{config.root}/app/reporting)
+    config.autoload_paths += %W(#{config.root}/app/custom_resources)
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

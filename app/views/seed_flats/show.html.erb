@@ -43,7 +43,7 @@
           <% if @seed_flat.harvested_on == nil %>
             <%= (Date.today - @seed_flat.started_date).to_i %>
           <% else %>   
-            <%= SeedFlat.calculate_total_dth(@seed_flat) %>
+            <%=  %>
           <% end %> day 
           
           <% if @seed_flat.current_system_id == nil %>
@@ -108,7 +108,6 @@
               <% else %>
                 <%= @seed_flat.flat_id %> 
               <% end %>
-              
             </td>
             <td align="center" style="border: solid 1px black; text-align: center; padding: 12px;">
               <% if @seed_flat.seed_treatments_id == nil %>

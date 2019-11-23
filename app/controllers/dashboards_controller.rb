@@ -478,7 +478,7 @@ class DashboardsController < ApplicationController
     @info = params[:info]
     @crop_id = params[:crop_id]
     @customer_id = params[:customer_id]
-    @treatment = params[:treatment]
+    @treatment_id = params[:treatment_id]
 
     @new_flats = []
     @problem_flats = []
@@ -503,7 +503,7 @@ class DashboardsController < ApplicationController
           if SeedFlat.where(flat_id: id).count != 0
             @problem_flats << id
           else
-            @flat = SeedFlat.new(started_date: Date.today, medium: params[:medium], format: params[:format], seed_weight_oz: params[:seed_weight], flat_id: id, current_system_id: params[:current_system_id], crop_id: params[:crop_id], customer_id: params[:customer_id], seed_treatments_id: @treatment)
+            @flat = SeedFlat.new(seed_treatments_id: params[:treatment_id],started_date: Date.today, medium: params[:medium], format: params[:format], seed_weight_oz: params[:seed_weight], flat_id: id, current_system_id: params[:current_system_id], crop_id: params[:crop_id], customer_id: params[:customer_id])
             @flat.save
             @new_flats << @flat
           end
