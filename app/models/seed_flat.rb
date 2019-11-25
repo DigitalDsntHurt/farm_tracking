@@ -86,7 +86,7 @@ class SeedFlat < ApplicationRecord
 	before_validation :upcase_and_remove_whitespace_from_flat_id
 	before_destroy :delete_seed_flat_updates
 
-	before_create :set_treatment_days, :set_propagation_days, :set_system_days, :set_total_dth
+	#before_create :set_treatment_days, :set_propagation_days, :set_system_days, :set_total_dth
 
 	private
 =begin
