@@ -13,6 +13,7 @@
     <tr>
       <th>Crop</th>
       <th>Crop Type</th>
+      <th>Default Medium</th>
       <th>Soak OZ per Flat</th>
       <th>Treatment Days</th>
       <th>Sew OZ per Flat</th>
@@ -29,6 +30,7 @@
       <tr>
         <td><%= link_to "#{crop.crop}, #{crop.crop_variety}", crop %></td>
         <td><%= crop.crop_type %></td>
+        <td><%= crop.default_medium %></td>
         <% if crop.ideal_soak_seed_oz_per_flat == 0.0 %>
           <td align="center"> -- </td>
         <% else %>

@@ -1,188 +1,195 @@
-<%= form_with(model: crop, local: true) do |form| %>
-  <% if crop.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(crop.errors.count, "error") %> prohibited this crop from being saved:</h2>
+<div class="form-container">
+  <%= form_with(model: crop, local: true) do |form| %>
+    <% if crop.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(crop.errors.count, "error") %> prohibited this crop from being saved:</h2>
 
-      <ul>
-      <% crop.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <ul>
+        <% crop.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <h2>
+        <%= form.label "#{crop.crop}, #{crop.crop_variety}" %> (<%= crop.crop_type %>)
+      </h2>
+    </div>
+
+    <br><br>
+   
+    <div class="field">
+      <%= form.label :crop %>
+      <%= form.text_field :crop, id: :crop %>
+    </div> 
+
+    <div class="field">
+      <%= form.label :crop_variety %>
+      <%= form.text_field :crop_variety, id: :crop_crop_variety %>
+    </div>
+
+    <div class="field">
+      <%= form.label :crop_type %>
+      <% if crop.crop_type == nil %>
+        <% @selected = "micro" %>
+      <% else %>
+        <% @selected = crop.crop_type %>  
       <% end %>
-      </ul>
+      <%= form.select :crop_type, options_for_select(["micro","petite","shoot","leaf","top"], :selected => @selected) %>
+    </div>       
+
+    <div class="field">
+      <%= form.label :default_medium %>
+      <%= form.select :default_medium, options_for_select(["biostrate felt", "soil"]) %>
+    </div>
+
+    <div class="field">
+      <%= form.label :ideal_soak_seed_oz_per_flat %>
+      <%= form.number_field :ideal_soak_seed_oz_per_flat, step: :any %>
+    </div>
+
+    <div class="field">
+      <%= form.label :ideal_treatment_days %>
+      <%= form.number_field :ideal_treatment_days, step: :any %>
+    </div>
+
+    <div class="field">
+      <%= form.label :ideal_sew_seed_oz_per_flat %>
+      <%= form.number_field :ideal_sew_seed_oz_per_flat, step: :any %>
+    </div>
+
+    <div class="field">
+      <%= form.label :ideal_propagation_days %>
+      <%= form.number_field :ideal_propagation_days, step: :any %>
+    </div>
+
+    <div class="field">
+      <%= form.label :ideal_system_days %>
+      <%= form.number_field :ideal_system_days, step: :any %>
+    </div>
+    
+    <div class="field">
+      <%= form.label :ideal_yield_per_flat_oz %>
+      <%= form.number_field :ideal_yield_per_flat_oz, step: :any %>
+    </div>
+
+    <br><br>
+    <div>*** *** ***</div>
+
+    <div class="field">
+      <%= form.label :seed_treatment %>
+      <%= form.check_box :seed_treatment, id: :crop_seed_treatment %>
+    </div>
+
+    <div class="field">
+      <%= form.label :avg_seed_treatment_duration_days %>
+      <%= form.text_field :avg_seed_treatment_duration_days, id: :crop_avg_seed_treatment_duration_days %>
+    </div>
+
+    <div class="field">
+      <%= form.label :ideal_seed_treatment_duration_days %>
+      <%= form.text_field :ideal_seed_treatment_duration_days, id: :crop_ideal_seed_treatment_duration_days %>
+    </div>
+
+    <div class="field">
+      <%= form.label :calculated_seed_oz_to_soak_per_desired_flat %>
+      <%= form.text_field :calculated_seed_oz_to_soak_per_desired_flat, id: :crop_calculated_seed_oz_to_soak_per_desired_flat %>
+    </div>
+
+    <div class="field">
+      <%= form.label :ideal_seed_oz_to_soak_per_desired_flat %>
+      <%= form.text_field :ideal_seed_oz_to_soak_per_desired_flat, id: :crop_ideal_seed_oz_to_soak_per_desired_flat %>
+    </div>
+
+    <div class="field">
+      <%= form.label :avg_alltime_seed_oz_per_flat %>
+      <%= form.text_field :avg_alltime_seed_oz_per_flat, id: :crop_avg_alltime_seed_oz_per_flat %>
+    </div>
+
+    <div class="field">
+      <%= form.label :avg_6month_seed_oz_per_flat %>
+      <%= form.text_field :avg_6month_seed_oz_per_flat, id: :crop_avg_6month_seed_oz_per_flat %>
+    </div>
+
+    <div class="field">
+      <%= form.label :avg_6week_seed_oz_per_flat %>
+      <%= form.text_field :avg_6week_seed_oz_per_flat, id: :crop_avg_6week_seed_oz_per_flat %>
+    </div>
+
+    <div class="field">
+      <%= form.label :ideal_seed_oz_per_flat %>
+      <%= form.text_field :ideal_seed_oz_per_flat, id: :crop_ideal_seed_oz_per_flat %>
+    </div>
+
+    <div class="field">
+      <%= form.label :avg_days_to_first_transplant %>
+      <%= form.text_field :avg_days_to_first_transplant, id: :crop_avg_days_to_first_transplant %>
+    </div>
+
+    <div class="field">
+      <%= form.label :ideal_days_to_first_transplant %>
+      <%= form.text_field :ideal_days_to_first_transplant, id: :crop_ideal_days_to_first_transplant %>
+    </div>
+
+    <div class="field">
+      <%= form.label :avg_alltime_days_to_harvest %>
+      <%= form.text_field :avg_alltime_days_to_harvest, id: :crop_avg_alltime_days_to_harvest %>
+    </div>
+
+    <div class="field">
+      <%= form.label :avg_6month_days_to_harvest %>
+      <%= form.text_field :avg_6month_days_to_harvest, id: :crop_avg_6month_days_to_harvest %>
+    </div>
+
+    <div class="field">
+      <%= form.label :avg_6week_days_to_harvest %>
+      <%= form.text_field :avg_6week_days_to_harvest, id: :crop_avg_6week_days_to_harvest %>
+    </div>
+
+    <div class="field">
+      <%= form.label :ideal_days_to_harvest %>
+      <%= form.text_field :ideal_days_to_harvest, id: :crop_ideal_days_to_harvest %>
+    </div>
+
+    <div class="field">
+      <%= form.label :avg_alltime_yield_per_flat_oz %>
+      <%= form.text_field :avg_alltime_yield_per_flat_oz, id: :crop_avg_alltime_yield_per_flat_oz %>
+    </div>
+
+    <div class="field">
+      <%= form.label :avg_6month_yield_per_flat_oz %>
+      <%= form.text_field :avg_6month_yield_per_flat_oz, id: :crop_avg_6month_yield_per_flat_oz %>
+    </div>
+
+    <div class="field">
+      <%= form.label :avg_6week_yield_per_flat_oz %>
+      <%= form.text_field :avg_6week_yield_per_flat_oz, id: :crop_avg_6week_yield_per_flat_oz %>
+    </div>
+
+    <div class="field">
+      <%= form.label :sale_price_per_oz %>
+      <%= form.text_field :sale_price_per_oz, id: :crop_sale_price_per_oz %>
+    </div>
+
+    <div class="field">
+      <%= form.label :sale_price_per_8oz %>
+      <%= form.text_field :sale_price_per_8oz, id: :crop_sale_price_per_8oz %>
+    </div>
+
+    <div class="field">
+      <%= form.label :sale_price_per_16oz %>
+      <%= form.text_field :sale_price_per_16oz, id: :crop_sale_price_per_16oz %>
+    </div>
+
+    <div class="field">
+      <%= form.label :sale_price_per_live_flat %>
+      <%= form.text_field :sale_price_per_live_flat, id: :crop_sale_price_per_live_flat %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div class="field">
-    <h2>
-      <%= form.label "#{crop.crop}, #{crop.crop_variety}" %> (<%= crop.crop_type %>)
-    </h2>
-  </div>
-
-  <br><br>
- 
-  <div class="field">
-    <%= form.label :crop %>
-    <%= form.text_field :crop, id: :crop %>
-  </div>
-
-  <div class="field">
-    <%= form.label :crop_type %>
-    <% if crop.crop_type == nil %>
-      <% @selected = "micro" %>
-    <% else %>
-      <% @selected = crop.crop_type %>  
-    <% end %>
-    <%= form.select :crop_type, options_for_select(["micro","petite","shoot","leaf","top"], :selected => @selected) %>
-  </div>  
-
-  <div class="field">
-    <%= form.label :crop_variety %>
-    <%= form.text_field :crop_variety, id: :crop_crop_variety %>
-  </div>  
-
-  <div class="field">
-    <%= form.label :ideal_soak_seed_oz_per_flat %>
-    <%= form.number_field :ideal_soak_seed_oz_per_flat, step: :any %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ideal_treatment_days %>
-    <%= form.number_field :ideal_treatment_days, step: :any %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ideal_sew_seed_oz_per_flat %>
-    <%= form.number_field :ideal_sew_seed_oz_per_flat, step: :any %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ideal_propagation_days %>
-    <%= form.number_field :ideal_propagation_days, step: :any %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ideal_system_days %>
-    <%= form.number_field :ideal_system_days, step: :any %>
-  </div>
-  
-  <div class="field">
-    <%= form.label :ideal_yield_per_flat_oz %>
-    <%= form.number_field :ideal_yield_per_flat_oz, step: :any %>
-  </div>
-
-  <br><br>
-  <div>*** *** ***</div>
-
-  <div class="field">
-    <%= form.label :seed_treatment %>
-    <%= form.check_box :seed_treatment, id: :crop_seed_treatment %>
-  </div>
-
-  <div class="field">
-    <%= form.label :avg_seed_treatment_duration_days %>
-    <%= form.text_field :avg_seed_treatment_duration_days, id: :crop_avg_seed_treatment_duration_days %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ideal_seed_treatment_duration_days %>
-    <%= form.text_field :ideal_seed_treatment_duration_days, id: :crop_ideal_seed_treatment_duration_days %>
-  </div>
-
-  <div class="field">
-    <%= form.label :calculated_seed_oz_to_soak_per_desired_flat %>
-    <%= form.text_field :calculated_seed_oz_to_soak_per_desired_flat, id: :crop_calculated_seed_oz_to_soak_per_desired_flat %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ideal_seed_oz_to_soak_per_desired_flat %>
-    <%= form.text_field :ideal_seed_oz_to_soak_per_desired_flat, id: :crop_ideal_seed_oz_to_soak_per_desired_flat %>
-  </div>
-
-  <div class="field">
-    <%= form.label :avg_alltime_seed_oz_per_flat %>
-    <%= form.text_field :avg_alltime_seed_oz_per_flat, id: :crop_avg_alltime_seed_oz_per_flat %>
-  </div>
-
-  <div class="field">
-    <%= form.label :avg_6month_seed_oz_per_flat %>
-    <%= form.text_field :avg_6month_seed_oz_per_flat, id: :crop_avg_6month_seed_oz_per_flat %>
-  </div>
-
-  <div class="field">
-    <%= form.label :avg_6week_seed_oz_per_flat %>
-    <%= form.text_field :avg_6week_seed_oz_per_flat, id: :crop_avg_6week_seed_oz_per_flat %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ideal_seed_oz_per_flat %>
-    <%= form.text_field :ideal_seed_oz_per_flat, id: :crop_ideal_seed_oz_per_flat %>
-  </div>
-
-  <div class="field">
-    <%= form.label :avg_days_to_first_transplant %>
-    <%= form.text_field :avg_days_to_first_transplant, id: :crop_avg_days_to_first_transplant %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ideal_days_to_first_transplant %>
-    <%= form.text_field :ideal_days_to_first_transplant, id: :crop_ideal_days_to_first_transplant %>
-  </div>
-
-  <div class="field">
-    <%= form.label :avg_alltime_days_to_harvest %>
-    <%= form.text_field :avg_alltime_days_to_harvest, id: :crop_avg_alltime_days_to_harvest %>
-  </div>
-
-  <div class="field">
-    <%= form.label :avg_6month_days_to_harvest %>
-    <%= form.text_field :avg_6month_days_to_harvest, id: :crop_avg_6month_days_to_harvest %>
-  </div>
-
-  <div class="field">
-    <%= form.label :avg_6week_days_to_harvest %>
-    <%= form.text_field :avg_6week_days_to_harvest, id: :crop_avg_6week_days_to_harvest %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ideal_days_to_harvest %>
-    <%= form.text_field :ideal_days_to_harvest, id: :crop_ideal_days_to_harvest %>
-  </div>
-
-  <div class="field">
-    <%= form.label :avg_alltime_yield_per_flat_oz %>
-    <%= form.text_field :avg_alltime_yield_per_flat_oz, id: :crop_avg_alltime_yield_per_flat_oz %>
-  </div>
-
-  <div class="field">
-    <%= form.label :avg_6month_yield_per_flat_oz %>
-    <%= form.text_field :avg_6month_yield_per_flat_oz, id: :crop_avg_6month_yield_per_flat_oz %>
-  </div>
-
-  <div class="field">
-    <%= form.label :avg_6week_yield_per_flat_oz %>
-    <%= form.text_field :avg_6week_yield_per_flat_oz, id: :crop_avg_6week_yield_per_flat_oz %>
-  </div>
-
-  <div class="field">
-    <%= form.label :sale_price_per_oz %>
-    <%= form.text_field :sale_price_per_oz, id: :crop_sale_price_per_oz %>
-  </div>
-
-  <div class="field">
-    <%= form.label :sale_price_per_8oz %>
-    <%= form.text_field :sale_price_per_8oz, id: :crop_sale_price_per_8oz %>
-  </div>
-
-  <div class="field">
-    <%= form.label :sale_price_per_16oz %>
-    <%= form.text_field :sale_price_per_16oz, id: :crop_sale_price_per_16oz %>
-  </div>
-
-  <div class="field">
-    <%= form.label :sale_price_per_live_flat %>
-    <%= form.text_field :sale_price_per_live_flat, id: :crop_sale_price_per_live_flat %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

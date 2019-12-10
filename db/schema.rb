@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191123170854) do
+ActiveRecord::Schema.define(version: 20191210160135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20191123170854) do
     t.float "ideal_yield_per_flat_oz"
     t.string "crop_type"
     t.float "ideal_soak_duration_hrs"
+    t.string "default_medium"
   end
 
   create_table "customers", force: :cascade do |t|
