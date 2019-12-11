@@ -1,0 +1,240 @@
+<div class="master-container" style="margin:auto;">
+	<h1 align="center">Sew List</h1>
+
+	<table width="100%" style="margin:auto;">
+		<tr>
+			<td width="33%" style="vertical-align: top;">
+				<h2 align="center">Monday</h2>
+				<div class="accordion" id="accordionExample">
+					<div class="card">
+					    <div class="card-header" id="headingOne" align="center" style="padding-bottom: 45px;">
+					      <h2 class="mb-0">
+					        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					          <h2>Media</h2>
+					          <h3><%= @monday_media_done_count %> / <%= @monday_media.count %> crops completed</h3>
+					        </button>
+					      </h2>
+					    </div>
+
+					    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+					      <div class="card-body">
+					      	<% @monday_media_sews.each{|sew_do| %>
+					      		<div class="card" style="padding: 1px 11px 4px 11px;" >
+						        	<% if sew_do[2].completed_on == nil %>
+					        			<%= link_to farm_ops_dos_mark_farm_ops_dos_done_path(do: sew_do[2]) do %>
+					        				<h3>
+					        					<i class="far fa-square" style="color:red;"></i>
+					        					<%= link_to sew_do[0], seed_flats_bulk_create_path(sew_do[1]) %>
+					        				</h3>
+					        			<% end %>
+					        		<% else %>
+					        			<%= link_to farm_ops_dos_mark_farm_ops_dos_undone_path(do: sew_do[2]) do %>
+					        				<h3 style="text-decoration: line-through;">
+					        					<i class="far fa-check-square" style="color:green;"></i> 
+					        					<%= link_to sew_do[0], seed_flats_bulk_create_path(sew_do[1]) %>
+					        				</h3>
+					        			<% end %>	
+					        		<% end %>
+					        	</div>
+					      	<% } %>
+					      </div>
+					    </div>
+
+					</div>
+				</div>
+				<div class="accordion" id="accordionExample">
+					<div class="card">
+					    <div class="card-header" id="headingOne" align="center" style="padding-bottom: 45px;">
+					      <h2 class="mb-0">
+					        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					          <h2>Soil</h2>
+					          <h3><%= @monday_soil_done_count %> / <%= @monday_soil.count %> crops completed</h3>
+					        </button>
+					      </h2>
+					    </div>
+
+					    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+					      <div class="card-body">
+					      	<% @monday_soil_sews.each{|sew_do| %>
+					      		<div class="card" style="padding: 1px 11px 4px 11px;" >
+						        	<% if sew_do[2].completed_on == nil %>
+					        			<%= link_to farm_ops_dos_mark_farm_ops_dos_done_path(do: sew_do[2]) do %>
+					        				<h3>
+					        					<i class="far fa-square" style="color:red;"></i>
+					        					<%= link_to sew_do[0], seed_flats_bulk_create_path(sew_do[1]) %>
+					        				</h3>
+					        			<% end %>
+					        		<% else %>
+					        			<%= link_to farm_ops_dos_mark_farm_ops_dos_undone_path(do: sew_do[2]) do %>
+					        				<h3 style="text-decoration: line-through;">
+					        					<i class="far fa-check-square" style="color:green;"></i> 
+					        					<%= link_to sew_do[0], seed_flats_bulk_create_path(sew_do[1]) %>
+					        				</h3>
+					        			<% end %>	
+					        		<% end %>
+					        	</div>
+					      	<% } %>
+					      </div>
+					    </div>
+
+					</div>
+				</div>				
+			</td>
+			<td width="33%" style="vertical-align: top;">
+				<h2 align="center">Wednesday</h2>
+				<div class="accordion" id="accordionExample">
+					<div class="card">
+					    <div class="card-header" id="headingOne" align="center" style="padding-bottom: 45px;">
+					      <h2 class="mb-0">
+					        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					          <h2>Media</h2>
+					          <h3><%= @wednesday_media_done_count %> / <%= @wednesday_media.count %> crops completed</h3>
+					        </button>
+					      </h2>
+					    </div>
+
+					    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+					      <div class="card-body">
+					      	<% @wednesday_media_sews.each{|sew_do| %>
+					      		<div class="card" style="padding: 1px 11px 4px 11px;" >
+						        	<% if sew_do[2].completed_on == nil %>
+					        			<%= link_to farm_ops_dos_mark_farm_ops_dos_done_path(do: sew_do[2]) do %>
+					        				<h3>
+					        					<i class="far fa-square" style="color:red;"></i>
+					        					<%= link_to sew_do[0], seed_flats_bulk_create_path(sew_do[1]) %>
+					        				</h3>
+					        			<% end %>
+					        		<% else %>
+					        			<%= link_to farm_ops_dos_mark_farm_ops_dos_undone_path(do: sew_do[2]) do %>
+					        				<h3 style="text-decoration: line-through;">
+					        					<i class="far fa-check-square" style="color:green;"></i> 
+					        					<%= link_to sew_do[0], seed_flats_bulk_create_path(sew_do[1]) %>
+					        				</h3>
+					        			<% end %>	
+					        		<% end %>
+					        	</div>
+					      	<% } %>
+					      </div>
+					    </div>
+
+					</div>
+				</div>
+				<div class="accordion" id="accordionExample">
+					<div class="card">
+					    <div class="card-header" id="headingOne" align="center" style="padding-bottom: 45px;">
+					      <h2 class="mb-0">
+					        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					          <h2>Soil</h2>
+					          <h3><%= @wednesday_soil_done_count %> / <%= @wednesday_soil.count %> crops completed</h3>
+					        </button>
+					      </h2>
+					    </div>
+
+					    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+					      <div class="card-body">
+					      	<% @wednesday_soil_sews.each{|sew_do| %>
+					      		<div class="card" style="padding: 1px 11px 4px 11px;" >
+						        	<% if sew_do[2].completed_on == nil %>
+					        			<%= link_to farm_ops_dos_mark_farm_ops_dos_done_path(do: sew_do[2]) do %>
+					        				<h3>
+					        					<i class="far fa-square" style="color:red;"></i>
+					        					<%= link_to sew_do[0], seed_flats_bulk_create_path(sew_do[1]) %>
+					        				</h3>
+					        			<% end %>
+					        		<% else %>
+					        			<%= link_to farm_ops_dos_mark_farm_ops_dos_undone_path(do: sew_do[2]) do %>
+					        				<h3 style="text-decoration: line-through;">
+					        					<i class="far fa-check-square" style="color:green;"></i> 
+					        					<%= link_to sew_do[0], seed_flats_bulk_create_path(sew_do[1]) %>
+					        				</h3>
+					        			<% end %>	
+					        		<% end %>
+					        	</div>
+					      	<% } %>
+					      </div>
+					    </div>
+
+					</div>
+				</div>				
+			</td>
+			<td width="33%" style="vertical-align: top;">
+				<h2 align="center">Friday</h2>
+				<div class="accordion" id="accordionExample">
+					<div class="card">
+					    <div class="card-header" id="headingOne" align="center" style="padding-bottom: 45px;">
+					      <h2 class="mb-0">
+					        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					          <h2>Media</h2>
+					          <h3><%= @friday_media_done_count %> / <%= @friday_media.count %> crops completed</h3>
+					        </button>
+					      </h2>
+					    </div>
+
+					    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+					      <div class="card-body">
+					      	<% @friday_media_sews.each{|sew_do| %>
+					      		<div class="card" style="padding: 1px 11px 4px 11px;" >
+					        		<% if sew_do[2].completed_on == nil %>
+					        			<%= link_to farm_ops_dos_mark_farm_ops_dos_done_path(do: sew_do[2]) do %>
+					        				<h3>
+					        					<i class="far fa-square" style="color:red;"></i>
+					        					<%= link_to sew_do[0], seed_flats_bulk_create_path(sew_do[1]) %>
+					        				</h3>
+					        			<% end %>
+					        		<% else %>
+					        			<%= link_to farm_ops_dos_mark_farm_ops_dos_undone_path(do: sew_do[2]) do %>
+					        				<h3 style="text-decoration: line-through;">
+					        					<i class="far fa-check-square" style="color:green;"></i> 
+					        					<%= link_to sew_do[0], seed_flats_bulk_create_path(sew_do[1]) %>
+					        				</h3>
+					        			<% end %>	
+					        		<% end %>
+					        	</div>
+					      	<% } %>
+					      </div>
+					    </div>
+
+					</div>
+				</div>
+				<div class="accordion" id="accordionExample">
+					<div class="card">
+					    <div class="card-header" id="headingOne" align="center" style="padding-bottom: 45px;">
+					      <h2 class="mb-0">
+					        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					          <h2>Soil</h2>
+					          <h3><%= @friday_soil_done_count %> / <%= @friday_soil.count %> crops completed</h3>
+					        </button>
+					      </h2>
+					    </div>
+
+					    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+					      <div class="card-body">
+					      	<% @friday_soil_sews.each{|sew_do| %>
+					      		<div class="card" style="padding: 1px 11px 4px 11px;" >
+						        	<% if sew_do[2].completed_on == nil %>
+					        			<%= link_to farm_ops_dos_mark_farm_ops_dos_done_path(do: sew_do[2]) do %>
+					        				<h3>
+					        					<i class="far fa-square" style="color:red;"></i>
+					        					<%= link_to sew_do[0], seed_flats_bulk_create_path(sew_do[1]) %>
+					        				</h3>
+					        			<% end %>
+					        		<% else %>
+					        			<%= link_to farm_ops_dos_mark_farm_ops_dos_undone_path(do: sew_do[2]) do %>
+					        				<h3 style="text-decoration: line-through;">
+					        					<i class="far fa-check-square" style="color:green;"></i> 
+					        					<%= link_to sew_do[0], seed_flats_bulk_create_path(sew_do[1]) %>
+					        				</h3>
+					        			<% end %>	
+					        		<% end %>
+					        	</div>
+					      	<% } %>
+					      </div>
+					    </div>
+
+					</div>
+				</div>				
+			</td>
+		</tr>
+	</table>
+
+</div>

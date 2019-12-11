@@ -11,9 +11,12 @@ Rails.application.routes.draw do
   get 'tools/single_crop_avail'
 
   resources :crop_mixes
+  
   resources :over_grow_recipients
-  get 'lists/harvest'
   get 'lists/soak'
+  get 'lists/sew'
+  get 'lists/harvest'
+  
 
   resources :weekly_revenues
   resources :media_unit_costs
@@ -123,7 +126,11 @@ Rails.application.routes.draw do
 	get 'seed_flats/kill' => 'seed_flats#kill'
 	get 'seed_flats/new_treated_seed_flat' => 'seed_flats#new_treated_seed_flat'
 	get 'seed_flats/new_treated_seed_flat_from_ops_cal' => 'seed_flats#new_treated_seed_flat_from_ops_cal'
-	get 'seed_flats/new_prepopulated' => 'seed_flats/new_prepopulated'
+	get 'seed_flats/new_prepopulated' => 'seed_flats#new_prepopulated'
+	get 'seed_flats/bulk_create' => 'seed_flats#bulk_create'
+	post 'seed_flats/bulk_create' => 'seed_flats#bulk_create'
+	get 'seed_flats/bulk_create_error' => 'seed_flats#bulk_create_error'
+	get 'seed_flats/bulk_create_conf' => 'seed_flats#bulk_create_conf'
 	resources :seed_flats do 
 		collection do
 			put :bulk_actions

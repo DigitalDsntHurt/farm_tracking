@@ -1,0 +1,148 @@
+<div class="form-container-wide">
+
+	<h1 align="center"><%= @info %><br>@ <%= Crop.where(id: Order.where(id: @orders[0])[0].crop_id)[0].ideal_sew_seed_oz_per_flat %> oz / flat</h1>
+
+	<%= form_tag seed_flats_bulk_create_path do %>
+		<div class="form-group" align="center" style="padding-top:66px;">
+			<h3><label>flat ids </label></h3>
+			<%= text_field_tag :flat_ids, "",style: "width: 900px; height:44px; border: solid 1px black; border-radius:5px; background-color: #74b567;", placeholder: "   (enter comma separated)" %>
+		</div>
+
+		<div class="form-group" align="center" style="padding-top:66px;">
+			<h3><label>order ids </label></h3>
+			<%= text_field_tag :order_ids, @orders, style: "width: 900px; height:44px; border: solid 1px black; border-radius:5px;", placeholder: "   (enter comma separated)" %>
+		</div>
+
+		<div align="center" style="padding: 44px;">
+			<%= submit_tag "bulk create flats", class: "btn btn-primary btn-lg" %>
+		</div>
+
+	<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% if false %>
+	<%= form_tag seed_flats_bulk_create_path do %>
+		<table width="100%">
+			<% @orders.each{|order_id| %>
+				<tr>
+					<td style="border-bottom: solid 1px black; padding-bottom: 33px; padding-top: 33px;">
+						<% @order = Order.where(id: order_id) %>
+						<% @crop = Crop.where(id: @order[0].crop_id) %>
+						<% @customer = Customer.where(id: @order[0].customer_id) %>		
+						<% @number_of_flats = SewSchedule.get_sew_quantity(@order[0]) %>
+						
+						<h2><%= @number_of_flats %> <%= @number_of_flats > 1 ? "flats" : "flat" %> for <%= @customer[0].name %></h2>
+						<div class="form-group">
+							<table>
+								<tr>
+									<td>
+										<h3><label>flat ids: </label></h3>	
+									</td>
+									<td><%= text_field_tag :flat_ids, "",style: "width: 900px; height:44px; border: solid 1px black; border-radius:5px; background-color: #74b567;", placeholder: "   #{@number_of_flats} for #{@customer[0].name} (enter comma separated)" %></td>
+								</tr>
+							</table>
+						</div>
+
+						<table>
+							<tr>
+								<td style="padding-right: 22px; border-right: solid 1px black;">
+									<div class="form-group">
+										<table>
+											<tr>
+												<td><h4><label>crop: </label></h4></td>
+												<td><%= number_field_tag :crop_id, @crop[0].id, style: "width: 66px;" %> ( <%= @crop[0].crop_variety %>, <%= @crop[0].crop.capitalize %> )</td>
+											</tr>
+										</table>
+									</div>
+								</td>
+								<td style="padding-right: 22px; border-right: solid 1px black; border-left: solid 1px black; padding-left: 22px;">
+									<div class="form-group">
+										<table>
+											<tr>
+												<td><h4><label>customer: </label></h4></td>
+												<td><%= number_field_tag :customer_id, @customer[0].id, style: "width: 66px;" %> ( <%= @customer[0].name %> )</td>
+											</tr>
+										</table>
+									</div>
+								</td>
+								<td style="padding-right: 22px; border-right: solid 1px black; border-left: solid 1px black; padding-left: 22px;">
+									<div class="form-group">
+										<table>
+											<tr>
+												<td><h4><label>seed weight: </label></h4></td>
+												<td><%= number_field_tag :seed_weight, @crop[0].ideal_sew_seed_oz_per_flat, style: "width: 66px;" %></td>
+											</tr>
+										</table>
+									</div>
+								</td>
+								<td style="padding-right: 22px; border-right: solid 1px black; border-left: solid 1px black; padding-left: 22px;">
+									<div class="form-group">
+										<table>
+											<tr>
+												<td><h4><label>started date: </label></h4></td>
+												<td><%= date_field_tag :started_date, Date.today, style: "width: 175px;" %></td>
+											</tr>
+										</table>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td style="padding-right: 22px; border-right: solid 1px black; border-top: solid 1px black;">
+									<div class="form-group">
+										<table>
+											<tr>
+												<td><h4><label>current system id: </label></h4></td>
+												<td><%= number_field_tag :current_system_id, 3, style: "width: 66px;" %>( <%= System.where(id: 3)[0].system_name %> )</td>
+											</tr>
+										</table>
+									</div>
+								</td>
+								<td style="padding-left: 22px; padding-right: 22px; border-right: solid 1px black; border-top: solid 1px black;">
+									<div class="form-group">
+										<table>
+											<tr>
+												<td><h4><label>medium: </label></h4></td>
+												<td><%= text_field_tag :medium, @crop[0].default_medium, style: "width: 66px;" %></td>
+											</tr>
+										</table>
+									</div>
+								</td>
+								<td style="padding-left: 22px; padding-right: 22px; border-right: solid 1px black; border-top: solid 1px black;">
+									<div class="form-group">
+										<table>
+											<tr>
+												<td><h4><label>format: </label></h4></td>
+												<td><%= text_field_tag :format, "matt", style: "width: 66px;" %></td>
+											</tr>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</table>
+
+					</td>
+				</tr>
+			<% } %>
+		</table>
+
+		<div align="center" style="padding: 44px;">
+			<%= submit_tag "bulk create flats", class: "btn btn-primary btn-lg" %>
+		</div>
+
+	<% end %>
+<% end %>
+
+</div>	
+
