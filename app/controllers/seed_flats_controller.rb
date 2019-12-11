@@ -46,12 +46,14 @@ class SeedFlatsController < ApplicationController
     @seed_flat = SeedFlat.new(crop_id: @crop_id, customer_id: @customer_id, seed_weight_oz: @seed_weight)
   end
 
-  # GET /seed_flats/1/edit
-  def edit
+  def new_treated_seed_flat
+    @seed_treatment_id = params[:seed_treatment]
+    @seed_treatment_object = SeedTreatment.where(id: @seed_treatment_id)[0]
+    
+    @seed_flat = SeedFlat.new
+    @seed_flat.update(:crop_id => @seed_treatment_object.crop_id, :crop => @seed_treatment_object.seed_crop, :crop_variety => @seed_treatment_object.seed_variety, :seed_brand => @seed_treatment_object.seed_brand, :seed_treatments_id => @seed_treatment_id, :first_emerge_date => @seed_treatment_object.first_emerge_date, :full_emerge_date => @seed_treatment_object.full_emerge_date, :seed_media_treatment_notes => @seed_treatment_object.soak_notes, :emergence_notes => @seed_treatment_object.emergence_notes )
   end
 
-  # POST /seed_flats
-  # POST /seed_flats.json
   def create
     @seed_flat = SeedFlat.new(seed_flat_params)
 
@@ -64,26 +66,98 @@ class SeedFlatsController < ApplicationController
         format.json { render json: @seed_flat.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def new_treated_seed_flat
-    @seed_treatment_id = params[:seed_treatment]
-    @seed_treatment_object = SeedTreatment.where(id: @seed_treatment_id)[0]
-    
-    @seed_flat = SeedFlat.new
-    @seed_flat.update(:crop_id => @seed_treatment_object.crop_id, :crop => @seed_treatment_object.seed_crop, :crop_variety => @seed_treatment_object.seed_variety, :seed_brand => @seed_treatment_object.seed_brand, :seed_treatments_id => @seed_treatment_id, :first_emerge_date => @seed_treatment_object.first_emerge_date, :full_emerge_date => @seed_treatment_object.full_emerge_date, :seed_media_treatment_notes => @seed_treatment_object.soak_notes, :emergence_notes => @seed_treatment_object.emergence_notes )
   end  
 
-#  def new_treated_seed_flat_from_ops_cal
-#    @seed_treatment_id = params[:seed_treatment]
-#    @seed_treatment_object = SeedTreatment.where(id: @seed_treatment_id)[0]
-    
-#   @seed_flat = SeedFlat.new
-#    @seed_flat.update(:crop_id => @seed_treatment_object.crop_id, :seed_treatments_id => @seed_treatment_id, :first_emerge_date => @seed_treatment_object.first_emerge_date, :full_emerge_date => @seed_treatment_object.full_emerge_date )
-#  end  
+  def bulk_create
+    ## this runs on a virgin form
+    if params[:flat_ids] == nil
+      @info = params[:info]
+      @orders = params[:orders]#.split(",").map{|id| id.to_i }
+    end
 
-  # PATCH/PUT /seed_flats/1
-  # PATCH/PUT /seed_flats/1.json
+    ## this runs on form submit
+    if params[:flat_ids] != nil
+      ## Check for problems
+      @problems = []
+      @flats = params[:flat_ids].gsub(" ","").gsub(", ",",").split(",").each{|flat_id| 
+        @flat_identifier = flat_id.upcase
+        @test_flat = SeedFlat.where(flat_id: @flat_identifier)
+        if @test_flat.exists?
+          @problems << @flat_identifier
+        end
+      }
+
+      # If a problem exists
+      if @problems.count > 0
+        redirect_to seed_flats_bulk_create_error_path(problems: @problems)
+      else # If all is well
+        @flats_per_customer = Hash.new(0)
+        
+        # create a flats per customer hash
+        params[:order_ids].split(",").each{|order_id|
+          @order = Order.where(id: order_id)[0]
+          @num_flats = SewSchedule.get_sew_quantity(@order)
+          @customer = Customer.where(id: @order.customer_id)[0]
+
+          @flats_per_customer[@customer.id] += @num_flats
+        }
+
+        # store all flat ids in a separate variable
+        @new_flat_ids = params[:flat_ids].split(",")
+
+        @flats_to_create = []
+
+        # iterate through the flats per customer hash
+        @flats_per_customer.sort_by{|k,v| v }.each{|arr|
+          arr[1].times do
+            @hsh = {flat_id: @new_flat_ids[0], customer_id: arr[0], crop_id: @order.crop_id, started_date: Date.today, medium: Crop.where(id: @order.crop_id)[0].default_medium, format: "matt", seed_weight_oz: Crop.where(id: @order.crop_id)[0].ideal_sew_seed_oz_per_flat, current_system_id: 3}
+            @flats_to_create << @hsh
+            @new_flat_ids.shift
+          end
+        }
+
+        # handles sewing extra flats
+        if @new_flat_ids.count > 0
+          until @new_flat_ids.count == 0
+            @hsh = {flat_id: @new_flat_ids[0], customer_id: 1, crop_id: @order.crop_id, started_date: Date.today, medium: Crop.where(id: @order.crop_id)[0].default_medium, format: "matt", seed_weight_oz: Crop.where(id: @order.crop_id)[0].ideal_sew_seed_oz_per_flat, current_system_id: 3}
+            @flats_to_create << @hsh
+            @new_flat_ids.shift
+          end
+        end
+
+        # ditch unsewn flats
+        @flats_to_create.reject!{|hsh| hsh[:flat_id] == nil }
+
+        # create SeedFlats
+        @new_flats = []
+        @flats_to_create.each{|hsh|
+          @flat = SeedFlat.new(hsh)
+          @flat.save
+          @new_flats << @flat
+        }
+
+        # count over-sews and under-sews
+        @planned_allocation = @flats_per_customer.values.inject{|flat,sum| flat + sum }
+        @actual_allocation = @new_flats.count
+        @flat_diff = @actual_allocation - @planned_allocation
+
+        redirect_to seed_flats_bulk_create_conf_path(new_flats: @new_flats, flat_diff: @flat_diff)
+      end
+    end
+  end
+
+  def bulk_create_error
+    @problems = params[:problems]
+  end
+
+  def bulk_create_conf
+    @created_flats = params[:new_flats]
+    @flat_diff = params[:flat_diff].to_i
+  end
+
+  def edit
+  end  
+
   def update
     respond_to do |format|
       if @seed_flat.update(seed_flat_params)
@@ -178,10 +252,6 @@ class SeedFlatsController < ApplicationController
     
     @seed_flat = SeedFlat.new
     @seed_flat.update(:crop_id => @seed_treatment_object.crop_id, :crop => @seed_treatment_object.seed_crop, :crop_variety => @seed_treatment_object.seed_variety, :seed_brand => @seed_treatment_object.seed_brand, :seed_treatments_id => @seed_treatment_id, :first_emerge_date => @seed_treatment_object.first_emerge_date, :full_emerge_date => @seed_treatment_object.full_emerge_date, :seed_media_treatment_notes => @seed_treatment_object.soak_notes, :emergence_notes => @seed_treatment_object.emergence_notes )
-    
-    #@seed_treatment_object.update(:destination_flat_ids => @seed_flat.id)
-
-    #render new_seed_flat_path(@seed_flat)
   end
 
   def bulk_actions
@@ -217,56 +287,7 @@ class SeedFlatsController < ApplicationController
           @destination_system_id = System.where(system_name: params[:commit].gsub("~>",""))[0].id
           @seed_flat_update = SeedFlatUpdate.new
           @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
-          #@seed_flat.update(current_system_id: @destination_system_id)
-        }
-=begin
-
-      elsif params[:commit] == "Transplant To DIL"
-        params[:flat_ids].each{|id|
-          @seed_flat_update = SeedFlatUpdate.new
-          @seed_flat = SeedFlat.where(id: id)[0]
-          @origin_system_id = @seed_flat.current_system_id
-          @destination_system_id = System.where(system_name: "DIL")[0].id
-          @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
-          @seed_flat.update(current_system_id: @destination_system_id)
-        }
-      elsif params[:commit] == "Transplant To MIA"
-        params[:flat_ids].each{|id|
-          @seed_flat_update = SeedFlatUpdate.new
-          @seed_flat = SeedFlat.where(id: id)[0]
-          @origin_system_id = @seed_flat.current_system_id
-          @destination_system_id = System.where(system_name: "MIA")[0].id
-          @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
-          @seed_flat.update(current_system_id: @destination_system_id)
-        }
-      elsif params[:commit] == "Transplant To BAM"
-        params[:flat_ids].each{|id|
-          @seed_flat_update = SeedFlatUpdate.new
-          @seed_flat = SeedFlat.where(id: id)[0]
-          @origin_system_id = @seed_flat.current_system_id
-          @destination_system_id = System.where(system_name: "BAM")[0].id
-          @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
-          @seed_flat.update(current_system_id: @destination_system_id)
-        }
-      elsif params[:commit] == "Transplant To LIP"
-        params[:flat_ids].each{|id|
-          @seed_flat_update = SeedFlatUpdate.new
-          @seed_flat = SeedFlat.where(id: id)[0]
-          @origin_system_id = @seed_flat.current_system_id
-          @destination_system_id = System.where(system_name: "LIP")[0].id
-          @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
-          @seed_flat.update(current_system_id: @destination_system_id)
-        }  
-      elsif params[:commit] == "Transplant To JEZ"
-        params[:flat_ids].each{|id|
-          @seed_flat_update = SeedFlatUpdate.new
-          @seed_flat = SeedFlat.where(id: id)[0]
-          @origin_system_id = @seed_flat.current_system_id
-          @destination_system_id = System.where(system_name: "JEZ")[0].id
-          @seed_flat_update.update(seed_flat_id: @seed_flat.id, update_type: "transplant", update_datetime: Time.now, origin_system_id: @origin_system_id, destination_system_id: @destination_system_id)
-          @seed_flat.update(current_system_id: @destination_system_id)
-        } 
-=end         
+        }        
       else 
 
       end

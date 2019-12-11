@@ -327,9 +327,6 @@ class CalendarsController < ApplicationController
   	#
   	## Create Soak Schedule
   	#
-  	#@sew_orders = filter_orders_for_sew(all_active_standing_orders)
-  	#@sew_instructions = orders_to_sew_instructions(@sew_orders)
-  	
   	@soak_orders = filter_orders_for_soak(all_active_standing_orders)
   	@soak_instructions = orders_to_soak_instructions(@soak_orders)
   	@final_soak_instructions = aggregate_crop_instructions(@soak_instructions)

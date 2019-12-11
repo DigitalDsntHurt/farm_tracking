@@ -18,6 +18,34 @@ class ListsController < ApplicationController
 
   end
 
+  def sew
+    @monday_media = FarmOpsDo.monday_sew_records.select{|sew_do| Crop.where(id: sew_do.crop_id)[0].default_medium == "biostrate felt" }
+    @monday_media_done_count = @monday_media.select{|sew_do| sew_do.completed_on != nil}.select{|sew_do| Crop.where(id: sew_do.crop_id)[0].default_medium == "biostrate felt" }.count
+    @monday_media_sews = @monday_media.sort_by{|sew_do| sew_do.qty }.reverse.map{|sew_do| ["#{sew_do.qty} #{sew_do.qty_units} #{Crop.where(id: Order.where(id: sew_do.order_ids)[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: sew_do.order_ids)[0].crop_id)[0].crop}", {info: "Sewing #{sew_do.qty.to_i} #{sew_do.qty_units} #{Crop.where(id: Order.where(id: sew_do.order_ids[0])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: sew_do.order_ids[0])[0].crop_id)[0].crop.capitalize}", crop_id: Order.where(id: sew_do.order_ids[0])[0].crop_id, sew_qty: sew_do.qty, order_ids: sew_do.order_ids, orders: sew_do.order_ids.join(",")}, sew_do] }
+
+    @monday_soil = FarmOpsDo.monday_sew_records.select{|sew_do| Crop.where(id: sew_do.crop_id)[0].default_medium == "soil" }
+    @monday_soil_done_count = @monday_soil.select{|sew_do| sew_do.completed_on != nil}.select{|sew_do| Crop.where(id: sew_do.crop_id)[0].default_medium == "soil" }.count
+    @monday_soil_sews = @monday_soil.sort_by{|sew_do| sew_do.qty }.reverse.map{|sew_do| ["#{sew_do.qty} #{sew_do.qty_units} #{Crop.where(id: Order.where(id: sew_do.order_ids)[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: sew_do.order_ids)[0].crop_id)[0].crop}", {info: "Sewing #{sew_do.qty.to_i} #{sew_do.qty_units} #{Crop.where(id: Order.where(id: sew_do.order_ids[0])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: sew_do.order_ids[0])[0].crop_id)[0].crop.capitalize}", crop_id: Order.where(id: sew_do.order_ids[0])[0].crop_id, sew_qty: sew_do.qty, order_ids: sew_do.order_ids, orders: sew_do.order_ids.join(",")}, sew_do] }
+
+
+    @wednesday_media = FarmOpsDo.wednesday_sew_records.select{|sew_do| Crop.where(id: sew_do.crop_id)[0].default_medium == "biostrate felt" }
+    @wednesday_media_done_count = @wednesday_media.select{|sew_do| sew_do.completed_on != nil}.select{|sew_do| Crop.where(id: sew_do.crop_id)[0].default_medium == "biostrate felt" }.count
+    @wednesday_media_sews = @wednesday_media.sort_by{|sew_do| sew_do.qty }.reverse.map{|sew_do| ["#{sew_do.qty} #{sew_do.qty_units} #{Crop.where(id: Order.where(id: sew_do.order_ids)[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: sew_do.order_ids)[0].crop_id)[0].crop}", {info: "Sewing #{sew_do.qty.to_i} #{sew_do.qty_units} #{Crop.where(id: Order.where(id: sew_do.order_ids[0])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: sew_do.order_ids[0])[0].crop_id)[0].crop.capitalize}", crop_id: Order.where(id: sew_do.order_ids[0])[0].crop_id, sew_qty: sew_do.qty, order_ids: sew_do.order_ids, orders: sew_do.order_ids.join(",")}, sew_do] }
+
+    @wednesday_soil = FarmOpsDo.wednesday_sew_records.select{|sew_do| Crop.where(id: sew_do.crop_id)[0].default_medium == "soil" }
+    @wednesday_soil_done_count = @wednesday_soil.select{|sew_do| sew_do.completed_on != nil}.select{|sew_do| Crop.where(id: sew_do.crop_id)[0].default_medium == "soil" }.count
+    @wednesday_soil_sews = @wednesday_soil.sort_by{|sew_do| sew_do.qty }.reverse.map{|sew_do| ["#{sew_do.qty} #{sew_do.qty_units} #{Crop.where(id: Order.where(id: sew_do.order_ids)[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: sew_do.order_ids)[0].crop_id)[0].crop}", {info: "Sewing #{sew_do.qty.to_i} #{sew_do.qty_units} #{Crop.where(id: Order.where(id: sew_do.order_ids[0])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: sew_do.order_ids[0])[0].crop_id)[0].crop.capitalize}", crop_id: Order.where(id: sew_do.order_ids[0])[0].crop_id, sew_qty: sew_do.qty, order_ids: sew_do.order_ids, orders: sew_do.order_ids.join(",")}, sew_do] }
+
+
+    @friday_media = FarmOpsDo.friday_sew_records.select{|sew_do| Crop.where(id: sew_do.crop_id)[0].default_medium == "biostrate felt" }
+    @friday_media_done_count = @friday_media.select{|sew_do| sew_do.completed_on != nil}.select{|sew_do| Crop.where(id: sew_do.crop_id)[0].default_medium == "biostrate felt" }.count
+    @friday_media_sews = @friday_media.sort_by{|sew_do| sew_do.qty }.reverse.map{|sew_do| ["#{sew_do.qty} #{sew_do.qty_units} #{Crop.where(id: Order.where(id: sew_do.order_ids)[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: sew_do.order_ids)[0].crop_id)[0].crop}", {info: "Sewing #{sew_do.qty.to_i} #{sew_do.qty_units} #{Crop.where(id: Order.where(id: sew_do.order_ids[0])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: sew_do.order_ids[0])[0].crop_id)[0].crop.capitalize}", crop_id: Order.where(id: sew_do.order_ids[0])[0].crop_id, sew_qty: sew_do.qty, order_ids: sew_do.order_ids, orders: sew_do.order_ids.join(",")}, sew_do] }
+
+    @friday_soil = FarmOpsDo.friday_sew_records.select{|sew_do| Crop.where(id: sew_do.crop_id)[0].default_medium == "soil" }
+    @friday_soil_done_count = @friday_soil.select{|sew_do| sew_do.completed_on != nil}.select{|sew_do| Crop.where(id: sew_do.crop_id)[0].default_medium == "soil" }.count
+    @friday_soil_sews = @friday_soil.sort_by{|sew_do| sew_do.qty }.reverse.map{|sew_do| ["#{sew_do.qty} #{sew_do.qty_units} #{Crop.where(id: Order.where(id: sew_do.order_ids)[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: sew_do.order_ids)[0].crop_id)[0].crop}", {info: "Sewing #{sew_do.qty.to_i} #{sew_do.qty_units} #{Crop.where(id: Order.where(id: sew_do.order_ids[0])[0].crop_id)[0].crop_variety}, #{Crop.where(id: Order.where(id: sew_do.order_ids[0])[0].crop_id)[0].crop.capitalize}", crop_id: Order.where(id: sew_do.order_ids[0])[0].crop_id, sew_qty: sew_do.qty, order_ids: sew_do.order_ids, orders: sew_do.order_ids.join(",")}, sew_do] }
+  end
+
 
   def harvest
   	# setup calendar cells

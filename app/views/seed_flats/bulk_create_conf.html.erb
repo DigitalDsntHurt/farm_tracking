@@ -1,0 +1,21 @@
+<div class="master-container" align="center">
+
+	<h1>Nice...<br> You Created <%= @created_flats.count %> Flats:</h1><br>
+	<% @created_flats.each{|flat| %>	
+		<% @flat = SeedFlat.where(id: flat) %>
+		<h3><%= link_to "#{@flat[0].flat_id} : #{Crop.where(id: @flat[0].crop_id)[0].crop_variety}, #{Crop.where(id: @flat[0].crop_id)[0].crop.capitalize} for #{Customer.where(id: @flat[0].customer_id)[0].name}", @flat[0] %></h3>
+	<% } %>
+
+	<br>
+	<% if @flat_diff > 0 %>
+		<h1>Careful, though...<br> You sewed <%= @flat_diff %> too many flats</h1>
+	<% elsif @flat_diff < 0 %>
+		<h1>Careful, though...<br> You under-sewed by <%= @flat_diff*-1 %> flats</h1>
+	<% else %>
+	<% end %>
+	<br><br>
+	<%= link_to "back to sew list (s+w)", calendars_sew_path, class: "btn btn-primary btn-lg" %><br><br>
+	<%= link_to "back to treatments (t)", seed_treatments_fresh_index_path, class: "btn btn-primary btn-lg" %><br><br>
+	<%= link_to "back to crop availability(shift + /)", dashboards_crop_availability_path, class: "btn btn-primary btn-lg" %>
+
+</div>

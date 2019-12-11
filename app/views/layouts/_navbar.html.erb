@@ -18,7 +18,8 @@
           </button>
           <div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuButton">
             <%= link_to "Soak", lists_soak_path, data: { keybinding: 's k' }, class: "dropdown-item" %>
-            <%= link_to "Sew", calendars_sew_path, data: { keybinding: 's w' }, class: "dropdown-item" %>
+            <%= link_to "Sew", lists_sew_path, data: { keybinding: 's w' }, class: "dropdown-item" %>
+            <%= link_to "old Sew", calendars_sew_path, class: "dropdown-item" %>
             <a class="dropdown-item" href="/lists/harvest">Harvest</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item btn btn-info" href="/seed_treatments/new">+ treatment</a>
